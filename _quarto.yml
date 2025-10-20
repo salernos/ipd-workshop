@@ -3,7 +3,7 @@ project:
   output-dir: docs
   
 website:
-  title: "OTTR Template Website"
+  title: "IPD Workshop"
   navbar:
     left:
     - text: ""
@@ -21,6 +21,13 @@ website:
       href: git_actions.qmd
     - text: More ottr docs
       href: https://www.ottrproject.org/
+      
+    page-footer:
+      left: |
+        Proudly built with [OTTR](https://www.ottrproject.org/)
+
+    center:
+      - text: © 2025 Stephen Salerno
 
 format:
   html:
