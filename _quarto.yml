@@ -9,25 +9,33 @@ website:
     - text: ""
       href: index.qmd
       icon: fa-home
-    - text: 1. Setup
-      href: setup.qmd
-    - text: 2. Hosting
-      href: hosting.qmd
-    - text: Editing
-      href: editing.qmd
-    - text: 3. Style
-      href: style.qmd
-    - text: 4. Git Actions
-      href: git_actions.qmd
-    - text: More ottr docs
-      href: https://www.ottrproject.org/
+    - text: Getting Started
+      menu: 
+        - text: Workshop Material
+          href: setup.qmd
+        - text: Activity
+    - text: The Rashomon Quartet
+      menu: 
+        - text: Workshop Material
+          href: hosting.qmd
+        - text: Activity
+    - text: Measuring Adiposity
+      menu: 
+        - text: Workshop Material
+          href: editing.qmd
+        - text: Activity
+    - text: BCR-ABL Fusion in B-Cell Leukemia
+      menu:
+        - text: Workshop Material
+          href: style.qmd
+        - text: Activity
       
     page-footer:
       left: |
         Proudly built with [OTTR](https://www.ottrproject.org/)
 
     center:
-      - text: © 2025 Stephen Salerno
+      - text: © 2025 Jesse Gronsbell and Stephen Salerno
 
 format:
   html:
