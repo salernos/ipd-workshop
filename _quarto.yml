@@ -12,22 +12,22 @@ website:
     - text: Getting Started
       menu: 
         - text: Workshop Material
-          href: setup.qmd
+          href: content/Unit00_GettingStarted.qmd
         - text: Activity
     - text: The Rashomon Quartet
       menu: 
         - text: Workshop Material
-          href: hosting.qmd
+          href: content/Unit01_RashomonQuartet.qmd
         - text: Activity
     - text: Measuring Adiposity
       menu: 
         - text: Workshop Material
-          href: editing.qmd
+          href: content/Unit02_MeasuringAdiposity.qmd
         - text: Activity
     - text: BCR-ABL Fusion in B-Cell Leukemia
       menu:
         - text: Workshop Material
-          href: style.qmd
+          href: content/Unit03_GeneticData.qmd
         - text: Activity
       
     page-footer:

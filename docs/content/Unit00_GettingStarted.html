@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Unit 00: Getting Started – IPD Workshop</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">IPD Workshop</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> <i class="bi bi-fa-home" role="img">
+</i> 
+<span class="menu-text">Inference with Predicted Data (IPD) Workshop</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Getting Started</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-getting-started">    
+        <li>
+    <a class="dropdown-item" href="../content/Unit00_GettingStarted.html">
+ <span class="dropdown-text">Workshop Material</span></a>
+  </li>  
+        <li class="dropdown-header">Activity</li>
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-the-rashomon-quartet" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">The Rashomon Quartet</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-the-rashomon-quartet">    
+        <li>
+    <a class="dropdown-item" href="../content/Unit01_RashomonQuartet.html">
+ <span class="dropdown-text">Workshop Material</span></a>
+  </li>  
+        <li class="dropdown-header">Activity</li>
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-measuring-adiposity" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Measuring Adiposity</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-measuring-adiposity">    
+        <li>
+    <a class="dropdown-item" href="../content/Unit02_MeasuringAdiposity.html">
+ <span class="dropdown-text">Workshop Material</span></a>
+  </li>  
+        <li class="dropdown-header">Activity</li>
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bcr-abl-fusion-in-b-cell-leukemia" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">BCR-ABL Fusion in B-Cell Leukemia</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-bcr-abl-fusion-in-b-cell-leukemia">    
+        <li>
+    <a class="dropdown-item" href="../content/Unit03_GeneticData.html">
+ <span class="dropdown-text">Workshop Material</span></a>
+  </li>  
+        <li class="dropdown-header">Activity</li>
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#background-and-motivation" id="toc-background-and-motivation" class="nav-link" data-scroll-target="#background-and-motivation">Background and Motivation</a></li>
+  <li><a href="#the-ipd-framework" id="toc-the-ipd-framework" class="nav-link" data-scroll-target="#the-ipd-framework">The IPD Framework</a></li>
+  <li><a href="#key-formulas" id="toc-key-formulas" class="nav-link" data-scroll-target="#key-formulas">Key Formulas</a>
+  <ul class="collapse">
+  <li><a href="#naive-estimator" id="toc-naive-estimator" class="nav-link" data-scroll-target="#naive-estimator">Naive Estimator</a></li>
+  <li><a href="#classical-estimator" id="toc-classical-estimator" class="nav-link" data-scroll-target="#classical-estimator">Classical Estimator</a></li>
+  <li><a href="#ipd-estimators" id="toc-ipd-estimators" class="nav-link" data-scroll-target="#ipd-estimators">IPD Estimators</a></li>
+  </ul></li>
+  <li><a href="#installation-and-setup" id="toc-installation-and-setup" class="nav-link" data-scroll-target="#installation-and-setup">Installation and Setup</a></li>
+  <li><a href="#function-references" id="toc-function-references" class="nav-link" data-scroll-target="#function-references">Function References</a>
+  <ul class="collapse">
+  <li><a href="#simdat" id="toc-simdat" class="nav-link" data-scroll-target="#simdat"><code>simdat()</code></a></li>
+  <li><a href="#ipd" id="toc-ipd" class="nav-link" data-scroll-target="#ipd"><code>ipd()</code></a></li>
+  <li><a href="#tidy-methods" id="toc-tidy-methods" class="nav-link" data-scroll-target="#tidy-methods">Tidy Methods</a></li>
+  </ul></li>
+  <li><a href="#simulating-data" id="toc-simulating-data" class="nav-link" data-scroll-target="#simulating-data">Simulating Data</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1-data-generation" id="toc-exercise-1-data-generation" class="nav-link" data-scroll-target="#exercise-1-data-generation">Exercise 1: Data Generation</a></li>
+  </ul></li>
+  <li><a href="#fit-a-linear-prediction-model" id="toc-fit-a-linear-prediction-model" class="nav-link" data-scroll-target="#fit-a-linear-prediction-model">Fit a Linear Prediction Model</a></li>
+  <li><a href="#create-labeled-and-unlabeled-datasets" id="toc-create-labeled-and-unlabeled-datasets" class="nav-link" data-scroll-target="#create-labeled-and-unlabeled-datasets">Create ‘Labeled’ and ‘Unlabeled’ datasets</a></li>
+  <li><a href="#comparison-of-the-true-vs-predicted-outcomes" id="toc-comparison-of-the-true-vs-predicted-outcomes" class="nav-link" data-scroll-target="#comparison-of-the-true-vs-predicted-outcomes">Comparison of the True vs Predicted Outcomes</a></li>
+  <li><a href="#some-baselines-naive-vs-classical-inference" id="toc-some-baselines-naive-vs-classical-inference" class="nav-link" data-scroll-target="#some-baselines-naive-vs-classical-inference">Some Baselines: Naive vs Classical Inference</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2-naive-vs.-classical-model-fitting" id="toc-exercise-2-naive-vs.-classical-model-fitting" class="nav-link" data-scroll-target="#exercise-2-naive-vs.-classical-model-fitting">Exercise 2: Naive vs.&nbsp;Classical Model Fitting</a></li>
+  </ul></li>
+  <li><a href="#ipd-corrected-inference-with-ipdipd" id="toc-ipd-corrected-inference-with-ipdipd" class="nav-link" data-scroll-target="#ipd-corrected-inference-with-ipdipd">IPD: Corrected Inference with <code>ipd::ipd()</code></a>
+  <ul class="collapse">
+  <li><a href="#exercise-3-ipd-model-fitting-via-the-pspa-estimator" id="toc-exercise-3-ipd-model-fitting-via-the-pspa-estimator" class="nav-link" data-scroll-target="#exercise-3-ipd-model-fitting-via-the-pspa-estimator">Exercise 3: IPD Model Fitting via the PSPA Estimator</a></li>
+  <li><a href="#exercise-4-visualizing-uncertainty" id="toc-exercise-4-visualizing-uncertainty" class="nav-link" data-scroll-target="#exercise-4-visualizing-uncertainty">Exercise 4: Visualizing Uncertainty</a></li>
+  <li><a href="#exercise-5-inspecting-results" id="toc-exercise-5-inspecting-results" class="nav-link" data-scroll-target="#exercise-5-inspecting-results">Exercise 5: Inspecting Results</a></li>
+  </ul></li>
+  <li><a href="#summary-and-key-takeaways" id="toc-summary-and-key-takeaways" class="nav-link" data-scroll-target="#summary-and-key-takeaways">Summary and Key Takeaways</a></li>
+  <li><a href="#further-exploration" id="toc-further-exploration" class="nav-link" data-scroll-target="#further-exploration">Further Exploration</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Unit 00: Getting Started</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Welcome to this workshop on <em>Inference with Predicted Data (IPD)</em>! In this module, we will:</p>
+<ul>
+<li>Introduce the <a href="https://github.com/ipd-tools/ipd"><code>ipd</code></a> package and its main functions.</li>
+<li>Demonstrate how to generate synthetic data for different types of outcomes.</li>
+<li>Fit and compare various IPD methods.</li>
+<li>Inspect results using built-in <code>tidy</code>, <code>glance</code>, and <code>augment</code> methods.</li>
+</ul>
+<p>Throughout the workshop, exercises are provided with solutions for practice.</p>
+</section>
+<section id="background-and-motivation" class="level2">
+<h2 class="anchored" data-anchor-id="background-and-motivation">Background and Motivation</h2>
+<p>When an outcome, <span class="math inline">\(Y\)</span>, is costly or difficult to measure, it can be tempting to replace missing values with predictions, <span class="math inline">\(f(\boldsymbol{X})\)</span>, from a machine learning model (e.g., a random forest or neural network) built on easier-to-measure features, <span class="math inline">\(\boldsymbol{X}\)</span>. However, using <span class="math inline">\(f\)</span> as if it were the true outcome in downstream analyses, e.g., in estimating a regression coefficient, <span class="math inline">\(\beta\)</span>, for the association between <span class="math inline">\(Y\)</span> and <span class="math inline">\(\boldsymbol{X}\)</span>, leads to biased point estimates and underestimated uncertainty. Methods for <a href="https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267">Inference with Predicted Data (IPD)</a> address this by leveraging a small subset of “labeled” data with true <span class="math inline">\(Y\)</span> values to calibrate inference in a larger “unlabeled” dataset.</p>
+</section>
+<section id="the-ipd-framework" class="level2">
+<h2 class="anchored" data-anchor-id="the-ipd-framework">The IPD Framework</h2>
+<p>Consider data arising from three sets of observations:</p>
+<ul>
+<li><strong>Training Set</strong>: <span class="math inline">\(\{(X_j, Y_j)\}_{j=1}^{n_t}\)</span>, used to fit a predictive model, <span class="math inline">\(f(\cdot)\)</span>.</li>
+<li><strong>Labeled Set</strong>: <span class="math inline">\(\{(X_i, Y_i)\}_{i=1}^{n_l}\)</span>, smaller sample with true outcomes measured.</li>
+<li><strong>Unlabeled Set</strong>: <span class="math inline">\(\{(X_i)\}_{i=n_l +1}^{n_l + n_u}\)</span>, only features available.</li>
+</ul>
+<p>After fitting <span class="math inline">\(f\)</span> on the training set, we apply it to the labeled and unlabeled sets to obtain predictions <span class="math inline">\(f_i = f(X_i)\)</span>:</p>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/ipd_overview.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><em>Overview of setup for common ‘inference with predicted data’ problems</em></figcaption>
+</figure>
+</div>
+<p><br></p>
+<p>Especially for ‘good’ predictions, it is tempting to treat <span class="math inline">\(f_i\)</span> as surrogate outcomes and use them to estimate quantities such as regression parameters, <span class="math inline">\(\beta\)</span>. However, as we will see, this leads to <em>invalid inference</em>. By combining the predicted <span class="math inline">\(f_i\)</span> with the observed <span class="math inline">\(Y_i\)</span> in the labeled set, we can calibrate our estimates and standard errors to achieve <em>valid inference</em>.</p>
+</section>
+<section id="key-formulas" class="level2">
+<h2 class="anchored" data-anchor-id="key-formulas">Key Formulas</h2>
+<p>Consider a simple linear regression model for the association between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>. We discuss the following potential estimators, which we will later implement using simulated data.</p>
+<section id="naive-estimator" class="level3">
+<h3 class="anchored" data-anchor-id="naive-estimator">Naive Estimator</h3>
+<p>Using only the <em>unlabeled</em> predictions, the <strong>naive</strong> OLS estimator solves</p>
+<p><span class="math display">\[
+\hat\gamma_{\text{naive}} = \arg\min_\gamma \sum_{i\in U} (f_i - X_i'\gamma)^2.
+\]</span></p>
+<p>We are careful to write the coefficients for this model as <span class="math inline">\(\gamma\)</span>, because they bear no necessary correspondence with <span class="math inline">\(\beta\)</span>, except under the extremely restrictive scenario when <span class="math inline">\(f\)</span> perfectly captures the true regression function.</p>
+</section>
+<section id="classical-estimator" class="level3">
+<h3 class="anchored" data-anchor-id="classical-estimator">Classical Estimator</h3>
+<p>Instead, a valid approach would be to use only the <em>labeled</em> data. This <strong>classical</strong> estimator solves</p>
+<p><span class="math display">\[
+\hat\beta_{\text{classical}} = \arg\min_\beta \sum_{i\in L} (Y_i - X_i'\beta)^2.
+\]</span> While this approach is valid, it has limited precision because <span class="math inline">\(n_l\)</span> is small in practice and we do not utilize any potential information from the (often much larger) <strong>unlabeled</strong> data.</p>
+</section>
+<section id="ipd-estimators" class="level3">
+<h3 class="anchored" data-anchor-id="ipd-estimators">IPD Estimators</h3>
+<p>Many estimators tailored to inference with predicted data share a similar form, as given in <a href="https://arxiv.org/pdf/2501.09731">Ji et al.&nbsp;(2025)</a>:</p>
+<p><span class="math display">\[
+\widehat\beta_\text{ipd} = \arg\min_\beta \frac{1}{n_l}\sum_{i=1}^{n_l} \ell(X_i, Y_i) - \left[\frac{1}{n_l}\sum_{i=1}^{n_l} g(X_i, f_i) - \frac{1}{n_l+n_u}\sum_{i=n_l+1}^{n_l+n_u} g(X_i, f_i)\right],
+\]</span></p>
+<p>for some loss function, <span class="math inline">\(\ell(\cdot)\)</span>, such as the squared error loss for linear regression, and some <span class="math inline">\(g(\cdot)\)</span>, which they call the ‘imputed loss’. Here, the first term is exactly the <strong>classical</strong> estimator, which anchors these methods on a valid model, and the second term in the square brackets ‘augments’ the estimator with additional information from the predictions. This allows us to have an estimator that is provably unbiased and asymptotically at least as efficient as the <strong>classical</strong> estimator, which only uses a fraction of the data.</p>
+<p>The <a href="https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267">Inference with Predicted Data (IPD)</a> package implements several recent methods for IPD, such as <strong>Chen &amp; Chen</strong> method of <a href="https://arxiv.org/pdf/2411.19908">Gronsbell et al.</a>, the Prediction-Powered Inference (<strong>PPI</strong>) and <strong>PPI++</strong> methods of <a href="https://www.science.org/doi/10.1126/science.adi6000">Angelopoulos et al.&nbsp;(a)</a> and <a href="https://arxiv.org/pdf/2311.01453">Angelopoulos et al.&nbsp;(a)</a>, the Post-Prediction Inference (<strong>PostPI</strong>) method of <a href="https://www.pnas.org/doi/10.1073/pnas.2001238117">Wang et al.</a>, and the Post-Prediction Adaptive Inference (<strong>PSPA</strong>) method of <a href="https://arxiv.org/abs/2311.14220">Miao et al.</a> to conduct valid, efficient inference, even when a large proportion of outcomes are predicted.</p>
+<p>In this first tutorial, we demonstrate how to:</p>
+<ol type="1">
+<li><strong>Generate</strong> fully synthetic data with <code>ipd::simdat()</code>.</li>
+<li><strong>Fit</strong> a simple linear prediction model (e.g., linear regression).</li>
+<li><strong>Apply</strong> <code>ipd::ipd()</code> to estimate the association, <span class="math inline">\(\beta\)</span>, between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span> using <em>labeled</em> and <em>unlabeled</em> data.</li>
+<li><strong>Compare</strong> the <strong>naive</strong>, <strong>classical</strong>, and <strong>IPD</strong> estimates of <span class="math inline">\(\beta\)</span>.</li>
+<li><strong>Visualize</strong> these results.</li>
+</ol>
+</section>
+</section>
+<section id="installation-and-setup" class="level2">
+<h2 class="anchored" data-anchor-id="installation-and-setup">Installation and Setup</h2>
+<p>First, insure you have the <code>ipd</code> package and some additional packages installed:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install these packages if you have not already:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("ipd", "broom", "tidyverse", "patchwork"))</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ipd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ipd' was built under R version 4.4.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'broom' was built under R version 4.4.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyverse' was built under R version 4.4.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tibble' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyr' was built under R version 4.4.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'readr' was built under R version 4.4.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'purrr' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dplyr' was built under R version 4.4.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'stringr' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'forcats' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'lubridate' was built under R version 4.4.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.1     ✔ stringr   1.5.2
+✔ ggplot2   4.0.0     ✔ tibble    3.3.0
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.1.0     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'patchwork' was built under R version 4.4.3</code></pre>
+</div>
+</div>
+<p>Throughout the workshop, we will use reproducible seeds and <a href="https://www.tidyverse.org/">tidyverse</a> conventions.</p>
+</section>
+<section id="function-references" class="level2">
+<h2 class="anchored" data-anchor-id="function-references">Function References</h2>
+<p>Below is a high-level summary of the core <code>ipd</code> functions.</p>
+<section id="simdat" class="level3">
+<h3 class="anchored" data-anchor-id="simdat"><code>simdat()</code></h3>
+<p>Generates synthetic datasets for various inferential models.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simdat</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  n,        <span class="co"># Numeric vector of length 3: c(n_train, n_labeled, n_unlabeled)</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  effect,   <span class="co"># Numeric: true effect size for simulation</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  sigma_Y,  <span class="co"># Numeric: residual standard deviation</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  model,    <span class="co"># Character: one of "mean", "quantile", "ols", "logistic", "poisson"</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  ...       <span class="co"># Additional arguments</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This function returns a data.frame with columns:</p>
+<ul>
+<li><code>X1, X2, ...</code>: covariates</li>
+<li><code>Y</code>: true outcome (for training, labeled, and unlabeled subsets)</li>
+<li><code>f</code>: predictions from the model (for labeled and unlabeled subsets)</li>
+<li><code>set_label</code>: character indicating “training”, “labeled”, or “unlabeled”.</li>
+</ul>
+</section>
+<section id="ipd" class="level3">
+<h3 class="anchored" data-anchor-id="ipd"><code>ipd()</code></h3>
+<p>Fits IPD methods for downstream inference on predicted data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ipd</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  formula,      <span class="co"># A formula: e.g., Y - f ~ X1 + X2 + ...</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  method,       <span class="co"># Character: one of "chen", "postpi_boot", "postpi_analytic", </span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                <span class="co"># "ppi", "ppi_all", "ppi_plusplus", "pspa"</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  model,        <span class="co"># Character: one of "mean", "quantile", "ols", "logistic", </span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>                <span class="co"># "poisson"</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  data,         <span class="co"># Data frame containing columns for formula and label</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  label,        <span class="co"># Character: name of the column with set labels ("labeled" and </span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>                <span class="co"># "unlabeled")</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  ...           <span class="co"># Additional arguments</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="supported-methods" class="level4">
+<h4 class="anchored" data-anchor-id="supported-methods">Supported Methods</h4>
+<ul>
+<li><strong>chen</strong>: Chen and Chen estimator (<a href="https://arxiv.org/pdf/2411.19908">Gronsbell et al., 2025</a>)</li>
+<li><strong>postpi_analytic</strong>: analytic post-prediction inference (<a href="https://www.pnas.org/doi/10.1073/pnas.2001238117">Wang et al., 2020</a>).</li>
+<li><strong>postpi_boot</strong>: bootstrap post-prediction inference <a href="https://www.pnas.org/doi/10.1073/pnas.2001238117">Wang et al., 2020</a>).</li>
+<li><strong>ppi</strong>: prediction-powered inference (<a href="https://www.science.org/doi/10.1126/science.adi6000">Angelopoulos et al., 2023</a>)</li>
+<li><strong>ppi_plusplus</strong>: PPI++ (PPI with data-driven weighting; <a href="https://arxiv.org/pdf/2311.01453">Angelopoulos et al., 2024</a>)</li>
+<li><strong>ppi_a</strong>: PPI using all data (<a href="https://arxiv.org/pdf/2411.19908">Gronsbell et al., 2025</a>)</li>
+<li><strong>pspa</strong>: assumption-lean and data-adaptive post-prediction inference (<a href="https://arxiv.org/pdf/2311.14220">Miao et al., 2024</a>)</li>
+</ul>
+</section>
+</section>
+<section id="tidy-methods" class="level3">
+<h3 class="anchored" data-anchor-id="tidy-methods">Tidy Methods</h3>
+<ul>
+<li><code>print()</code> and <code>summary()</code>: display model summaries.</li>
+<li><code>tidy()</code>: return a tibble of estimates and standard errors.</li>
+<li><code>glance()</code>: return a one-row tibble of model-level metrics.</li>
+<li><code>augment()</code>: return the original data with fitted values and residuals.</li>
+</ul>
+</section>
+</section>
+<section id="simulating-data" class="level2">
+<h2 class="anchored" data-anchor-id="simulating-data">Simulating Data</h2>
+<p>The <code>ipd::simdat()</code> function makes it easy to generate:</p>
+<ul>
+<li>A <strong>training set</strong> (where you fit your prediction model),</li>
+<li>A <strong>labeled set</strong> (where you observe the true <span class="math inline">\(Y\)</span>),</li>
+<li>An <strong>unlabeled set</strong> (where <span class="math inline">\(Y\)</span> is <em>presumed missing</em> but you compute predictions <span class="math inline">\(f\)</span>).</li>
+</ul>
+<p>We supply the sample sizes, <code>n = c(n_train, n_label, n_unlabel)</code>, an effect size (<code>effect</code>), residual standard deviation (<code>sigma_Y</code>; i.e., how much random noise is in the data), and a model type (<code>"ols"</code>, <code>"logistic"</code>, etc.). In this tutorial, we focus on a continuous outcome generated from a linear regression model (<code>"ols"</code>). We can also optionally shift and scale the predictions (via the <code>shift</code> and <code>scale</code> arguments) to control how the predicted outcomes relate to their true underlying counterparts.</p>
+<section id="exercise-1-data-generation" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1-data-generation">Exercise 1: Data Generation</h3>
+<p>Let us generate a synthetic dataset for a linear model with:</p>
+<ul>
+<li>5,000 training observations</li>
+<li>500 labeled observations</li>
+<li>1,500 unlabeled observations</li>
+<li>Effect size = 1.5</li>
+<li>Residual SD = 3</li>
+<li>Predictions shifted by 1 and scaled by 2</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> Interactive exercises are provided below. Try <strong>writing your code</strong> in the first chunk; <strong>solutions</strong> are hidden in the second chunk.</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># n_t = 5000, n_l = 500, n_u = 1500</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5000</span>, <span class="dv">500</span>, <span class="dv">1500</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Effect size = 1.5, noise sd = 3, model = "ols" (ordinary least squares)</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># We also shift the mean of the predictions by 1 and scale their values by 2</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">simdat</span>(</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">n       =</span> n,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">effect  =</span> <span class="fl">1.5</span>,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">sigma_Y =</span> <span class="dv">3</span>,</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">model   =</span> <span class="st">"ols"</span>,</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">shift   =</span> <span class="dv">1</span>,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">scale   =</span> <span class="dv">2</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The resulting data.frame `dat` has columns:</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  - X1, X2, X3, X4: Four simulated covariates (all numeric ~ N(0,1))</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  - Y             : True outcome (available in unlabeled set for simulation)</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  - f             : Predicted outcome (Generated internally in simdat)</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  - set_label     : {"training", "labeled", "unlabeled"}</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Quick look:</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">|&gt;</span> </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(set_label) <span class="sc">|&gt;</span> </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  set_label     n
+  &lt;chr&gt;     &lt;int&gt;
+1 labeled     500
+2 training   5000
+3 unlabeled  1500</code></pre>
+</div>
+</div>
+<p>Let us inspect the first few rows of each subset:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Training set</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set_label <span class="sc">==</span> <span class="st">"training"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 5,000
+Columns: 7
+$ X1        &lt;dbl&gt; -0.56047565, -0.23017749, 1.55870831, 0.07050839, 0.12928774…
+$ X2        &lt;dbl&gt; -1.61803670, 0.37918115, 1.90225048, 0.60187427, 1.73234970,…
+$ X3        &lt;dbl&gt; -0.91006117, 0.28066267, -1.03567040, 0.27304874, 0.53779815…
+$ X4        &lt;dbl&gt; -1.119992047, -1.015819127, 1.258052722, -1.001231731, -0.40…
+$ Y         &lt;dbl&gt; 3.8625325, -1.6575634, 4.1872914, -3.3624963, 6.9978916, 1.5…
+$ f         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ set_label &lt;chr&gt; "training", "training", "training", "training", "training", …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Labeled set</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set_label <span class="sc">==</span> <span class="st">"labeled"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 500
+Columns: 7
+$ X1        &lt;dbl&gt; -0.4941739, 1.1275935, -1.1469495, 1.4810186, 0.9161912, 0.3…
+$ X2        &lt;dbl&gt; -0.15062996, 0.80094056, -1.18671785, 0.43063636, 0.21674709…
+$ X3        &lt;dbl&gt; 2.0279109, -1.4947497, -1.5729492, -0.3002123, -0.7643735, -…
+$ X4        &lt;dbl&gt; 0.53495620, 0.36182362, -1.89096604, -1.40631763, -0.4019282…
+$ Y         &lt;dbl&gt; 2.71822922, 1.72133689, 0.86081066, 3.77173123, -2.77191549,…
+$ f         &lt;dbl&gt; 0.67556303, -0.13706321, -1.75579589, 0.84146158, 0.15512973…
+$ set_label &lt;chr&gt; "labeled", "labeled", "labeled", "labeled", "labeled", "labe…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Unlabeled set</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">|&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set_label <span class="sc">==</span> <span class="st">"unlabeled"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,500
+Columns: 7
+$ X1        &lt;dbl&gt; -1.35723063, -1.29269781, -1.51720731, 0.85917603, -1.214617…
+$ X2        &lt;dbl&gt; 0.01014789, 1.56213812, 0.41284605, -1.18886219, 0.71454993,…
+$ X3        &lt;dbl&gt; -1.42521509, 1.73298966, 1.66085181, -0.85343610, 0.26905593…
+$ X4        &lt;dbl&gt; -1.1645365, -0.2522693, -1.3945975, 0.3959429, 0.5980741, 1.…
+$ Y         &lt;dbl&gt; -3.8296223, -3.0350282, -5.3736718, 2.6076634, -4.7813463, -…
+$ f         &lt;dbl&gt; -1.9014253, -0.1679210, -0.3030749, 0.1249168, -0.8998546, -…
+$ set_label &lt;chr&gt; "unlabeled", "unlabeled", "unlabeled", "unlabeled", "unlabel…</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Explanation:</strong></p>
+<ul>
+<li>Rows where <code>set_label == "training"</code> form an internal training set. Here, <code>Y</code> is observed, but <code>f</code> is <code>NA</code>, as we learn the prediction rule in this set.</li>
+<li>Rows where <code>set_label == "labeled"</code> also have both <code>Y</code> and <code>f</code>. In practice, <code>f</code> will be generated by your own prediction model; for simulation, <code>simdat</code> does so automatically.</li>
+<li>Rows where <code>set_label == "unlabeled"</code> have <code>Y</code> for posterity (but in a real‐data scenario, you would not know <code>Y</code>); <code>simdat</code> still generates <code>Y</code>, but the IPD routines will not use these. The column <code>f</code> always contains ‘predicted’ values.</li>
+</ul>
+</blockquote>
+</section>
+</section>
+<section id="fit-a-linear-prediction-model" class="level2">
+<h2 class="anchored" data-anchor-id="fit-a-linear-prediction-model">Fit a Linear Prediction Model</h2>
+<p>In practice, we would take the <strong>training</strong> portion and fit an AI/ML model to predict <span class="math inline">\(Y\)</span> from <span class="math inline">\((X_1, X_2, X_3, X_4)\)</span>. This is done automatically by the <code>simdat</code> function, but for demonstration, let us fit a <em>linear prediction model</em> on the training data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Subset training set</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>dat_train <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set_label <span class="sc">==</span> <span class="st">"training"</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Fit a linear model: Y ~ X1 + X2 + X3 + X4</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>lm_pred <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3 <span class="sc">+</span> X4, <span class="at">data =</span> dat_train)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Prepare a full-length vector of NA</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>f_pred <span class="ot">&lt;-</span> <span class="cn">NA_real_</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 4) Identify the rows to predict (all non–training rows)</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>idx_analytic <span class="ot">&lt;-</span> dat<span class="sc">$</span>set_label <span class="sc">!=</span> <span class="st">"training"</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 5) Generate predictions just once on that subset (shifted and scaled to match)</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>pred_vals <span class="ot">&lt;-</span> (<span class="fu">predict</span>(lm_pred, <span class="at">newdata =</span> dat[idx_analytic, ]) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span> </span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 6) Insert them back into the full data frame</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>f_pred[idx_analytic] <span class="ot">&lt;-</span> pred_vals</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 7) Verify: `f_pred` is equal to `f` for the labeled and unlabeled data</span></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">|&gt;</span> </span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(set_label, Y, f, f_pred) <span class="sc">|&gt;</span> </span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set_label <span class="sc">!=</span> <span class="st">"training"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,000
+Columns: 4
+$ set_label &lt;chr&gt; "labeled", "labeled", "labeled", "labeled", "labeled", "labe…
+$ Y         &lt;dbl&gt; 2.71822922, 1.72133689, 0.86081066, 3.77173123, -2.77191549,…
+$ f         &lt;dbl&gt; 0.67556303, -0.13706321, -1.75579589, 0.84146158, 0.15512973…
+$ f_pred    &lt;dbl&gt; 0.67556303, -0.13706321, -1.75579589, 0.84146158, 0.15512973…</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Explanation of arguments:</strong></p>
+<ul>
+<li><code>lm(Y ~ X1 + X2 + X3 + X4, data = dat_train)</code> fits an ordinary least squares (OLS) regression on the training subset.</li>
+<li><code>predict(lm_pred, newdata = .)</code> generates a new <code>f</code> (stored as <code>f_pred</code>) for each row outside of the training set.</li>
+</ul>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> In real workflows, you might use random forests (<code>ranger::ranger()</code>), gradients (<code>xgboost::xgboost()</code>), or any other ML algorithm; the IPD methods only require that you supply a vector of predictions, <code>f</code>, in your data.</p>
+</blockquote>
+</section>
+<section id="create-labeled-and-unlabeled-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="create-labeled-and-unlabeled-datasets">Create ‘Labeled’ and ‘Unlabeled’ datasets</h2>
+<p>We now split the data into two subsets:</p>
+<ul>
+<li><strong>labeled</strong>: those rows where we retain the true <code>Y</code> (to be used for final inference alongside their predictions).</li>
+<li><strong>unlabeled</strong>: those rows where we <strong>hide</strong> the true <code>Y</code> (we pretend we do not observe them; <code>ipd</code> will still require the <code>f</code> + covariates).</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>dat_ipd <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set_label <span class="sc">!=</span> <span class="st">"training"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Keep only the columns needed for downstream IPD</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(set_label, Y, f, X1, X2, X3, X4) </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Show counts:</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>dat_ipd <span class="sc">|&gt;</span> </span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(set_label) <span class="sc">|&gt;</span> </span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  set_label     n
+  &lt;chr&gt;     &lt;int&gt;
+1 labeled     500
+2 unlabeled  1500</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><p>After this step, <code>dat_ipd</code> has two groups:</p>
+<ul>
+<li><code>labeled</code> (500 rows where we observe both <code>Y</code> and <code>f</code>),</li>
+<li><code>unlabeled</code> (1500 rows where we only ‘observe’ <code>f</code>).</li>
+</ul></li>
+</ul>
+</blockquote>
+</section>
+<section id="comparison-of-the-true-vs-predicted-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-of-the-true-vs-predicted-outcomes">Comparison of the True vs Predicted Outcomes</h2>
+<p>Before modeling, it is helpful to see graphically how the predicted values, <span class="math inline">\(f\)</span>, compare to the true outcomes, <span class="math inline">\(Y\)</span>. We can visually assess the <strong>bias</strong> and <strong>variance</strong> of our predicted outcomes, <span class="math inline">\(f\)</span>, versus the true outcomes, <span class="math inline">\(Y\)</span>, in our analytic data by plotting:</p>
+<ol type="1">
+<li><strong>Scatterplot</strong> of <span class="math inline">\(Y\)</span> and <span class="math inline">\(f\)</span> vs.&nbsp;<span class="math inline">\(X_1\)</span><br>
+</li>
+<li><strong>Density plots</strong> of <span class="math inline">\(Y\)</span> and <span class="math inline">\(f\)</span></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare data</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>dat_visualize <span class="ot">&lt;-</span> dat_ipd <span class="sc">|&gt;</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(X1, Y, f) <span class="sc">|&gt;</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(Y<span class="sc">:</span>f, <span class="at">names_to =</span> <span class="st">"Measure"</span>, <span class="at">values_to =</span> <span class="st">"Value"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Measure)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter + trend lines</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_visualize, <span class="fu">aes</span>(<span class="at">x =</span> X1, <span class="at">y =</span> Value, <span class="at">color =</span> Measure)) <span class="sc">+</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"gray"</span>)) <span class="sc">+</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">x     =</span> <span class="st">"X1"</span>,</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">y     =</span> <span class="st">"True Y or Predicted f"</span>,</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Measure"</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Unit00_GettingStarted_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Density plots</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_visualize, <span class="fu">aes</span>(<span class="at">x =</span> Value, <span class="at">fill =</span> Measure)) <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"gray"</span>)) <span class="sc">+</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x     =</span> <span class="st">"Value"</span>,</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y     =</span> <span class="st">"Density"</span>,</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill  =</span> <span class="st">"Measure"</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Unit00_GettingStarted_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Interpretation:</strong></p>
+<p>In the <strong>scatterplot</strong>, note that the predicted values <span class="math inline">\(f\)</span> (in blue) lie more tightly along the fitted trend line than the true <span class="math inline">\(Y\)</span> (in gray), indicating stronger correlation with <span class="math inline">\(X_1\)</span>.</p>
+<p>In the <strong>density plot</strong>, you can see that the spread of <span class="math inline">\(f\)</span> is narrower than that of <span class="math inline">\(Y\)</span>, illustrating that the predictive model has reduced variance (often due to “regression to the mean”).</p>
+</blockquote>
+</section>
+<section id="some-baselines-naive-vs-classical-inference" class="level2">
+<h2 class="anchored" data-anchor-id="some-baselines-naive-vs-classical-inference">Some Baselines: Naive vs Classical Inference</h2>
+<p>Before applying IPD, let’s see what happens if we:</p>
+<ol type="1">
+<li>Regress the <em>unlabeled</em> predicted <code>f</code> on <code>X1</code> (the <strong>naive</strong> approach).</li>
+<li>Regress only the <em>labeled</em> true <code>Y</code> on <code>X1</code> (the <strong>classical</strong> approach).</li>
+</ol>
+<p>We will compare these to IPD‐corrected estimates.</p>
+<section id="exercise-2-naive-vs.-classical-model-fitting" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2-naive-vs.-classical-model-fitting">Exercise 2: Naive vs.&nbsp;Classical Model Fitting</h3>
+<p>Using the <code>labeled</code> and <code>unlabeled</code> sets, fit two models:</p>
+<ol type="1">
+<li><strong>Naive OLS</strong> on the <em>unlabeled</em> set using <code>lm()</code> with <code>f ~ X1</code>.</li>
+<li><strong>Classical OLS</strong> on the <em>labeled</em> set using <code>lm()</code> with <code>Y ~ X1</code>.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Naive: treat f as if it were truth (only on unlabeled)</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>naive_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(f <span class="sc">~</span> X1, <span class="at">data =</span> <span class="fu">filter</span>(dat_ipd, set_label <span class="sc">==</span> <span class="st">"unlabeled"</span>))</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Classical: regress true Y on X1, only on the labeled set</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>classical_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X1, <span class="at">data =</span> <span class="fu">filter</span>(dat_ipd, set_label <span class="sc">==</span> <span class="st">"labeled"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s also extract the coefficient summaries using <code>tidy</code> and compare the results of the two approaches:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>naive_df <span class="ot">&lt;-</span> <span class="fu">tidy</span>(naive_model) <span class="sc">|&gt;</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Naive"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"X1"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(method, estimate, std.error) </span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>classical_df <span class="ot">&lt;-</span> <span class="fu">tidy</span>(classical_model) <span class="sc">|&gt;</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Classical"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"X1"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(method, estimate, std.error)</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(naive_df, classical_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  method    estimate std.error
+  &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;
+1 Naive        0.730    0.0145
+2 Classical    1.48     0.155 </code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Expected behavior (interpretation):</strong></p>
+<ul>
+<li>The <strong>naive</strong> coefficient is <em>attenuated</em>, or <em>biased</em> toward zero, since the predictions are imperfect.</li>
+<li>The <strong>classical</strong> coefficient is unbiased but has a larger standard error due to the smaller sample size.</li>
+</ul>
+</blockquote>
+</section>
+</section>
+<section id="ipd-corrected-inference-with-ipdipd" class="level2">
+<h2 class="anchored" data-anchor-id="ipd-corrected-inference-with-ipdipd">IPD: Corrected Inference with <code>ipd::ipd()</code></h2>
+<p>The single wrapper function <code>ipd()</code> implements multiple IPD methods (e.g., <strong>Chen &amp; Chen</strong>, <strong>PostPI</strong>, <strong>PPI</strong>, <strong>PPI++</strong>, <strong>PSPA</strong>) for various inferential tasks (e.g., <strong>mean</strong> and <strong>quantile</strong> estimation, <strong>ols</strong>, <strong>logistic</strong>, and <strong>poisson</strong> regression).</p>
+<blockquote class="blockquote">
+<p><strong>Reminder:</strong> Basic usage of <code>ipd()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ipd</span>(</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> Y <span class="sc">-</span> f <span class="sc">~</span> X1,     <span class="co"># The downstream inferential model</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">method  =</span> <span class="st">"pspa"</span>          <span class="co"># The IPD method to run </span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">model   =</span> <span class="st">"ols"</span>           <span class="co"># The type of inferential model</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data    =</span> dat_ipd,        <span class="co"># A data.frame with columns:</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>                            <span class="co">#   - set_label: {"labeled", "unlabeled"}</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>                            <span class="co">#   - Y: true outcomes (for labeled data)</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>                            <span class="co">#   - f: predicted outcomes</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>                            <span class="co">#   - X covariates (here X1, X2, X3, X4)</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">label   =</span> <span class="st">"set_label"</span>,    <span class="co"># Column name indicating "labeled"/"unlabeled"</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</blockquote>
+<section id="exercise-3-ipd-model-fitting-via-the-pspa-estimator" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3-ipd-model-fitting-via-the-pspa-estimator">Exercise 3: IPD Model Fitting via the PSPA Estimator</h3>
+<p>Let’s run one method, <code>pspa</code>, proposed by <a href="https://arxiv.org/pdf/2311.14220">Miao et al., 2024</a>. The <strong>PSPA</strong> estimator is an IPD method that combines information from:</p>
+<ol type="1">
+<li><strong>Labeled data</strong> (where the true outcome, <span class="math inline">\(Y\)</span>, and model predictions, <span class="math inline">\(f\)</span>, are available), and<br>
+</li>
+<li><strong>Unlabeled data</strong> (where only model predictions, <span class="math inline">\(f\)</span>, are available).</li>
+</ol>
+<p>Rather than treating the predicted outcomes with importance as the true outcomes, the method estimates a <strong>data-driven weight</strong>, <span class="math inline">\(\hat{\omega}\)</span>, and applies it to the predicted outcome contributions:</p>
+<p><span class="math display">\[
+\hat{\beta}_\text{pspa} = \hat{\beta}_\text{classical} - \hat{\omega}\cdot (\hat{\gamma}_\text{naive}^l - \hat{\gamma}_\text{naive}^u),
+\]</span></p>
+<p>where <span class="math inline">\(\hat{\beta}_{\rm classical}\)</span> is the estimate from the <strong>classical</strong> regression, <span class="math inline">\(\hat{\gamma}_{\rm naive}^l\)</span> is the estimate from the <strong>naive</strong> regression in the <em>labeled</em> data, <span class="math inline">\(\hat{\gamma}_{\rm naive}^u\)</span> is the estimate from the <strong>naive</strong> regression in the <em>unlabeled</em> data, and <span class="math inline">\(\hat{\omega}\)</span> reflects the amount of additional information carried by the predictions. By adaptively weighting the unlabeled information, the <strong>PSPA</strong> estimator achieves greater precision than by using the labeled data alone, without sacrificing validity, even when the predictions are imperfect.</p>
+<p>Let’s call the method using the <code>ipd()</code> function and collect the estimate for the slope of <code>X1</code> in a linear regression (<code>model = "ols"</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>ipd_model <span class="ot">&lt;-</span> <span class="fu">ipd</span>(</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> Y <span class="sc">-</span> f <span class="sc">~</span> X1,</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data    =</span> dat_ipd,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">label   =</span> <span class="st">"set_label"</span>,</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">method  =</span> <span class="st">"pspa"</span>,</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">model   =</span> <span class="st">"ols"</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>ipd_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+ Y - f ~ X1 
+
+Coefficients:
+(Intercept)          X1 
+  0.8801364   1.4324759 </code></pre>
+</div>
+</div>
+<p>The <code>ipd_model</code> is an <code>S4</code> object with slots for things like the coefficient, se, ci, coefTable, fit, formula, data_l, data_u, method, model, and intercept. We can extract the coefficient table using <code>ipd</code>’s <code>tidy</code> helper and compare with the naive and classical methods:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the coefficient estimates</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>ipd_df <span class="ot">&lt;-</span> <span class="fu">tidy</span>(ipd_model) <span class="sc">|&gt;</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"IPD"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"X1"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(method, estimate, std.error)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine with naive &amp; classical:</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>compare_tab <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(naive_df, classical_df, ipd_df)</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>compare_tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  method    estimate std.error
+* &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;
+1 Naive        0.730    0.0145
+2 Classical    1.48     0.155 
+3 IPD          1.43     0.146 </code></pre>
+</div>
+</div>
+</section>
+<section id="exercise-4-visualizing-uncertainty" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-4-visualizing-uncertainty">Exercise 4: Visualizing Uncertainty</h3>
+<p>Let’s plot the coefficient estimates and 95% CIs for each of the naive, classical, and IPD methods:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Forest plot of estimates and 95% confidence intervals</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>compare_tab <span class="sc">|&gt;</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower =</span> estimate <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> std.error,</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">upper =</span> estimate <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> std.error</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> estimate, <span class="at">y =</span> method)) <span class="sc">+</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> lower, <span class="at">xmax =</span> upper), <span class="at">height =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">1.5</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">"Comparison of slope estimates \u00B1 1.96·SE"</span>,</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(beta)[X1]),</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">""</span></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `geom_errobarh()` was deprecated in ggplot2 4.0.0.
+ℹ Please use the `orientation` argument of `geom_errorbar()` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`height` was translated to `width`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Unit00_GettingStarted_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>The dashed red line at <strong>1.5</strong> is the <em>true</em> data-generating effect for <span class="math inline">\(X_1\)</span>.</li>
+<li>Compare how far each method’s interval is from 1.5, and whether 1.5 lies inside each interval.</li>
+<li>‘Naive’ often severely underestimates (biased); ‘Classical’ is unbiased but wide; IPD methods cluster around 1.5 with better coverage than ‘naive,’ often similar to classical but sometimes narrower.</li>
+</ul>
+</blockquote>
+</section>
+<section id="exercise-5-inspecting-results" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-5-inspecting-results">Exercise 5: Inspecting Results</h3>
+<p>Use <code>tidy()</code>, <code>glance()</code>, and <code>augment()</code> on <code>ipd_model</code>. Compare the coefficient estimate and standard error for <code>X1</code> with the naive fit.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(ipd_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   term  estimate std.error  conf.low conf.high
+(Intercept) (Intercept) 0.8801364 0.1470190 0.5919845  1.168288
+X1                   X1 1.4324759 0.1462767 1.1457788  1.719173</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(ipd_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  method model include_intercept nobs_labeled nobs_unlabeled       call
+1   pspa   ols              TRUE          500           1500 Y - f ~ X1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(ipd_model) <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,500
+Columns: 9
+$ set_label &lt;chr&gt; "unlabeled", "unlabeled", "unlabeled", "unlabeled", "unlabel…
+$ Y         &lt;dbl&gt; -3.8296223, -3.0350282, -5.3736718, 2.6076634, -4.7813463, -…
+$ f         &lt;dbl&gt; -1.9014253, -0.1679210, -0.3030749, 0.1249168, -0.8998546, -…
+$ X1        &lt;dbl&gt; -1.35723063, -1.29269781, -1.51720731, 0.85917603, -1.214617…
+$ X2        &lt;dbl&gt; 0.01014789, 1.56213812, 0.41284605, -1.18886219, 0.71454993,…
+$ X3        &lt;dbl&gt; -1.42521509, 1.73298966, 1.66085181, -0.85343610, 0.26905593…
+$ X4        &lt;dbl&gt; -1.1645365, -0.2522693, -1.3945975, 0.3959429, 0.5980741, 1.…
+$ .fitted   &lt;dbl[,1]&gt; &lt;matrix[26 x 1]&gt;
+$ .resid    &lt;dbl[,1]&gt; &lt;matrix[26 x 1]&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare with naive</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(naive_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)   -0.118    0.0146     -8.07 1.40e-15
+2 X1             0.730    0.0145     50.3  0       </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="summary-and-key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="summary-and-key-takeaways">Summary and Key Takeaways</h2>
+<ol type="1">
+<li><strong>Naive</strong> regression on predicted outcomes is biased (point estimates are pulled toward zero and SEs are artificially small).</li>
+<li><strong>Classical</strong> regression on the labeled data alone is unbiased but inefficient when the labeled set is small.</li>
+<li>IPD methods (Chen &amp; Chen, PPI, PPI++, PostPI, PSPA) strike a balance: they use predictions to effectively enlarge sample size but adjust for prediction error to avoid bias.</li>
+<li>Even with ‘simple’ linear prediction models, IPD corrections can drastically improve inference on downstream regression coefficients.</li>
+</ol>
+</section>
+<section id="further-exploration" class="level2">
+<h2 class="anchored" data-anchor-id="further-exploration">Further Exploration</h2>
+<ul>
+<li>Try other methods such as <strong>PPI++</strong> (<code>"ppi_plusplus"</code>). How do the results compare?</li>
+<li>Repeat the analysis for a <strong>logistic</strong> model by setting <code>model = "logistic"</code> in both <code>simdat()</code> and <code>ipd()</code>.</li>
+</ul>
+<p>Happy coding! Feel free to modify and extend these exercises for your own data.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li>Salerno, Stephen, et al.&nbsp;“ipd: An R Package for Conducting Inference on Predicted Data.” <em>Bioinformatics</em> (2025): btaf055.</li>
+</ul>
+<hr>
+<p><em>This is the end of the module. We hope this was informative! For question/concerns/suggestions, please reach out to ssalerno@fredhutch.org</em></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
