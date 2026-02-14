@@ -1,6 +1,21 @@
 ---
-title: "Unit 02: Measuring Adiposity"
-format: html
+title: "Measuring Adiposity"
+subtitle: "BMI vs. DXA"
+description:  |  
+  Compare BMI and DXA-based adiposity measures and use IPD corrections to 
+  improve regression inference under predicted outcomes.
+image: images/adiposity_cover.png
+unit: 0
+core: true
+format:
+  html:
+    toc: true
+    number-sections: false
+    code-fold: true
+    code-tools: false
+execute:
+  warning: false
+  message: false
 ---
 
 ## Background and Motivation

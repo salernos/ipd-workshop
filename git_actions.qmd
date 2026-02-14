@@ -1,6 +1,5 @@
 ---
 title: "Git Actions"
-output: html_document
 ---
 
 

@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jesse Gronsbell, PhD">
+<meta name="author" content="Stephen Salerno, PhD">
 
-<title>IPD Workshop</title>
+<title>Prediction-Based Inference: Methods &amp; Applications – IPD Workshop</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,27 +60,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
+  "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
+  "panel-placement": "start",
+  "type": "textbox",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -100,129 +105,338 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-core_units .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-image','listing-subtitle','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-core_units'] = new List('listing-core_units', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-supplemental_units .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-image','listing-subtitle','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-supplemental_units'] = new List('listing-supplemental_units', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Prediction-Based Inference: Methods &amp; Applications – IPD Workshop">
+<meta property="og:description" content="What do we do after we have machine learned everything?">
+<meta property="og:image" content="https://salernos.github.io/ipd-workshop/content/images/ipd_cover.png">
+<meta property="og:site_name" content="IPD Workshop">
+<meta property="og:image:height" content="1024">
+<meta property="og:image:width" content="1536">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">IPD Workshop</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> <i class="bi bi-fa-home" role="img">
-</i> 
-<span class="menu-text">Inference with Predicted Data (IPD) Workshop</span></a>
-  </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-getting-started" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Getting Started</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-getting-started">    
-        <li>
-    <a class="dropdown-item" href="./content/Unit00_GettingStarted.html">
- <span class="dropdown-text">Workshop Material</span></a>
-  </li>  
-        <li class="dropdown-header">Activity</li>
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-the-rashomon-quartet" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">The Rashomon Quartet</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-the-rashomon-quartet">    
-        <li>
-    <a class="dropdown-item" href="./content/Unit01_RashomonQuartet.html">
- <span class="dropdown-text">Workshop Material</span></a>
-  </li>  
-        <li class="dropdown-header">Activity</li>
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-measuring-adiposity" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Measuring Adiposity</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-measuring-adiposity">    
-        <li>
-    <a class="dropdown-item" href="./content/Unit02_MeasuringAdiposity.html">
- <span class="dropdown-text">Workshop Material</span></a>
-  </li>  
-        <li class="dropdown-header">Activity</li>
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bcr-abl-fusion-in-b-cell-leukemia" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">BCR-ABL Fusion in B-Cell Leukemia</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-bcr-abl-fusion-in-b-cell-leukemia">    
-        <li>
-    <a class="dropdown-item" href="./content/Unit03_GeneticData.html">
- <span class="dropdown-text">Workshop Material</span></a>
-  </li>  
-        <li class="dropdown-header">Activity</li>
-    </ul>
-  </li>
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Prediction-Based Inference: Methods &amp; Applications</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./content/images/ipd.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="javascript:window.quartoToggleColorScheme();" title="Toggle Dark Mode" class="quarto-navigation-tool px-1" aria-label="Toggle Dark Mode"><i class="bi bi-moon"></i></a>
+    <a href="https://github.com/ipd-tools" title="GitHub Organization" class="quarto-navigation-tool px-1" aria-label="GitHub Organization"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/salernos/ipd-workshop" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-code-square"></i></a>
+    <div class="dropdown">
+      <a href="" title="Presenters" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Presenters"><i class="bi bi-person-fill"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://sites.google.com/view/jgronsbell/home">
+            Jesse Gronsbell, PhD
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://salernos.github.io/">
+            Stephen Salerno, PhD
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Modules</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./content/Unit00_GettingStarted.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./content/Unit01_AlphaFold.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Proteomics with AlphaFold</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./content/Unit02_MeasuringAdiposity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Measuring Adiposity</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Supplemental Modules</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./content/Unit03_GeneticData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCR-ABL Fusion</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./content/Unit04_Income.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Income Inequality</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./content/Unit05_RashomonQuartet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Rashomon Quartet</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#inference-with-predicted-data-ipd-workshop" id="toc-inference-with-predicted-data-ipd-workshop" class="nav-link active" data-scroll-target="#inference-with-predicted-data-ipd-workshop">Inference with Predicted Data (IPD) Workshop</a>
-  <ul class="collapse">
+  <li><a href="#quick-start" id="toc-quick-start" class="nav-link active" data-scroll-target="#quick-start">Quick Start</a></li>
   <li><a href="#background-and-motivation" id="toc-background-and-motivation" class="nav-link" data-scroll-target="#background-and-motivation">Background and Motivation</a></li>
-  <li><a href="#workshop-overview" id="toc-workshop-overview" class="nav-link" data-scroll-target="#workshop-overview">Workshop Overview</a>
+  <li><a href="#workshop-overview" id="toc-workshop-overview" class="nav-link" data-scroll-target="#workshop-overview">Workshop Overview</a></li>
+  <li><a href="#modules" id="toc-modules" class="nav-link" data-scroll-target="#modules">Modules</a></li>
+  <li><a href="#supplemental-modules" id="toc-supplemental-modules" class="nav-link" data-scroll-target="#supplemental-modules">Supplemental Modules</a>
   <ul class="collapse">
   <li><a href="#participation" id="toc-participation" class="nav-link" data-scroll-target="#participation">Participation</a></li>
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
   <li><a href="#r-bioconductor-packages-used" id="toc-r-bioconductor-packages-used" class="nav-link" data-scroll-target="#r-bioconductor-packages-used"><em>R</em> / <em>Bioconductor</em> Packages Used</a></li>
-  <li><a href="#time-outline-90-minutes" id="toc-time-outline-90-minutes" class="nav-link" data-scroll-target="#time-outline-90-minutes">Time Outline (90 minutes)</a></li>
-  <li><a href="#workshop-goals-and-objectives" id="toc-workshop-goals-and-objectives" class="nav-link" data-scroll-target="#workshop-goals-and-objectives">Workshop Goals and Objectives</a></li>
+  <li><a href="#time-outline-105-minutes" id="toc-time-outline-105-minutes" class="nav-link" data-scroll-target="#time-outline-105-minutes">Time Outline (105 minutes)</a></li>
   </ul></li>
   <li><a href="#workshop-environment" id="toc-workshop-environment" class="nav-link" data-scroll-target="#workshop-environment">Workshop Environment</a></li>
-  </ul></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/salernos/ipd-workshop/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/salernos/ipd-workshop/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Prediction-Based Inference: Methods &amp; Applications</h1>
+<p class="subtitle lead">What do we do after we have machine learned everything?</p>
+</div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliations</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Jesse Gronsbell, PhD </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            University of Toronto
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Stephen Salerno, PhD </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Fred Hutchinson Cancer Center
+          </p>
+      </div>
+  </div>
 
-<section id="inference-with-predicted-data-ipd-workshop" class="level1">
-<h1>Inference with Predicted Data (IPD) Workshop</h1>
-<blockquote class="blockquote">
-<p>What do we do after we have machine learned everything?</p>
-</blockquote>
-<p><strong>Presenters:</strong> Jesse Gronsbell<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Stephen Salerno<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<p><strong>Contributors (Alphabetical Order):</strong> Awan Afiaz<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, David Cheng<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>, Jianhui Gao<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, Jesse Gronsbell<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>, Kentaro Hoffman<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>, Jeff Leek<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>, Qiongshi Lu<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>, Tyler McCormick<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>, Jiacheng Miao<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>,<br>
-Anna Neufeld<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>, Stephen Salerno<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a></p>
-<p><strong>Workshop Date:</strong> June 24, 2025</p>
-<hr>
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Tuesday, March 17, 2026 | 11:45 am PDT</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="grid">
+<div class="g-col-6">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="content/images/pbinference_gronsbell.png" class="img-fluid figure-img"></p>
+<figcaption>Source: https://arxiv.org/pdf/2411.19908v1</figcaption>
+</figure>
+</div>
+</div>
+<div class="g-col-6">
+<div class="hero-goals callout callout-style-simple callout-note callout-titled" title="Workshop Goals and Objectives">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Workshop Goals and Objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Learning Goals</strong>:</p>
+<ul>
+<li><strong>Understand</strong> the limitations of using predicted data for inference.</li>
+<li><strong>Learn</strong> how IPD methods adjust for bias and recover valid uncertainty estimates.</li>
+<li><strong>Gain</strong> practical skills with the <a href="https://github.com/ipd-tools/ipd"><code>ipd</code></a> R package across simulated and real datasets.</li>
+</ul>
+<p><strong>Learning Objectives</strong>:</p>
+<ul>
+<li><strong>Explore</strong> data with AI/ML-predicted outcomes and diagnose bias/variance in predictions.</li>
+<li><strong>Apply</strong> <code>ipd::ipd()</code> for continuous and binary outcomes to correct inference using predicted data.</li>
+<li><strong>Interpret</strong> IPD outputs and visualize adjusted coefficient estimates with confidence intervals.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<section id="quick-start" class="level2">
+<h2 class="anchored" data-anchor-id="quick-start">Quick Start</h2>
+<ol type="1">
+<li>Open the workshop site: <a href="https://salernos.github.io/ipd-workshop">https://salernos.github.io/ipd-workshop</a></li>
+<li>Launch the RStudio workshop container:</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-e</span> PASSWORD=<span class="op">&lt;</span>choose_a_password_for_rstudio<span class="op">&gt;</span> -p 8787:8787 ghcr.io/salernos/ipdworkshop:latest</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="3" type="1">
+<li>In your browser, go to <code>http://localhost:8787/</code>, log in with <code>rstudio</code> and your password, then begin with <a href="./content/Unit00_GettingStarted.html">Getting Started</a>.</li>
+</ol>
+</section>
 <section id="background-and-motivation" class="level2">
 <h2 class="anchored" data-anchor-id="background-and-motivation">Background and Motivation</h2>
 <p>Artificial intelligence and machine learning (AI/ML) have become essential tools in biomedical research, enabling large-scale analyses across diverse domains such as genomics, structural biology, and electronic health records-based research. Increasingly, researchers rely on model-generated predictions, rather than directly measured variables, as inputs for downstream statistical analyses. For example, predicted gene expression values or polygenic risk scores are often used in place of experimental assays, allowing researchers to expand cohort sizes and explore hypotheses when traditional data collection is infeasible, costly, or time-consuming.</p>
@@ -231,45 +445,151 @@ Anna Neufeld<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"
 <section id="workshop-overview" class="level2">
 <h2 class="anchored" data-anchor-id="workshop-overview">Workshop Overview</h2>
 <p>In this workshop, we explore the consequences of inference on predicted data across several biomedical applications. Drawing from classical approaches to measurement error and recent developments in bias correction, we will present a suite of prediction-based inference methods that adjust for prediction-related uncertainty and improve inference validity and efficiency. We will also introduce <a href="https://github.com/ipd-tools/ipd"><code>ipd</code></a>, a user-friendly R package that implements several of these correction methods through a unified interface. The package supports modular integration into existing workflows and includes <a href="https://broom.tidymodels.org/index.html"><code>tidy</code></a> methods for model inspection and diagnostics.</p>
-<p>This workshop covers four modules (time permitting), each illustrating IPD in R using the <a href="https://github.com/ipd-tools/ipd"><code>ipd</code></a> package:</p>
-<ol type="1">
-<li><p><a href="https://salernos.github.io/ipdworkshop/articles/Unit00_GettingStarted.html"><strong>Unit 00: Getting Started</strong></a></p>
-<ul>
-<li><strong>Introduce</strong> IPD concepts and core <a href="https://github.com/ipd-tools/ipd"><code>ipd</code></a> package functions</li>
-<li><strong>Simulate</strong> data and explore the bias and variance of AI/ML predictions versus ‘real’ data</li>
-<li><strong>Fit</strong> naive and classical inference models and compare with IPD methods</li>
-</ul></li>
-</ol>
-<p><br></p>
-<ol start="2" type="1">
-<li><p><a href="https://salernos.github.io/ipdworkshop/articles/Unit01_RashomonQuartet.html"><strong>Unit 01: The Rashomon Quartet</strong></a></p>
-<ul>
-<li><strong>Train</strong> multiple prediction models on the <a href="https://github.com/MI2DataLab/rashomon-quartet">Rashomon Quartet</a> training set</li>
-<li><strong>Compare</strong> the performances of the upstream predictions on the <a href="https://github.com/MI2DataLab/rashomon-quartet">Rashomon Quartet</a> testing set</li>
-<li><strong>Recover</strong> classical estimates using IPD and contrast with naive estimates</li>
-</ul></li>
-</ol>
-<p><br></p>
-<ol start="3" type="1">
-<li><p><a href="https://salernos.github.io/ipdworkshop/articles/Unit02_BMIvDXA.html"><strong>Unit 02: Different Measures of Adiposity</strong></a></p>
-<ul>
-<li><strong>Explore</strong> the <a href="https://www.cdc.gov/nchs/nhanes/index.html">National Health and Nutrition Examination Survey (NHANES)</a> pre- and post- COVID-19</li>
-<li><strong>Define</strong> obesity based body mass index, waist circumference, and gold-standard dual-energy X-ray absorptiometry</li>
-<li><strong>Demonstrate</strong> how conclusions differ for naive, classical, and IPD logistic regression</li>
-</ul></li>
-</ol>
-<p><br></p>
-<ol start="4" type="1">
-<li><p><a href="https://salernos.github.io/ipdworkshop/articles/Unit03_GeneticData.html"><strong>Unit 03: BCR-ABL Fusion in B-Cell Leukemia</strong></a></p>
-<ul>
-<li><strong>Learn</strong> gene expression classifiers for <a href="https://www.bioconductor.org/packages/release/data/experiment/html/ALL.html">acute lymphoblastic leukemia (ALL)</a> genetic subtypes</li>
-<li><strong>Harmonize</strong> features across two studies (<a href="https://www.bioconductor.org/packages/release/data/experiment/html/ALL.html"><code>ALL</code></a> and <a href="https://www.bioconductor.org/packages/release/data/experiment/html/golubEsets.html"><code>Golub</code></a>) and predict BCR-ABL1 (Philadelphia chromosome) fusion status</li>
-<li><strong>Perform</strong> IPD to estimate associations between fusion status and clinical risk factors</li>
-</ul></li>
-</ol>
+</section>
+<section id="modules" class="level2">
+<h2 class="anchored" data-anchor-id="modules">Modules</h2>
+<p>This workshop covers three modules (time permitting), each illustrating IPD in R using the <a href="https://github.com/ipd-tools/ipd"><code>ipd</code></a> package:</p>
+<div id="listing-core_units" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1770912321078" data-listing-reading-time-sort="18" data-listing-word-count-sort="3446">
+<a href="./content/Unit00_GettingStarted.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./content/images/ipd_cover.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Getting Started
+</h5>
+<div class="card-subtitle listing-subtitle">
+Inference with Predicted Data
+</div>
+<div class="card-text listing-description">
+<p>Build intuition for inference with predicted data by simulating labeled/unlabeled sets and comparing naive, classical, and IPD estimators.</p>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1770919645396" data-listing-reading-time-sort="28" data-listing-word-count-sort="5438">
+<a href="./content/Unit01_AlphaFold.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./content/images/alphafold_cover.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Proteomics with AlphaFold
+</h5>
+<div class="card-subtitle listing-subtitle">
+Protein Disorder and PTMs
+</div>
+<div class="card-text listing-description">
+<p>Apply IPD methods in a proteomics setting to estimate associations when key outcomes are model-predicted rather than directly measured.</p>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1770919738232" data-listing-reading-time-sort="27" data-listing-word-count-sort="5212">
+<a href="./content/Unit02_MeasuringAdiposity.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./content/images/adiposity_cover.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Measuring Adiposity
+</h5>
+<div class="card-subtitle listing-subtitle">
+BMI vs.&nbsp;DXA
+</div>
+<div class="card-text listing-description">
+<p>Compare BMI and DXA-based adiposity measures and use IPD corrections to improve regression inference under predicted outcomes.</p>
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div>
+</section>
+<section id="supplemental-modules" class="level2">
+<h2 class="anchored" data-anchor-id="supplemental-modules">Supplemental Modules</h2>
+<p>We have also included some supplemental modules for you to explore on your own:</p>
+<div id="listing-supplemental_units" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1770919756829" data-listing-reading-time-sort="11" data-listing-word-count-sort="2095">
+<a href="./content/Unit03_GeneticData.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./content/images/genetics_cover.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+BCR-ABL Fusion
+</h5>
+<div class="card-subtitle listing-subtitle">
+in B-Cell Leukemia
+</div>
+<div class="card-text listing-description">
+<p>Study BCR-ABL prediction from gene-expression profiles and evaluate how IPD methods calibrate downstream inference in genomics.</p>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1770919781193" data-listing-reading-time-sort="10" data-listing-word-count-sort="1914">
+<a href="./content/Unit04_Income.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./content/images/income_cover.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Income Inequality
+</h5>
+<div class="card-subtitle listing-subtitle">
+Predicting Earnings with Age Effects
+</div>
+<div class="card-text listing-description">
+<p>Use census-style features to predict income and perform valid OLS inference on age effects with mixed labeled and unlabeled data.</p>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1770919797363" data-listing-reading-time-sort="15" data-listing-word-count-sort="2868">
+<a href="./content/Unit05_RashomonQuartet.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./content/images/rashomon_cover.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+The Rashomon Quartet
+</h5>
+<div class="card-subtitle listing-subtitle">
+i.e., Performance is not Enough
+</div>
+<div class="card-text listing-description">
+<p>Examine how equally predictive models can yield different scientific conclusions and compare naive, classical, and IPD-based inference.</p>
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div>
 <section id="participation" class="level3">
 <h3 class="anchored" data-anchor-id="participation">Participation</h3>
-<p>This 90-minute workshop uses a blended format of <strong>instruction</strong> and <strong>hands-on coding exercises</strong>. Participants should:</p>
+<p>This workshop uses a blended format of <strong>instruction</strong> and <strong>hands-on coding exercises</strong>. Participants should:</p>
 <ul>
 <li>Follow along in the virtual RStudio environment (see below).</li>
 <li>Attempt to complete brief exercises or run the solution code snippets in real time.</li>
@@ -282,7 +602,7 @@ Anna Neufeld<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"
 <li>A computer with internet to access the <strong>RStudio Virtual Environment</strong> (see below).</li>
 <li>Familiarity with <strong>base R</strong> and <strong>tidyverse</strong> syntax (e.g., <code>dplyr</code>, <code>broom</code>).</li>
 <li>Basic understanding of predictive (e.g., <code>randomForest</code>) and regression modeling (e.g., <code>lm</code>, <code>glm</code>).</li>
-<li>Exposure to Bioconductor’s <strong>ExpressionSet</strong>, <strong>AnnotationDbi</strong>, and <code>MLInterfaces</code> is helpful for the last module.</li>
+<li>Optional: Exposure to Bioconductor’s <strong>ExpressionSet</strong>, <strong>AnnotationDbi</strong>, and <code>MLInterfaces</code> is helpful for one of the supplemental modules.</li>
 </ul>
 </section>
 <section id="r-bioconductor-packages-used" class="level3">
@@ -294,8 +614,8 @@ Anna Neufeld<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"
 <li><p><em>Inference with Predicted Data:</em> <code>ipd</code></p></li>
 </ul>
 </section>
-<section id="time-outline-90-minutes" class="level3">
-<h3 class="anchored" data-anchor-id="time-outline-90-minutes">Time Outline (90 minutes)</h3>
+<section id="time-outline-105-minutes" class="level3">
+<h3 class="anchored" data-anchor-id="time-outline-105-minutes">Time Outline (105 minutes)</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -306,79 +626,79 @@ Anna Neufeld<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"
 <tbody>
 <tr class="odd">
 <td>Brief Overview of the Problem</td>
-<td>15 m</td>
+<td>30 m</td>
 </tr>
 <tr class="even">
-<td><a href="https://salernos.github.io/ipdworkshop/articles/Unit00_GettingStarted.html">Unit 00: Getting Started</a></td>
-<td>15 m</td>
+<td>Short Break</td>
+<td>5 m</td>
 </tr>
 <tr class="odd">
-<td><a href="https://salernos.github.io/ipdworkshop/articles/Unit01_RashomonQuartet.html">Unit 01: The Rashomon Quartet</a></td>
-<td>15 m</td>
+<td><a href="./content/Unit00_GettingStarted.html">Unit 00: Getting Started</a></td>
+<td>20 m</td>
 </tr>
 <tr class="even">
-<td><a href="https://salernos.github.io/ipdworkshop/articles/Unit02_BMIvDXA.html">Unit 02: Different Measures of Adiposity</a></td>
-<td>15 m</td>
+<td><a href="./content/Unit01_AlphaFold.html">Unit 01: AlphaFold</a></td>
+<td>20 m</td>
 </tr>
 <tr class="odd">
-<td><a href="https://salernos.github.io/ipdworkshop/articles/Unit03_GeneticData.html">Unit 03: BCR-ABL Fusion in B-Cell Leukemia</a></td>
-<td>15 m</td>
+<td><a href="./content/Unit02_MeasuringAdiposity.html">Unit 02: Measuring Adiposity</a></td>
+<td>20 m</td>
 </tr>
 <tr class="even">
 <td>Wrap-Up and Q&amp;A</td>
-<td>15 m</td>
+<td>10 m</td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="workshop-goals-and-objectives" class="level3">
-<h3 class="anchored" data-anchor-id="workshop-goals-and-objectives">Workshop Goals and Objectives</h3>
-<p><em>Learning Goals:</em></p>
-<ul>
-<li><strong>Understand</strong> the limitations of using predicted data for inference.</li>
-<li><strong>Learn</strong> how IPD methods adjust for bias and recover valid uncertainty estimates.</li>
-<li><strong>Gain</strong> practical skills with the <a href="https://github.com/ipd-tools/ipd"><code>ipd</code></a> R package across simulated and real datasets.</li>
-</ul>
-<p><em>Learning Objectives:</em> By the end of the workshop, participants will be able to:</p>
-<ul>
-<li><strong>Train</strong> and evaluate predictive models (LDA, neural nets, random forests) using R and Bioconductor workflows.</li>
-<li><strong>Explore</strong> data with AI/ML-predicted outcomes and diagnose bias/variance in predictions.</li>
-<li><strong>Apply</strong> <code>ipd::ipd()</code> for continuous and binary outcomes to correct inference using predicted data.</li>
-<li><strong>Interpret</strong> IPD outputs and visualize adjusted coefficient estimates with confidence intervals.</li>
-</ul>
 </section>
 </section>
 <section id="workshop-environment" class="level2">
 <h2 class="anchored" data-anchor-id="workshop-environment">Workshop Environment</h2>
 <p>The companion website for this workshop is available at:</p>
-<p><a href="https://salernos.github.io/ipdworkshop">https://salernos.github.io/ipdworkshop</a></p>
+<p><a href="https://salernos.github.io/ipd-workshop">https://salernos.github.io/ipd-workshop</a></p>
 <p>To use the workshop image:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-e</span> PASSWORD=<span class="op">&lt;</span>choose_a_password_for_rstudio<span class="op">&gt;</span> -p 8787:8787 ghcr.io/salernos/ipdworkshop:latest</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Once running, navigate to http://localhost:8787/ and then login with <code>rstudio</code>:<code>yourchosenpassword</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-e</span> PASSWORD=<span class="op">&lt;</span>choose_a_password_for_rstudio<span class="op">&gt;</span> -p 8787:8787 ghcr.io/salernos/ipdworkshop:latest</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Once running, navigate to <code>http://localhost:8787/</code> and then log in with <code>rstudio</code>:<code>yourchosenpassword</code>.</p>
+<p><strong>Presenters:</strong> Jesse Gronsbell <a href="mailto:j.gronsbell@utoronto.ca">✉︎</a>, Stephen Salerno <a href="mailto:ssalerno@fredhutch.org">✉︎</a></p>
+<p><strong>Contributors (Alphabetical Order):</strong> Awan Afiaz <a href="mailto:aafiaz@uw.edu">✉︎</a>, David Cheng <a href="mailto:dcheng@mgh.harvard.edu">✉︎</a>, Jianhui Gao <a href="mailto:jianhui.gao@mail.utoronto.ca">✉︎</a>, Jesse Gronsbell <a href="mailto:j.gronsbell@utoronto.ca">✉︎</a>, Kentaro Hoffman <a href="mailto:khoffm3@uw.edu">✉︎</a>, Jeff Leek <a href="mailto:jtleek@fredhutch.org">✉︎</a>, Qiongshi Lu <a href="mailto:qlu@biostat.wisc.edu">✉︎</a>, Tyler McCormick <a href="mailto:tylermc@uw.edu">✉︎</a>, Jiacheng Miao <a href="mailto:jmiao24@wisc.edu">✉︎</a>, Anna Neufeld <a href="mailto:acn2@williams.edu">✉︎</a>, Stephen Salerno <a href="mailto:ssalerno@fredhutch.org">✉︎</a></p>
+<p>Module card cover image note.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 
 
-</section>
+
 </section>
 
 
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p><a href="mailto:j.gronsbell@utoronto.ca">j.gronsbell@utoronto.ca</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p><a href="mailto:ssalerno@fredhutch.org">ssalerno@fredhutch.org</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p><a href="mailto:aafiaz@uw.edu">aafiaz@uw.edu</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p><a href="mailto:dcheng@mgh.harvard.edu">dcheng@mgh.harvard.edu</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p><a href="mailto:jianhui.gao@mail.utoronto.ca">jianhui.gao@mail.utoronto.ca</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p><a href="mailto:j.gronsbell@utoronto.ca">j.gronsbell@utoronto.ca</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7"><p><a href="mailto:khoffm3@uw.edu">khoffm3@uw.edu</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p><a href="mailto:jtleek@fredhutch.org">jtleek@fredhutch.org</a><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9"><p><a href="mailto:qlu@biostat.wisc.edu">qlu@biostat.wisc.edu</a><a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn10"><p><a href="mailto:tylermc@uw.edu">tylermc@uw.edu</a><a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn11"><p><a href="mailto:jmiao24@wisc.edu">jmiao24@wisc.edu</a><a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn12"><p><a href="mailto:acn2@williams.edu">acn2@williams.edu</a><a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn13"><p><a href="mailto:ssalerno@fredhutch.org">ssalerno@fredhutch.org</a><a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Module card cover images were generated by GPT-5.2.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const selector =
+      'a[href="javascript:window.quartoToggleColorScheme();"]:not(.quarto-color-scheme-toggle)';
+
+    const button = document.querySelector(selector);
+    if (!button) return;
+
+    const updateIcon = function () {
+      const isDark = document.body.classList.contains("quarto-dark");
+      button.innerHTML = isDark ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon"></i>';
+      button.title = isDark ? "Switch to Light Mode" : "Switch to Dark Mode";
+      button.setAttribute("aria-label", button.title);
+    };
+
+    updateIcon();
+
+    const observer = new MutationObserver(updateIcon);
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+
+    button.addEventListener("click", function () {
+      setTimeout(updateIcon, 0);
+    });
+  });
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -399,6 +719,150 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -471,7 +935,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/salernos\.github\.io\/ipd-workshop\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -800,6 +1264,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Jesse Gronsbell and Stephen Salerno</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/salernos/ipd-workshop/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/salernos/ipd-workshop/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Proudly built with <a href="https://www.ottrproject.org/">OTTR</a> and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
 
 
 

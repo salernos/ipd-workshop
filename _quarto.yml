@@ -1,44 +1,81 @@
 project:
   type: website
   output-dir: docs
+  resources:
+    - "content/images/**"
   
 website:
+  page-navigation: true
   title: "IPD Workshop"
-  navbar:
-    left:
-    - text: ""
-      href: index.qmd
-      icon: fa-home
-    - text: Getting Started
-      menu: 
-        - text: Workshop Material
-          href: content/Unit00_GettingStarted.qmd
-        - text: Activity
-    - text: The Rashomon Quartet
-      menu: 
-        - text: Workshop Material
-          href: content/Unit01_RashomonQuartet.qmd
-        - text: Activity
-    - text: Measuring Adiposity
-      menu: 
-        - text: Workshop Material
-          href: content/Unit02_MeasuringAdiposity.qmd
-        - text: Activity
-    - text: BCR-ABL Fusion in B-Cell Leukemia
-      menu:
-        - text: Workshop Material
-          href: content/Unit03_GeneticData.qmd
-        - text: Activity
-      
-    page-footer:
-      left: |
-        Proudly built with [OTTR](https://www.ottrproject.org/)
+  description: "Workshop Materials for Inference with Predicted Data (IPD)"
+  site-url: "https://salernos.github.io/ipd-workshop/"
 
-    center:
-      - text: © 2025 Jesse Gronsbell and Stephen Salerno
-
+  repo-url: https://github.com/salernos/ipd-workshop
+  repo-actions: [edit, issue]
+  
+  open-graph: true
+  
+  page-footer:
+    right: "Proudly built with [OTTR](https://www.ottrproject.org/) and [Quarto](https://quarto.org/)."
+    left: "&copy; Copyright 2026, Jesse Gronsbell and Stephen Salerno"
+    background: "#F4F4F4"
+  
+  sidebar:
+    #background: "#f4f4f4"
+    logo: "content/images/ipd.png"
+    pinned: true
+    align: center
+    tools:
+      - icon: moon
+        href: javascript:window.quartoToggleColorScheme();
+        text: "Toggle Dark Mode"
+      - icon: github
+        href: https://github.com/ipd-tools
+        text: "GitHub Organization"
+      - icon: code-square
+        href: https://github.com/salernos/ipd-workshop
+        text: "Source Code"
+      - icon: person-fill
+        text: "Presenters"
+        menu:
+          - text: Jesse Gronsbell, PhD
+            url: https://sites.google.com/view/jgronsbell/home
+          - text: Stephen Salerno, PhD
+            url: https://salernos.github.io/
+          
+    style: "docked"
+    search: true
+    collapse-level: 2
+    contents:
+      - section: "Modules"
+        contents:
+          - text: "Getting Started"
+            href: content/Unit00_GettingStarted.qmd
+          - text: "Proteomics with AlphaFold"
+            href: content/Unit01_AlphaFold.qmd
+          - text: "Measuring Adiposity"
+            href: content/Unit02_MeasuringAdiposity.qmd
+      - section: "Supplemental Modules"
+        contents:
+          - text: "BCR-ABL Fusion"
+            href: content/Unit03_GeneticData.qmd
+          - text: "Income Inequality"
+            href: content/Unit04_Income.qmd
+          - text: "The Rashomon Quartet"
+            href: content/Unit05_RashomonQuartet.qmd
+            
 format:
   html:
-    theme: cosmo
+    theme:
+      light: cosmo
+      dark: darkly
     css: styles.css
+    include-after-body: resources/theme-toggle-icon.html
+    #mainfont: "Atkinson Hyperlegible"
+    code-copy: true
+    code-overflow: wrap
     toc: true
+
+freeze: auto
+
+editor: source

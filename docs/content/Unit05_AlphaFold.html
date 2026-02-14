@@ -1,0 +1,2322 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Proteomic Analysis with AlphaFold – IPD Workshop</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../content/Unit04_Income.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Proteomic Analysis with AlphaFold – IPD Workshop">
+<meta property="og:description" content="Relating Protein Disorder and Post-Translational Modifications">
+<meta property="og:site_name" content="IPD Workshop">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/Unit05_AlphaFold.html">Proteomic Analysis with AlphaFold</a></li><li class="breadcrumb-item"><a href="../content/Unit05_AlphaFold.html">Workshop Material</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../content/images/ipd.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/ipd-tools" title="GitHub Organization" class="quarto-navigation-tool px-1" aria-label="GitHub Organization"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/salernos/ipd-workshop" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-code-square"></i></a>
+    <div class="dropdown">
+      <a href="" title="Presenters" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Presenters"><i class="bi bi-person-fill"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://sites.google.com/view/jgronsbell/home">
+            Jesse Gronsbell, PhD
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="">
+            Stephen Salerno, PhD
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Getting Started</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/Unit00_GettingStarted.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workshop Material</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Activity</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">The Rashomon Quartet</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/Unit01_RashomonQuartet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workshop Material</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Activity</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Measuring Adiposity</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/Unit02_MeasuringAdiposity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workshop Material</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Activity</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">BCR-ABL Fusion in B-Cell Leukemia</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/Unit03_GeneticData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workshop Material</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Activity</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Proteomic Analysis with AlphaFold</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/Unit05_AlphaFold.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Workshop Material</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Activity</span>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
+  <li><a href="#biological-motivation" id="toc-biological-motivation" class="nav-link" data-scroll-target="#biological-motivation">Biological Motivation</a></li>
+  <li><a href="#statistical-framing" id="toc-statistical-framing" class="nav-link" data-scroll-target="#statistical-framing">Statistical Framing</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives <!-- NEED TO CHECK THESE --></a></li>
+  </ul></li>
+  <li><a href="#part-i-understanding-the-dataset" id="toc-part-i-understanding-the-dataset" class="nav-link" data-scroll-target="#part-i-understanding-the-dataset">Part I: Understanding the dataset</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1-inspecting-the-alphafoldptm-dataset" id="toc-exercise-1-inspecting-the-alphafoldptm-dataset" class="nav-link" data-scroll-target="#exercise-1-inspecting-the-alphafoldptm-dataset">Exercise 1: Inspecting the AlphaFold/PTM Dataset</a></li>
+  <li><a href="#discussion-questions" id="toc-discussion-questions" class="nav-link" data-scroll-target="#discussion-questions">Discussion Questions</a></li>
+  </ul></li>
+  <li><a href="#part-iichoosing-a-ptm-and-defining-variables" id="toc-part-iichoosing-a-ptm-and-defining-variables" class="nav-link" data-scroll-target="#part-iichoosing-a-ptm-and-defining-variables">Part II:Choosing a PTM and Defining Variables</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2-creating-our-analytic-dataset" id="toc-exercise-2-creating-our-analytic-dataset" class="nav-link" data-scroll-target="#exercise-2-creating-our-analytic-dataset">Exercise 2: Creating our Analytic Dataset</a></li>
+  <li><a href="#discussion-questions-1" id="toc-discussion-questions-1" class="nav-link" data-scroll-target="#discussion-questions-1">Discussion Questions</a></li>
+  </ul></li>
+  <li><a href="#part-iii-simulating-partial-labeling" id="toc-part-iii-simulating-partial-labeling" class="nav-link" data-scroll-target="#part-iii-simulating-partial-labeling">Part III: Simulating Partial Labeling</a>
+  <ul class="collapse">
+  <li><a href="#exercise-3-creating-labeledunlabeled-splits" id="toc-exercise-3-creating-labeledunlabeled-splits" class="nav-link" data-scroll-target="#exercise-3-creating-labeledunlabeled-splits">Exercise 3: Creating Labeled/Unlabeled Splits</a></li>
+  <li><a href="#discussion-questions-2" id="toc-discussion-questions-2" class="nav-link" data-scroll-target="#discussion-questions-2">Discussion Questions</a></li>
+  </ul></li>
+  <li><a href="#part-iv-inference-methods" id="toc-part-iv-inference-methods" class="nav-link" data-scroll-target="#part-iv-inference-methods">Part IV: Inference Methods</a>
+  <ul class="collapse">
+  <li><a href="#exercise-4-running-all-methods-on-one-split" id="toc-exercise-4-running-all-methods-on-one-split" class="nav-link" data-scroll-target="#exercise-4-running-all-methods-on-one-split">Exercise 4: Running all Methods on One Split</a></li>
+  <li><a href="#discussion-questions-3" id="toc-discussion-questions-3" class="nav-link" data-scroll-target="#discussion-questions-3">Discussion Questions</a></li>
+  </ul></li>
+  <li><a href="#part-v-efficiency-experiment" id="toc-part-v-efficiency-experiment" class="nav-link" data-scroll-target="#part-v-efficiency-experiment">Part V: Efficiency Experiment</a>
+  <ul class="collapse">
+  <li><a href="#exercise-5-confidence-interval-width-vs-labeled-sample-size" id="toc-exercise-5-confidence-interval-width-vs-labeled-sample-size" class="nav-link" data-scroll-target="#exercise-5-confidence-interval-width-vs-labeled-sample-size">Exercise 5: Confidence Interval Width vs Labeled Sample Size</a></li>
+  <li><a href="#discussion-questions-4" id="toc-discussion-questions-4" class="nav-link" data-scroll-target="#discussion-questions-4">Discussion Questions</a></li>
+  <li><a href="#exercise-6-visualizing-example-intervals" id="toc-exercise-6-visualizing-example-intervals" class="nav-link" data-scroll-target="#exercise-6-visualizing-example-intervals">Exercise 6: Visualizing Example Intervals</a></li>
+  <li><a href="#discussion-questions-5" id="toc-discussion-questions-5" class="nav-link" data-scroll-target="#discussion-questions-5">Discussion Questions</a></li>
+  <li><a href="#exercise-7-average-ci-widths" id="toc-exercise-7-average-ci-widths" class="nav-link" data-scroll-target="#exercise-7-average-ci-widths">Exercise 7: Average CI Widths</a></li>
+  <li><a href="#discussion-questions-6" id="toc-discussion-questions-6" class="nav-link" data-scroll-target="#discussion-questions-6">Discussion Questions</a></li>
+  </ul></li>
+  <li><a href="#part-vi-power-analysis" id="toc-part-vi-power-analysis" class="nav-link" data-scroll-target="#part-vi-power-analysis">Part VI: Power Analysis</a>
+  <ul class="collapse">
+  <li><a href="#exercise-8-how-many-labels-do-we-need" id="toc-exercise-8-how-many-labels-do-we-need" class="nav-link" data-scroll-target="#exercise-8-how-many-labels-do-we-need">Exercise 8: How Many Labels Do We Need?</a></li>
+  <li><a href="#discussion-questions-7" id="toc-discussion-questions-7" class="nav-link" data-scroll-target="#discussion-questions-7">Discussion Questions</a></li>
+  <li><a href="#exercise-9-naive-imputation-sensitivity" id="toc-exercise-9-naive-imputation-sensitivity" class="nav-link" data-scroll-target="#exercise-9-naive-imputation-sensitivity">Exercise 9: Naive Imputation Sensitivity</a></li>
+  <li><a href="#discussion-question" id="toc-discussion-question" class="nav-link" data-scroll-target="#discussion-question">Discussion Question</a></li>
+  </ul></li>
+  <li><a href="#part-vii-biological-extensions" id="toc-part-vii-biological-extensions" class="nav-link" data-scroll-target="#part-vii-biological-extensions">Part VII: Biological Extensions</a>
+  <ul class="collapse">
+  <li><a href="#exercise-10-compare-ptms" id="toc-exercise-10-compare-ptms" class="nav-link" data-scroll-target="#exercise-10-compare-ptms">Exercise 10: Compare PTMs</a></li>
+  <li><a href="#take-home-messages" id="toc-take-home-messages" class="nav-link" data-scroll-target="#take-home-messages">Take-Home Messages</a></li>
+  </ul></li>
+  <li><a href="#next-steps-conclusions-and-summary" id="toc-next-steps-conclusions-and-summary" class="nav-link" data-scroll-target="#next-steps-conclusions-and-summary">Next Steps, Conclusions, and Summary</a>
+  <ul class="collapse">
+  <li><a href="#key-lessons" id="toc-key-lessons" class="nav-link" data-scroll-target="#key-lessons">Key Lessons</a></li>
+  <li><a href="#optional-take-home-assignment-exercise-10" id="toc-optional-take-home-assignment-exercise-10" class="nav-link" data-scroll-target="#optional-take-home-assignment-exercise-10">Optional Take-Home Assignment (Exercise 10)</a>
+  <ul class="collapse">
+  <li><a href="#exercise-10-self-guided-compare-ptms" id="toc-exercise-10-self-guided-compare-ptms" class="nav-link" data-scroll-target="#exercise-10-self-guided-compare-ptms">Exercise 10 (Self-Guided): Compare PTMs</a></li>
+  <li><a href="#biological-context" id="toc-biological-context" class="nav-link" data-scroll-target="#biological-context">Biological context</a></li>
+  <li><a href="#statistical-goal" id="toc-statistical-goal" class="nav-link" data-scroll-target="#statistical-goal">Statistical goal</a></li>
+  </ul></li>
+  <li><a href="#suggested-extensions" id="toc-suggested-extensions" class="nav-link" data-scroll-target="#suggested-extensions">Suggested Extensions</a></li>
+  <li><a href="#final-take-home-message" id="toc-final-take-home-message" class="nav-link" data-scroll-target="#final-take-home-message">Final Take-Home Message</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/salernos/ipd-workshop/edit/main/content/Unit05_AlphaFold.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/salernos/ipd-workshop/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/Unit05_AlphaFold.html">Proteomic Analysis with AlphaFold</a></li><li class="breadcrumb-item"><a href="../content/Unit05_AlphaFold.html">Workshop Material</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Proteomic Analysis with AlphaFold</h1>
+<p class="subtitle lead">Relating Protein Disorder and Post-Translational Modifications</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/alphafold.png" class="img-fluid figure-img"></p>
+<figcaption>https://www.nature.com/articles/s41586-021-03819-2</figcaption>
+</figure>
+</div>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>Modern protein biology increasingly relies on machine learning predictions. AlphaFold is an AI-powered system developed by Google DeepMind that predicts a protein’s 3D structure from its amino acid sequence with high accuracy. By utilizing deep learning and neural networks, it has modeled nearly all known proteins, accelerating research in drug discovery, disease understanding, and biotechnology.</p>
+<p>AlphaFold now provides structural annotations for essentially the entire proteome, enabling large-scale analyses that were previously impossible. However, many downstream biological questions still depend on <em>statistical inference</em>, for example, asking whether post-translational modifications (PTMs) preferentially occur in intrinsically disordered regions (IDRs).</p>
+<p>This module walks through such an analysis using the <code>ipd</code> package. You will learn how to:</p>
+<ul>
+<li>Combine ML predictions with limited ground truth</li>
+<li>Estimate odds ratios relating PTMs to disorder</li>
+<li>Compare classical inference to various IPD methods</li>
+<li>Quantify efficiency gains and power improvements from unlabeled data</li>
+</ul>
+<p>The module is designed so that you can reproduce the analysis on your own using only the provided dataset and instructions.</p>
+</section>
+<section id="biological-motivation" class="level2">
+<h2 class="anchored" data-anchor-id="biological-motivation">Biological Motivation</h2>
+<p>AlphaFold predicts 3D protein structure from sequence at near-experimental accuracy for many proteins. These predictions can be post-processed to identify IDRs, i.e., segments that do not adopt a stable fold.</p>
+<p>IDRs play central roles in signaling and regulation. They are flexible, accessible, and often enriched for short linear motifs. Many post-translational modifications, especially phosphorylation, ubiquitination, and acetylation, are hypothesized to concentrate in IDRs, supporting a model in which structural disorder enables rapid regulatory control.</p>
+<p>In this workshop, each amino acid residue has:</p>
+<ul>
+<li><code>Y</code>: A binary “gold-standard” disorder label</li>
+<li><code>Yhat</code>: A predicted probability of being disordered (derived from AlphaFold)</li>
+<li>PTM Indicators:
+<ul>
+<li><code>phosphorylated</code></li>
+<li><code>ubiquitinated</code></li>
+<li><code>acetylated</code></li>
+</ul></li>
+</ul>
+<p>Our scientific question is:</p>
+<blockquote class="blockquote">
+<p><strong>Are residues with a given PTM more likely to lie in intrinsically</strong> <strong>disordered regions?</strong></p>
+</blockquote>
+</section>
+<section id="statistical-framing" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-framing">Statistical Framing</h2>
+<p>For a chosen PTM, <code>Z</code>:</p>
+<ul>
+<li>Let <code>Z = 1</code> if the residue carries that PTM</li>
+<li>Let <code>Y = 1</code> if the residue is in an IDR</li>
+</ul>
+<p>We estimate:</p>
+<p><span class="math display">\[
+  \text{OR} = \frac{\text{Odds}(Y=1\mid Z=1)}{\text{Odds}(Y=1\mid Z=0)}
+\]</span></p>
+<p>using logistic regression.</p>
+<p>However, in practice we may have that:</p>
+<ul>
+<li><code>Y</code> is only observed on a <em>labeled</em> subset</li>
+<li><code>Yhat</code> is available everywhere</li>
+</ul>
+<p>This is exactly the setting for <em>Inference with Predicted Data (IPD)</em>.</p>
+</section>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives <!-- NEED TO CHECK THESE --></h2>
+<p>By the end of this module, you will be able to:</p>
+<ol type="1">
+<li>Construct labeled/unlabeled splits from real biological data</li>
+<li>Estimate PTM-disorder odds ratios</li>
+<li>Apply various IPD methods to draw valid inference</li>
+<li>Compare uncertainty across methods</li>
+<li>Compute labeled sample sizes required for 80% power</li>
+</ol>
+</section>
+</section>
+<section id="part-i-understanding-the-dataset" class="level1">
+<h1>Part I: Understanding the dataset</h1>
+<p>Please first load the <code>ipd</code>, <code>broom</code>, and <code>tidyverse</code> packages:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ipd)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>We have included file <code>alphafold.RData</code>, containing a tibble named <code>alphafold</code> with columns:</p>
+<ul>
+<li><code>Y</code></li>
+<li><code>Yhat</code></li>
+<li><code>phosphorylated</code></li>
+<li><code>ubiquitinated</code></li>
+<li><code>acetylated</code></li>
+</ul>
+<p>Each row corresponds to a residue.</p>
+<section id="exercise-1-inspecting-the-alphafoldptm-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1-inspecting-the-alphafoldptm-dataset">Exercise 1: Inspecting the AlphaFold/PTM Dataset</h3>
+<p>Before doing any inference, we will want to understand the data. Try loading the dataset and answering the following:</p>
+<ol type="1">
+<li>How many residues are there?</li>
+<li>What fraction are disordered?</li>
+<li>How many residues carry each PTM?</li>
+</ol>
+<p>This gives you basic biological context and sanity-checks the input.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/alphafold.RData"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(alphafold)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 10,802
+Columns: 5
+$ Y              &lt;dbl[1d]&gt; &lt;array[26]&gt;
+$ Yhat           &lt;dbl[1d]&gt; &lt;array[26]&gt;
+$ phosphorylated &lt;dbl[1d]&gt; &lt;array[26]&gt;
+$ ubiquitinated  &lt;dbl[1d]&gt; &lt;array[26]&gt;
+$ acetylated     &lt;dbl[1d]&gt; &lt;array[26]&gt;</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>alphafold <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">frac_disordered =</span> <span class="fu">mean</span>(Y, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">phosphorylated  =</span> <span class="fu">sum</span>(phosphorylated <span class="sc">==</span> <span class="dv">1</span>),</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">ubiquitinated   =</span> <span class="fu">sum</span>(ubiquitinated  <span class="sc">==</span> <span class="dv">1</span>),</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">acetylated      =</span> <span class="fu">sum</span>(acetylated     <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+      n frac_disordered phosphorylated ubiquitinated acetylated
+  &lt;int&gt;           &lt;dbl&gt;          &lt;int&gt;         &lt;int&gt;      &lt;int&gt;
+1 10802           0.177           6017          3738       1171</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We should observe that our dataset contains:</p>
+<ul>
+<li>10,802 residues, with about 18% labeled as intrinsically disordered</li>
+<li>PTMs are unevenly represented, with phosphorylation being the most common</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="discussion-questions" class="level3">
+<h3 class="anchored" data-anchor-id="discussion-questions">Discussion Questions</h3>
+<ul>
+<li>Why might experimentally validated disorder labels be scarce compared to AlphaFold predictions?</li>
+<li>How might only observing a fraction of the disorder labels affect downstream inference?</li>
+</ul>
+</section>
+</section>
+<section id="part-iichoosing-a-ptm-and-defining-variables" class="level1">
+<h1>Part II:Choosing a PTM and Defining Variables</h1>
+<p>For illustration, we will analyze one PTM at a time. For that PTM:</p>
+<ul>
+<li><code>Z</code> becomes its indicator</li>
+<li><code>Y</code> is disorder</li>
+<li><code>Yhat</code> is the AlphaFold prediction</li>
+</ul>
+<section id="exercise-2-creating-our-analytic-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2-creating-our-analytic-dataset">Exercise 2: Creating our Analytic Dataset</h3>
+<p>Let’s study <em>phosphorylation</em> first. Please create an analytic dataset from the <code>alphafold</code> data with columns:</p>
+<ul>
+<li><code>Y</code></li>
+<li><code>Yhat</code></li>
+<li><code>Z</code> (phosphorylation indicator)</li>
+</ul>
+<p>This will be the working dataset for the rest of the workshop.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ptm <span class="ot">&lt;-</span> <span class="st">"phosphorylated"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> alphafold <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Y    =</span> <span class="fu">as.integer</span>(Y),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Yhat =</span> <span class="fu">as.numeric</span>(Yhat),</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Z    =</span> <span class="fu">as.integer</span>(.data[[ptm]])</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">|&gt;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Z) <span class="sc">|&gt;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pct =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+      Z     n   pct
+  &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+1     0  4785  44.3
+2     1  6017  55.7</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Here we defined the basic analytic variables:</p>
+<ul>
+<li><code>Y</code>: True Disorder</li>
+<li><code>Yhat</code>: Predicted Disorder</li>
+<li><code>Z</code>: PTM Indicator</li>
+</ul>
+<p>We should see that <code>Z = 1</code> in approximately 56% of samples.</p>
+</div>
+</div>
+</section>
+<section id="discussion-questions-1" class="level3">
+<h3 class="anchored" data-anchor-id="discussion-questions-1">Discussion Questions</h3>
+<ul>
+<li>Why might some PTMs be easier to detect than others?</li>
+<li>How could PTM-specific detection pipelines influence our results?</li>
+</ul>
+</section>
+</section>
+<section id="part-iii-simulating-partial-labeling" class="level1">
+<h1>Part III: Simulating Partial Labeling</h1>
+<p>In practice, only a subset of residues may have trusted disorder labels. Here, we are fortunate to have ground-truth data for all of our samples. So, to study how IPD methods work in this setting, we will artificially:</p>
+<ol type="1">
+<li>Select <code>n_labeled</code> rows</li>
+<li>Keep their <code>Y</code></li>
+<li>Replace <code>Y</code> with <code>NA</code> everywhere else</li>
+</ol>
+<section id="exercise-3-creating-labeledunlabeled-splits" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3-creating-labeledunlabeled-splits">Exercise 3: Creating Labeled/Unlabeled Splits</h3>
+<p>Write a function that:</p>
+<ul>
+<li>Randomly selects <code>n_labeled</code> residues</li>
+<li>Marks them as <code>"labeled"</code></li>
+<li>Sets <code>Y = NA</code> for all others</li>
+<li>Returns a stacked dataset with a column <code>set_label</code></li>
+</ul>
+<p>This mimics limited experimental labeling.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>make_split <span class="ot">&lt;-</span> <span class="cf">function</span>(dat, n_labeled, <span class="at">seed =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(seed)) <span class="fu">set.seed</span>(seed)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  idx <span class="ot">&lt;-</span> <span class="fu">sample.int</span>(<span class="fu">nrow</span>(dat), <span class="at">size =</span> n_labeled, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  labeled <span class="ot">&lt;-</span> dat[idx, ] <span class="sc">|&gt;</span> </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">set_label =</span> <span class="st">"labeled"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  unlabeled <span class="ot">&lt;-</span> dat[<span class="sc">-</span>idx, ] <span class="sc">|&gt;</span> </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Y =</span> <span class="cn">NA_integer_</span>, <span class="at">set_label =</span> <span class="st">"unlabeled"</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(labeled, unlabeled)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>By artificially masking labels, we created a realistic experimental scenario:</p>
+<ul>
+<li>Only a small subset has true disorder labels</li>
+<li>All residues retain AlphaFold predictions</li>
+</ul>
+<p>This mirrors many modern biological pipelines, where:</p>
+<ul>
+<li>ML provides global predictions</li>
+<li>Experimental validation is expensive and sparse</li>
+</ul>
+<p>From this point forward, we will evaluate every method under this setup.</p>
+</div>
+</div>
+</section>
+<section id="discussion-questions-2" class="level3">
+<h3 class="anchored" data-anchor-id="discussion-questions-2">Discussion Questions</h3>
+<ul>
+<li>In real studies, how might labeled residues differ systematically from unlabeled ones?</li>
+<li>What assumptions are implicitly made when we randomly subsample labels?</li>
+</ul>
+</section>
+</section>
+<section id="part-iv-inference-methods" class="level1">
+<h1>Part IV: Inference Methods</h1>
+<p>We will now compare several potential methods for drawing inference:</p>
+<ul>
+<li><p>Oracle Logistic Regression (<code>Y</code> in All Samples, Not Usually Possible)</p></li>
+<li><p>Classical Logistic Regression (<code>Y</code> in Labeled Samples Only)</p></li>
+<li><p>Naive Logistic Regression (Imputed <code>Y</code> with threshold <code>Yhat</code>)</p></li>
+<li><p>IPD Methods:</p>
+<ul>
+<li>PPI</li>
+<li>PPI++</li>
+<li>PSPA</li>
+<li>Chen &amp; Chen</li>
+</ul></li>
+</ul>
+<p>We will use these approaches estimate the same OR of <code>Y</code>/<code>Yhat</code> on <code>Z</code>.</p>
+<section id="exercise-4-running-all-methods-on-one-split" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-4-running-all-methods-on-one-split">Exercise 4: Running all Methods on One Split</h3>
+<p>With <code>n_labeled = 400</code>:</p>
+<ol type="1">
+<li>Create a labeled/unlabeled split</li>
+<li>Fit the oracle logistic regression</li>
+<li>Fit the classical logistic regression</li>
+<li>Fit the naive logistic regression</li>
+<li>Fit the above IPD methods</li>
+<li>Extract the OR and confidence intervals</li>
+</ol>
+<p>and compare how wide the intervals are at a significance level of <code>alpha = 0.05</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>stacked <span class="ot">&lt;-</span> <span class="fu">make_split</span>(<span class="at">dat =</span> dat, <span class="at">n_labeled =</span> <span class="dv">400</span>, <span class="at">seed =</span> <span class="dv">12345</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>fit_oracle <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> Z, <span class="at">data =</span> dat, <span class="at">family =</span> <span class="fu">binomial</span>())</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>fit_classical <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> Z, <span class="at">data =</span> <span class="fu">filter</span>(stacked, set_label <span class="sc">==</span> <span class="st">"labeled"</span>),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                     </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>())</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>fit_naive <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">I</span>(Yhat <span class="sc">&gt;</span> <span class="fl">0.5</span>) <span class="sc">~</span> Z, <span class="at">data =</span> stacked, <span class="at">family =</span> <span class="fu">binomial</span>())</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>fit_ppi <span class="ot">&lt;-</span> <span class="fu">ipd</span>(Y <span class="sc">-</span> Yhat <span class="sc">~</span> Z, <span class="at">method =</span> <span class="st">"ppi"</span>, <span class="at">model =</span> <span class="st">"logistic"</span>, </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>               </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> stacked, <span class="at">label =</span> <span class="st">"set_label"</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>fit_plusplus <span class="ot">&lt;-</span> <span class="fu">ipd</span>(Y <span class="sc">-</span> Yhat <span class="sc">~</span> Z, <span class="at">method =</span> <span class="st">"ppi_plusplus"</span>, <span class="at">model =</span> <span class="st">"logistic"</span>, </span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>               </span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> stacked, <span class="at">label =</span> <span class="st">"set_label"</span>)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>fit_pspa <span class="ot">&lt;-</span> <span class="fu">ipd</span>(Y <span class="sc">-</span> Yhat <span class="sc">~</span> Z, <span class="at">method =</span> <span class="st">"pspa"</span>, <span class="at">model =</span> <span class="st">"logistic"</span>, </span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>               </span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> stacked, <span class="at">label =</span> <span class="st">"set_label"</span>)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="do">### CHEN AND CHEN HERE                                                           </span><span class="al">###</span><span class="do"> NEED CHEN AND CHEN</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>ex4_results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_oracle,    <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Method =</span> <span class="st">"Oracle"</span>),</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_classical, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Method =</span> <span class="st">"Classical"</span>),</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_naive,     <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Method =</span> <span class="st">"Naive"</span>),</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_ppi)                        <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Method =</span> <span class="st">"PPI"</span>),</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_plusplus)                   <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Method =</span> <span class="st">"PPI++"</span>),</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(fit_pspa)                       <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Method =</span> <span class="st">"PSPA"</span>)</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="do">### CHEN AND CHEN HERE                                                           </span><span class="al">###</span><span class="do"> NEED CHEN AND CHEN  </span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"Z"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">Method =</span> <span class="fu">factor</span>(Method) <span class="sc">|&gt;</span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>      <span class="fu">fct_relevel</span>(<span class="st">"Oracle"</span>, <span class="st">"Classical"</span>, <span class="st">"Naive"</span>, <span class="st">"PPI"</span>, <span class="st">"PPI++"</span>, <span class="st">"PSPA"</span>),       <span class="do">### NEED CHEN + CHEN</span></span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">OR  =</span> <span class="fu">exp</span>(estimate),</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">LCL =</span> <span class="fu">exp</span>(conf.low),</span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">UCL =</span> <span class="fu">exp</span>(conf.high)) <span class="sc">|&gt;</span></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Method, OR, LCL, UCL)</span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ex4_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 6
+Columns: 4
+$ Method &lt;fct&gt; Oracle, Classical, Naive, PPI, PPI++, PSPA
+$ OR     &lt;dbl&gt; 2.130875, 1.786170, 2.716635, 2.019634, 1.986547, 2.012504
+$ LCL    &lt;dbl&gt; 1.916754, 1.025458, 2.412201, 1.407421, 1.379686, 1.404529
+$ UCL    &lt;dbl&gt; 2.371509, 3.209141, 3.065175, 2.898153, 2.860340, 2.883653</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>oracle_est <span class="ot">&lt;-</span> ex4_results <span class="sc">|&gt;</span> <span class="fu">filter</span>(Method <span class="sc">==</span> <span class="st">"Oracle"</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(OR)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>ex4_results <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">covers =</span> <span class="fu">if_else</span>((LCL <span class="sc">&lt;=</span> oracle_est) <span class="sc">&amp;</span> (UCL <span class="sc">&gt;=</span> oracle_est), T, F)) <span class="sc">|&gt;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> OR, <span class="at">xmin =</span> LCL, <span class="at">xmax =</span> UCL, <span class="at">y =</span> Method, <span class="at">color =</span> covers)) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> oracle_est, <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_linerange</span>(<span class="at">linewidth =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_discrete</span>(<span class="at">limits =</span> rev) <span class="sc">+</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">palette.colors</span>(<span class="dv">4</span>)[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">+</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">"Odds Ratio (95% CI)"</span>, </span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> <span class="st">"Covers the Oracle Estimate?"</span>) <span class="sc">+</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, </span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>                              </span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>      <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">20</span>, <span class="at">unit =</span> <span class="st">"pt"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Unit05_AlphaFold_files/figure-html/ex4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This single-split comparison highlights several key behaviors:</p>
+<ul>
+<li><strong>Oracle</strong>: Uses the ground truth (often an unattainable gold standard)</li>
+<li><strong>Classical</strong>: Uses only labeled data and typically produces wider intervals</li>
+<li><strong>Naive</strong>: Treats the predictions as truth and often produces <em>anticonservative</em> intervals</li>
+<li><strong>IPD Methods</strong>: Incorporate unlabeled predictions while correcting bias and uncertainty using the labeled data.</li>
+</ul>
+<p>We should observe:</p>
+<ul>
+<li>Classical CIs that are wide</li>
+<li>Naive CIs that are too narrow</li>
+<li>IPD CIs that are in between: More efficient than the classical, but reflecting more uncertainty than the naive while covering the oracle estimate</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="discussion-questions-3" class="level3">
+<h3 class="anchored" data-anchor-id="discussion-questions-3">Discussion Questions</h3>
+<ul>
+<li>Why does the naive approach look so “good” numerically?</li>
+<li>Which method would you trust in a scientific paper and why?</li>
+<li>What would happen if <code>Yhat</code> were poorly calibrated?</li>
+</ul>
+</section>
+</section>
+<section id="part-v-efficiency-experiment" class="level1">
+<h1>Part V: Efficiency Experiment</h1>
+<p>We will now study how uncertainty changes as labeled sample size increases.</p>
+<section id="exercise-5-confidence-interval-width-vs-labeled-sample-size" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-5-confidence-interval-width-vs-labeled-sample-size">Exercise 5: Confidence Interval Width vs Labeled Sample Size</h3>
+<p>For each <code>n = {200, 400, 800, 1500, 3000}</code>, let’s:</p>
+<ul>
+<li>Repeat the experiment 20 times</li>
+<li>Record the OR confidence intervals</li>
+<li>Compute the CI widths</li>
+</ul>
+<p>We will store everything in a single results table for now so that we can inspect and plot these results in later exercises.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">200</span>, <span class="dv">400</span>, <span class="dv">800</span>, <span class="dv">1500</span>, <span class="dv">3000</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>num_trials <span class="ot">&lt;-</span> <span class="dv">1</span>                                                                  <span class="do">### Up to 20</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>run_one <span class="ot">&lt;-</span> <span class="cf">function</span>(n, t) {</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="fu">make_split</span>(dat, n, <span class="at">seed =</span> <span class="dv">1000</span> <span class="sc">+</span> n <span class="sc">+</span> t)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  fit_oracle <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> Z, <span class="at">data =</span> dat, <span class="at">family =</span> <span class="fu">binomial</span>())</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  fit_classical <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> Z, <span class="at">data =</span> <span class="fu">filter</span>(s, set_label <span class="sc">==</span> <span class="st">"labeled"</span>),</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>                     </span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="fu">binomial</span>())</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  fit_naive <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">I</span>(Yhat <span class="sc">&gt;</span> <span class="fl">0.5</span>) <span class="sc">~</span> Z, <span class="at">data =</span> s, <span class="at">family =</span> <span class="fu">binomial</span>())</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  fit_ppi <span class="ot">&lt;-</span> <span class="fu">ipd</span>(Y <span class="sc">-</span> Yhat <span class="sc">~</span> Z, <span class="at">method =</span> <span class="st">"ppi"</span>, </span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>                 </span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">"logistic"</span>, <span class="at">data =</span> s, <span class="at">label =</span> <span class="st">"set_label"</span>)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  fit_plusplus <span class="ot">&lt;-</span> <span class="fu">ipd</span>(Y <span class="sc">-</span> Yhat <span class="sc">~</span> Z, <span class="at">method =</span> <span class="st">"ppi_plusplus"</span>, </span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>                      </span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">"logistic"</span>, <span class="at">data =</span> s, <span class="at">label =</span> <span class="st">"set_label"</span>)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  fit_pspa <span class="ot">&lt;-</span> <span class="fu">ipd</span>(Y <span class="sc">-</span> Yhat <span class="sc">~</span> Z, <span class="at">method =</span> <span class="st">"pspa"</span>, </span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>                  </span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">"logistic"</span>, <span class="at">data =</span> s, <span class="at">label =</span> <span class="st">"set_label"</span>)</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>  <span class="do">### CHEN AND CHEN HERE                                                         </span><span class="al">###</span><span class="do"> NEED CHEN AND CHEN</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tidy</span>(fit_oracle,    <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Method =</span> <span class="st">"Oracle"</span>),</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tidy</span>(fit_classical, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Method =</span> <span class="st">"Classical"</span>),</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tidy</span>(fit_naive,     <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Method =</span> <span class="st">"Naive"</span>),</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tidy</span>(fit_ppi)                        <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Method =</span> <span class="st">"PPI"</span>),</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tidy</span>(fit_plusplus)                   <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Method =</span> <span class="st">"PPI++"</span>),</span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tidy</span>(fit_pspa)                       <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Method =</span> <span class="st">"PSPA"</span>)</span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>  <span class="do">### CHEN AND CHEN HERE                                                         </span><span class="al">###</span><span class="do"> NEED CHEN AND CHEN  </span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"Z"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">Method =</span> <span class="fu">factor</span>(Method) <span class="sc">|&gt;</span></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>      <span class="fu">fct_relevel</span>(<span class="st">"Oracle"</span>, <span class="st">"Classical"</span>, <span class="st">"Naive"</span>, <span class="st">"PPI"</span>, <span class="st">"PPI++"</span>, <span class="st">"PSPA"</span>),       <span class="do">### NEED CHEN + CHEN</span></span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">OR  =</span> <span class="fu">exp</span>(estimate),</span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">LCL =</span> <span class="fu">exp</span>(conf.low),</span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">UCL =</span> <span class="fu">exp</span>(conf.high),</span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> n,</span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>    <span class="at">trial =</span> t, </span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> UCL <span class="sc">-</span> LCL) <span class="sc">|&gt;</span></span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Method, OR, LCL, UCL, n, trial, width)</span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a>ex5_results <span class="ot">&lt;-</span> <span class="fu">crossing</span>(<span class="at">n =</span> ns, <span class="at">trial =</span> <span class="dv">1</span><span class="sc">:</span>num_trials) <span class="sc">|&gt;</span></span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">out =</span> <span class="fu">map2</span>(n, trial, run_one)) <span class="sc">|&gt;</span></span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(out) <span class="sc">|&gt;</span> </span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(out)</span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ex5_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 30
+Columns: 7
+$ Method &lt;fct&gt; Oracle, Classical, Naive, PPI, PPI++, PSPA, Oracle, Classical, …
+$ OR     &lt;dbl&gt; 2.130875, 2.017544, 2.716635, 2.112385, 2.112385, 2.112126, 2.1…
+$ LCL    &lt;dbl&gt; 1.9167544, 0.9386853, 2.4122014, 1.3063051, 1.3063051, 1.307842…
+$ UCL    &lt;dbl&gt; 2.371509, 4.501192, 3.065175, 3.415871, 3.415871, 3.411021, 2.3…
+$ n      &lt;dbl&gt; 200, 200, 200, 200, 200, 200, 400, 400, 400, 400, 400, 400, 800…
+$ trial  &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ width  &lt;dbl&gt; 0.4547542, 3.5625063, 0.6529739, 2.1095660, 2.1095660, 2.103179…</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We have now quantified uncertainty across many labeled sample sizes.</p>
+<p>The results table contains:</p>
+<ul>
+<li>OR Estimates</li>
+<li>Confidence Intervals</li>
+<li>CI Widths</li>
+<li>Repeated Trials</li>
+</ul>
+<p>This enables direct comparison of statistical efficiency.</p>
+<p>We should see:</p>
+<ul>
+<li>CI widths decrease as <code>n</code> increases for all methods.</li>
+<li>Classical inference shrinks slowly.</li>
+<li>PPI and especially PPI++ shrink much faster.</li>
+<li>Naive imputation remains artificially tight.</li>
+</ul>
+<p>This shows that unlabeled predictions have the potential to provide <em>additional information</em> when properly calibrated.</p>
+</div>
+</div>
+</section>
+<section id="discussion-questions-4" class="level3">
+<h3 class="anchored" data-anchor-id="discussion-questions-4">Discussion Questions</h3>
+<ul>
+<li>Why do some IPD methods typically outperform others?</li>
+<li>At small <code>n</code>, are methods variable across trials?</li>
+<li>What does this imply for pilot studies?</li>
+</ul>
+</section>
+<section id="exercise-6-visualizing-example-intervals" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-6-visualizing-example-intervals">Exercise 6: Visualizing Example Intervals</h3>
+<p>Let’s plot five random trials for <code>n = 400</code>, overlaying a reference OR computed from the full dataset (i.e., the oracle regression results).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>n_show <span class="ot">&lt;-</span> <span class="dv">400</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>ex_trials <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">unique</span>(ex5_results<span class="sc">$</span>trial), <span class="at">size =</span> <span class="dv">1</span>)                         <span class="do">### size = 5)</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>ex6_results <span class="ot">&lt;-</span> ex5_results <span class="sc">|&gt;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">==</span> n_show, trial <span class="sc">%in%</span> ex_trials) <span class="sc">|&gt;</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Method =</span> <span class="fu">factor</span>(Method) <span class="sc">|&gt;</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">fct_relevel</span>(<span class="st">"Oracle"</span>, <span class="st">"Classical"</span>, <span class="st">"Naive"</span>, <span class="st">"PPI"</span>, <span class="st">"PPI++"</span>, <span class="st">"PSPA"</span>),</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">trial =</span> <span class="fu">factor</span>(trial),</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">covers =</span> <span class="fu">if_else</span>((LCL <span class="sc">&lt;=</span> oracle_est) <span class="sc">&amp;</span> (UCL <span class="sc">&gt;=</span> oracle_est), T, F)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>ex6_results <span class="sc">|&gt;</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> OR, <span class="at">xmin =</span> LCL, <span class="at">xmax =</span> UCL, <span class="at">y =</span> Method, <span class="at">color =</span> covers)) <span class="sc">+</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> trial, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> oracle_est, <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_linerange</span>(<span class="at">linewidth =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_discrete</span>(<span class="at">limits =</span> rev) <span class="sc">+</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">palette.colors</span>(<span class="dv">4</span>)[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">+</span>  </span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">"Odds Ratio (95% CI)"</span>, </span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> <span class="st">"Covers the Oracle Estimate?"</span>) <span class="sc">+</span></span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, </span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>                              </span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>      <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">20</span>, <span class="at">unit =</span> <span class="st">"pt"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Unit05_AlphaFold_files/figure-html/ex6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We should notice:</p>
+<ul>
+<li>Classical intervals fluctuate more.</li>
+<li>Naive intervals cluster tightly, but do not cover the oracle.</li>
+<li>IPD-based intervals tend to center near the oracle, with more uncertainty.</li>
+</ul>
+<p>This illustrates an important distinction:</p>
+<blockquote class="blockquote">
+<p><strong>Precision alone is meaningless without calibration.</strong></p>
+</blockquote>
+<p>Naive methods are precise but biased. IPD methods balance both.</p>
+</div>
+</div>
+</section>
+<section id="discussion-questions-5" class="level3">
+<h3 class="anchored" data-anchor-id="discussion-questions-5">Discussion Questions</h3>
+<ul>
+<li>Which methods consistently cover the oracle?</li>
+<li>How might one diagnose miscalibration in practice?</li>
+</ul>
+</section>
+<section id="exercise-7-average-ci-widths" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-7-average-ci-widths">Exercise 7: Average CI Widths</h3>
+<p>Plot mean CI width versus <code>n</code> for all methods.</p>
+<p>Interpret:</p>
+<ul>
+<li>Which methods shrink fastest?</li>
+<li>How do IPD methods compare to classical inference?</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ex7_results <span class="ot">&lt;-</span> ex5_results <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Method, n) <span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mn =</span> <span class="fu">mean</span>(width, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>ex7_results <span class="sc">|&gt;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> mn, <span class="at">group =</span> Method, <span class="at">color =</span> Method)) <span class="sc">+</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">1.6</span>) <span class="sc">+</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> ns) <span class="sc">+</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">palette.colors</span>(<span class="dv">6</span>)) <span class="sc">+</span>                               <span class="do">### 7 with CHEN + CHEN</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">"Number of Labeled Observations (n)"</span>,</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">"Mean Confidence Interval Width"</span>) <span class="sc">+</span></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, </span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>                              </span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>        <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">20</span>, <span class="at">unit =</span> <span class="st">"pt"</span>)),</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, </span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>                              </span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>        <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">r =</span> <span class="dv">20</span>, <span class="at">unit =</span> <span class="st">"pt"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Unit05_AlphaFold_files/figure-html/ex7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This figure summarizes efficiency. Key takeaways:</p>
+<ul>
+<li>Oracle represents the best achievable precision.</li>
+<li>Classical requires far more labels to approach oracle performance.</li>
+<li>IPD methods can reduce labeled sample requirements.</li>
+</ul>
+<p>This is the operational value of IPD:</p>
+<blockquote class="blockquote">
+<p>We can sometimes improve precision with fewer labels.</p>
+</blockquote>
+</div>
+</div>
+</section>
+<section id="discussion-questions-6" class="level3">
+<h3 class="anchored" data-anchor-id="discussion-questions-6">Discussion Questions</h3>
+<ul>
+<li>When might classical inference still be preferable?</li>
+<li>Factoring in the cost per residue, how might one weigh labeling versus predicting?</li>
+</ul>
+</section>
+</section>
+<section id="part-vi-power-analysis" class="level1">
+<h1>Part VI: Power Analysis</h1>
+<p>Finally, suppose we want to test:</p>
+<p><span class="math display">\[
+  H_0: \text{OR} \le 1,
+\]</span></p>
+<p>where we reject when the <strong>lower CI bound exceeds 1</strong>.</p>
+<section id="exercise-8-how-many-labels-do-we-need" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-8-how-many-labels-do-we-need">Exercise 8: How Many Labels Do We Need?</h3>
+<p>We will now estimate the smallest <code>n_labeled</code> such that:</p>
+<ul>
+<li>PPI achieves 80% power</li>
+<li>Classical inference achieves 80% power</li>
+</ul>
+<p>and we will compare the two.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>alpha_pval <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>target_power <span class="ot">&lt;-</span> <span class="fl">0.80</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>n_experiments <span class="ot">&lt;-</span> <span class="dv">1</span>                                                               <span class="do">### Up to 100</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>run_one_ci <span class="ot">&lt;-</span> <span class="cf">function</span>(s, <span class="at">method =</span> <span class="fu">c</span>(<span class="st">"PPI"</span>, <span class="st">"Classical"</span>)) {</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  method <span class="ot">&lt;-</span> <span class="fu">match.arg</span>(method)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (method <span class="sc">==</span> <span class="st">"PPI"</span>) {</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    fit <span class="ot">&lt;-</span> <span class="fu">ipd</span>(Y <span class="sc">-</span> Yhat <span class="sc">~</span> Z, <span class="at">method =</span> <span class="st">"ppi"</span>, <span class="at">model =</span> <span class="st">"logistic"</span>,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>               </span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> s, <span class="at">label =</span> <span class="st">"set_label"</span>, <span class="at">alpha =</span> alpha_pval)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    tt <span class="ot">&lt;-</span> <span class="fu">tidy</span>(fit) <span class="sc">|&gt;</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"Z"</span>)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="at">LCL =</span> <span class="fu">exp</span>(tt<span class="sc">$</span>conf.low), <span class="at">UCL =</span> <span class="fu">exp</span>(tt<span class="sc">$</span>conf.high))</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    lab <span class="ot">&lt;-</span> s <span class="sc">|&gt;</span> <span class="fu">filter</span>(set_label <span class="sc">==</span> <span class="st">"labeled"</span>)</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>    m <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> Z, <span class="at">data =</span> lab, <span class="at">family =</span> <span class="fu">binomial</span>())</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>    tt <span class="ot">&lt;-</span> <span class="fu">tidy</span>(m, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"Z"</span>)</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="at">LCL =</span> <span class="fu">exp</span>(tt<span class="sc">$</span>conf.low), <span class="at">UCL =</span> <span class="fu">exp</span>(tt<span class="sc">$</span>conf.high))</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>power_at_n <span class="ot">&lt;-</span> <span class="cf">function</span>(n_labeled, <span class="at">method =</span> <span class="fu">c</span>(<span class="st">"PPI"</span>, <span class="st">"Classical"</span>)) {</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>  method <span class="ot">&lt;-</span> <span class="fu">match.arg</span>(method)</span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>  rej <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_experiments, {</span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>    s <span class="ot">&lt;-</span> <span class="fu">make_split</span>(dat, <span class="at">n_labeled =</span> n_labeled)</span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>    ci <span class="ot">&lt;-</span> <span class="fu">run_one_ci</span>(s, <span class="at">method =</span> method)</span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (method <span class="sc">==</span> <span class="st">"PPI"</span>) {</span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.integer</span>(ci[[<span class="st">"LCL.Z"</span>]] <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.integer</span>(ci[[<span class="st">"LCL"</span>]] <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(rej)</span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>n_grid <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">unique</span>(<span class="fu">round</span>(<span class="fu">seq</span>(<span class="dv">50</span>, <span class="dv">1200</span>, <span class="at">by =</span> <span class="dv">50</span>))))</span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a>power_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> n_grid,</span>
+<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a>  <span class="at">ppi =</span> <span class="fu">map_dbl</span>(n_grid, <span class="sc">~</span> <span class="fu">power_at_n</span>(.x, <span class="st">"PPI"</span>)),</span>
+<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a>  <span class="at">classical =</span> <span class="fu">map_dbl</span>(n_grid, <span class="sc">~</span> <span class="fu">power_at_n</span>(.x, <span class="st">"Classical"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>n, <span class="at">names_to =</span> <span class="st">"Method"</span>, <span class="at">values_to =</span> <span class="st">"Power"</span>)</span>
+<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a>power_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 48 × 3
+       n Method    Power
+   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
+ 1    50 ppi           0
+ 2    50 classical     0
+ 3   100 ppi           0
+ 4   100 classical     0
+ 5   150 ppi           1
+ 6   150 classical     0
+ 7   200 ppi           0
+ 8   200 classical     0
+ 9   250 ppi           1
+10   250 classical     0
+# ℹ 38 more rows</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>n80 <span class="ot">&lt;-</span> power_tbl <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Method) <span class="sc">|&gt;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Power <span class="sc">&gt;=</span> target_power) <span class="sc">|&gt;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n_for_80 =</span> <span class="fu">ifelse</span>(<span class="fu">n</span>() <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA_integer_</span>, <span class="fu">min</span>(n)), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>n80</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  Method    n_for_80
+  &lt;chr&gt;        &lt;dbl&gt;
+1 classical      350
+2 ppi            150</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>power_tbl <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> Power, <span class="at">color =</span> Method)) <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> target_power, <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> n_grid) <span class="sc">+</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">palette.colors</span>(<span class="dv">3</span>)[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">+</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">"Number of Labeled Observations (n)"</span>,</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">"Estimated Power"</span>) <span class="sc">+</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, </span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>                              </span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">20</span>, <span class="at">unit =</span> <span class="st">"pt"</span>)),</span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, </span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>                              </span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>        <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">r =</span> <span class="dv">20</span>, <span class="at">unit =</span> <span class="st">"pt"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Unit05_AlphaFold_files/figure-html/ex8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We should observe:</p>
+<ul>
+<li>Classical inference requires more labels to reach 80% power.</li>
+<li>PPI reaches the same power with fewer labels.</li>
+</ul>
+<p>This translates directly into experimental design:</p>
+<blockquote class="blockquote">
+<p>IPD can potentially reduces sample size requirements for discovery.</p>
+</blockquote>
+</div>
+</div>
+</section>
+<section id="discussion-questions-7" class="level3">
+<h3 class="anchored" data-anchor-id="discussion-questions-7">Discussion Questions</h3>
+<ul>
+<li>How could this change how we design wet lab validation studies?</li>
+<li>What risks arise if <code>Yhat</code> is systematically biased?</li>
+</ul>
+</section>
+<section id="exercise-9-naive-imputation-sensitivity" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-9-naive-imputation-sensitivity">Exercise 9: Naive Imputation Sensitivity</h3>
+<p>To impute <code>Y</code>, we previously used a value of <code>0.5</code> to threshold the predicted probabilities from AlphaFold. We can also repeat this experiment and vary the naive imputations with thresholds of 0.2, 0.4, 0.6, and 0.8.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>thresholds <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.2</span>, <span class="fl">0.8</span>, <span class="fl">0.2</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>naive_by_threshold <span class="ot">&lt;-</span> <span class="cf">function</span>(thr) {</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">I</span>(Yhat <span class="sc">&gt;</span> thr) <span class="sc">~</span> Z, <span class="at">data =</span> dat, <span class="at">family =</span> <span class="fu">binomial</span>())</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(m, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"Z"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">transmute</span>(</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">threshold =</span> thr,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">OR =</span> <span class="fu">exp</span>(estimate),</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">LCL =</span> <span class="fu">exp</span>(conf.low),</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">UCL =</span> <span class="fu">exp</span>(conf.high),</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">width =</span> UCL <span class="sc">-</span> LCL</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>ex9_results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="fu">lapply</span>(thresholds, naive_by_threshold))</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>ex9_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 5
+  threshold    OR   LCL   UCL width
+      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1       0.2  2.24  2.03  2.48 0.449
+2       0.4  2.58  2.30  2.89 0.589
+3       0.6  2.80  2.47  3.18 0.713
+4       0.8  2.91  2.52  3.36 0.841</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ex9_results <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> OR, <span class="at">xmin =</span> LCL, <span class="at">xmax =</span> UCL, <span class="at">y =</span> threshold)) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_linerange</span>(<span class="at">linewidth =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="fu">palette.colors</span>(<span class="dv">3</span>)[<span class="dv">3</span>]) <span class="sc">+</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> thresholds) <span class="sc">+</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">"Odds Ratio (95% CI)"</span>, </span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">"Threshold for Yhat -&gt; Binary Label"</span>) <span class="sc">+</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, </span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>                              </span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">20</span>, <span class="at">unit =</span> <span class="st">"pt"</span>)),</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, </span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a>                              </span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>        <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">r =</span> <span class="dv">20</span>, <span class="at">unit =</span> <span class="st">"pt"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Unit05_AlphaFold_files/figure-html/ex9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="discussion-question" class="level3">
+<h3 class="anchored" data-anchor-id="discussion-question">Discussion Question</h3>
+<ul>
+<li>Why do the OR estimates change?</li>
+</ul>
+</section>
+</section>
+<section id="part-vii-biological-extensions" class="level1">
+<h1>Part VII: Biological Extensions</h1>
+<section id="exercise-10-compare-ptms" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-10-compare-ptms">Exercise 10: Compare PTMs</h3>
+<p>Repeat the entire workflow for:</p>
+<ul>
+<li>phosphorylation</li>
+<li>ubiquitination</li>
+<li>acetylation</li>
+</ul>
+<p>Which PTM shows the strongest enrichment in disorder?</p>
+</section>
+<section id="take-home-messages" class="level2">
+<h2 class="anchored" data-anchor-id="take-home-messages">Take-Home Messages</h2>
+<p>AlphaFold enables proteome-scale structural annotation—but statistical inference still matters.</p>
+<p>By combining:</p>
+<ul>
+<li>ML predictions (<code>Yhat</code>)</li>
+<li>limited truth (<code>Y</code>)</li>
+<li>IPD methodology</li>
+</ul>
+<p>you can:</p>
+<ul>
+<li>retain valid uncertainty</li>
+<li>dramatically reduce labeling requirements</li>
+<li>make principled biological conclusions at scale.</li>
+</ul>
+<p>This paradigm generalizes far beyond protein disorder—to any setting where ML predictions feed into downstream scientific inference.</p>
+</section>
+</section>
+<section id="next-steps-conclusions-and-summary" class="level1">
+<h1>Next Steps, Conclusions, and Summary</h1>
+<section id="key-lessons" class="level2">
+<h2 class="anchored" data-anchor-id="key-lessons">Key Lessons</h2>
+<p>This module demonstrates a general paradigm:</p>
+<ol type="1">
+<li>Use ML to generate predictions at scale.</li>
+<li>Collect limited ground truth data.</li>
+<li>Apply IPD to recover valid inference.</li>
+</ol>
+<p>In this AlphaFold/PTM application, we saw that:</p>
+<ul>
+<li>Classical methods waste information.</li>
+<li>Naive imputation is overconfident.</li>
+<li>PPI-style approaches preserve validity while dramatically improving efficiency.</li>
+</ul>
+<p>This pattern appears across modern science:</p>
+<ul>
+<li>medical imaging</li>
+<li>genomics</li>
+<li>remote sensing</li>
+<li>clinical risk modeling</li>
+</ul>
+<p>Anywhere predictions feed downstream analysis, IPD applies.</p>
+<hr>
+</section>
+<section id="optional-take-home-assignment-exercise-10" class="level2">
+<h2 class="anchored" data-anchor-id="optional-take-home-assignment-exercise-10">Optional Take-Home Assignment (Exercise 10)</h2>
+<section id="exercise-10-self-guided-compare-ptms" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-10-self-guided-compare-ptms">Exercise 10 (Self-Guided): Compare PTMs</h3>
+<p>Repeat the full workflow for:</p>
+<ul>
+<li>phosphorylation</li>
+<li>ubiquitination</li>
+<li>acetylation</li>
+</ul>
+<p>Compare:</p>
+<ul>
+<li>estimated ORs</li>
+<li>CI widths</li>
+<li>required sample sizes</li>
+</ul>
+</section>
+<section id="biological-context" class="level3">
+<h3 class="anchored" data-anchor-id="biological-context">Biological context</h3>
+<p>Different PTMs play distinct regulatory roles:</p>
+<ul>
+<li>Phosphorylation is often associated with signaling</li>
+<li>Ubiquitination with degradation</li>
+<li>Acetylation with chromatin regulation</li>
+</ul>
+<p>You may find that:</p>
+<ul>
+<li>Some PTMs are more enriched in disorder</li>
+<li>Some show weaker or noisier associations</li>
+</ul>
+</section>
+<section id="statistical-goal" class="level3">
+<h3 class="anchored" data-anchor-id="statistical-goal">Statistical goal</h3>
+<p>Assess whether:</p>
+<ul>
+<li>effect sizes differ across PTMs</li>
+<li>labeling efficiency gains persist</li>
+<li>conclusions are robust</li>
+</ul>
+<p>This mirrors real exploratory proteomics.</p>
+<hr>
+</section>
+</section>
+<section id="suggested-extensions" class="level2">
+<h2 class="anchored" data-anchor-id="suggested-extensions">Suggested Extensions</h2>
+<p>If you continue this work:</p>
+<ul>
+<li>Add protein-level clustering (robust SEs)</li>
+<li>Include covariates (amino acid type, position)</li>
+<li>Compare PPI vs PPI++</li>
+<li>Inject noise into <code>Yhat</code> to study robustness</li>
+<li>Apply to another ML-derived phenotype</li>
+</ul>
+<hr>
+<hr>
+</section>
+<section id="final-take-home-message" class="level2">
+<h2 class="anchored" data-anchor-id="final-take-home-message">Final Take-Home Message</h2>
+<p>AlphaFold enables proteome-scale prediction.</p>
+<p>IPD enables <strong>proteome-scale inference</strong>.</p>
+<p>Together, they allow you to turn predictions into scientifically valid conclusions—without labeling everything.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/salernos\.github\.io\/ipd-workshop\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../content/Unit04_Income.html" class="pagination-link" aria-label="Workshop Material">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Workshop Material</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2025, Jesse Gronsbell and Stephen Salerno</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/salernos/ipd-workshop/edit/main/content/Unit05_AlphaFold.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/salernos/ipd-workshop/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Proudly built with <a href="https://www.ottrproject.org/">OTTR</a> and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

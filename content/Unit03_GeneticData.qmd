@@ -1,6 +1,21 @@
 ---
-title: "Unit 03: BCR-ABL Fusion in B-Cell Leukemia"
-format: html
+title: "BCR-ABL Fusion"
+subtitle: "in B-Cell Leukemia"
+description:  |
+  Study BCR-ABL prediction from gene-expression profiles and evaluate how 
+  IPD methods calibrate downstream inference in genomics.
+image: images/genetics_cover.png
+unit: 0
+core: true
+format:
+  html:
+    toc: true
+    number-sections: false
+    code-fold: true
+    code-tools: false
+execute:
+  warning: false
+  message: false
 ---
 
 ```{r setup, include=FALSE}

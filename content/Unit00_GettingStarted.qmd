@@ -1,9 +1,24 @@
 ---
-title: "Unit 00: Getting Started"
-format: html
+title: "Getting Started"
+subtitle: "Inference with Predicted Data"
+description:  |
+  Build intuition for inference with predicted data by simulating 
+  labeled/unlabeled sets and comparing naive, classical, and IPD estimators.
+image: images/ipd_cover.png
+unit: 0
+core: true
+format:
+  html:
+    toc: true
+    number-sections: false
+    code-fold: true
+    code-tools: false
+execute:
+  warning: false
+  message: false
 ---
 
-## Overview
+# Overview
 
 Welcome to this workshop on *Inference with Predicted Data (IPD)*! In this 
 module, we will:
@@ -14,6 +29,13 @@ module, we will:
 * Inspect results using built-in `tidy`, `glance`, and `augment` methods.
 
 Throughout the workshop, exercises are provided with solutions for practice.
+
+::: {.column-margin}
+
+**Margin Note:** Unit 00 intentionally uses 'toy' synthetic data. The goal is 
+to make the workflow concrete before we move to real data motivating IPD.
+
+:::
 
 ## Background and Motivation
 

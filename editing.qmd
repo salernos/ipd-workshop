@@ -1,6 +1,5 @@
 ---
 title: "Editing"
-output: html_document
 ---
 
 Now that your website is alive and hosted, how do you start customizing it to have your content?

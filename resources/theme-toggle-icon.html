@@ -1,0 +1,25 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const selector =
+      'a[href="javascript:window.quartoToggleColorScheme();"]:not(.quarto-color-scheme-toggle)';
+
+    const button = document.querySelector(selector);
+    if (!button) return;
+
+    const updateIcon = function () {
+      const isDark = document.body.classList.contains("quarto-dark");
+      button.innerHTML = isDark ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon"></i>';
+      button.title = isDark ? "Switch to Light Mode" : "Switch to Dark Mode";
+      button.setAttribute("aria-label", button.title);
+    };
+
+    updateIcon();
+
+    const observer = new MutationObserver(updateIcon);
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+
+    button.addEventListener("click", function () {
+      setTimeout(updateIcon, 0);
+    });
+  });
+</script>

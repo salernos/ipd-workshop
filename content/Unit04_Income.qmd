@@ -1,0 +1,385 @@
+---
+title: "Income Inequality"
+subtitle: "Predicting Earnings with Age Effects"
+description:  |
+  Use census-style features to predict income and perform valid OLS inference 
+  on age effects with mixed labeled and unlabeled data.
+image: images/income_cover.png
+unit: 0
+core: true
+format:
+  html:
+    toc: true
+    number-sections: false
+    code-fold: true
+    code-tools: false
+execute:
+  warning: false
+  message: false
+---
+
+## Learning Objectives
+
+By the end of this module you will be able to:
+
+1. Set up labeled vs unlabeled splits when **income is predicted** but only some true incomes are observed.
+2. Estimate the **OLS coefficient for age** while controlling for sex.
+3. Use `ipd()` for:
+   - `postpi_analytic`, `ppi`, `ppi_plusplus`, `pspa`, `chen`
+4. Compare CI widths across labeled sample sizes.
+5. Run a power experiment to find the smallest labeled `n` achieving **80% power** for a one-sided null.
+
+::: {.callout-note collapse="true"}
+## Background + references (foldable)
+
+The `ipd` package provides a unified `ipd()` interface for inference when outcomes are partially predicted (e.g., ML predictions available broadly, true labels only on a subset). This module mirrors a Folktables/Census income setup where predictions are generated via gradient boosting (e.g., XGBoost), but the inferential target is a downstream **linear regression coefficient**.
+:::
+
+## 1. Setup
+
+### Packages
+
+```{r, eval=FALSE}
+# install.packages("ipd")
+library(ipd)
+
+library(tidyverse)
+```
+
+### Data: expected columns
+
+We assume a dataset with:
+
+* `Y`: true yearly income (numeric), observed for labeled subset
+* `Yhat`: predicted income (numeric), observed for everyone
+* covariates: `age` (numeric) and `sex` (binary or factor)
+* (optional) other covariates
+
+::: {.callout-important}
+
+## Plug in your real dataset
+
+NEED REAL DATA
+:::
+
+```{r, eval=FALSE}
+#| label: load-or-simulate
+use_simulated <- TRUE
+
+if (!use_simulated) {
+  dat_full <- read.csv("data/census_income_ca2019.csv")
+  stopifnot(all(c("Y","Yhat","age","sex") %in% names(dat_full)))
+  dat_full <- as_tibble(dat_full)
+} else {
+  set.seed(1)
+  n <- 15000
+
+  # Simulate: income depends on age and sex
+  sex <- rbinom(n, 1, 0.48)
+  age <- pmin(pmax(round(rnorm(n, mean = 42, sd = 12)), 18), 80)
+
+  # True income model (linear signal + noise)
+  beta0 <- 15000
+  beta_age <- 900          # target coefficient ~ 900 dollars/year per year of age
+  beta_sex <- 6000         # illustrative
+  eps <- rnorm(n, sd = 20000)
+
+  Y <- beta0 + beta_age * age + beta_sex * sex + eps
+
+  # Predicted income: biased/noisy proxy (as if from an ML model trained on prior year)
+  Yhat <- Y + rnorm(n, sd = 12000) + 1500   # add some bias
+
+  dat_full <- tibble(Y = Y, Yhat = Yhat, age = age, sex = sex)
+}
+
+# Build the downstream design variables.
+dat_full <- dat_full %>%
+  mutate(
+    sex = factor(sex, levels = c(0,1), labels = c("F","M"))
+  )
+```
+
+## 2. Labeled vs unlabeled splits
+
+We create a stacked dataset where the unlabeled rows have `Y = NA` but retain `Yhat` and covariates.
+
+```{r, eval=FALSE}
+#| label: split-helper
+make_split <- function(dat, n_labeled, seed = NULL) {
+  if (!is.null(seed)) set.seed(seed)
+
+  idx <- sample.int(nrow(dat), size = n_labeled, replace = FALSE)
+  labeled   <- dat[idx, ] %>% mutate(set_label = "labeled")
+  unlabeled <- dat[-idx,] %>% mutate(Y = NA_real_, set_label = "unlabeled")
+
+  bind_rows(labeled, unlabeled)
+}
+```
+
+## 3. Fit many methods with `ipd()`
+
+We target the coefficient on `age` in:
+
+`Y ~ age + sex`
+
+With `ipd`, we write:
+
+`Y - Yhat ~ age + sex`  (where `Yhat` is the prediction) ([rdrr.io](https://rdrr.io/cran/ipd/man/ipd.html))
+
+```{r, eval=FALSE}
+#| label: fitters
+fit_ipd_methods <- function(stacked_df, alpha = 0.05, n_t = Inf) {
+
+  methods <- c("postpi_analytic", "postpi_boot", "ppi", "ppi_plusplus", "pspa")
+
+  fits <- map(methods, ~ ipd(
+    formula = Y - Yhat ~ age + sex,
+    method  = .x,
+    model   = "linear",
+    data    = stacked_df,
+    label   = "set_label",
+    alpha   = alpha,
+    n_t     = n_t,
+    alternative = "two-sided"
+  ))
+
+  names(fits) <- methods
+  fits
+}
+
+fit_classical_labeled <- function(stacked_df, alpha = 0.05) {
+  labeled <- stacked_df %>% filter(set_label == "labeled")
+  m <- lm(Y ~ age + sex, data = labeled)
+
+  est <- coef(m)[["age"]]
+  se  <- sqrt(vcov(m)[["age","age"]])
+  tcrit <- qt(1 - alpha/2, df = df.residual(m))
+  ci_beta <- c(est - tcrit*se, est + tcrit*se)
+
+  list(
+    coefficients = coef(m),
+    se = sqrt(diag(vcov(m))),
+    ci = rbind(age = ci_beta),
+    fit = m
+  )
+}
+
+fit_naive_imputation <- function(stacked_df, alpha = 0.05) {
+  # naive: treat Yhat as if it were Y and run standard OLS
+  m <- lm(Yhat ~ age + sex, data = stacked_df)
+
+  est <- coef(m)[["age"]]
+  se  <- sqrt(vcov(m)[["age","age"]])
+  tcrit <- qt(1 - alpha/2, df = df.residual(m))
+  ci_beta <- c(est - tcrit*se, est + tcrit*se)
+
+  list(
+    coefficients = coef(m),
+    se = sqrt(diag(vcov(m))),
+    ci = rbind(age = ci_beta),
+    fit = m
+  )
+}
+
+extract_ci_for_term <- function(fit_obj, term = "age") {
+  # ipd objects have $ci as matrix; baselines mimic that structure
+  ci <- fit_obj$ci[term, ]
+  c(lower = ci[1], upper = ci[2])
+}
+```
+
+## 4. CI experiment: width vs labeled sample size
+
+This mirrors your Python loop over `ns` and `num_trials`, storing `lower`, `upper`, `width`.
+
+```{r, eval=FALSE}
+#| label: run-ci-experiment
+alpha <- 0.05
+ns <- as.integer(seq(100, 2000, length.out = 10))
+num_trials <- 100
+
+# Truth from the fully-labeled benchmark dataset (only for evaluation)
+true_theta <- coef(lm(Y ~ age + sex, data = dat_full))[["age"]]
+
+run_one <- function(n_labeled, trial) {
+  stacked <- make_split(dat_full, n_labeled = n_labeled, seed = 10000 + 10*n_labeled + trial)
+
+  ipd_fits <- fit_ipd_methods(stacked, alpha = alpha)
+  classical <- fit_classical_labeled(stacked, alpha = alpha)
+  naive_imp <- fit_naive_imputation(stacked, alpha = alpha)
+
+  rows <- list(
+    tibble(method = names(ipd_fits)) %>%
+      mutate(ci = map(ipd_fits, extract_ci_for_term)) %>%
+      unnest_wider(ci),
+
+    tibble(method = "classical") %>%
+      mutate(!!!extract_ci_for_term(classical)),
+
+    tibble(method = "imputation") %>%
+      mutate(!!!extract_ci_for_term(naive_imp))
+  )
+
+  bind_rows(rows) %>%
+    mutate(n = n_labeled, trial = trial, width = upper - lower)
+}
+
+res_ci <- crossing(n = ns, trial = seq_len(num_trials)) %>%
+  mutate(out = map2(n, trial, run_one)) %>%
+  select(out) %>%
+  unnest(out)
+```
+
+### Plot 1: example intervals (5 random trials)
+
+```{r, eval=FALSE}
+#| label: plot-example-intervals
+set.seed(123)
+example_trials <- sample(unique(res_ci$trial), size = 5)
+
+ex <- res_ci %>%
+  filter(trial %in% example_trials, n == ns[2]) %>%
+  mutate(method = factor(method, levels = c("classical","imputation","postpi_analytic","postpi_boot","ppi","ppi_plusplus","pspa")))
+
+ggplot(ex, aes(y = method, x = (lower + upper)/2, xmin = lower, xmax = upper)) +
+  geom_vline(xintercept = true_theta, linetype = 2) +
+  geom_errorbarh(height = 0.2) +
+  geom_point(size = 1.8) +
+  labs(
+    title = paste0("Age coefficient CIs (n_labeled = ", ns[2], ", 5 random trials)"),
+    x = "OLS coefficient on age (dollars/year per year of age)",
+    y = NULL,
+    caption = "Dashed line = benchmark OLS coefficient from the full labeled data."
+  ) +
+  theme_bw()
+```
+
+### Plot 2: average CI width vs n
+
+```{r, eval=FALSE}
+#| label: plot-widths
+avg_width <- res_ci %>%
+  group_by(method, n) %>%
+  summarize(mean_width = mean(width, na.rm = TRUE), .groups = "drop")
+
+ggplot(avg_width, aes(x = n, y = mean_width, group = method)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    title = "Average CI width vs labeled sample size",
+    x = "Number of labeled observations",
+    y = "Mean CI width (coefficient scale)"
+  ) +
+  theme_bw()
+```
+
+::: {.callout-tip}
+
+## Interpretation checklist
+
+* If `ppi` / `ppi_plusplus` CIs are **narrower** than classical at the same `n`, you’re leveraging unlabeled predictions to reduce variance while staying valid.
+* `imputation` often looks appealing but can be biased and anti-conservative (too narrow).
+  :::
+
+## 5. Power experiment: smallest n for 80% power
+
+We test the one-sided null:
+
+[
+H_0: \theta^* < 800
+]
+
+Reject if the **lower CI bound > 800**.
+
+```{r, eval=FALSE}
+#| label: power-experiment
+alpha_pval <- alpha
+num_experiments <- 100
+threshold <- 800
+
+power_at_n <- function(n_labeled, method = c("ppi","classical")) {
+  method <- match.arg(method)
+
+  rej <- replicate(num_experiments, {
+    stacked <- make_split(dat_full, n_labeled = n_labeled)
+
+    if (method == "ppi") {
+      fit <- ipd(
+        Y - Yhat ~ age + sex,
+        method = "ppi",
+        model = "linear",
+        data = stacked,
+        label = "set_label",
+        alpha = alpha_pval,
+        alternative = "one-sided"
+      )
+      ci <- extract_ci_for_term(fit, term = "age")
+      as.integer(ci["lower"] > threshold)
+    } else {
+      fit <- fit_classical_labeled(stacked, alpha = alpha_pval)
+      ci <- extract_ci_for_term(fit, term = "age")
+      as.integer(ci["lower"] > threshold)
+    }
+  })
+
+  mean(rej)
+}
+
+find_n_for_power <- function(method = c("ppi","classical"),
+                             n_min = 100, n_max = 2000, target = 0.80) {
+  method <- match.arg(method)
+
+  f <- function(n) power_at_n(as.integer(n), method = method) - target
+
+  grid <- unique(round(seq(n_min, n_max, length.out = 20)))
+  vals <- map_dbl(grid, f)
+
+  if (all(vals < 0)) return(NA_integer_)
+  if (all(vals > 0)) return(n_min)
+
+  i <- which(vals >= 0)[1]
+  lo <- grid[max(1, i-1)]
+  hi <- grid[i]
+
+  as.integer(uniroot(f, lower = lo, upper = hi)$root)
+}
+
+n_ppi <- find_n_for_power("ppi", n_min = 100, n_max = 2000)
+n_cls <- find_n_for_power("classical", n_min = 100, n_max = 2000)
+
+tibble(
+  method = c("ppi","classical"),
+  n_for_80_power = c(n_ppi, n_cls)
+)
+```
+
+## 6. Exercises
+
+::: {.callout-warning}
+
+## Exercise 1 (core): change target coefficient
+
+Change the null threshold from 800 to 600 or 1000:
+
+* How does the required labeled `n` change?
+* Does PPI keep a consistent advantage over classical?
+  :::
+
+::: {.callout-warning collapse="true"}
+
+## Exercise 2 (intermediate): add interactions
+
+Fit:
+
+`Y - Yhat ~ age * sex`
+
+Interpret the age effect for each sex and compare how much unlabeled data helps in each subgroup.
+:::
+
+::: {.callout-warning collapse="true"}
+
+## Exercise 3 (advanced): heteroskedastic-robust SEs
+
+Modify the classical baseline to use robust (HC) SEs (e.g., `sandwich::vcovHC`) and compare with IPD methods.
+Discuss what changes you expect when prediction errors vary with age.
+:::

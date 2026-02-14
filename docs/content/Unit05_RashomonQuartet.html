@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Examine how equally predictive models can yield different scientific conclusions and compare naive, classical, and IPD-based inference.">
+
+<title>The Rashomon Quartet – IPD Workshop</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../content/Unit04_Income.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="The Rashomon Quartet – IPD Workshop">
+<meta property="og:description" content="Examine how equally predictive models can yield different scientific conclusions and compare naive, classical, and IPD-based inference.">
+<meta property="og:image" content="https://salernos.github.io/ipd-workshop/content/images/rashomon_cover.png">
+<meta property="og:site_name" content="IPD Workshop">
+<meta property="og:image:height" content="1024">
+<meta property="og:image:width" content="1536">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/Unit03_GeneticData.html">Supplemental Modules</a></li><li class="breadcrumb-item"><a href="../content/Unit05_RashomonQuartet.html">The Rashomon Quartet</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../content/images/ipd.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="javascript:window.quartoToggleColorScheme();" title="Toggle Dark Mode" class="quarto-navigation-tool px-1" aria-label="Toggle Dark Mode"><i class="bi bi-moon"></i></a>
+    <a href="https://github.com/ipd-tools" title="GitHub Organization" class="quarto-navigation-tool px-1" aria-label="GitHub Organization"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/salernos/ipd-workshop" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-code-square"></i></a>
+    <div class="dropdown">
+      <a href="" title="Presenters" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Presenters"><i class="bi bi-person-fill"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://sites.google.com/view/jgronsbell/home">
+            Jesse Gronsbell, PhD
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://salernos.github.io/">
+            Stephen Salerno, PhD
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Modules</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/Unit00_GettingStarted.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/Unit01_AlphaFold.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Proteomics with AlphaFold</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/Unit02_MeasuringAdiposity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Measuring Adiposity</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Supplemental Modules</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/Unit03_GeneticData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCR-ABL Fusion</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/Unit04_Income.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Income Inequality</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/Unit05_RashomonQuartet.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">The Rashomon Quartet</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#background-on-the-rashomon-quartet" id="toc-background-on-the-rashomon-quartet" class="nav-link" data-scroll-target="#background-on-the-rashomon-quartet">Background on the Rashomon Quartet</a></li>
+  <li><a href="#setup-and-data" id="toc-setup-and-data" class="nav-link" data-scroll-target="#setup-and-data">Setup and Data</a>
+  <ul class="collapse">
+  <li><a href="#read-in-the-training-and-testing-data" id="toc-read-in-the-training-and-testing-data" class="nav-link" data-scroll-target="#read-in-the-training-and-testing-data">Read-In the Training and Testing Data</a></li>
+  </ul></li>
+  <li><a href="#predictive-model-training-on-the-training-set" id="toc-predictive-model-training-on-the-training-set" class="nav-link" data-scroll-target="#predictive-model-training-on-the-training-set">Predictive Model Training on the Training Set</a></li>
+  <li><a href="#inspecting-the-prediction-models" id="toc-inspecting-the-prediction-models" class="nav-link" data-scroll-target="#inspecting-the-prediction-models">Inspecting the Prediction Models</a>
+  <ul class="collapse">
+  <li><a href="#decision-tree-visualization" id="toc-decision-tree-visualization" class="nav-link" data-scroll-target="#decision-tree-visualization">Decision Tree Visualization</a></li>
+  <li><a href="#linear-regression-summary" id="toc-linear-regression-summary" class="nav-link" data-scroll-target="#linear-regression-summary">Linear Regression Summary</a></li>
+  <li><a href="#random-forest-summary" id="toc-random-forest-summary" class="nav-link" data-scroll-target="#random-forest-summary">Random Forest Summary</a></li>
+  <li><a href="#neural-network-topology" id="toc-neural-network-topology" class="nav-link" data-scroll-target="#neural-network-topology">Neural Network Topology</a></li>
+  </ul></li>
+  <li><a href="#variable-importance-dalex" id="toc-variable-importance-dalex" class="nav-link" data-scroll-target="#variable-importance-dalex">Variable Importance (<code>DALEX</code>)</a></li>
+  <li><a href="#partial-dependence-plots-dalex" id="toc-partial-dependence-plots-dalex" class="nav-link" data-scroll-target="#partial-dependence-plots-dalex">Partial-Dependence Plots (<code>DALEX</code>)</a></li>
+  <li><a href="#inference-with-predicted-data-ipd" id="toc-inference-with-predicted-data-ipd" class="nav-link" data-scroll-target="#inference-with-predicted-data-ipd">Inference with Predicted Data (IPD)</a>
+  <ul class="collapse">
+  <li><a href="#plotting-the-model-estimates" id="toc-plotting-the-model-estimates" class="nav-link" data-scroll-target="#plotting-the-model-estimates">Plotting The Model Estimates</a></li>
+  </ul></li>
+  <li><a href="#data-distribution-train-vs-test-ggallyggpairs" id="toc-data-distribution-train-vs-test-ggallyggpairs" class="nav-link" data-scroll-target="#data-distribution-train-vs-test-ggallyggpairs">Data Distribution: Train vs Test (<code>GGally::ggpairs</code>)</a></li>
+  <li><a href="#summary-and-takeaways" id="toc-summary-and-takeaways" class="nav-link" data-scroll-target="#summary-and-takeaways">Summary and Takeaways</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/salernos/ipd-workshop/edit/main/content/Unit05_RashomonQuartet.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/salernos/ipd-workshop/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/Unit03_GeneticData.html">Supplemental Modules</a></li><li class="breadcrumb-item"><a href="../content/Unit05_RashomonQuartet.html">The Rashomon Quartet</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">The Rashomon Quartet</h1>
+<p class="subtitle lead">i.e., Performance is not Enough</p>
+</div>
+
+<div>
+  <div class="description">
+    Examine how equally predictive models can yield different scientific conclusions and compare naive, classical, and IPD-based inference.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>In “Performance is not enough: the story of Rashomon’s quartet” (<a href="https://www.tandfonline.com/doi/full/10.1080/10618600.2024.2344616">Biecek et al., 2023</a>), four different models (linear regression, decision trees, random forests, and neural networks) achieve near-identical predictive performance on the same dataset. However, their interpretations vary significantly. In this module, we will:</p>
+<ol type="1">
+<li><strong>Fit</strong> each model on a <em>training</em> set.</li>
+<li><strong>Evaluate</strong> their <em>predictive</em> performance on a <em>testing</em> set.</li>
+<li><strong>Demonstrate</strong> how the <strong>naive</strong>, <strong>classical</strong>, and <strong>IPD</strong>-based <em>inference</em> results differ.</li>
+</ol>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> We will replicate the results of the Rashomon Quartet analysis following:</p>
+<p>https://github.com/MI2DataLab/rashomon-quartet</p>
+</blockquote>
+</section>
+<section id="background-on-the-rashomon-quartet" class="level2">
+<h2 class="anchored" data-anchor-id="background-on-the-rashomon-quartet">Background on the Rashomon Quartet</h2>
+<p>The underlying datasets are synthetically generated to include three covariates, <span class="math inline">\(\boldsymbol{X} = (X_1, X_2, X_3)^\top\)</span>, so that</p>
+<p><span class="math display">\[
+\boldsymbol{X} = (X_1, X_2, X_3)^\top \sim \mathcal{N}_3 \left(\boldsymbol{0}, \Sigma\right), \quad \Sigma_{ij} = \begin{cases} 1 &amp; i=j,\\ 0.9 &amp; i \neq j\end{cases}
+\]</span> The outcomes, <span class="math inline">\(Y\)</span>, are then generated to depend only on <span class="math inline">\(X_1\)</span> and, to a lesser extent, <span class="math inline">\(X_2\)</span>, given by</p>
+<p><span class="math display">\[
+Y = \sin\left(\frac{3X_1 + X_2}{5}\right) + \varepsilon, \quad \varepsilon \sim \mathcal{N}\left(0, \frac{1}{3}\right).
+\]</span></p>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> <span class="math inline">\(X_3\)</span> does not appear in the true data generating mechanism, but is highly correlated with <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>.</p>
+</blockquote>
+<p>Two independent batches of 1,000 observations (a <em>training</em> set and a <em>testing</em> set) are generated under this model. We will fit the four candidate models on the 1,000-row <em>training</em> data, and evaluate them separately on the 1,000-row <em>testing</em> data. As we will show, all four achieve <span class="math inline">\(R^2 \approx 0.729\)</span> and <span class="math inline">\(\mathrm{RMSE} \approx 0.354\)</span> on the <em>testing</em> set. However, their interpretations diverge:</p>
+<ul>
+<li><strong>Linear regression</strong> captures a near-linear approximation of <span class="math inline">\(\sin\left(\tfrac{3X_{1} + X_{2}}{5}\right)\)</span>.</li>
+<li><strong>Decision tree</strong> approximates the nonlinear relationship via a small set of splits.</li>
+<li><strong>Random forest</strong> produces a smooth ensemble derivative of the tree.</li>
+<li><strong>Neural network</strong> learns a different nonlinear basis with hidden units.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/rashomon_overview.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><em>Source: https://github.com/MI2DataLab/rashomon-quartet</em></figcaption>
+</figure>
+</div>
+<p>In addition to comparing interpretability across models, we will demonstrate how to perform valid downstream inference for <span class="math inline">\(Y\)</span> on <span class="math inline">\(\boldsymbol{X}\)</span> when <span class="math inline">\(Y\)</span> is only partially observed. We will:</p>
+<ol type="1">
+<li><p><strong>Train</strong> each predictive model on the full 1,000-row <em>training</em> set.</p></li>
+<li><p><strong>Predict</strong> on all 1,000 <em>testing</em> observations.</p></li>
+<li><p><strong>Randomly split</strong> the 1,000 <em>testing</em> rows into two groups:</p>
+<ul>
+<li><em>Labeled</em> subset (with true <span class="math inline">\(Y\)</span> observed).</li>
+<li><em>Unlabeled</em> subset (with only predicted <span class="math inline">\(f\)</span>).</li>
+</ul></li>
+<li><p>In the <em>labeled</em> subset, regress <span class="math inline">\(Y\)</span> on <span class="math inline">\(\boldsymbol{X}\)</span> (“Classical”).</p></li>
+<li><p>In the <em>unlabeled</em> subset, regress <span class="math inline">\(f\)</span> on <span class="math inline">\(\boldsymbol{X}\)</span> (“Naive”).</p></li>
+<li><p>Combine the two subsets and use <code>ipd::ipd()</code> to correct bias and variance.</p></li>
+</ol>
+<p>This mirrors realistic scenarios where the <em>analytic</em> dataset (here the <em>testing</em> set) has only some observations labeled, and we want to use model predictions for the rest while still making valid inference.</p>
+</section>
+<section id="setup-and-data" class="level2">
+<h2 class="anchored" data-anchor-id="setup-and-data">Setup and Data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install if needed:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("ipd","DALEX","partykit","randomForest","neuralnet","GGally","tidyverse"))</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ipd)           <span class="co"># Inference with Predicted Data</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DALEX)         <span class="co"># Model Explanation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Welcome to DALEX (version: 2.5.3).
+Find examples and detailed introduction at: http://ema.drwhy.ai/
+Additional features will be available after installation of: ggpubr.
+Use 'install_dependencies()' to get all suggested dependencies</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(partykit)      <span class="co"># Decision Trees</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: grid</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: libcoin</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: mvtnorm</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)  <span class="co"># Random Forests</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>randomForest 4.7-1.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Type rfNews() to see new features/changes/bug fixes.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(neuralnet)     <span class="co"># Neural Networks</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)        <span class="co"># Pairwise Plots</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: ggplot2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'ggplot2'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:randomForest':
+
+    margin</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)     <span class="co"># Data Manipulation and Visualization</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.0     ✔ readr     2.1.6
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ lubridate 1.9.5     ✔ tibble    3.3.1
+✔ purrr     1.2.1     ✔ tidyr     1.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::combine()  masks randomForest::combine()
+✖ dplyr::compute()  masks neuralnet::compute()
+✖ dplyr::explain()  masks DALEX::explain()
+✖ dplyr::filter()   masks stats::filter()
+✖ dplyr::lag()      masks stats::lag()
+✖ ggplot2::margin() masks randomForest::margin()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<section id="read-in-the-training-and-testing-data" class="level3">
+<h3 class="anchored" data-anchor-id="read-in-the-training-and-testing-data">Read-In the Training and Testing Data</h3>
+<p>We have included two CSV files from the <a href="https://github.com/MI2DataLab/rashomon-quartet">MI2DataLab/rashomon-quartet</a> repository on GitHub. Note that these CSVs are <em>semicolon-delimited</em>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use read_delim to parse semicolons</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/rq_train.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>, <span class="at">col_types =</span> <span class="fu">cols</span>(), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>test  <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/rq_test.csv"</span>,  <span class="at">delim =</span> <span class="st">";"</span>, <span class="at">col_types =</span> <span class="fu">cols</span>(), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the first few rows of each</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,000
+Columns: 4
+$ y  &lt;dbl&gt; -0.47048454, 0.17177895, 0.07295012, -0.34301361, 0.47167402, 0.191…
+$ x1 &lt;dbl&gt; -0.51211395, 0.49038643, -0.89461065, 0.02725393, 0.44364997, -0.26…
+$ x2 &lt;dbl&gt; -0.34174653, 0.25511508, -0.28744899, -0.09277031, 0.52147200, 0.28…
+$ x3 &lt;dbl&gt; 0.255531783, -0.179610715, -0.310620340, -0.109603650, 0.920225141,…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,000
+Columns: 4
+$ y  &lt;dbl&gt; -0.44547765, -0.67618374, -0.78822993, -0.55024530, -0.49205810, -0…
+$ x1 &lt;dbl&gt; -0.553685719, -0.965436826, -0.962515641, -0.871816734, -1.96565982…
+$ x2 &lt;dbl&gt; -0.74221752, -0.19959118, -1.25801758, -1.08469684, -1.43546177, -0…
+$ x3 &lt;dbl&gt; -1.15266476, -1.00944121, -1.34017902, -0.84322216, -1.29871031, -0…</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Confirm Dimensions and Column Names:</strong></p>
+<ul>
+<li>Each dataset should have exactly 1,000 rows and four columns: <code>y</code>, <code>x1</code>, <code>x2</code>, <code>x3</code>.</li>
+<li>We will use all 1,000 rows of <code>train</code> to fit each predictive model, and then randomly split the 1,000-row <code>test</code> for IPD.</li>
+</ul>
+</blockquote>
+</section>
+</section>
+<section id="predictive-model-training-on-the-training-set" class="level2">
+<h2 class="anchored" data-anchor-id="predictive-model-training-on-the-training-set">Predictive Model Training on the Training Set</h2>
+<p>Below, we fit four predictive models using the <em>training</em> set:</p>
+<ol type="1">
+<li><strong>Decision Tree</strong> via <code>ctree()</code> (max depth = 3, minsplit = 250).</li>
+<li><strong>Linear Regression</strong> via <code>lm()</code>.</li>
+<li><strong>Random Forest</strong> via <code>randomForest()</code> (100 trees).</li>
+<li><strong>Neural Network</strong> via <code>neuralnet()</code> (two hidden layers: 8 units, 4 units; threshold = 0.05).</li>
+</ol>
+<p>We then evaluate each model’s performance in the <em>testing</em> set using the <code>DALEX</code> package to extract the model’s <span class="math inline">\(R^2\)</span> and <span class="math inline">\(RMSE\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1568</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Decision Tree (ctree)</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>model_dt <span class="ot">&lt;-</span> <span class="fu">ctree</span>(</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data    =</span> train,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">ctree_control</span>(<span class="at">maxdepth =</span> <span class="dv">3</span>, <span class="at">minsplit =</span> <span class="dv">250</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>exp_dt <span class="ot">&lt;-</span> DALEX<span class="sc">::</span><span class="fu">explain</span>(</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">model   =</span> model_dt,</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data    =</span> test <span class="sc">|&gt;</span> <span class="fu">select</span>(x1, x2, x3),</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">y       =</span> test<span class="sc">$</span>y,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">label   =</span> <span class="st">"Decision Tree"</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>mp_dt <span class="ot">&lt;-</span> <span class="fu">model_performance</span>(exp_dt)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Linear Regression</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>model_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> train)</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>exp_lm <span class="ot">&lt;-</span> DALEX<span class="sc">::</span><span class="fu">explain</span>(</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">model   =</span> model_lm,</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">data    =</span> test <span class="sc">|&gt;</span> <span class="fu">select</span>(x1, x2, x3),</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">y       =</span> test<span class="sc">$</span>y,</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">label   =</span> <span class="st">"Linear Regression"</span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>mp_lm <span class="ot">&lt;-</span> <span class="fu">model_performance</span>(exp_lm)</span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Random Forest</span></span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>model_rf <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3,</span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">data    =</span> train,</span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">ntree   =</span> <span class="dv">100</span></span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>exp_rf <span class="ot">&lt;-</span> DALEX<span class="sc">::</span><span class="fu">explain</span>(</span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">model   =</span> model_rf,</span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">data    =</span> test <span class="sc">|&gt;</span> <span class="fu">select</span>(x1, x2, x3),</span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">y       =</span> test<span class="sc">$</span>y,</span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>  <span class="at">label   =</span> <span class="st">"Random Forest"</span></span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a>mp_rf <span class="ot">&lt;-</span> <span class="fu">model_performance</span>(exp_rf)</span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a><span class="co"># 4) Neural Network</span></span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a>model_nn <span class="ot">&lt;-</span> <span class="fu">neuralnet</span>(</span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula      =</span> y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3,</span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">data         =</span> train,</span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">hidden       =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">4</span>),</span>
+<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">threshold    =</span> <span class="fl">0.05</span>,</span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">linear.output =</span> <span class="cn">TRUE</span></span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a>predict_nn <span class="ot">&lt;-</span> <span class="cf">function</span>(object, newdata) {</span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>(<span class="fu">predict</span>(object, newdata))</span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a>exp_nn <span class="ot">&lt;-</span> DALEX<span class="sc">::</span><span class="fu">explain</span>(</span>
+<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a>  <span class="at">model            =</span> model_nn,</span>
+<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a>  <span class="at">data             =</span> test <span class="sc">|&gt;</span> <span class="fu">select</span>(x1, x2, x3),</span>
+<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a>  <span class="at">y                =</span> test<span class="sc">$</span>y,</span>
+<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a>  <span class="at">predict_function =</span> predict_nn,</span>
+<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose          =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a>  <span class="at">label            =</span> <span class="st">"Neural Network"</span></span>
+<span id="cb21-70"><a href="#cb21-70" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-71"><a href="#cb21-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-72"><a href="#cb21-72" aria-hidden="true" tabindex="-1"></a>mp_nn <span class="ot">&lt;-</span> <span class="fu">model_performance</span>(exp_nn)</span>
+<span id="cb21-73"><a href="#cb21-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-74"><a href="#cb21-74" aria-hidden="true" tabindex="-1"></a><span class="co"># Save DALEX explainers for later reuse</span></span>
+<span id="cb21-75"><a href="#cb21-75" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(exp_dt, exp_lm, exp_rf, exp_nn, <span class="at">file =</span> <span class="st">"models.RData"</span>)</span>
+<span id="cb21-76"><a href="#cb21-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-77"><a href="#cb21-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Compile performance metrics into one data frame</span></span>
+<span id="cb21-78"><a href="#cb21-78" aria-hidden="true" tabindex="-1"></a>mp_all <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb21-79"><a href="#cb21-79" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Linear Regression"</span> <span class="ot">=</span> mp_lm,</span>
+<span id="cb21-80"><a href="#cb21-80" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Decision Tree"</span>     <span class="ot">=</span> mp_dt,</span>
+<span id="cb21-81"><a href="#cb21-81" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Random Forest"</span>     <span class="ot">=</span> mp_rf,</span>
+<span id="cb21-82"><a href="#cb21-82" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Neural Network"</span>    <span class="ot">=</span> mp_nn</span>
+<span id="cb21-83"><a href="#cb21-83" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-84"><a href="#cb21-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-85"><a href="#cb21-85" aria-hidden="true" tabindex="-1"></a>R2_values   <span class="ot">&lt;-</span> <span class="fu">sapply</span>(mp_all, <span class="cf">function</span>(x) x<span class="sc">$</span>measures<span class="sc">$</span>r2)</span>
+<span id="cb21-86"><a href="#cb21-86" aria-hidden="true" tabindex="-1"></a>RMSE_values <span class="ot">&lt;-</span> <span class="fu">sapply</span>(mp_all, <span class="cf">function</span>(x) x<span class="sc">$</span>measures<span class="sc">$</span>rmse)</span>
+<span id="cb21-87"><a href="#cb21-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-88"><a href="#cb21-88" aria-hidden="true" tabindex="-1"></a>perf_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb21-89"><a href="#cb21-89" aria-hidden="true" tabindex="-1"></a>  <span class="at">Model =</span> <span class="fu">names</span>(R2_values),</span>
+<span id="cb21-90"><a href="#cb21-90" aria-hidden="true" tabindex="-1"></a>  <span class="at">R2    =</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(R2_values),   <span class="dv">4</span>),</span>
+<span id="cb21-91"><a href="#cb21-91" aria-hidden="true" tabindex="-1"></a>  <span class="at">RMSE  =</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(RMSE_values), <span class="dv">4</span>)</span>
+<span id="cb21-92"><a href="#cb21-92" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-93"><a href="#cb21-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-94"><a href="#cb21-94" aria-hidden="true" tabindex="-1"></a>perf_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  Model                R2  RMSE
+  &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt;
+1 Linear Regression 0.729 0.354
+2 Decision Tree     0.729 0.354
+3 Random Forest     0.728 0.354
+4 Neural Network    0.730 0.352</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Interpretation:</strong> All four models (Linear Regression, Decision Tree, Random Forest, Neural Network) deliver essentially identical predictive performance on the <em>testing</em> set:</p>
+<p><span class="math display">\[
+R^2 \approx 0.729,\quad \mathrm{RMSE} \approx 0.354.
+\]</span></p>
+</blockquote>
+</section>
+<section id="inspecting-the-prediction-models" class="level2">
+<h2 class="anchored" data-anchor-id="inspecting-the-prediction-models">Inspecting the Prediction Models</h2>
+<p>We now take a quick look at each model’s internal structure or summary.</p>
+<blockquote class="blockquote">
+<p><strong>Note:</strong></p>
+<ul>
+<li>Often, in practice, we do not know the operating characteristics of the predictive model or have access to its training data.</li>
+<li>IPD methods are distinct in that they are agnostic to the source or form of these ‘black-box’ predictions</li>
+</ul>
+</blockquote>
+<section id="decision-tree-visualization" class="level3">
+<h3 class="anchored" data-anchor-id="decision-tree-visualization">Decision Tree Visualization</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_dt, <span class="at">main =</span> <span class="st">"Decision Tree (ctree) Structure"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Unit05_RashomonQuartet_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>The tree has depth 3, with splits on <span class="math inline">\(x_1, x_2, x_3\)</span> that approximate <span class="math inline">\(\sin\left(\tfrac{3X_{1} + X_{2}}{5}\right)\)</span> piecewise.</p>
+</blockquote>
+</section>
+<section id="linear-regression-summary" class="level3">
+<h3 class="anchored" data-anchor-id="linear-regression-summary">Linear Regression Summary</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ x1 + x2 + x3, data = train)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.68045 -0.24213  0.01092  0.23409  1.26450 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -0.01268    0.01114  -1.138    0.255    
+x1           0.48481    0.03001  16.157  &lt; 2e-16 ***
+x2           0.14316    0.02966   4.826 1.61e-06 ***
+x3          -0.03113    0.02980  -1.045    0.296    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.352 on 996 degrees of freedom
+Multiple R-squared:  0.7268,    Adjusted R-squared:  0.726 
+F-statistic: 883.4 on 3 and 996 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>The OLS coefficients show how the linear model approximates the underlying sine function. In particular, the slope on <span class="math inline">\(x_1\)</span> will be roughly an average of this over the training distribution.</p>
+</blockquote>
+</section>
+<section id="random-forest-summary" class="level3">
+<h3 class="anchored" data-anchor-id="random-forest-summary">Random Forest Summary</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>model_rf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+ randomForest(formula = y ~ x1 + x2 + x3, data = train, ntree = 100) 
+               Type of random forest: regression
+                     Number of trees: 100
+No. of variables tried at each split: 1
+
+          Mean of squared residuals: 0.1193538
+                    % Var explained: 73.58</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>We see OOB MSE and variance explained on the training data. The forest builds many trees of depth &gt;3 and averages them to approximate the sine structure.</p>
+</blockquote>
+</section>
+<section id="neural-network-topology" class="level3">
+<h3 class="anchored" data-anchor-id="neural-network-topology">Neural Network Topology</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_nn, <span class="at">rep =</span> <span class="st">"best"</span>, <span class="at">main =</span> <span class="st">"Neural Network (8,4) Topology"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Unit05_RashomonQuartet_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>This diagram shows two hidden layers (8 units <span class="math inline">\(\to\)</span> 4 units) with activation functions that capture nonlinearity. The network approximates <span class="math inline">\(\sin\left(\tfrac{3X_{1} + X_{2}}{5}\right)\)</span> more flexibly than the decision tree or random forest.</p>
+</blockquote>
+</section>
+</section>
+<section id="variable-importance-dalex" class="level2">
+<h2 class="anchored" data-anchor-id="variable-importance-dalex">Variable Importance (<code>DALEX</code>)</h2>
+<p>Next, we compute variable importance for each model via <code>DALEX::model_parts()</code>. We request <code>type="difference"</code> so that importance is measured in terms of loss of performance (RMSE) when that variable is permuted.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>imp_dt <span class="ot">&lt;-</span> <span class="fu">model_parts</span>(exp_dt, <span class="at">N =</span> <span class="cn">NULL</span>, <span class="at">B =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">"difference"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>imp_lm <span class="ot">&lt;-</span> <span class="fu">model_parts</span>(exp_lm, <span class="at">N =</span> <span class="cn">NULL</span>, <span class="at">B =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">"difference"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>imp_rf <span class="ot">&lt;-</span> <span class="fu">model_parts</span>(exp_rf, <span class="at">N =</span> <span class="cn">NULL</span>, <span class="at">B =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">"difference"</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>imp_nn <span class="ot">&lt;-</span> <span class="fu">model_parts</span>(exp_nn, <span class="at">N =</span> <span class="cn">NULL</span>, <span class="at">B =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">"difference"</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imp_dt, imp_nn, imp_rf, imp_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.
+ℹ The deprecated feature was likely used in the ingredients package.
+  Please report the issue at
+  &lt;https://github.com/ModelOriented/ingredients/issues&gt;.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Unit05_RashomonQuartet_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>Each model ranks features <span class="math inline">\((x_{1},x_{2},x_{3})\)</span> by their impact on predictive accuracy.</li>
+<li>Because <span class="math inline">\(\mathbf{x}\)</span> are correlated, some models (e.g.&nbsp;tree, forest) may split differently than linear regression or neural network.</li>
+</ul>
+</blockquote>
+</section>
+<section id="partial-dependence-plots-dalex" class="level2">
+<h2 class="anchored" data-anchor-id="partial-dependence-plots-dalex">Partial-Dependence Plots (<code>DALEX</code>)</h2>
+<p>We now generate partial-dependence (PD) profiles for each feature under each model via <code>DALEX::model_profile()</code>. This shows how each model’s predicted <span class="math inline">\(f\)</span> changes when we vary one feature at a time, averaging out the others.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>pd_dt <span class="ot">&lt;-</span> <span class="fu">model_profile</span>(exp_dt, <span class="at">N =</span> <span class="cn">NULL</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>pd_lm <span class="ot">&lt;-</span> <span class="fu">model_profile</span>(exp_lm, <span class="at">N =</span> <span class="cn">NULL</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>pd_rf <span class="ot">&lt;-</span> <span class="fu">model_profile</span>(exp_rf, <span class="at">N =</span> <span class="cn">NULL</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>pd_nn <span class="ot">&lt;-</span> <span class="fu">model_profile</span>(exp_nn, <span class="at">N =</span> <span class="cn">NULL</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pd_dt, pd_nn, pd_rf, pd_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
+ℹ Please use tidy evaluation idioms with `aes()`.
+ℹ See also `vignette("ggplot2-in-packages")` for more information.
+ℹ The deprecated feature was likely used in the ingredients package.
+  Please report the issue at
+  &lt;https://github.com/ModelOriented/ingredients/issues&gt;.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Unit05_RashomonQuartet_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>For <span class="math inline">\(x_{1}\)</span>, the <strong>Linear Regression</strong> PD is a straight line.</li>
+<li>The <strong>Decision Tree</strong> PD is piecewise-constant.</li>
+<li>The <strong>Random Forest</strong> PD is smoother but still stepwise.</li>
+<li>The <strong>Neural Network</strong> PD approximates the sine shape.</li>
+</ul>
+<p>Because <span class="math inline">\(x_{3}\)</span> does not appear in the generating formula, its PD should be nearly flat—though correlation can induce slight structure.</p>
+</blockquote>
+</section>
+<section id="inference-with-predicted-data-ipd" class="level2">
+<h2 class="anchored" data-anchor-id="inference-with-predicted-data-ipd">Inference with Predicted Data (IPD)</h2>
+<p>We now demonstrate how to perform valid inference in the <em>testing</em> set when only some test rows have true <span class="math inline">\(Y\)</span>. Specifically, we:</p>
+<ol type="1">
+<li><p><strong>Randomly split</strong> the 1,000 <em>testing</em> rows into:</p>
+<ul>
+<li>A <em>labeled</em> subset of size <span class="math inline">\(n_l\)</span> (we choose 10%, but this can be adjusted).</li>
+<li>An <em>unlabeled</em> subset of size <span class="math inline">\(n_u = 1,000 - n_l\)</span>.</li>
+</ul></li>
+<li><p>In the <em>labeled</em> subset, regress <span class="math inline">\(Y\)</span> on <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, and <span class="math inline">\(X_3\)</span> (<strong>Classical</strong>).</p></li>
+<li><p>In the <em>unlabeled</em> subset, regress <span class="math inline">\(f\)</span> on <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, and <span class="math inline">\(X_3\)</span> (<strong>Naive</strong>).</p></li>
+<li><p>Use both subsets in an <strong>IPD</strong> pipeline and run:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ipd_res <span class="ot">&lt;-</span> <span class="fu">ipd</span>(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula        =</span> y <span class="sc">-</span> f <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data           =</span> test_labeled,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">unlabeled_data =</span> test_unlabeled,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">method         =</span> <span class="st">"pspa"</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">model          =</span> <span class="st">"ols"</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>to obtain bias-corrected estimates of <span class="math inline">\(\beta_1\)</span>, <span class="math inline">\(\beta_2\)</span>, and <span class="math inline">\(\beta_3\)</span>.</p></li>
+</ol>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> Instead of supplying one stacked dataset and the column name for the set labels, we can alternativel supply the <em>labeled</em> and <em>unlabeled</em> data separately.</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict outcomes in the testing set</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>ipd_data <span class="ot">&lt;-</span> test <span class="sc">|&gt;</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">preds_lm =</span> <span class="fu">c</span>(<span class="fu">predict</span>(model_lm, <span class="at">newdata =</span> test)),</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">preds_dt =</span> <span class="fu">c</span>(<span class="fu">predict</span>(model_dt, <span class="at">newdata =</span> test)),</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">preds_rf =</span> <span class="fu">c</span>(<span class="fu">predict</span>(model_rf, <span class="at">newdata =</span> test)),</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">preds_nn =</span> <span class="fu">c</span>(<span class="fu">predict</span>(model_nn, <span class="at">newdata =</span> test)))</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Randomly split the testing set into labeled and unlabeled subsets</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>frac_labeled <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>n_test    <span class="ot">&lt;-</span> <span class="fu">nrow</span>(ipd_data)</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>n_labeled <span class="ot">&lt;-</span> <span class="fu">floor</span>(frac_labeled <span class="sc">*</span> n_test)</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>labeled_idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(n_test), <span class="at">size =</span> n_labeled)</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>test_labeled <span class="ot">&lt;-</span> ipd_data <span class="sc">|&gt;</span></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(labeled_idx) <span class="sc">|&gt;</span></span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">set_label =</span> <span class="st">"labeled"</span>)</span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>test_unlabeled <span class="ot">&lt;-</span> ipd_data <span class="sc">|&gt;</span></span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="sc">-</span>labeled_idx) <span class="sc">|&gt;</span></span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">set_label =</span> <span class="st">"unlabeled"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Classical</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>class_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> test_labeled)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>class_df  <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(class_fit) <span class="sc">|&gt;</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Classical"</span>) </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Naive (Linear Model)</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>naive_fit_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(preds_lm <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> test_unlabeled)</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>naive_df_lm  <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(naive_fit_lm) <span class="sc">|&gt;</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Naive (lm)"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in summary.lm(x): essentially perfect fit: summary may be unreliable</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Naive (Decision Tree)</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>naive_fit_dt <span class="ot">&lt;-</span> <span class="fu">lm</span>(preds_dt <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> test_unlabeled)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>naive_df_dt  <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(naive_fit_dt) <span class="sc">|&gt;</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Naive (dt)"</span>) </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Naive (Random Forest)</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>naive_fit_rf <span class="ot">&lt;-</span> <span class="fu">lm</span>(preds_rf <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> test_unlabeled)</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>naive_df_rf  <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(naive_fit_rf) <span class="sc">|&gt;</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Naive (rf)"</span>) </span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Naive (Neural Net)</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>naive_fit_nn <span class="ot">&lt;-</span> <span class="fu">lm</span>(preds_nn <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> test_unlabeled)</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>naive_df_nn  <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(naive_fit_nn) <span class="sc">|&gt;</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Naive (nn)"</span>) </span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="co"># IPD (Linear Model)</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>ipd_fit_lm <span class="ot">&lt;-</span> <span class="fu">ipd</span>(y <span class="sc">-</span> preds_lm <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, </span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> test_labeled, <span class="at">unlabeled_data =</span> test_unlabeled, </span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"pspa"</span>, <span class="at">model =</span> <span class="st">"ols"</span>)</span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>ipd_df_lm  <span class="ot">&lt;-</span> <span class="fu">tidy</span>(ipd_fit_lm) <span class="sc">|&gt;</span></span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"IPD (lm)"</span>) </span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a><span class="co"># IPD (Decision Tree)</span></span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>ipd_fit_dt <span class="ot">&lt;-</span> <span class="fu">ipd</span>(y <span class="sc">-</span> preds_dt <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, </span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> test_labeled, <span class="at">unlabeled_data =</span> test_unlabeled,</span>
+<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"pspa"</span>, <span class="at">model =</span> <span class="st">"ols"</span>)</span>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a>ipd_df_dt  <span class="ot">&lt;-</span> <span class="fu">tidy</span>(ipd_fit_dt) <span class="sc">|&gt;</span></span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"IPD (dt)"</span>) </span>
+<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a><span class="co"># IPD (Random Forest)</span></span>
+<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a>ipd_fit_rf <span class="ot">&lt;-</span> <span class="fu">ipd</span>(y <span class="sc">-</span> preds_rf <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, </span>
+<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> test_labeled, <span class="at">unlabeled_data =</span> test_unlabeled,</span>
+<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"pspa"</span>, <span class="at">model =</span> <span class="st">"ols"</span>)</span>
+<span id="cb37-34"><a href="#cb37-34" aria-hidden="true" tabindex="-1"></a>ipd_df_rf  <span class="ot">&lt;-</span> <span class="fu">tidy</span>(ipd_fit_rf) <span class="sc">|&gt;</span></span>
+<span id="cb37-35"><a href="#cb37-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"IPD (rf)"</span>) </span>
+<span id="cb37-36"><a href="#cb37-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-37"><a href="#cb37-37" aria-hidden="true" tabindex="-1"></a><span class="co"># IPD (Neural Net)</span></span>
+<span id="cb37-38"><a href="#cb37-38" aria-hidden="true" tabindex="-1"></a>ipd_fit_nn <span class="ot">&lt;-</span> <span class="fu">ipd</span>(y <span class="sc">-</span> preds_nn <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, </span>
+<span id="cb37-39"><a href="#cb37-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> test_labeled, <span class="at">unlabeled_data =</span> test_unlabeled,</span>
+<span id="cb37-40"><a href="#cb37-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"pspa"</span>, <span class="at">model =</span> <span class="st">"ols"</span>)</span>
+<span id="cb37-41"><a href="#cb37-41" aria-hidden="true" tabindex="-1"></a>ipd_df_nn  <span class="ot">&lt;-</span> <span class="fu">tidy</span>(ipd_fit_nn) <span class="sc">|&gt;</span></span>
+<span id="cb37-42"><a href="#cb37-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"IPD (nn)"</span>) </span>
+<span id="cb37-43"><a href="#cb37-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-44"><a href="#cb37-44" aria-hidden="true" tabindex="-1"></a>combined_df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(class_df,</span>
+<span id="cb37-45"><a href="#cb37-45" aria-hidden="true" tabindex="-1"></a>  naive_df_lm, naive_df_dt, naive_df_rf, naive_df_nn,</span>
+<span id="cb37-46"><a href="#cb37-46" aria-hidden="true" tabindex="-1"></a>  ipd_df_lm,   ipd_df_dt,   ipd_df_rf,   ipd_df_nn) <span class="sc">|&gt;</span></span>
+<span id="cb37-47"><a href="#cb37-47" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-48"><a href="#cb37-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb37-49"><a href="#cb37-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">conf.low  =</span> estimate <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> std.error,</span>
+<span id="cb37-50"><a href="#cb37-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">conf.high =</span> estimate <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> std.error</span>
+<span id="cb37-51"><a href="#cb37-51" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb37-52"><a href="#cb37-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-53"><a href="#cb37-53" aria-hidden="true" tabindex="-1"></a>combined_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 36 × 8
+   term        estimate std.error statistic   p.value method  conf.low conf.high
+   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+ 1 (Intercept)  0.00872  3.68e- 2  2.37e- 1 8.13e-  1 Classi…  -0.0634   0.0808 
+ 2 x1           0.643    1.09e- 1  5.91e+ 0 5.24e-  8 Classi…   0.430    0.856  
+ 3 x2           0.0702   8.70e- 2  8.07e- 1 4.22e-  1 Classi…  -0.100    0.241  
+ 4 x3          -0.0791   9.94e- 2 -7.96e- 1 4.28e-  1 Classi…  -0.274    0.116  
+ 5 (Intercept) -0.0127   4.88e-18 -2.60e+15 0         Naive …  -0.0127  -0.0127 
+ 6 x1           0.485    1.29e-17  3.77e+16 0         Naive …   0.485    0.485  
+ 7 x2           0.143    1.31e-17  1.09e+16 0         Naive …   0.143    0.143  
+ 8 x3          -0.0311   1.31e-17 -2.37e+15 0         Naive …  -0.0311  -0.0311 
+ 9 (Intercept) -0.0183   6.76e- 3 -2.71e+ 0 6.89e-  3 Naive …  -0.0315  -0.00506
+10 x1           0.546    1.78e- 2  3.06e+ 1 1.57e-141 Naive …   0.511    0.581  
+# ℹ 26 more rows</code></pre>
+</div>
+</div>
+<section id="plotting-the-model-estimates" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-the-model-estimates">Plotting The Model Estimates</h3>
+<p>We now visualize, for each predictive model, the estimated coefficients and 95% confidence intervals from each inference method:</p>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> The vertical dashed line marks the estimated slope for the <strong>Classical</strong> method, which serves as our benchmark for comparison.</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>ref_lines <span class="ot">&lt;-</span> combined_df <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(method <span class="sc">==</span> <span class="st">"Classical"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(combined_df, <span class="fu">aes</span>(<span class="at">x =</span> estimate, <span class="at">y =</span> method, <span class="at">color =</span> method)) <span class="sc">+</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> conf.low, <span class="at">xmax =</span> conf.high), <span class="at">height =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> term, <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">scales =</span> <span class="st">"free_x"</span>) <span class="sc">+</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> ref_lines,</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">xintercept =</span> estimate),</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span>,</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">color    =</span> <span class="st">"black"</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(beta)),</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `geom_errorbarh()` was deprecated in ggplot2 4.0.0.
+ℹ Please use the `orientation` argument of `geom_errorbar()` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`height` was translated to `width`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Unit05_RashomonQuartet_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Interpretation of Results</strong></p>
+<ol type="1">
+<li>The <strong>Naive</strong> estimates are biased due to the prediction error and has artificially narrow confidence intervals.</li>
+<li>The <strong>Classical</strong> is our benchmark, as it is unbiased, but has wider CI’s</li>
+<li>The <strong>IPD</strong> methods cover the <strong>Classical</strong> estimates and have wider CI’s to account for the prediction uncertainty.</li>
+</ol>
+</blockquote>
+</section>
+</section>
+<section id="data-distribution-train-vs-test-ggallyggpairs" class="level2">
+<h2 class="anchored" data-anchor-id="data-distribution-train-vs-test-ggallyggpairs">Data Distribution: Train vs Test (<code>GGally::ggpairs</code>)</h2>
+<p>Finally, we visualize pairwise relationships among <span class="math inline">\((x_{1},x_{2},x_{3},y)\)</span> for train vs test. This confirms that train and test were drawn from the same synthetic distribution.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>both <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  train <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">label =</span> <span class="st">"train"</span>),</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  test  <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">label =</span> <span class="st">"test"</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  both,</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"y"</span>),</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">color =</span> label, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">list</span>(</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"points"</span>, <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">combo      =</span> <span class="fu">wrap</span>(<span class="st">"facethist"</span>, <span class="at">bins =</span> <span class="dv">20</span>)</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">diag =</span> <span class="fu">list</span>(</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"densityDiag"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">bw =</span> <span class="st">"SJ"</span>)</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper =</span> <span class="fu">list</span>(</span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"cor"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">stars =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">title    =</span> <span class="st">"Pairwise Distribution: Train vs Test (x1,x2,x3,y)"</span>,</span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Color = train (blue) vs test (pink)"</span></span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Unit05_RashomonQuartet_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>The diagonals show almost identical marginal distributions of <span class="math inline">\(x_{1},x_{2},x_{3},y\)</span> in train vs test.</li>
+<li>The off-diagonals confirm the covariance structure <span class="math inline">\(\Sigma\)</span> is consistent across both sets.</li>
+</ul>
+</blockquote>
+</section>
+<section id="summary-and-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="summary-and-takeaways">Summary and Takeaways</h2>
+<ol type="1">
+<li><p><strong>Predictive Performance:</strong></p>
+<ul>
+<li>Linear Regression, Decision Tree, Random Forest, and Neural Network each achieve nearly identical test set performance (<span class="math inline">\(R^2 \approx 0.729, \mathrm{RMSE} \approx 0.354\)</span>).</li>
+</ul></li>
+<li><p><strong>Model Interpretability:</strong></p>
+<ul>
+<li>Variable Importance and Partial-Dependence plots highlight how each model “tells a different story” about which features matter and how <span class="math inline">\(y\)</span> responds to <span class="math inline">\(x_{1},x_{2},x_{3}\)</span>.</li>
+<li>The Neural Network’s PD best tracks the true sine function; the tree’s PD is piecewise-constant; the forest’s PD is smoothed piecewise; the linear PD is a straight line.</li>
+</ul></li>
+<li><p><strong>Inference on Predicted Data (IPD):</strong></p>
+<ul>
+<li>By randomly splitting the test set into “labeled” and “unlabeled” halves, we simulate a real-world scenario where only some new observations have true <span class="math inline">\(y\)</span>.</li>
+<li><strong>Naive</strong> regression of <span class="math inline">\(f \sim x_{1} + x_{2} + x_{3}\)</span> on the unlabeled set is biased due to prediction error.</li>
+<li><strong>Classical</strong> regression of <span class="math inline">\(y \sim x_{1} + x_{2} + x_{3}\)</span> on the labeled set is unbiased but less efficient.</li>
+<li><strong>IPD</strong> methods combine the labeled/unlabeled sets to correct bias and properly estimate variance.</li>
+</ul></li>
+<li><p><strong>Key Lesson:</strong></p>
+<ul>
+<li><strong>“Performance is not enough.”</strong> Even models with identical <span class="math inline">\(R^2\)</span> can lead to very different bias and variance in downstream inference on covariate effects. IPD provides a principled correction when using model predictions in place of true outcomes for some observations.</li>
+</ul></li>
+</ol>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li>Biecek, Przemysław, et al.&nbsp;“Performance is not enough: The story told by a Rashomon Quartet.” <em>Journal of Computational and Graphical Statistics</em> 33.3 (2024): 1118-1121.</li>
+<li>MI2DataLab. “The Rashomon Quartet.” <a href="https://github.com/MI2DataLab/rashomon-quartet"><em>GitHub repository</em></a> (2023).</li>
+</ul>
+<hr>
+<p><em>This is the end of the module. We hope this was informative! For question/concerns/suggestions, please reach out to ssalerno@fredhutch.org</em></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const selector =
+      'a[href="javascript:window.quartoToggleColorScheme();"]:not(.quarto-color-scheme-toggle)';
+
+    const button = document.querySelector(selector);
+    if (!button) return;
+
+    const updateIcon = function () {
+      const isDark = document.body.classList.contains("quarto-dark");
+      button.innerHTML = isDark ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon"></i>';
+      button.title = isDark ? "Switch to Light Mode" : "Switch to Dark Mode";
+      button.setAttribute("aria-label", button.title);
+    };
+
+    updateIcon();
+
+    const observer = new MutationObserver(updateIcon);
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+
+    button.addEventListener("click", function () {
+      setTimeout(updateIcon, 0);
+    });
+  });
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/salernos\.github\.io\/ipd-workshop\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../content/Unit04_Income.html" class="pagination-link" aria-label="Income Inequality">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Income Inequality</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Jesse Gronsbell and Stephen Salerno</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/salernos/ipd-workshop/edit/main/content/Unit05_RashomonQuartet.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/salernos/ipd-workshop/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Proudly built with <a href="https://www.ottrproject.org/">OTTR</a> and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

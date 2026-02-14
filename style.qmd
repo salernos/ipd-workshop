@@ -1,6 +1,5 @@
 ---
 title: "Style"
-output: html_document
 ---
 
 ## Navigation bar

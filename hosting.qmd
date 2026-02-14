@@ -1,6 +1,5 @@
 ---
 title: "Hosting"
-output: html_document
 ---
 
 ## Hosting Setup

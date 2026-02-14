@@ -1,0 +1,1181 @@
+---
+title: "Proteomics with AlphaFold"
+subtitle: "Protein Disorder and PTMs"
+description:  |
+  Apply IPD methods in a proteomics setting to estimate associations when key 
+  outcomes are model-predicted rather than directly measured.
+image: images/alphafold_cover.png
+unit: 0
+core: true
+format:
+  html:
+    toc: true
+    number-sections: false
+    code-fold: true
+    code-tools: false
+execute:
+  warning: false
+  message: false
+---
+
+![https://www.nature.com/articles/s41586-021-03819-2](images/alphafold.png)
+
+# Overview
+
+## Background
+
+Modern protein biology increasingly relies on machine learning predictions.
+AlphaFold is an AI-powered system developed by Google DeepMind that predicts 
+a protein's 3D structure from its amino acid sequence with high accuracy. By 
+utilizing deep learning and neural networks, it has modeled nearly all known 
+proteins, accelerating research in drug discovery, disease understanding, and 
+biotechnology. 
+
+AlphaFold now provides structural annotations for essentially the entire 
+proteome, enabling large-scale analyses that were previously impossible. 
+However, many downstream biological questions still depend on 
+*statistical inference*, for example, asking whether post-translational 
+modifications (PTMs) preferentially occur in intrinsically disordered 
+regions (IDRs).
+
+This module walks through such an analysis using the `ipd` package. 
+You will learn how to:
+
+- Combine ML predictions with limited ground truth
+- Estimate odds ratios relating PTMs to disorder
+- Compare classical inference to various IPD methods
+- Quantify efficiency gains and power improvements from unlabeled data
+
+The module is designed so that you can reproduce the analysis on your own 
+using only the provided dataset and instructions.
+
+## Biological Motivation
+
+AlphaFold predicts 3D protein structure from sequence at near-experimental 
+accuracy for many proteins. These predictions can be post-processed to 
+identify IDRs, i.e., segments that do not adopt a stable fold.
+
+IDRs play central roles in signaling and regulation. They are flexible, 
+accessible, and often enriched for short linear motifs. Many 
+post-translational modifications, especially phosphorylation, ubiquitination, 
+and acetylation, are hypothesized to concentrate in IDRs, supporting a model 
+in which structural disorder enables rapid regulatory control.
+
+In this workshop, each amino acid residue has:
+
+- `Y`: A binary "gold-standard" disorder label
+- `Yhat`: A predicted probability of being disordered (derived from AlphaFold)
+- PTM Indicators:
+  - `phosphorylated`
+  - `ubiquitinated`
+  - `acetylated`
+
+Our scientific question is:
+
+> **Are residues with a given PTM more likely to lie in intrinsically**
+> **disordered regions?**
+
+## Statistical Framing
+
+For a chosen PTM, `Z`:
+
+- Let `Z = 1` if the residue carries that PTM
+- Let `Y = 1` if the residue is in an IDR
+
+We estimate:
+
+$$
+  \text{OR} = \frac{\text{Odds}(Y=1\mid Z=1)}{\text{Odds}(Y=1\mid Z=0)}
+$$
+
+using logistic regression.
+
+However, in practice we may have that:
+
+- `Y` is only observed on a *labeled* subset
+- `Yhat` is available everywhere
+
+This is exactly the setting for *Inference with Predicted Data (IPD)*.
+
+## Learning Objectives                                                           <!-- NEED TO CHECK THESE -->
+
+By the end of this module, you will be able to:
+
+1. Construct labeled/unlabeled splits from real biological data
+2. Estimate PTM-disorder odds ratios
+3. Apply various IPD methods to draw valid inference
+4. Compare uncertainty across methods
+5. Compute labeled sample sizes required for 80% power
+
+# Part I: Understanding the dataset
+
+Please first load the `ipd`, `broom`, and `tidyverse` packages:
+
+```{r}
+#| label: packages
+
+library(ipd)
+
+library(broom)
+
+library(tidyverse)
+```
+
+We have included file `alphafold.RData`, containing a tibble named 
+`alphafold` with columns:
+
+- `Y`
+- `Yhat`
+- `phosphorylated`
+- `ubiquitinated`
+- `acetylated`
+
+Each row corresponds to a residue.
+
+### Exercise 1: Inspecting the AlphaFold/PTM Dataset
+
+Before doing any inference, we will want to understand the data. Try loading 
+the dataset and answering the following:
+
+1. How many residues are there?
+2. What fraction are disordered?
+3. How many residues carry each PTM?
+
+This gives you basic biological context and sanity-checks the input.
+
+::: {.callout-note collapse="true"}
+
+## Answer
+
+```{r}
+#| label: ex1
+
+load("data/alphafold.RData")
+
+glimpse(alphafold)
+
+alphafold |>
+  
+  summarise(
+    
+    n = n(),
+    
+    frac_disordered = mean(Y, na.rm = TRUE),
+    
+    phosphorylated  = sum(phosphorylated == 1),
+    ubiquitinated   = sum(ubiquitinated  == 1),
+    acetylated      = sum(acetylated     == 1)
+  )
+```
+
+:::
+
+::: {.callout-tip}
+
+## Notes
+
+We should observe that our dataset contains:
+
+* 10,802 residues, with about 18% labeled as intrinsically disordered
+* PTMs are unevenly represented, with phosphorylation being the most common
+
+:::
+
+### Discussion Questions
+
+* Why might experimentally validated disorder labels be scarce compared to 
+  AlphaFold predictions?
+* How might only observing a fraction of the disorder labels affect
+  downstream inference?
+
+# Part II:Choosing a PTM and Defining Variables
+
+For illustration, we will analyze one PTM at a time. For that PTM:
+
+* `Z` becomes its indicator
+* `Y` is disorder
+* `Yhat` is the AlphaFold prediction
+
+### Exercise 2: Creating our Analytic Dataset
+
+Let's study *phosphorylation* first. Please create an analytic dataset from the
+`alphafold` data with columns:
+
+* `Y`
+* `Yhat`
+* `Z` (phosphorylation indicator)
+
+This will be the working dataset for the rest of the workshop.
+
+::: {.callout-note collapse="true"}
+
+## Answer
+
+```{r}
+#| label: ex2
+
+ptm <- "phosphorylated"
+
+dat <- alphafold |>
+  
+  transmute(
+    
+    Y    = as.integer(Y),
+    Yhat = as.numeric(Yhat),
+    Z    = as.integer(.data[[ptm]])
+  )
+
+dat |>
+  
+  group_by(Z) |>
+  
+  count() |>
+  
+  ungroup() |>
+  
+  mutate(pct = n / sum(n) * 100)
+```
+
+:::
+
+::: {.callout-tip}
+
+## Notes
+
+Here we defined the basic analytic variables:
+
+* `Y`: True Disorder
+* `Yhat`: Predicted Disorder
+* `Z`: PTM Indicator
+
+We should see that `Z = 1` in approximately 56% of samples.
+
+:::
+
+### Discussion Questions
+
+* Why might some PTMs be easier to detect than others?
+* How could PTM-specific detection pipelines influence our results?
+
+# Part III: Simulating Partial Labeling
+
+In practice, only a subset of residues may have trusted disorder labels. 
+Here, we are fortunate to have ground-truth data for all of our samples. 
+So, to study how IPD methods work in this setting, we will artificially:
+
+1. Select `n_labeled` rows
+2. Keep their `Y`
+3. Replace `Y` with `NA` everywhere else
+
+### Exercise 3: Creating Labeled/Unlabeled Splits
+
+Write a function that:
+
+* Randomly selects `n_labeled` residues
+* Marks them as `"labeled"`
+* Sets `Y = NA` for all others
+* Returns a stacked dataset with a column `set_label`
+
+This mimics limited experimental labeling.
+
+::: {.callout-note collapse="true"}
+
+## Answer
+
+```{r}
+#| label: ex3
+
+make_split <- function(dat, n_labeled, seed = NULL) {
+  
+  if (!is.null(seed)) set.seed(seed)
+
+  idx <- sample.int(nrow(dat), size = n_labeled, replace = FALSE)
+
+  labeled <- dat[idx, ] |> 
+    
+    mutate(set_label = "labeled")
+  
+  unlabeled <- dat[-idx, ] |> 
+    
+    mutate(Y = NA_integer_, set_label = "unlabeled")
+
+  bind_rows(labeled, unlabeled)
+}
+```
+
+:::
+
+::: {.callout-tip}
+
+## Notes
+
+By artificially masking labels, we created a realistic experimental scenario:
+
+* Only a small subset has true disorder labels
+* All residues retain AlphaFold predictions
+
+This mirrors many modern biological pipelines, where:
+
+* ML provides global predictions
+* Experimental validation is expensive and sparse
+
+From this point forward, we will evaluate every method under this setup.
+
+:::
+
+### Discussion Questions
+
+* In real studies, how might labeled residues differ systematically from 
+  unlabeled ones?
+* What assumptions are implicitly made when we randomly subsample labels?
+
+# Part IV: Inference Methods
+
+We will now compare several potential methods for drawing inference:
+
+* Oracle Logistic Regression (`Y` in All Samples, Not Usually Possible)
+* Classical Logistic Regression (`Y` in Labeled Samples Only)
+* Naive Logistic Regression (Imputed `Y` with threshold `Yhat`)
+* IPD Methods:
+
+  * PPI
+  * PPI++
+  * PSPA
+  * Chen & Chen
+
+We will use these approaches estimate the same OR of `Y`/`Yhat` on `Z`.
+
+### Exercise 4: Running all Methods on One Split
+
+With `n_labeled = 400`:
+
+1. Create a labeled/unlabeled split
+2. Fit the oracle logistic regression
+3. Fit the classical logistic regression
+4. Fit the naive logistic regression
+5. Fit the above IPD methods
+6. Extract the OR and confidence intervals
+
+and compare how wide the intervals are at a significance level of 
+`alpha = 0.05`.
+
+::: {.callout-note collapse="true"}
+
+## Answer
+
+```{r}
+#| label: ex4
+
+alpha <- 0.05
+
+stacked <- make_split(dat = dat, n_labeled = 400, seed = 12345)
+
+fit_oracle <- glm(Y ~ Z, data = dat, family = binomial())
+
+fit_classical <- glm(Y ~ Z, data = filter(stacked, set_label == "labeled"),
+                     
+  family = binomial())
+  
+fit_naive <- glm(I(Yhat > 0.5) ~ Z, data = stacked, family = binomial())
+
+fit_ppi <- ipd(Y - Yhat ~ Z, method = "ppi", model = "logistic", 
+               
+  data = stacked, label = "set_label")
+
+fit_plusplus <- ipd(Y - Yhat ~ Z, method = "ppi_plusplus", model = "logistic", 
+               
+  data = stacked, label = "set_label")
+
+fit_pspa <- ipd(Y - Yhat ~ Z, method = "pspa", model = "logistic", 
+               
+  data = stacked, label = "set_label")
+
+### CHEN AND CHEN HERE                                                           ### NEED CHEN AND CHEN
+
+ex4_results <- bind_rows(
+  
+  tidy(fit_oracle,    conf.int = TRUE) |> mutate(Method = "Oracle"),
+  
+  tidy(fit_classical, conf.int = TRUE) |> mutate(Method = "Classical"),
+  
+  tidy(fit_naive,     conf.int = TRUE) |> mutate(Method = "Naive"),
+  
+  tidy(fit_ppi)                        |> mutate(Method = "PPI"),
+  
+  tidy(fit_plusplus)                   |> mutate(Method = "PPI++"),
+  
+  tidy(fit_pspa)                       |> mutate(Method = "PSPA")
+  
+### CHEN AND CHEN HERE                                                           ### NEED CHEN AND CHEN  
+) |>
+  
+  filter(term == "Z") |>
+  
+  mutate(
+    
+    Method = factor(Method) |>
+      
+      fct_relevel("Oracle", "Classical", "Naive", "PPI", "PPI++", "PSPA"),       ### NEED CHEN + CHEN
+    
+    OR  = exp(estimate),
+    
+    LCL = exp(conf.low),
+    
+    UCL = exp(conf.high)) |>
+  
+  select(Method, OR, LCL, UCL)
+
+glimpse(ex4_results)
+
+oracle_est <- ex4_results |> filter(Method == "Oracle") |> pull(OR)
+
+ex4_results |>
+  
+  mutate(covers = if_else((LCL <= oracle_est) & (UCL >= oracle_est), T, F)) |>
+  
+  ggplot(aes(x = OR, xmin = LCL, xmax = UCL, y = Method, color = covers)) +
+  
+    theme_bw() +
+  
+    geom_vline(xintercept = oracle_est, linetype = 2, linewidth = 1.1) +
+  
+    geom_linerange(linewidth = 5) +
+  
+    geom_point(size = 3, color = "white") +
+  
+    scale_y_discrete(limits = rev) +
+  
+    scale_color_manual(values = palette.colors(4)[2:3]) +
+  
+    labs(
+      
+      x = "Odds Ratio (95% CI)", 
+      
+      y = NULL,
+      
+      color = "Covers the Oracle Estimate?") +
+  
+    theme(
+      
+      legend.position = "top",
+    
+      axis.text = element_text(face = "bold", size = 12),
+    
+      axis.title.x = element_text(face = "bold", size = 14, 
+                              
+      margin = margin(t = 20, unit = "pt")))
+```
+
+:::
+
+::: {.callout-tip}
+
+## Notes
+
+This single-split comparison highlights several key behaviors:
+
+* **Oracle**: Uses the ground truth (often an unattainable gold standard)
+* **Classical**: Uses only labeled data and typically produces wider intervals
+* **Naive**: Treats the predictions as truth and often produces 
+  *anticonservative* intervals
+* **IPD Methods**: Incorporate unlabeled predictions while correcting bias and 
+  uncertainty using the labeled data.
+
+We should observe:
+
+* Classical CIs that are wide
+* Naive CIs that are too narrow
+* IPD CIs that are in between: More efficient than the classical, but
+  reflecting more uncertainty than the naive while covering the oracle estimate
+
+:::
+
+### Discussion Questions
+
+* Why does the naive approach look so "good" numerically?
+* Which method would you trust in a scientific paper and why?
+* What would happen if `Yhat` were poorly calibrated?
+
+# Part V: Efficiency Experiment
+
+We will now study how uncertainty changes as labeled sample size increases.
+
+### Exercise 5: Confidence Interval Width vs Labeled Sample Size
+
+For each `n = {200, 400, 800, 1500, 3000}`, let's:
+
+* Repeat the experiment 20 times
+* Record the OR confidence intervals
+* Compute the CI widths
+
+We will store everything in a single results table for now so that we can
+inspect and plot these results in later exercises.
+
+::: {.callout-note collapse="true"}
+
+## Answer
+
+```{r}
+#| label: ex5
+
+ns <- c(200, 400, 800, 1500, 3000)
+
+num_trials <- 1                                                                  ### Up to 20
+
+run_one <- function(n, t) {
+  
+  s <- make_split(dat, n, seed = 1000 + n + t)
+  
+  fit_oracle <- glm(Y ~ Z, data = dat, family = binomial())
+
+  fit_classical <- glm(Y ~ Z, data = filter(s, set_label == "labeled"),
+                     
+    family = binomial())
+  
+  fit_naive <- glm(I(Yhat > 0.5) ~ Z, data = s, family = binomial())
+
+  fit_ppi <- ipd(Y - Yhat ~ Z, method = "ppi", 
+                 
+    model = "logistic", data = s, label = "set_label")
+
+  fit_plusplus <- ipd(Y - Yhat ~ Z, method = "ppi_plusplus", 
+                      
+    model = "logistic", data = s, label = "set_label")
+
+  fit_pspa <- ipd(Y - Yhat ~ Z, method = "pspa", 
+                  
+    model = "logistic", data = s, label = "set_label")
+
+  ### CHEN AND CHEN HERE                                                         ### NEED CHEN AND CHEN
+  
+  results <- bind_rows(
+    
+    tidy(fit_oracle,    conf.int = TRUE) |> mutate(Method = "Oracle"),
+    
+    tidy(fit_classical, conf.int = TRUE) |> mutate(Method = "Classical"),
+    
+    tidy(fit_naive,     conf.int = TRUE) |> mutate(Method = "Naive"),
+    
+    tidy(fit_ppi)                        |> mutate(Method = "PPI"),
+    
+    tidy(fit_plusplus)                   |> mutate(Method = "PPI++"),
+    
+    tidy(fit_pspa)                       |> mutate(Method = "PSPA")
+    
+  ### CHEN AND CHEN HERE                                                         ### NEED CHEN AND CHEN  
+  ) |>
+  
+  filter(term == "Z") |>
+  
+  mutate(
+    
+    Method = factor(Method) |>
+      
+      fct_relevel("Oracle", "Classical", "Naive", "PPI", "PPI++", "PSPA"),       ### NEED CHEN + CHEN
+    
+    OR  = exp(estimate),
+    
+    LCL = exp(conf.low),
+    
+    UCL = exp(conf.high),
+    
+    n = n,
+    
+    trial = t, 
+    
+    width = UCL - LCL) |>
+  
+  select(Method, OR, LCL, UCL, n, trial, width)
+}
+
+ex5_results <- crossing(n = ns, trial = 1:num_trials) |>
+  
+  mutate(out = map2(n, trial, run_one)) |>
+  
+  select(out) |> 
+  
+  unnest(out)
+
+glimpse(ex5_results)
+```
+
+:::
+
+::: {.callout-tip}
+
+## Notes
+
+We have now quantified uncertainty across many labeled sample sizes.
+
+The results table contains:
+
+* OR Estimates
+* Confidence Intervals
+* CI Widths
+* Repeated Trials
+
+This enables direct comparison of statistical efficiency.
+
+We should see:
+
+* CI widths decrease as `n` increases for all methods.
+* Classical inference shrinks slowly.
+* PPI and especially PPI++ shrink much faster.
+* Naive imputation remains artificially tight.
+
+This shows that unlabeled predictions have the potential to provide 
+*additional information* when properly calibrated.
+
+:::
+
+### Discussion Questions
+
+* Why do some IPD methods typically outperform others?
+* At small `n`, are methods variable across trials?
+* What does this imply for pilot studies?
+
+### Exercise 6: Visualizing Example Intervals
+
+Let's plot five random trials for `n = 400`, overlaying a reference OR 
+computed from the full dataset (i.e., the oracle regression results).
+
+::: {.callout-note collapse="true"}
+
+## Answer
+
+```{r}
+#| label: ex6
+
+set.seed(1)
+
+n_show <- 400
+
+ex_trials <- sample(unique(ex5_results$trial), size = 1)                         ### size = 5)
+
+ex6_results <- ex5_results |>
+  
+  filter(n == n_show, trial %in% ex_trials) |>
+  
+  mutate(
+    
+    Method = factor(Method) |>
+      
+      fct_relevel("Oracle", "Classical", "Naive", "PPI", "PPI++", "PSPA"),
+    
+    trial = factor(trial),
+    
+    covers = if_else((LCL <= oracle_est) & (UCL >= oracle_est), T, F)
+  )
+
+ex6_results |>
+  
+  ggplot(aes(x = OR, xmin = LCL, xmax = UCL, y = Method, color = covers)) +
+  
+    theme_bw() +
+  
+    facet_wrap(~ trial, nrow = 1) +
+  
+    geom_vline(xintercept = oracle_est, linetype = 2, linewidth = 1.1) +
+  
+    geom_linerange(linewidth = 5) +
+  
+    geom_point(size = 3, color = "white") +
+  
+    scale_y_discrete(limits = rev) +
+  
+    scale_color_manual(values = palette.colors(4)[2:3]) +  
+  
+    labs(
+      
+      x = "Odds Ratio (95% CI)", 
+      
+      y = NULL,
+      
+      color = "Covers the Oracle Estimate?") +
+  
+    theme(
+      
+      legend.position = "top",
+    
+      axis.text = element_text(face = "bold", size = 12),
+    
+      axis.title.x = element_text(face = "bold", size = 14, 
+                              
+      margin = margin(t = 20, unit = "pt")))
+
+```
+
+:::
+
+::: {.callout-tip}
+
+## Notes
+
+We should notice:
+
+* Classical intervals fluctuate more.
+* Naive intervals cluster tightly, but do not cover the oracle.
+* IPD-based intervals tend to center near the oracle, with more uncertainty.
+
+This illustrates an important distinction:
+
+> **Precision alone is meaningless without calibration.**
+
+Naive methods are precise but biased. IPD methods balance both.
+
+:::
+
+### Discussion Questions
+
+* Which methods consistently cover the oracle?
+* How might one diagnose miscalibration in practice?
+
+### Exercise 7: Average CI Widths
+
+Plot mean CI width versus `n` for all methods.
+
+Interpret:
+
+* Which methods shrink fastest?
+* How do IPD methods compare to classical inference?
+
+```{r}
+#| label: ex7
+
+ex7_results <- ex5_results |>
+  
+  group_by(Method, n) |>
+  
+  summarise(mn = mean(width, na.rm = TRUE), .groups = "drop")
+
+ex7_results |>
+  
+  ggplot(aes(x = n, y = mn, group = Method, color = Method)) +
+  
+    theme_bw() +
+  
+    geom_line(linewidth = 0.6) +
+  
+    geom_point(size = 1.6) +
+  
+    scale_x_continuous(breaks = ns) +
+  
+    scale_color_manual(values = palette.colors(6)) +                               ### 7 with CHEN + CHEN
+  
+    labs(
+    
+      x = "Number of Labeled Observations (n)",
+    
+      y = "Mean Confidence Interval Width") +
+  
+    theme(
+      
+      legend.position = "top",
+    
+      axis.text = element_text(face = "bold", size = 12),
+    
+      axis.title.x = element_text(face = "bold", size = 14, 
+                              
+        margin = margin(t = 20, unit = "pt")),
+      
+      axis.title.y = element_text(face = "bold", size = 14, 
+                              
+        margin = margin(r = 20, unit = "pt")))
+```
+
+::: {.callout-tip}
+
+## Notes
+
+This figure summarizes efficiency. Key takeaways:
+
+* Oracle represents the best achievable precision.
+* Classical requires far more labels to approach oracle performance.
+* IPD methods can reduce labeled sample requirements.
+
+This is the operational value of IPD:
+
+> We can sometimes improve precision with fewer labels.
+
+:::
+
+### Discussion Questions
+
+* When might classical inference still be preferable?
+* Factoring in the cost per residue, how might one weigh labeling 
+  versus predicting?
+
+# Part VI: Power Analysis
+
+Finally, suppose we want to test:
+
+$$
+  H_0: \text{OR} \le 1,
+$$
+
+where we reject when the **lower CI bound exceeds 1**.
+
+### Exercise 8: How Many Labels Do We Need?
+
+We will now estimate the smallest `n_labeled` such that:
+
+* PPI achieves 80% power
+* Classical inference achieves 80% power
+
+and we will compare the two.
+
+```{r}
+#| label: ex8
+
+alpha_pval <- 0.05
+
+target_power <- 0.80
+
+n_experiments <- 1                                                               ### Up to 100
+
+run_one_ci <- function(s, method = c("PPI", "Classical")) {
+  
+  method <- match.arg(method)
+
+  if (method == "PPI") {
+    
+    fit <- ipd(Y - Yhat ~ Z, method = "ppi", model = "logistic",
+               
+      data = s, label = "set_label", alpha = alpha_pval)
+    
+    tt <- tidy(fit) |> filter(term == "Z")
+    
+    c(LCL = exp(tt$conf.low), UCL = exp(tt$conf.high))
+    
+  } else {
+    
+    lab <- s |> filter(set_label == "labeled")
+    
+    m <- glm(Y ~ Z, data = lab, family = binomial())
+    
+    tt <- tidy(m, conf.int = TRUE) |> filter(term == "Z")
+    
+    c(LCL = exp(tt$conf.low), UCL = exp(tt$conf.high))
+  }
+}
+
+power_at_n <- function(n_labeled, method = c("PPI", "Classical")) {
+  
+  method <- match.arg(method)
+
+  rej <- replicate(n_experiments, {
+    
+    s <- make_split(dat, n_labeled = n_labeled)
+    
+    ci <- run_one_ci(s, method = method)
+    
+    if (method == "PPI") {
+      
+      as.integer(ci[["LCL.Z"]] > 1)
+      
+    } else {
+      
+      as.integer(ci[["LCL"]] > 1)
+    }
+  })
+
+  mean(rej)
+}
+
+n_grid <- sort(unique(round(seq(50, 1200, by = 50))))
+
+power_tbl <- tibble(
+  
+  n = n_grid,
+  
+  ppi = map_dbl(n_grid, ~ power_at_n(.x, "PPI")),
+  
+  classical = map_dbl(n_grid, ~ power_at_n(.x, "Classical"))) |>
+  
+  pivot_longer(-n, names_to = "Method", values_to = "Power")
+
+power_tbl
+
+n80 <- power_tbl |>
+  
+  group_by(Method) |>
+  
+  filter(Power >= target_power) |>
+  
+  summarise(n_for_80 = ifelse(n() == 0, NA_integer_, min(n)), .groups = "drop")
+
+n80
+
+power_tbl |>
+  
+  ggplot(aes(x = n, y = Power, color = Method)) +
+  
+    theme_bw() +
+  
+    geom_hline(yintercept = target_power, linetype = 2) +
+  
+    geom_line(linewidth = 1.1) +
+  
+    geom_point(size = 2) +
+  
+    scale_x_continuous(breaks = n_grid) +
+  
+    scale_color_manual(values = palette.colors(3)[2:3]) +
+  
+    labs(
+
+      x = "Number of Labeled Observations (n)",
+    
+      y = "Estimated Power") +
+  
+    theme(
+      
+      legend.position = "top",
+    
+      axis.text = element_text(face = "bold", size = 12),
+    
+      axis.title.x = element_text(face = "bold", size = 14, 
+                              
+        margin = margin(t = 20, unit = "pt")),
+      
+      axis.title.y = element_text(face = "bold", size = 14, 
+                              
+        margin = margin(r = 20, unit = "pt")))
+```
+
+::: {.callout-tip}
+
+## Notes
+
+We should observe:
+
+* Classical inference requires more labels to reach 80% power.
+* PPI reaches the same power with fewer labels.
+
+This translates directly into experimental design:
+
+> IPD can potentially reduces sample size requirements for discovery.
+
+:::
+
+### Discussion Questions
+
+* How could this change how we design wet lab validation studies?
+* What risks arise if `Yhat` is systematically biased?
+
+### Exercise 9: Naive Imputation Sensitivity
+
+To impute `Y`, we previously used a value of `0.5` to threshold the predicted 
+probabilities from AlphaFold. We can also repeat this experiment and vary the
+naive imputations with thresholds of 0.2, 0.4, 0.6, and 0.8.
+
+```{r}
+#| label: ex9
+
+thresholds <- seq(0.2, 0.8, 0.2)
+
+naive_by_threshold <- function(thr) {
+  
+  m <- glm(I(Yhat > thr) ~ Z, data = dat, family = binomial())
+  
+  tidy(m, conf.int = TRUE) |>
+    
+    filter(term == "Z") |>
+    
+    transmute(
+      
+      threshold = thr,
+      
+      OR = exp(estimate),
+      
+      LCL = exp(conf.low),
+      
+      UCL = exp(conf.high),
+      
+      width = UCL - LCL
+    )
+}
+
+ex9_results <- bind_rows(lapply(thresholds, naive_by_threshold))
+
+ex9_results
+
+ex9_results |>
+  
+  ggplot(aes(x = OR, xmin = LCL, xmax = UCL, y = threshold)) +
+  
+    theme_bw() +
+  
+    geom_vline(xintercept = 1, linetype = 2, linewidth = 1.1) +
+
+    geom_linerange(linewidth = 5, color = palette.colors(3)[3]) +
+  
+    geom_point(size = 3, color = "white") +
+  
+    scale_y_continuous(breaks = thresholds) +
+  
+    labs(
+      
+      x = "Odds Ratio (95% CI)", 
+      
+      y = "Threshold for Yhat -> Binary Label") +
+  
+    theme(
+      
+      legend.position = "top",
+    
+      axis.text = element_text(face = "bold", size = 12),
+    
+      axis.title.x = element_text(face = "bold", size = 14, 
+                              
+        margin = margin(t = 20, unit = "pt")),
+      
+      axis.title.y = element_text(face = "bold", size = 14, 
+                              
+        margin = margin(r = 20, unit = "pt")))
+
+```
+
+### Discussion Question
+
+* Why do the OR estimates change?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Part VII: Biological Extensions
+
+### Exercise 10: Compare PTMs
+
+Repeat the entire workflow for:
+
+* phosphorylation
+* ubiquitination
+* acetylation
+
+Which PTM shows the strongest enrichment in disorder?
+
+## Take-Home Messages
+
+AlphaFold enables proteome-scale structural annotation—but statistical inference still matters.
+
+By combining:
+
+* ML predictions (`Yhat`)
+* limited truth (`Y`)
+* IPD methodology
+
+you can:
+
+* retain valid uncertainty
+* dramatically reduce labeling requirements
+* make principled biological conclusions at scale.
+
+This paradigm generalizes far beyond protein disorder—to any setting where ML predictions feed into downstream scientific inference.
+
+
+
+<!--- NEED TO FIX/FINISH BELOW ------------------------------------------------>
+
+
+# Next Steps, Conclusions, and Summary
+
+## Key Lessons
+
+This module demonstrates a general paradigm:
+
+1. Use ML to generate predictions at scale.
+2. Collect limited ground truth data.
+3. Apply IPD to recover valid inference.
+
+In this AlphaFold/PTM application, we saw that:
+
+* Classical methods waste information.
+* Naive imputation is overconfident.
+* IPD-style approaches preserve validity while improving efficiency.
+
+This pattern appears across modern science:
+
+* medical imaging
+* genomics
+* remote sensing
+* clinical risk modeling
+
+Anywhere predictions feed downstream analysis, IPD applies.
+
+## Optional Take-Home Assignment (Exercise 10)
+
+### Exercise 10 (Self-Guided): Compare PTMs
+
+Repeat the full workflow for:
+
+* phosphorylation
+* ubiquitination
+* acetylation
+
+Compare:
+
+* estimated ORs
+* CI widths
+* required sample sizes
+
+### Biological context
+
+Different PTMs play distinct regulatory roles:
+
+* Phosphorylation is often associated with signaling
+* Ubiquitination with degradation
+* Acetylation with chromatin regulation
+
+You may find that:
+
+* Some PTMs are more enriched in disorder
+* Some show weaker or noisier associations
+
+### Statistical goal
+
+Assess whether:
+
+* effect sizes differ across PTMs
+* labeling efficiency gains persist
+* conclusions are robust
+
+This mirrors real exploratory proteomics.
+
+## Suggested Extensions
+
+If you continue this work:
+
+* Add protein-level clustering (robust SEs)
+* Include covariates (amino acid type, position)
+* Compare other methods
+* Inject noise into `Yhat` to study robustness
+* Apply to another ML-derived phenotype
+
+
+## Final Take-Home Message
+
+NEED!
