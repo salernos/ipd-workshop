@@ -136,6 +136,7 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../styles.scss">
 <meta property="og:title" content="Proteomics with AlphaFold – IPD Workshop">
 <meta property="og:description" content="Apply IPD methods in a proteomics setting to estimate associations when key outcomes are model-predicted rather than directly measured.">
 <meta property="og:image" content="https://salernos.github.io/ipd-workshop/content/images/alphafold_cover.png">
@@ -199,6 +200,18 @@ window.Quarto = {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
@@ -310,14 +323,9 @@ window.Quarto = {
   <li><a href="#exercise-9-naive-imputation-sensitivity" id="toc-exercise-9-naive-imputation-sensitivity" class="nav-link" data-scroll-target="#exercise-9-naive-imputation-sensitivity">Exercise 9: Naive Imputation Sensitivity</a></li>
   <li><a href="#discussion-question" id="toc-discussion-question" class="nav-link" data-scroll-target="#discussion-question">Discussion Question</a></li>
   </ul></li>
-  <li><a href="#part-vii-biological-extensions" id="toc-part-vii-biological-extensions" class="nav-link" data-scroll-target="#part-vii-biological-extensions">Part VII: Biological Extensions</a>
+  <li><a href="#summary-conclusions-and-next-steps" id="toc-summary-conclusions-and-next-steps" class="nav-link" data-scroll-target="#summary-conclusions-and-next-steps">Summary, Conclusions, and Next Steps</a>
   <ul class="collapse">
-  <li><a href="#exercise-10-compare-ptms" id="toc-exercise-10-compare-ptms" class="nav-link" data-scroll-target="#exercise-10-compare-ptms">Exercise 10: Compare PTMs</a></li>
-  <li><a href="#take-home-messages" id="toc-take-home-messages" class="nav-link" data-scroll-target="#take-home-messages">Take-Home Messages</a></li>
-  </ul></li>
-  <li><a href="#next-steps-conclusions-and-summary" id="toc-next-steps-conclusions-and-summary" class="nav-link" data-scroll-target="#next-steps-conclusions-and-summary">Next Steps, Conclusions, and Summary</a>
-  <ul class="collapse">
-  <li><a href="#key-lessons" id="toc-key-lessons" class="nav-link" data-scroll-target="#key-lessons">Key Lessons</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#optional-take-home-assignment-exercise-10" id="toc-optional-take-home-assignment-exercise-10" class="nav-link" data-scroll-target="#optional-take-home-assignment-exercise-10">Optional Take-Home Assignment (Exercise 10)</a>
   <ul class="collapse">
   <li><a href="#exercise-10-self-guided-compare-ptms" id="toc-exercise-10-self-guided-compare-ptms" class="nav-link" data-scroll-target="#exercise-10-self-guided-compare-ptms">Exercise 10 (Self-Guided): Compare PTMs</a></li>
@@ -325,7 +333,12 @@ window.Quarto = {
   <li><a href="#statistical-goal" id="toc-statistical-goal" class="nav-link" data-scroll-target="#statistical-goal">Statistical goal</a></li>
   </ul></li>
   <li><a href="#suggested-extensions" id="toc-suggested-extensions" class="nav-link" data-scroll-target="#suggested-extensions">Suggested Extensions</a></li>
-  <li><a href="#final-take-home-message" id="toc-final-take-home-message" class="nav-link" data-scroll-target="#final-take-home-message">Final Take-Home Message</a></li>
+  <li><a href="#useful-references" id="toc-useful-references" class="nav-link" data-scroll-target="#useful-references">Useful References</a></li>
+  </ul></li>
+  <li><a href="#part-vii-biological-extensions" id="toc-part-vii-biological-extensions" class="nav-link" data-scroll-target="#part-vii-biological-extensions">Part VII: Biological Extensions</a>
+  <ul class="collapse">
+  <li><a href="#exercise-10-compare-ptms" id="toc-exercise-10-compare-ptms" class="nav-link" data-scroll-target="#exercise-10-compare-ptms">Exercise 10: Compare PTMs</a></li>
+  <li><a href="#take-home-messages" id="toc-take-home-messages" class="nav-link" data-scroll-target="#take-home-messages">Take-Home Messages</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/salernos/ipd-workshop/edit/main/content/Unit01_AlphaFold.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/salernos/ipd-workshop/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -341,7 +354,7 @@ window.Quarto = {
 
 <div>
   <div class="description">
-    Apply IPD methods in a proteomics setting to estimate associations when key outcomes are model-predicted rather than directly measured.
+    <p>Apply IPD methods in a proteomics setting to estimate associations when key outcomes are model-predicted rather than directly measured.</p>
   </div>
 </div>
 
@@ -1201,6 +1214,18 @@ Notes
 <li>Which methods shrink fastest?</li>
 <li>How do IPD methods compare to classical inference?</li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -1252,6 +1277,9 @@ Notes
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1298,6 +1326,18 @@ Notes
 <li>Classical inference achieves 80% power</li>
 </ul>
 <p>and we will compare the two.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -1451,6 +1491,9 @@ Notes
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1483,6 +1526,18 @@ Notes
 <section id="exercise-9-naive-imputation-sensitivity" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-9-naive-imputation-sensitivity">Exercise 9: Naive Imputation Sensitivity</h3>
 <p>To impute <code>Y</code>, we previously used a value of <code>0.5</code> to threshold the predicted probabilities from AlphaFold. We can also repeat this experiment and vary the naive imputations with thresholds of 0.2, 0.4, 0.6, and 0.8.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -1567,49 +1622,23 @@ Notes
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 </section>
 <section id="discussion-question" class="level3">
 <h3 class="anchored" data-anchor-id="discussion-question">Discussion Question</h3>
 <ul>
 <li>Why do the OR estimates change?</li>
 </ul>
+<!--- FIX/FINISH BELOW!! --------->
 </section>
 </section>
-<section id="part-vii-biological-extensions" class="level1">
-<h1>Part VII: Biological Extensions</h1>
-<section id="exercise-10-compare-ptms" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-10-compare-ptms">Exercise 10: Compare PTMs</h3>
-<p>Repeat the entire workflow for:</p>
-<ul>
-<li>phosphorylation</li>
-<li>ubiquitination</li>
-<li>acetylation</li>
-</ul>
-<p>Which PTM shows the strongest enrichment in disorder?</p>
-</section>
-<section id="take-home-messages" class="level2">
-<h2 class="anchored" data-anchor-id="take-home-messages">Take-Home Messages</h2>
-<p>AlphaFold enables proteome-scale structural annotation—but statistical inference still matters.</p>
-<p>By combining:</p>
-<ul>
-<li>ML predictions (<code>Yhat</code>)</li>
-<li>limited truth (<code>Y</code>)</li>
-<li>IPD methodology</li>
-</ul>
-<p>you can:</p>
-<ul>
-<li>retain valid uncertainty</li>
-<li>dramatically reduce labeling requirements</li>
-<li>make principled biological conclusions at scale.</li>
-</ul>
-<p>This paradigm generalizes far beyond protein disorder—to any setting where ML predictions feed into downstream scientific inference.</p>
-</section>
-</section>
-<section id="next-steps-conclusions-and-summary" class="level1">
-<h1>Next Steps, Conclusions, and Summary</h1>
-<section id="key-lessons" class="level2">
-<h2 class="anchored" data-anchor-id="key-lessons">Key Lessons</h2>
-<p>This module demonstrates a general paradigm:</p>
+<section id="summary-conclusions-and-next-steps" class="level1">
+<h1>Summary, Conclusions, and Next Steps</h1>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>This module demonstrates how we can use IPD methods in biological workflows:</p>
 <ol type="1">
 <li>Use ML to generate predictions at scale.</li>
 <li>Collect limited ground truth data.</li>
@@ -1617,19 +1646,18 @@ Notes
 </ol>
 <p>In this AlphaFold/PTM application, we saw that:</p>
 <ul>
-<li>Classical methods waste information.</li>
-<li>Naive imputation is overconfident.</li>
-<li>PPI-style approaches preserve validity while dramatically improving efficiency.</li>
+<li>Classical methods do not utilize all available information.</li>
+<li>Naive imputation produces biased estimates and underestimated uncertainty.</li>
+<li>IPD-style approaches preserve validity while improving efficiency.</li>
 </ul>
-<p>This pattern appears across modern science:</p>
+<p>This setup appears across modern science and has applications in:</p>
 <ul>
-<li>medical imaging</li>
-<li>genomics</li>
-<li>remote sensing</li>
-<li>clinical risk modeling</li>
+<li>Medical imaging</li>
+<li>Genomics</li>
+<li>Remote sensing</li>
+<li>Clinical risk modeling</li>
 </ul>
-<p>Anywhere predictions feed downstream analysis, IPD applies.</p>
-<hr>
+<p>Anywhere predictions feed into downstream analysis, IPD applies.</p>
 </section>
 <section id="optional-take-home-assignment-exercise-10" class="level2">
 <h2 class="anchored" data-anchor-id="optional-take-home-assignment-exercise-10">Optional Take-Home Assignment (Exercise 10)</h2>
@@ -1671,7 +1699,6 @@ Notes
 <li>conclusions are robust</li>
 </ul>
 <p>This mirrors real exploratory proteomics.</p>
-<hr>
 </section>
 </section>
 <section id="suggested-extensions" class="level2">
@@ -1680,18 +1707,44 @@ Notes
 <ul>
 <li>Add protein-level clustering (robust SEs)</li>
 <li>Include covariates (amino acid type, position)</li>
-<li>Compare PPI vs PPI++</li>
+<li>Compare other methods</li>
 <li>Inject noise into <code>Yhat</code> to study robustness</li>
 <li>Apply to another ML-derived phenotype</li>
 </ul>
-<hr>
-<hr>
 </section>
-<section id="final-take-home-message" class="level2">
-<h2 class="anchored" data-anchor-id="final-take-home-message">Final Take-Home Message</h2>
-<p>AlphaFold enables proteome-scale prediction.</p>
-<p>IPD enables <strong>proteome-scale inference</strong>.</p>
-<p>Together, they allow you to turn predictions into scientifically valid conclusions—without labeling everything.</p>
+<section id="useful-references" class="level2">
+<h2 class="anchored" data-anchor-id="useful-references">Useful References</h2>
+</section>
+</section>
+<section id="part-vii-biological-extensions" class="level1">
+<h1>Part VII: Biological Extensions</h1>
+<section id="exercise-10-compare-ptms" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-10-compare-ptms">Exercise 10: Compare PTMs</h3>
+<p>Repeat the entire workflow for:</p>
+<ul>
+<li>phosphorylation</li>
+<li>ubiquitination</li>
+<li>acetylation</li>
+</ul>
+<p>Which PTM shows the strongest enrichment in disorder?</p>
+</section>
+<section id="take-home-messages" class="level2">
+<h2 class="anchored" data-anchor-id="take-home-messages">Take-Home Messages</h2>
+<p>AlphaFold enables proteome-scale structural annotation—but statistical inference still matters.</p>
+<p>By combining:</p>
+<ul>
+<li>ML predictions (<code>Yhat</code>)</li>
+<li>limited truth (<code>Y</code>)</li>
+<li>IPD methodology</li>
+</ul>
+<p>you can:</p>
+<ul>
+<li>retain valid uncertainty</li>
+<li>dramatically reduce labeling requirements</li>
+<li>make principled biological conclusions at scale.</li>
+</ul>
+<p>This paradigm generalizes far beyond protein disorder—to any setting where ML predictions feed into downstream scientific inference.</p>
+<!--- NEED TO FIX/FINISH BELOW ------------------------------------------------>
 
 
 </section>

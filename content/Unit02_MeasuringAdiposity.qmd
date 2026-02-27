@@ -153,7 +153,10 @@ contains a tibble, **NHANES**, with the following columns:
 **Note:** The the code used to produce this dataset is available in this 
 repository at `inst/NHANES_DATA.R`.
 
-### Install and Load the Necessary Packages
+### Exercise 1: Install and Load the Necessary Packages
+
+::: {.callout-note collapse="true"}
+## Answer
 
 ```{r}
 # Install these packages if you have not already:
@@ -165,9 +168,20 @@ library(scales)     # Formatting scales and labels for ggplot2
 library(tidyverse)  # Meta‐package for data manipulation and visualization
 ```
 
-### Load the Data
+:::
+
+::: {.callout-tip}
+## Notes
+
+Load packages once here so all remaining exercises run cleanly.
+:::
+
+### Exercise 2: Load the Data
 
 We first load the prepared dataset and take a look at its features:
+
+::: {.callout-note collapse="true"}
+## Answer
 
 ```{r}
 # Load the dataset
@@ -177,11 +191,22 @@ load("data/NHANES.RData")
 glimpse(NHANES)
 ```
 
-### Overview by Cohort
+:::
+
+::: {.callout-tip}
+## Notes
+
+Verify the data schema now to avoid debugging later steps.
+:::
+
+### Exercise 3: Overview by Cohort
 
 We can now get a sense of the different cohorts and our variables of interest:
 
 #### Sample Sizes
+
+::: {.callout-note collapse="true"}
+## Answer
 
 ```{r}
 NHANES |>
@@ -199,14 +224,28 @@ NHANES |>
     pct_missing = mean(is.na(DXDTOPF)) * 100)
 ```
 
-> **Expected:**
->
-> * 2017-2018: 100% of DXA (`DXDTOPF`) present (using those with mobile examination center (MEC) tests and MEC weights).
-> * 2021-2023: 100% missing for `DXDTOPF` (no DXA data post-pandemic).
+:::
 
-### Descriptive Statistics
+::: {.callout-tip}
+## Notes
+
+Expected:
+
+* 2017-2018: DXA (`DXDTOPF`) present for analytic participants.
+* 2021-2023: `DXDTOPF` entirely missing (post-pandemic no DXA).
+:::
+
+### Discussion Questions
+
+* Why is this a natural labeled/unlabeled split for IPD?
+* What inferential bias would appear if we ignored the structured missingness?
+
+### Exercise 4: Descriptive Statistics
 
 #### BMI, Waist Circumference, and DXA % Fat
+
+::: {.callout-note collapse="true"}
+## Answer
 
 ```{r}
 NHANES |>
@@ -288,20 +327,31 @@ NHANES |>
     theme_minimal()
 ```
 
-> **Interpretation:**
-> 
-> * There is a strong *positive linear relationship* between both BMI and WC with DXA body fat percentage.
-> * This relationship is apparent across both sexes, but slopes differ, indicating *different body composition patterns* between males and females.
-> * The presence of individuals in *mismatched quadrants* (e.g., high BMI but low body fat) suggests limitations in using BMI/WC alone as diagnostic tools, particularly across sexes.
->
+:::
 
-## Defining Obesity Categories
+::: {.callout-tip}
+## Notes
+
+* BMI and WC both show strong positive association with DXA % fat.
+* Slopes differ by sex, suggesting different proxy behavior across groups.
+* Mismatched quadrants indicate real proxy misclassification.
+:::
+
+### Discussion Questions
+
+* Which proxy looks better aligned with DXA in this cohort?
+* How might sex-specific thresholding improve proxy calibration?
+
+### Exercise 5: Defining Obesity Categories
 
 Let us create three binary indicators:
 
 * **`obese_BMI`**: BMI ≥ 30 kg/m²
 * **`obese_WC`**: WC ≥ 102 cm (men) or ≥ 88 cm (women)
 * **`obese_DXA`**: DXA % Fat > 30% (men) or > 42% (women)
+
+::: {.callout-note collapse="true"}
+## Answer
 
 ```{r}
 NHANES <- NHANES |>
@@ -319,9 +369,20 @@ NHANES <- NHANES |>
   )
 ```
 
-### Misclassification in 2017-2018
+:::
+
+::: {.callout-tip}
+## Notes
+
+These indicators define proxy outcomes (`obese_BMI`, `obese_WC`) and the reference outcome (`obese_DXA`) for downstream analyses.
+:::
+
+### Exercise 6: Misclassification in 2017-2018
 
 Compare BMI-defined vs DXA-defined obesity:
+
+::: {.callout-note collapse="true"}
+## Answer
 
 ```{r}
 # Overall
@@ -357,24 +418,28 @@ NHANES |>
   ungroup()
 ```
 
-> **Interpretation:**
-> 
-> *BMI vs. DXA:*
->
-> * The misclassification rate is 8.5% + 11.5% = 20.0%, with BMI underestimating DXA-defined obesity more than it overestimates it.
-> * By sex, BMI misses many obese males per DXA, indicating underestimation of adiposity, but it overcalls obesity more often than it misses it in females.
-> * BMI is less sensitive for men, while women are more likely to be labeled obese by BMI even when not by DXA, indicating reduced specificity.
->
-> *WC vs. DXA:*
->
-> * The misclassification rate is 14.6% + 8.8% = 23.4%, with WC slightly overestimating obesity more than it underestimates, opposite to BMI.
-> * WC underestimates DXA-defined obesity in males, similar to BMI, but overestimates obesity in females, often classifying non-obese women as obese.
-> * For women, WC has higher sensitivity but lower specificity than BMI, as it detects more DXA-obese individuals but also overcalls many who are not.
+:::
 
-### Additional Stratified Comparisons: Grouped Bar Charts by Measure
+::: {.callout-tip}
+## Notes
+
+* **BMI vs DXA:** meaningful misclassification, with sex-specific asymmetry.
+* **WC vs DXA:** also misclassifies, with a different error profile from BMI.
+* Proxy choice changes both bias direction and uncertainty in downstream models.
+:::
+
+### Discussion Questions
+
+* Which error pattern would most distort regression coefficients?
+* How might subgroup-specific calibration reduce these errors?
+
+### Exercise 7: Additional Stratified Comparisons by Measure
 
 Let us reshape the data to long format so that BMI, WC, and DXA-defined obesity 
 are all in one "Measure" column:
+
+::: {.callout-note collapse="true"}
+## Answer
 
 ```{r}
 # Assume NHANES is already loaded and has Cohort, Age, Sex, Race, 
@@ -469,7 +534,15 @@ ggplot(prop_race, aes(x = Race, y = prop, fill = Obese)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-### Discussion
+:::
+
+::: {.callout-tip}
+## Notes
+
+Stratified charts reveal where proxy-defined obesity diverges most from DXA by subgroup.
+:::
+
+### Discussion Questions
 
 BMI misclassification varies systematically across subgroups:
 
@@ -483,7 +556,7 @@ BMI misclassification varies systematically across subgroups:
 
 ## Demographic Associations: Naive vs Classical vs IPD
 
-### Naive vs Classical vs IPD Inference
+### Exercise 8: Naive vs Classical vs IPD Inference
 
 We are interested in studying the *association* between *true percent body fat* 
 (DXA % fat) and risk factors such as age, sex, and race. We model the *binary*
@@ -494,7 +567,10 @@ obesity outcome (DXA-defined "true" vs BMI/WC "proxy") as a function of *Age*,
 - **Classical:** true-only model on *labeled* data (2017-2018)  
 - **IPD:** combine both while correcting for proxy error
 
-#### Setup Labeled vs Unlabeled Data
+#### Exercise 8a: Setup Labeled vs Unlabeled Data
+
+::: {.callout-note collapse="true"}
+## Answer
 
 ```{r}
 # Split NHANES into labeled (DXA available) vs unlabeled
@@ -508,7 +584,15 @@ combined <- bind_rows(
 )
 ```
 
-#### Naive versus Classical Regressions
+:::
+
+::: {.callout-tip}
+## Notes
+
+This split defines the labeled and unlabeled sets used by IPD.
+:::
+
+#### Exercise 8b: Naive versus Classical Regressions
 
 We fit:
 
@@ -518,6 +602,9 @@ We fit:
 
 For the naive method, we treat BMI- and WC-based obesity (our 'predictions) as 
 the true outcomes, fit on the **unlabeled** participants:
+
+::: {.callout-note collapse="true"}
+## Answer
 
 ```{r}
 # Naive on unlabeled using BMI
@@ -583,17 +670,22 @@ ggplot(coef_df, aes(x = estimate, y = term, color = method)) +
   theme_minimal()
 ```
 
-> **How to interpret these results?**
->
-> * Notice the differences in significance and magnitude, even direction/sign change depending on the measure of obesity used!
->
-> * *Age Groups (vs Under 20):* All age groups have positive coefficients, indicating higher odds of DXA-defined obesity with age, but naive BMI and WC show even larger positive estimates, suggesting that BMI and WC may over-classify obesity in older adults compared to DXA.
->
-> * *Sex (Female vs Male):* DXA shows a negative association, while BMI and WC have uch larger effect sizes, particularly for WC, implying that WC-based obesity strongly overclassifies women as obese relative to DXA.
->
-> * *Race/Ethnicity (vs Non-Hispanic White):* BMI/WC models show larger effects in Non-Hispanic Black participants, again hinting that BMI and WC may overestimate obesity in this group, while the opposite is true for Non-Hispanic Asian participants.
+:::
 
-#### IPD Corrections
+::: {.callout-tip}
+## Notes
+
+* Naive models can appear precise but are biased by proxy error.
+* Classical DXA-only estimates are valid but use fewer observations.
+* Compare sign/magnitude shifts across covariates to diagnose proxy bias.
+:::
+
+### Discussion Questions
+
+* Which coefficients are most sensitive to proxy choice?
+* Do BMI and WC induce similar bias patterns?
+
+#### Exercise 9: IPD Corrections
 
 We now apply **IPD** to leverage all participants (labeled + unlabeled) while adjusting for prediction error. We run two IPD analyses, one using `BMI` as our '`f`' and one using `WC`.
 
@@ -621,6 +713,9 @@ We now apply **IPD** to leverage all participants (labeled + unlabeled) while ad
 
 Now we can try to run the IPD model:
 
+::: {.callout-note collapse="true"}
+## Answer
+
 ```{r error-chunk, eval=FALSE}
 # Note: This code chunk results in an error, but we have an informative warning
 # We can try running it and see!
@@ -642,17 +737,23 @@ Now we can try to run the IPD model:
 # )
 ```
 
-> **We get an informative warning:**
->
-> Warning in .warn_differing_levels(inp\$data_l, inp\$data_u, factor_vars):
-> Differing factor levels between labeled and unlabeled data:
->
-> Warning:  - Age:
->     labeled = [Under 20, 20-39, 40-59]
->     unlabeled = [Under 20, 20-39, 40-59, 60+]
->
+:::
+
+::: {.callout-tip}
+## Notes
+
+The warning is expected: labeled and unlabeled datasets must share factor levels for IPD model fitting.
+:::
+
+### Discussion Questions
+
+* Why do mismatched factor levels break IPD fitting?
+* What preprocessing checks should you run before modeling?
 
 We can see that the *labeled* subset does *not* include any `"60+"` observations, but IPD expects the same factor levels in both sets in order to fit the model using all the data. To fix this, let us refactor both the *labeled* and *unlabeled* data so they have consistent age categories:
+
+::: {.callout-note collapse="true"}
+## Answer
 
 ```{r}
 # Recode age
@@ -673,8 +774,15 @@ combined2 <- bind_rows(
 )
 ```
 
+:::
+
+### Exercise 10: Run IPD and Compare Against Naive/Classical
+
 Now let us rerun `ipd::ipd()` and compare our results to the **Naive** and 
 **Classical** models:
+
+::: {.callout-note collapse="true"}
+## Answer
 
 ```{r recoded-chunk}
 # Note: This code chunk now runs without error!
@@ -787,9 +895,18 @@ ggplot(coef_df, aes(x = estimate, y = term,
   theme_minimal()
 ```
 
->
-> **Key Point:** The IPD methods combine both cohorts, using the labeled DXA values and the proxy in the unlabeled cohort to correct bias and recover valid estimates for the effect of Age, Sex, and Race/Ethnicity on true adiposity.
->
+:::
+
+::: {.callout-tip}
+## Notes
+
+IPD combines both cohorts to correct proxy-induced bias while leveraging unlabeled sample size for efficiency.
+:::
+
+### Discussion Questions
+
+* Which covariates move closest to classical after IPD correction?
+* Do IPD(BMI) and IPD(WC) differ meaningfully in uncertainty?
 
 ## Summary and Key Takeaways
 

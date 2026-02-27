@@ -65,6 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../content/Unit01_AlphaFold.html" rel="next">
+<link href="../content/slides.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -135,6 +136,7 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../styles.scss">
 <meta property="og:title" content="Getting Started – IPD Workshop">
 <meta property="og:description" content="Build intuition for inference with predicted data by simulating labeled/unlabeled sets and comparing naive, classical, and IPD estimators.">
 <meta property="og:image" content="https://salernos.github.io/ipd-workshop/content/images/ipd_cover.png">
@@ -143,7 +145,7 @@ window.Quarto = {
 <meta property="og:image:width" content="1536">
 </head>
 
-<body class="nav-sidebar docked slimcontent">
+<body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -198,6 +200,18 @@ window.Quarto = {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
@@ -287,28 +301,36 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#exercise-1-data-generation" id="toc-exercise-1-data-generation" class="nav-link" data-scroll-target="#exercise-1-data-generation">Exercise 1: Data Generation</a></li>
   </ul></li>
-  <li><a href="#fit-a-linear-prediction-model" id="toc-fit-a-linear-prediction-model" class="nav-link" data-scroll-target="#fit-a-linear-prediction-model">Fit a Linear Prediction Model</a></li>
-  <li><a href="#create-labeled-and-unlabeled-datasets" id="toc-create-labeled-and-unlabeled-datasets" class="nav-link" data-scroll-target="#create-labeled-and-unlabeled-datasets">Create ‘Labeled’ and ‘Unlabeled’ datasets</a></li>
-  <li><a href="#comparison-of-the-true-vs-predicted-outcomes" id="toc-comparison-of-the-true-vs-predicted-outcomes" class="nav-link" data-scroll-target="#comparison-of-the-true-vs-predicted-outcomes">Comparison of the True vs Predicted Outcomes</a></li>
+  <li><a href="#generating-predictions" id="toc-generating-predictions" class="nav-link" data-scroll-target="#generating-predictions">Generating Predictions</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2-fitting-a-linear-prediction-model" id="toc-exercise-2-fitting-a-linear-prediction-model" class="nav-link" data-scroll-target="#exercise-2-fitting-a-linear-prediction-model">Exercise 2: Fitting a Linear Prediction Model</a></li>
+  </ul></li>
+  <li><a href="#creating-labeled-and-unlabeled-datasets" id="toc-creating-labeled-and-unlabeled-datasets" class="nav-link" data-scroll-target="#creating-labeled-and-unlabeled-datasets">Creating ‘Labeled’ and ‘Unlabeled’ Datasets</a>
+  <ul class="collapse">
+  <li><a href="#exercise-3-splitting-the-data" id="toc-exercise-3-splitting-the-data" class="nav-link" data-scroll-target="#exercise-3-splitting-the-data">Exercise 3: Splitting the Data</a></li>
+  </ul></li>
+  <li><a href="#comparison-of-the-true-vs-predicted-outcomes" id="toc-comparison-of-the-true-vs-predicted-outcomes" class="nav-link" data-scroll-target="#comparison-of-the-true-vs-predicted-outcomes">Comparison of the True vs Predicted Outcomes</a>
+  <ul class="collapse">
+  <li><a href="#exercise-4-plotting-the-data" id="toc-exercise-4-plotting-the-data" class="nav-link" data-scroll-target="#exercise-4-plotting-the-data">Exercise 4: Plotting the Data</a></li>
+  </ul></li>
   <li><a href="#some-baselines-naive-vs-classical-inference" id="toc-some-baselines-naive-vs-classical-inference" class="nav-link" data-scroll-target="#some-baselines-naive-vs-classical-inference">Some Baselines: Naive vs Classical Inference</a>
   <ul class="collapse">
-  <li><a href="#exercise-2-naive-vs.-classical-model-fitting" id="toc-exercise-2-naive-vs.-classical-model-fitting" class="nav-link" data-scroll-target="#exercise-2-naive-vs.-classical-model-fitting">Exercise 2: Naive vs.&nbsp;Classical Model Fitting</a></li>
+  <li><a href="#exercise-5-naive-vs.-classical-model-fitting" id="toc-exercise-5-naive-vs.-classical-model-fitting" class="nav-link" data-scroll-target="#exercise-5-naive-vs.-classical-model-fitting">Exercise 5: Naive vs.&nbsp;Classical Model Fitting</a></li>
   </ul></li>
   <li><a href="#ipd-corrected-inference-with-ipdipd" id="toc-ipd-corrected-inference-with-ipdipd" class="nav-link" data-scroll-target="#ipd-corrected-inference-with-ipdipd">IPD: Corrected Inference with <code>ipd::ipd()</code></a>
   <ul class="collapse">
-  <li><a href="#exercise-3-ipd-model-fitting-via-the-pspa-estimator" id="toc-exercise-3-ipd-model-fitting-via-the-pspa-estimator" class="nav-link" data-scroll-target="#exercise-3-ipd-model-fitting-via-the-pspa-estimator">Exercise 3: IPD Model Fitting via the PSPA Estimator</a></li>
-  <li><a href="#exercise-4-visualizing-uncertainty" id="toc-exercise-4-visualizing-uncertainty" class="nav-link" data-scroll-target="#exercise-4-visualizing-uncertainty">Exercise 4: Visualizing Uncertainty</a></li>
-  <li><a href="#exercise-5-inspecting-results" id="toc-exercise-5-inspecting-results" class="nav-link" data-scroll-target="#exercise-5-inspecting-results">Exercise 5: Inspecting Results</a></li>
+  <li><a href="#exercise-6-ipd-model-fitting-via-the-pspa-estimator" id="toc-exercise-6-ipd-model-fitting-via-the-pspa-estimator" class="nav-link" data-scroll-target="#exercise-6-ipd-model-fitting-via-the-pspa-estimator">Exercise 6: IPD Model Fitting via the PSPA Estimator</a></li>
+  <li><a href="#exercise-7-visualizing-uncertainty" id="toc-exercise-7-visualizing-uncertainty" class="nav-link" data-scroll-target="#exercise-7-visualizing-uncertainty">Exercise 7: Visualizing Uncertainty</a></li>
+  <li><a href="#exercise-8-inspecting-results" id="toc-exercise-8-inspecting-results" class="nav-link" data-scroll-target="#exercise-8-inspecting-results">Exercise 8: Inspecting Results</a></li>
   </ul></li>
   <li><a href="#summary-and-key-takeaways" id="toc-summary-and-key-takeaways" class="nav-link" data-scroll-target="#summary-and-key-takeaways">Summary and Key Takeaways</a></li>
   <li><a href="#further-exploration" id="toc-further-exploration" class="nav-link" data-scroll-target="#further-exploration">Further Exploration</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/salernos/ipd-workshop/edit/main/content/Unit00_GettingStarted.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/salernos/ipd-workshop/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/Unit00_GettingStarted.html">Modules</a></li><li class="breadcrumb-item"><a href="../content/Unit00_GettingStarted.html">Getting Started</a></li></ol></nav>
 <div class="quarto-title">
@@ -335,7 +357,7 @@ window.Quarto = {
 </header>
 
 
-<section id="overview" class="level1 page-columns page-full">
+<section id="overview" class="level1">
 <h1>Overview</h1>
 <p>Welcome to this workshop on <em>Inference with Predicted Data (IPD)</em>! In this module, we will:</p>
 <ul>
@@ -345,10 +367,50 @@ window.Quarto = {
 <li>Inspect results using built-in <code>tidy</code>, <code>glance</code>, and <code>augment</code> methods.</li>
 </ul>
 <p>Throughout the workshop, exercises are provided with solutions for practice.</p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p><strong>Margin Note:</strong> Unit 00 intentionally uses ‘toy’ synthetic data. The goal is to make the workflow concrete before we move to real data motivating IPD.</p>
-</div></div><section id="background-and-motivation" class="level2">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+How to Use This Module
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Try each <strong>Exercise</strong> on your own first.</li>
+<li>Expand the <strong>Answer</strong> callout to view one possible solution.</li>
+<li>Use the <strong>Notes</strong> callouts to interpret results and connect them to IPD concepts.</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Why This Unit Uses Synthetic Data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Unit 00 intentionally uses synthetic examples. The goal is to make the IPD workflow concrete before moving to real data in later modules.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Key Takeaway
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using predicted outcomes for can improve efficiency, but treating them as if they are real data can bias downstream inference. This unit shows how IPD methods can use a small set of labeled data to recover valid inference while leveraging unlabeled data and predicted outcomes to gain more information.</p>
+</div>
+</div>
+<section id="background-and-motivation" class="level2">
 <h2 class="anchored" data-anchor-id="background-and-motivation">Background and Motivation</h2>
 <p>When an outcome, <span class="math inline">\(Y\)</span>, is costly or difficult to measure, it can be tempting to replace missing values with predictions, <span class="math inline">\(f(\boldsymbol{X})\)</span>, from a machine learning model (e.g., a random forest or neural network) built on easier-to-measure features, <span class="math inline">\(\boldsymbol{X}\)</span>. However, using <span class="math inline">\(f\)</span> as if it were the true outcome in downstream analyses, e.g., in estimating a regression coefficient, <span class="math inline">\(\beta\)</span>, for the association between <span class="math inline">\(Y\)</span> and <span class="math inline">\(\boldsymbol{X}\)</span>, leads to biased point estimates and underestimated uncertainty. Methods for <a href="https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267">Inference with Predicted Data (IPD)</a> address this by leveraging a small subset of “labeled” data with true <span class="math inline">\(Y\)</span> values to calibrate inference in a larger “unlabeled” dataset.</p>
 </section>
@@ -512,9 +574,18 @@ window.Quarto = {
 <li>Residual SD = 3</li>
 <li>Predictions shifted by 1 and scaled by 2</li>
 </ul>
-<blockquote class="blockquote">
-<p><strong>Note:</strong> Interactive exercises are provided below. Try <strong>writing your code</strong> in the first chunk; <strong>solutions</strong> are hidden in the second chunk.</p>
-</blockquote>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -558,7 +629,22 @@ window.Quarto = {
 3 unlabeled  1500</code></pre>
 </div>
 </div>
-<p>Let us inspect the first few rows of each subset:</p>
+</div>
+</div>
+</div>
+<p>Let us also inspect the first few rows of each subset:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -615,19 +701,46 @@ $ f         &lt;dbl&gt; -1.9014253, -0.1679210, -0.3030749, 0.1249168, -0.899854
 $ set_label &lt;chr&gt; "unlabeled", "unlabeled", "unlabeled", "unlabeled", "unlabel…</code></pre>
 </div>
 </div>
-<blockquote class="blockquote">
-<p><strong>Explanation:</strong></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
 <li>Rows where <code>set_label == "training"</code> form an internal training set. Here, <code>Y</code> is observed, but <code>f</code> is <code>NA</code>, as we learn the prediction rule in this set.</li>
 <li>Rows where <code>set_label == "labeled"</code> also have both <code>Y</code> and <code>f</code>. In practice, <code>f</code> will be generated by your own prediction model; for simulation, <code>simdat</code> does so automatically.</li>
 <li>Rows where <code>set_label == "unlabeled"</code> have <code>Y</code> for posterity (but in a real‐data scenario, you would not know <code>Y</code>); <code>simdat</code> still generates <code>Y</code>, but the IPD routines will not use these. The column <code>f</code> always contains ‘predicted’ values.</li>
 </ul>
-</blockquote>
+</div>
+</div>
 </section>
 </section>
-<section id="fit-a-linear-prediction-model" class="level2">
-<h2 class="anchored" data-anchor-id="fit-a-linear-prediction-model">Fit a Linear Prediction Model</h2>
-<p>In practice, we would take the <strong>training</strong> portion and fit an AI/ML model to predict <span class="math inline">\(Y\)</span> from <span class="math inline">\((X_1, X_2, X_3, X_4)\)</span>. This is done automatically by the <code>simdat</code> function, but for demonstration, let us fit a <em>linear prediction model</em> on the training data:</p>
+<section id="generating-predictions" class="level2">
+<h2 class="anchored" data-anchor-id="generating-predictions">Generating Predictions</h2>
+<p>In practice, we would take the <strong>training</strong> portion and fit an AI/ML model to predict <span class="math inline">\(Y\)</span> from <span class="math inline">\((X_1, X_2, X_3, X_4)\)</span>. This is done automatically by the <code>simdat</code> function, but we will do this for demonstration.</p>
+<section id="exercise-2-fitting-a-linear-prediction-model" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2-fitting-a-linear-prediction-model">Exercise 2: Fitting a Linear Prediction Model</h3>
+<p>Let us fit a <em>linear prediction model</em> on the training data:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -665,24 +778,49 @@ $ f         &lt;dbl&gt; 0.67556303, -0.13706321, -1.75579589, 0.84146158, 0.1551
 $ f_pred    &lt;dbl&gt; 0.67556303, -0.13706321, -1.75579589, 0.84146158, 0.15512973…</code></pre>
 </div>
 </div>
-<blockquote class="blockquote">
-<p><strong>Explanation of arguments:</strong></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
 <li><code>lm(Y ~ X1 + X2 + X3 + X4, data = dat_train)</code> fits an ordinary least squares (OLS) regression on the training subset.</li>
 <li><code>predict(lm_pred, newdata = .)</code> generates a new <code>f</code> (stored as <code>f_pred</code>) for each row outside of the training set.</li>
+<li>In real workflows, you might use random forests (<code>ranger::ranger()</code>), gradients (<code>xgboost::xgboost()</code>), or any other ML algorithm; the IPD methods only require that you supply a vector of predictions, <code>f</code>, in your data.</li>
 </ul>
-</blockquote>
-<blockquote class="blockquote">
-<p><strong>Note:</strong> In real workflows, you might use random forests (<code>ranger::ranger()</code>), gradients (<code>xgboost::xgboost()</code>), or any other ML algorithm; the IPD methods only require that you supply a vector of predictions, <code>f</code>, in your data.</p>
-</blockquote>
+</div>
+</div>
 </section>
-<section id="create-labeled-and-unlabeled-datasets" class="level2">
-<h2 class="anchored" data-anchor-id="create-labeled-and-unlabeled-datasets">Create ‘Labeled’ and ‘Unlabeled’ datasets</h2>
+</section>
+<section id="creating-labeled-and-unlabeled-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="creating-labeled-and-unlabeled-datasets">Creating ‘Labeled’ and ‘Unlabeled’ Datasets</h2>
+<section id="exercise-3-splitting-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3-splitting-the-data">Exercise 3: Splitting the Data</h3>
 <p>We now split the data into two subsets:</p>
 <ul>
 <li><strong>labeled</strong>: those rows where we retain the true <code>Y</code> (to be used for final inference alongside their predictions).</li>
 <li><strong>unlabeled</strong>: those rows where we <strong>hide</strong> the true <code>Y</code> (we pretend we do not observe them; <code>ipd</code> will still require the <code>f</code> + covariates).</li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -704,25 +842,51 @@ $ f_pred    &lt;dbl&gt; 0.67556303, -0.13706321, -1.75579589, 0.84146158, 0.1551
 2 unlabeled  1500</code></pre>
 </div>
 </div>
-<blockquote class="blockquote">
-<p><strong>Explanation:</strong></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><p>After this step, <code>dat_ipd</code> has two groups:</p>
-<ul>
+<li>After this step, <code>dat_ipd</code> has two groups:</li>
 <li><code>labeled</code> (500 rows where we observe both <code>Y</code> and <code>f</code>),</li>
 <li><code>unlabeled</code> (1500 rows where we only ‘observe’ <code>f</code>).</li>
-</ul></li>
 </ul>
-</blockquote>
+</div>
+</div>
+</section>
 </section>
 <section id="comparison-of-the-true-vs-predicted-outcomes" class="level2">
 <h2 class="anchored" data-anchor-id="comparison-of-the-true-vs-predicted-outcomes">Comparison of the True vs Predicted Outcomes</h2>
-<p>Before modeling, it is helpful to see graphically how the predicted values, <span class="math inline">\(f\)</span>, compare to the true outcomes, <span class="math inline">\(Y\)</span>. We can visually assess the <strong>bias</strong> and <strong>variance</strong> of our predicted outcomes, <span class="math inline">\(f\)</span>, versus the true outcomes, <span class="math inline">\(Y\)</span>, in our analytic data by plotting:</p>
+<p>Before modeling, it is helpful to see graphically how the predicted values, <span class="math inline">\(f\)</span>, compare to the true outcomes, <span class="math inline">\(Y\)</span>.</p>
+<section id="exercise-4-plotting-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-4-plotting-the-data">Exercise 4: Plotting the Data</h3>
+<p>We can visually assess the <strong>bias</strong> and <strong>variance</strong> of our predicted outcomes, <span class="math inline">\(f\)</span>, versus the true outcomes, <span class="math inline">\(Y\)</span>, in our analytic data by plotting:</p>
 <ol type="1">
 <li><strong>Scatterplot</strong> of <span class="math inline">\(Y\)</span> and <span class="math inline">\(f\)</span> vs.&nbsp;<span class="math inline">\(X_1\)</span><br>
 </li>
 <li><strong>Density plots</strong> of <span class="math inline">\(Y\)</span> and <span class="math inline">\(f\)</span></li>
 </ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -776,11 +940,26 @@ $ f_pred    &lt;dbl&gt; 0.67556303, -0.13706321, -1.75579589, 0.84146158, 0.1551
 </div>
 </div>
 </div>
-<blockquote class="blockquote">
-<p><strong>Interpretation:</strong></p>
-<p>In the <strong>scatterplot</strong>, note that the predicted values <span class="math inline">\(f\)</span> (in blue) lie more tightly along the fitted trend line than the true <span class="math inline">\(Y\)</span> (in gray), indicating stronger correlation with <span class="math inline">\(X_1\)</span>.</p>
-<p>In the <strong>density plot</strong>, you can see that the spread of <span class="math inline">\(f\)</span> is narrower than that of <span class="math inline">\(Y\)</span>, illustrating that the predictive model has reduced variance (often due to “regression to the mean”).</p>
-</blockquote>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>In the <strong>scatterplot</strong>, note that the predicted values <span class="math inline">\(f\)</span> (in blue) lie more tightly along the fitted trend line than the true <span class="math inline">\(Y\)</span> (in gray), indicating stronger correlation with <span class="math inline">\(X_1\)</span>.</li>
+<li>In the <strong>density plot</strong>, you can see that the spread of <span class="math inline">\(f\)</span> is narrower than that of <span class="math inline">\(Y\)</span>, illustrating that the predictive model has reduced variance (often due to “regression to the mean”).</li>
+</ul>
+</div>
+</div>
+</section>
 </section>
 <section id="some-baselines-naive-vs-classical-inference" class="level2">
 <h2 class="anchored" data-anchor-id="some-baselines-naive-vs-classical-inference">Some Baselines: Naive vs Classical Inference</h2>
@@ -790,13 +969,25 @@ $ f_pred    &lt;dbl&gt; 0.67556303, -0.13706321, -1.75579589, 0.84146158, 0.1551
 <li>Regress only the <em>labeled</em> true <code>Y</code> on <code>X1</code> (the <strong>classical</strong> approach).</li>
 </ol>
 <p>We will compare these to IPD‐corrected estimates.</p>
-<section id="exercise-2-naive-vs.-classical-model-fitting" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-2-naive-vs.-classical-model-fitting">Exercise 2: Naive vs.&nbsp;Classical Model Fitting</h3>
+<section id="exercise-5-naive-vs.-classical-model-fitting" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-5-naive-vs.-classical-model-fitting">Exercise 5: Naive vs.&nbsp;Classical Model Fitting</h3>
 <p>Using the <code>labeled</code> and <code>unlabeled</code> sets, fit two models:</p>
 <ol type="1">
 <li><strong>Naive OLS</strong> on the <em>unlabeled</em> set using <code>lm()</code> with <code>f ~ X1</code>.</li>
 <li><strong>Classical OLS</strong> on the <em>labeled</em> set using <code>lm()</code> with <code>Y ~ X1</code>.</li>
 </ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -807,7 +998,22 @@ $ f_pred    &lt;dbl&gt; 0.67556303, -0.13706321, -1.75579589, 0.84146158, 0.1551
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>classical_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X1, <span class="at">data =</span> <span class="fu">filter</span>(dat_ipd, set_label <span class="sc">==</span> <span class="st">"labeled"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Let’s also extract the coefficient summaries using <code>tidy</code> and compare the results of the two approaches:</p>
+</div>
+</div>
+</div>
+<p>Let’s also extract the coefficient summaries using the <code>tidy</code> method and compare the results of the two approaches:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -831,20 +1037,41 @@ $ f_pred    &lt;dbl&gt; 0.67556303, -0.13706321, -1.75579589, 0.84146158, 0.1551
 2 Classical    1.48     0.155 </code></pre>
 </div>
 </div>
-<blockquote class="blockquote">
-<p><strong>Expected behavior (interpretation):</strong></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
 <li>The <strong>naive</strong> coefficient is <em>attenuated</em>, or <em>biased</em> toward zero, since the predictions are imperfect.</li>
 <li>The <strong>classical</strong> coefficient is unbiased but has a larger standard error due to the smaller sample size.</li>
 </ul>
-</blockquote>
+</div>
+</div>
 </section>
 </section>
 <section id="ipd-corrected-inference-with-ipdipd" class="level2">
 <h2 class="anchored" data-anchor-id="ipd-corrected-inference-with-ipdipd">IPD: Corrected Inference with <code>ipd::ipd()</code></h2>
 <p>The single wrapper function <code>ipd()</code> implements multiple IPD methods (e.g., <strong>Chen &amp; Chen</strong>, <strong>PostPI</strong>, <strong>PPI</strong>, <strong>PPI++</strong>, <strong>PSPA</strong>) for various inferential tasks (e.g., <strong>mean</strong> and <strong>quantile</strong> estimation, <strong>ols</strong>, <strong>logistic</strong>, and <strong>poisson</strong> regression).</p>
-<blockquote class="blockquote">
-<p><strong>Reminder:</strong> Basic usage of <code>ipd()</code>:</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reminder
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Basic usage of <code>ipd()</code>:</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -861,21 +1088,34 @@ $ f_pred    &lt;dbl&gt; 0.67556303, -0.13706321, -1.75579589, 0.84146158, 0.1551
 <span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</blockquote>
-<section id="exercise-3-ipd-model-fitting-via-the-pspa-estimator" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-3-ipd-model-fitting-via-the-pspa-estimator">Exercise 3: IPD Model Fitting via the PSPA Estimator</h3>
+</div>
+</div>
+<section id="exercise-6-ipd-model-fitting-via-the-pspa-estimator" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-6-ipd-model-fitting-via-the-pspa-estimator">Exercise 6: IPD Model Fitting via the PSPA Estimator</h3>
 <p>Let’s run one method, <code>pspa</code>, proposed by <a href="https://arxiv.org/pdf/2311.14220">Miao et al., 2024</a>. The <strong>PSPA</strong> estimator is an IPD method that combines information from:</p>
 <ol type="1">
 <li><strong>Labeled data</strong> (where the true outcome, <span class="math inline">\(Y\)</span>, and model predictions, <span class="math inline">\(f\)</span>, are available), and<br>
 </li>
 <li><strong>Unlabeled data</strong> (where only model predictions, <span class="math inline">\(f\)</span>, are available).</li>
 </ol>
-<p>Rather than treating the predicted outcomes with importance as the true outcomes, the method estimates a <strong>data-driven weight</strong>, <span class="math inline">\(\hat{\omega}\)</span>, and applies it to the predicted outcome contributions:</p>
+<p>Rather than treating the predicted outcomes with the same importance as the true outcomes, the method estimates a <strong>data-driven weight</strong>, <span class="math inline">\(\hat{\omega}\)</span>, and applies it to the predicted outcome contributions:</p>
 <p><span class="math display">\[
 \hat{\beta}_\text{pspa} = \hat{\beta}_\text{classical} - \hat{\omega}\cdot (\hat{\gamma}_\text{naive}^l - \hat{\gamma}_\text{naive}^u),
 \]</span></p>
 <p>where <span class="math inline">\(\hat{\beta}_{\rm classical}\)</span> is the estimate from the <strong>classical</strong> regression, <span class="math inline">\(\hat{\gamma}_{\rm naive}^l\)</span> is the estimate from the <strong>naive</strong> regression in the <em>labeled</em> data, <span class="math inline">\(\hat{\gamma}_{\rm naive}^u\)</span> is the estimate from the <strong>naive</strong> regression in the <em>unlabeled</em> data, and <span class="math inline">\(\hat{\omega}\)</span> reflects the amount of additional information carried by the predictions. By adaptively weighting the unlabeled information, the <strong>PSPA</strong> estimator achieves greater precision than by using the labeled data alone, without sacrificing validity, even when the predictions are imperfect.</p>
 <p>Let’s call the method using the <code>ipd()</code> function and collect the estimate for the slope of <code>X1</code> in a linear regression (<code>model = "ols"</code>):</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -904,7 +1144,22 @@ X1           1.43248    0.14628  9.7929 &lt; 2.2e-16 ***
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
 <p>The <code>ipd_model</code> is an <code>S4</code> object with slots for things like the coefficient, se, ci, coefTable, fit, formula, data_l, data_u, method, model, and intercept. We can extract the coefficient table using <code>ipd</code>’s <code>tidy</code> helper and compare with the naive and classical methods:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -927,10 +1182,25 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 3 IPD          1.43     0.146 </code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
 </section>
-<section id="exercise-4-visualizing-uncertainty" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-4-visualizing-uncertainty">Exercise 4: Visualizing Uncertainty</h3>
+<section id="exercise-7-visualizing-uncertainty" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-7-visualizing-uncertainty">Exercise 7: Visualizing Uncertainty</h3>
 <p>Let’s plot the coefficient estimates and 95% CIs for each of the naive, classical, and IPD methods:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -959,18 +1229,42 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </div>
-<blockquote class="blockquote">
-<p><strong>Interpretation:</strong></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
 <li>The dashed red line at <strong>1.5</strong> is the <em>true</em> data-generating effect for <span class="math inline">\(X_1\)</span>.</li>
 <li>Compare how far each method’s interval is from 1.5, and whether 1.5 lies inside each interval.</li>
 <li>‘Naive’ often severely underestimates (biased); ‘Classical’ is unbiased but wide; IPD methods cluster around 1.5 with better coverage than ‘naive,’ often similar to classical but sometimes narrower.</li>
 </ul>
-</blockquote>
+</div>
+</div>
 </section>
-<section id="exercise-5-inspecting-results" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-5-inspecting-results">Exercise 5: Inspecting Results</h3>
+<section id="exercise-8-inspecting-results" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-8-inspecting-results">Exercise 8: Inspecting Results</h3>
 <p>Use <code>tidy()</code>, <code>glance()</code>, and <code>augment()</code> on <code>ipd_model</code>. Compare the coefficient estimate and standard error for <code>X1</code> with the naive fit.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -1023,6 +1317,9 @@ $ .resid    &lt;dbl&gt; -2.7655584, -2.0634061, -4.0804452, 0.4967781, -3.921572
 2 X1             0.730    0.0145     50.3  0       </code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="summary-and-key-takeaways" class="level2">
@@ -1041,12 +1338,6 @@ $ .resid    &lt;dbl&gt; -2.7655584, -2.0634061, -4.0804452, 0.4967781, -3.921572
 <li>Repeat the analysis for a <strong>logistic</strong> model by setting <code>model = "logistic"</code> in both <code>simdat()</code> and <code>ipd()</code>.</li>
 </ul>
 <p>Happy coding! Feel free to modify and extend these exercises for your own data.</p>
-</section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<ul>
-<li>Salerno, Stephen, et al.&nbsp;“ipd: An R Package for Conducting Inference on Predicted Data.” <em>Bioinformatics</em> (2025): btaf055.</li>
-</ul>
 <hr>
 <p><em>This is the end of the module. We hope this was informative! For question/concerns/suggestions, please reach out to ssalerno@fredhutch.org</em></p>
 
@@ -1646,6 +1937,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../content/slides.html" class="pagination-link" aria-label="Overview">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Overview</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../content/Unit01_AlphaFold.html" class="pagination-link" aria-label="Proteomics with AlphaFold">

@@ -47,6 +47,10 @@ website:
     search: true
     collapse-level: 2
     contents:
+      - text: "Home"
+        href: index.qmd
+      - text: "Overview"
+        href: content/slides.qmd
       - section: "Modules"
         contents:
           - text: "Getting Started"
@@ -69,7 +73,9 @@ format:
     theme:
       light: cosmo
       dark: darkly
-    css: styles.css
+    css:
+      - styles.css
+      - styles.scss
     include-after-body: resources/theme-toggle-icon.html
     #mainfont: "Atkinson Hyperlegible"
     code-copy: true

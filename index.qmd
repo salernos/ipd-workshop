@@ -3,11 +3,14 @@ title: "Prediction-Based Inference: Methods & Applications"
 subtitle: "What do we do after we have machine learned everything?"
 date: 2026-03-17T13:45:00-05:00
 date-format: "dddd, MMMM D, YYYY | h:mm a z"
+toc: true
+toc-location: right
 author: 
   - name: Jesse Gronsbell, PhD
     affiliation: University of Toronto
   - name: Stephen Salerno, PhD
     affiliation: Fred Hutchinson Cancer Center
+date-title: "Date"
 listing:
   - id: core_units
     contents: 
@@ -29,63 +32,59 @@ listing:
     fields: [title, image, subtitle, description]
 ---
 
-::: {.grid}
+::: {.landing-page}
 
-::: {.g-col-6}
+::: {.hero-grid}
 
-![Source: https://arxiv.org/pdf/2411.19908v1](content/images/pbinference_gronsbell.png)
-
+::: {.hero-diagram}
+![Source: [https://arxiv.org/pdf/2411.19908v1](https://arxiv.org/pdf/2411.19908v1)](content/images/pbinference_gronsbell.png)
 :::
-  
-::: {.g-col-6}
 
-::: {.callout-note .hero-goals appearance="simple" title="Workshop Goals and Objectives"}
+::: {.goals-card}
+### Workshop Goals and Objectives
 
 **Learning Goals**:
 
-* **Understand** the limitations of using predicted data for inference.
+* **Understand** limitations in using predicted data for inference.
 * **Learn** how IPD methods adjust for bias and recover valid uncertainty estimates.
-* **Gain** practical skills with the [`ipd`](https://github.com/ipd-tools/ipd) R package across simulated and real datasets.
+* **Gain** practical skills using the [`ipd`](https://github.com/ipd-tools/ipd) R package.
 
 **Learning Objectives**:
 
 * **Explore** data with AI/ML-predicted outcomes and diagnose bias/variance in predictions.
-* **Apply** `ipd::ipd()` for continuous and binary outcomes to correct inference using predicted data.
-* **Interpret** IPD outputs and visualize adjusted coefficient estimates with confidence intervals.
+* **Apply** `ipd::ipd()` to continuous and binary outcomes.
+* **Interpret** IPD outputs and visualize model results.
 :::
 
 :::
-  
-:::  
 
+### Time Outline (105 minutes)
+
+| Activity                                                              | Time |
+| --------------------------------------------------------------------- | ---- |
+| [Overview](content/slides.qmd)                                        | 30 m |
+| Short Break                                                           | 5 m  |
+| [Unit 00: Getting Started](content/Unit00_GettingStarted.qmd)         | 30 m |
+| [Unit 01: AlphaFold](content/Unit01_AlphaFold.qmd)                    | 30 m |
+| Wrap-Up and Q&A                                                       | 10 m |
+
+::: {.quickstart-block}
 ## Quick Start
 
-1. Open the workshop site: [https://salernos.github.io/ipd-workshop](https://salernos.github.io/ipd-workshop)
-2. Launch the RStudio workshop container:
+The companion website for this workshop is available at: 
+
+[https://salernos.github.io/ipd-workshop](https://salernos.github.io/ipd-workshop)
+
+To use the workshop image:
 
 ```sh
 docker run -e PASSWORD=<choose_a_password_for_rstudio> -p 8787:8787 ghcr.io/salernos/ipdworkshop:latest
 ```
 
-3. In your browser, go to `http://localhost:8787/`, log in with `rstudio` and your password, then begin with [Getting Started](content/Unit00_GettingStarted.qmd).
+Once running, navigate to `http://localhost:8787/` and then log in with `rstudio`:`yourchosenpassword`. 
 
-## Background and Motivation
-
-Artificial intelligence and machine learning (AI/ML) have become essential 
-tools in biomedical research, enabling large-scale analyses across diverse 
-domains such as genomics, structural biology, and electronic health 
-records-based research. Increasingly, researchers rely on model-generated 
-predictions, rather than directly measured variables, as inputs for downstream 
-statistical analyses. For example, predicted gene expression values or 
-polygenic risk scores are often used in place of experimental assays, allowing 
-researchers to expand cohort sizes and explore hypotheses when traditional data 
-collection is infeasible, costly, or time-consuming.
-
-While this practice of "using predictions as data" holds promise for 
-accelerating scientific discovery, it presents significant challenges for 
-statistical inference. When predicted values are used in place of true 
-variables, the resulting estimates of association can be biased and misleading 
-if uncertainty in the prediction step is not properly accounted for. 
+Then [begin](content/Unit00_GettingStarted.qmd)!
+:::
 
 ## Workshop Overview
 
@@ -101,11 +100,10 @@ existing workflows and includes
 [`tidy`](https://broom.tidymodels.org/index.html) methods for model inspection 
 and diagnostics.
 
-
 ## Modules
 
 This workshop covers three modules (time permitting), each illustrating IPD in 
-R using the [`ipd`](https://github.com/ipd-tools/ipd) package:
+R using the [`ipd`](https://github.com/ipd-tools/ipd) package:[^cover-images]
 
 :::{#core_units}
 :::
@@ -142,32 +140,6 @@ This workshop uses a blended format of **instruction** and
 * *Predictive Modeling:* `neuralnet`, `partykit`, `randomForest`, `ranger`, `mgcv`, `pROC`, `DALEX`, `MLInterfaces`
 
 * *Inference with Predicted Data:* `ipd`
-    
-### Time Outline (105 minutes)
-
-| Activity                                                                                                              | Time |
-| ----------------------------------------------------------------------------------------------------------------------| ---- |
-| Brief Overview of the Problem                                                                                         | 30 m |
-| Short Break                                                                                                           | 5 m  |
-| [Unit 00: Getting Started](content/Unit00_GettingStarted.qmd)                | 20 m |
-| [Unit 01: AlphaFold](content/Unit01_AlphaFold.qmd)                            | 20 m |
-| [Unit 02: Measuring Adiposity](content/Unit02_MeasuringAdiposity.qmd)         | 20 m |
-| Wrap-Up and Q&A                                                                                                       | 10 m |
-
-## Workshop Environment 
-
-The companion website for this workshop is available at: 
-
-[https://salernos.github.io/ipd-workshop](https://salernos.github.io/ipd-workshop)
-
-To use the workshop image:
-
-```sh
-docker run -e PASSWORD=<choose_a_password_for_rstudio> -p 8787:8787 ghcr.io/salernos/ipdworkshop:latest
-```
-
-Once running, navigate to `http://localhost:8787/` and then log in with `rstudio`:`yourchosenpassword`. 
-
 
 **Presenters:**
 Jesse Gronsbell [&#x2709;&#xFE0E;](mailto:j.gronsbell@utoronto.ca), Stephen Salerno [&#x2709;&#xFE0E;](mailto:ssalerno@fredhutch.org)
@@ -175,9 +147,9 @@ Jesse Gronsbell [&#x2709;&#xFE0E;](mailto:j.gronsbell@utoronto.ca), Stephen Sale
 **Contributors (Alphabetical Order):**
 Awan Afiaz [&#x2709;&#xFE0E;](mailto:aafiaz@uw.edu), David Cheng [&#x2709;&#xFE0E;](mailto:dcheng@mgh.harvard.edu), Jianhui Gao [&#x2709;&#xFE0E;](mailto:jianhui.gao@mail.utoronto.ca), Jesse Gronsbell [&#x2709;&#xFE0E;](mailto:j.gronsbell@utoronto.ca), Kentaro Hoffman [&#x2709;&#xFE0E;](mailto:khoffm3@uw.edu), Jeff Leek [&#x2709;&#xFE0E;](mailto:jtleek@fredhutch.org), Qiongshi Lu [&#x2709;&#xFE0E;](mailto:qlu@biostat.wisc.edu), Tyler McCormick [&#x2709;&#xFE0E;](mailto:tylermc@uw.edu), Jiacheng Miao [&#x2709;&#xFE0E;](mailto:jmiao24@wisc.edu), Anna Neufeld [&#x2709;&#xFE0E;](mailto:acn2@williams.edu), Stephen Salerno [&#x2709;&#xFE0E;](mailto:ssalerno@fredhutch.org)
 
-Module card cover image note.[^cover-images]
-
 [^cover-images]: Module card cover images were generated by GPT-5.2.
+
+:::
 
 
 

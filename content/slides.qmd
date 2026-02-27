@@ -1,0 +1,55 @@
+---
+title: "Overview"
+subtitle: "Promises and pitfalls of using predicted data for downstream inference"
+format:
+  html:
+    toc: false
+    code-fold: false
+    page-layout: full
+---
+
+<!--
+Update this PDF path after adding Jesse's slide deck to:
+  content/slides/slides.pdf
+-->
+
+## Background and Motivation
+
+Artificial intelligence and machine learning (AI/ML) have become essential 
+tools in biomedical research, enabling large-scale analyses across diverse 
+domains such as genomics, structural biology, and electronic health 
+records-based research. Increasingly, researchers rely on model-generated 
+predictions, rather than directly measured variables, as inputs for downstream 
+statistical analyses. For example, predicted gene expression values or 
+polygenic risk scores are often used in place of experimental assays, allowing 
+researchers to expand cohort sizes and explore hypotheses when traditional data 
+collection is infeasible, costly, or time-consuming.
+
+While this practice of "using predictions as data" holds promise for 
+accelerating scientific discovery, it presents significant challenges for 
+statistical inference. When predicted values are used in place of true 
+variables, the resulting estimates of association can be biased and misleading 
+if uncertainty in the prediction step is not properly accounted for. 
+
+::: {.callout-important}
+## Key Takeaway
+
+Modern biomedical analyses increasingly rely on machine learning predictions
+as inputs to downstream statistical models. This can expand scope and improve
+feasibility, but treating predictions as if they were observed data can bias
+effect estimates and understate uncertainty.
+:::
+
+## Slides (PDF)
+
+<div style="border: 1px solid #d9dee6; border-radius: 10px; overflow: hidden; margin-bottom: 1rem;">
+  <iframe
+    src="content/slides/slides.pdf"
+    title="Background and Motivation Slides"
+    width="100%"
+    height="900"
+    style="border: 0;">
+  </iframe>
+</div>
+
+[Open slides in a new tab](content/slides/slides.pdf){target="_blank"}

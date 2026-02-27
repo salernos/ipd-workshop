@@ -739,6 +739,10 @@ Interpret:
 * Which methods shrink fastest?
 * How do IPD methods compare to classical inference?
 
+::: {.callout-note collapse="true"}
+
+## Answer
+
 ```{r}
 #| label: ex7
 
@@ -783,6 +787,8 @@ ex7_results |>
         margin = margin(r = 20, unit = "pt")))
 ```
 
+:::
+
 ::: {.callout-tip}
 
 ## Notes
@@ -823,6 +829,10 @@ We will now estimate the smallest `n_labeled` such that:
 * Classical inference achieves 80% power
 
 and we will compare the two.
+
+::: {.callout-note collapse="true"}
+
+## Answer
 
 ```{r}
 #| label: ex8
@@ -943,6 +953,8 @@ power_tbl |>
         margin = margin(r = 20, unit = "pt")))
 ```
 
+:::
+
 ::: {.callout-tip}
 
 ## Notes
@@ -968,6 +980,10 @@ This translates directly into experimental design:
 To impute `Y`, we previously used a value of `0.5` to threshold the predicted 
 probabilities from AlphaFold. We can also repeat this experiment and vary the
 naive imputations with thresholds of 0.2, 0.4, 0.6, and 0.8.
+
+::: {.callout-note collapse="true"}
+
+## Answer
 
 ```{r}
 #| label: ex9
@@ -1036,11 +1052,89 @@ ex9_results |>
 
 ```
 
+:::
+
 ### Discussion Question
 
 * Why do the OR estimates change?
 
+<!--- FIX/FINISH BELOW!! --------->
 
+# Summary, Conclusions, and Next Steps
+
+## Summary
+
+This module demonstrates how we can use IPD methods in biological workflows:
+
+1. Use ML to generate predictions at scale.
+2. Collect limited ground truth data.
+3. Apply IPD to recover valid inference.
+
+In this AlphaFold/PTM application, we saw that:
+
+* Classical methods do not utilize all available information.
+* Naive imputation produces biased estimates and underestimated uncertainty.
+* IPD-style approaches preserve validity while improving efficiency.
+
+This setup appears across modern science and has applications in:
+
+* Medical imaging
+* Genomics
+* Remote sensing
+* Clinical risk modeling
+
+Anywhere predictions feed into downstream analysis, IPD applies.
+
+## Optional Take-Home Assignment (Exercise 10)
+
+### Exercise 10 (Self-Guided): Compare PTMs
+
+Repeat the full workflow for:
+
+* phosphorylation
+* ubiquitination
+* acetylation
+
+Compare:
+
+* estimated ORs
+* CI widths
+* required sample sizes
+
+### Biological context
+
+Different PTMs play distinct regulatory roles:
+
+* Phosphorylation is often associated with signaling
+* Ubiquitination with degradation
+* Acetylation with chromatin regulation
+
+You may find that:
+
+* Some PTMs are more enriched in disorder
+* Some show weaker or noisier associations
+
+### Statistical goal
+
+Assess whether:
+
+* effect sizes differ across PTMs
+* labeling efficiency gains persist
+* conclusions are robust
+
+This mirrors real exploratory proteomics.
+
+## Suggested Extensions
+
+If you continue this work:
+
+* Add protein-level clustering (robust SEs)
+* Include covariates (amino acid type, position)
+* Compare other methods
+* Inject noise into `Yhat` to study robustness
+* Apply to another ML-derived phenotype
+
+## Useful References
 
 
 
@@ -1101,81 +1195,4 @@ This paradigm generalizes far beyond protein disorder—to any setting where ML 
 <!--- NEED TO FIX/FINISH BELOW ------------------------------------------------>
 
 
-# Next Steps, Conclusions, and Summary
 
-## Key Lessons
-
-This module demonstrates a general paradigm:
-
-1. Use ML to generate predictions at scale.
-2. Collect limited ground truth data.
-3. Apply IPD to recover valid inference.
-
-In this AlphaFold/PTM application, we saw that:
-
-* Classical methods waste information.
-* Naive imputation is overconfident.
-* IPD-style approaches preserve validity while improving efficiency.
-
-This pattern appears across modern science:
-
-* medical imaging
-* genomics
-* remote sensing
-* clinical risk modeling
-
-Anywhere predictions feed downstream analysis, IPD applies.
-
-## Optional Take-Home Assignment (Exercise 10)
-
-### Exercise 10 (Self-Guided): Compare PTMs
-
-Repeat the full workflow for:
-
-* phosphorylation
-* ubiquitination
-* acetylation
-
-Compare:
-
-* estimated ORs
-* CI widths
-* required sample sizes
-
-### Biological context
-
-Different PTMs play distinct regulatory roles:
-
-* Phosphorylation is often associated with signaling
-* Ubiquitination with degradation
-* Acetylation with chromatin regulation
-
-You may find that:
-
-* Some PTMs are more enriched in disorder
-* Some show weaker or noisier associations
-
-### Statistical goal
-
-Assess whether:
-
-* effect sizes differ across PTMs
-* labeling efficiency gains persist
-* conclusions are robust
-
-This mirrors real exploratory proteomics.
-
-## Suggested Extensions
-
-If you continue this work:
-
-* Add protein-level clustering (robust SEs)
-* Include covariates (amino acid type, position)
-* Compare other methods
-* Inject noise into `Yhat` to study robustness
-* Apply to another ML-derived phenotype
-
-
-## Final Take-Home Message
-
-NEED!
