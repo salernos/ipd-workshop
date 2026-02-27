@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://salernos.github.io/ipd-workshop/style.html</loc>
-    <lastmod>2026-02-12T05:09:25.760Z</lastmod>
-  </url>
-  <url>
-    <loc>https://salernos.github.io/ipd-workshop/index.html</loc>
-    <lastmod>2026-02-27T00:43:00.855Z</lastmod>
-  </url>
-  <url>
     <loc>https://salernos.github.io/ipd-workshop/git_actions.html</loc>
-    <lastmod>2026-02-12T05:09:25.756Z</lastmod>
+    <lastmod>2026-02-27T06:05:42.980Z</lastmod>
   </url>
   <url>
-    <loc>https://salernos.github.io/ipd-workshop/content/Unit05_RashomonQuartet.html</loc>
-    <lastmod>2026-02-12T18:09:57.363Z</lastmod>
-  </url>
-  <url>
-    <loc>https://salernos.github.io/ipd-workshop/content/Unit03_GeneticData.html</loc>
-    <lastmod>2026-02-12T18:09:16.829Z</lastmod>
-  </url>
-  <url>
-    <loc>https://salernos.github.io/ipd-workshop/content/Unit01_AlphaFold.html</loc>
-    <lastmod>2026-02-26T22:38:43.374Z</lastmod>
-  </url>
-  <url>
-    <loc>https://salernos.github.io/ipd-workshop/content/slides.html</loc>
-    <lastmod>2026-02-26T19:58:54.559Z</lastmod>
-  </url>
-  <url>
-    <loc>https://salernos.github.io/ipd-workshop/contact.html</loc>
-    <lastmod>2025-10-27T02:07:23.063Z</lastmod>
-  </url>
-  <url>
-    <loc>https://salernos.github.io/ipd-workshop/content/Unit00_GettingStarted.html</loc>
-    <lastmod>2026-02-27T05:37:21.421Z</lastmod>
+    <loc>https://salernos.github.io/ipd-workshop/style.html</loc>
+    <lastmod>2026-02-27T06:05:42.999Z</lastmod>
   </url>
   <url>
     <loc>https://salernos.github.io/ipd-workshop/content/Unit02_MeasuringAdiposity.html</loc>
-    <lastmod>2026-02-27T05:44:54.324Z</lastmod>
+    <lastmod>2026-02-27T06:05:42.849Z</lastmod>
   </url>
   <url>
-    <loc>https://salernos.github.io/ipd-workshop/content/Unit04_Income.html</loc>
-    <lastmod>2026-02-14T00:34:38.978Z</lastmod>
+    <loc>https://salernos.github.io/ipd-workshop/content/Unit00_GettingStarted.html</loc>
+    <lastmod>2026-02-27T06:05:42.848Z</lastmod>
   </url>
   <url>
-    <loc>https://salernos.github.io/ipd-workshop/editing.html</loc>
-    <lastmod>2026-02-12T05:09:25.759Z</lastmod>
+    <loc>https://salernos.github.io/ipd-workshop/content/Unit01_AlphaFold.html</loc>
+    <lastmod>2026-02-27T06:05:42.849Z</lastmod>
   </url>
   <url>
-    <loc>https://salernos.github.io/ipd-workshop/hosting.html</loc>
-    <lastmod>2026-02-12T05:09:25.754Z</lastmod>
+    <loc>https://salernos.github.io/ipd-workshop/content/Unit03_GeneticData.html</loc>
+    <lastmod>2026-02-27T06:05:42.849Z</lastmod>
+  </url>
+  <url>
+    <loc>https://salernos.github.io/ipd-workshop/contact.html</loc>
+    <lastmod>2026-02-27T06:05:42.848Z</lastmod>
+  </url>
+  <url>
+    <loc>https://salernos.github.io/ipd-workshop/index.html</loc>
+    <lastmod>2026-02-27T06:05:42.980Z</lastmod>
   </url>
   <url>
     <loc>https://salernos.github.io/ipd-workshop/setup.html</loc>
-    <lastmod>2026-02-12T05:09:25.758Z</lastmod>
+    <lastmod>2026-02-27T06:05:42.999Z</lastmod>
+  </url>
+  <url>
+    <loc>https://salernos.github.io/ipd-workshop/content/Unit05_RashomonQuartet.html</loc>
+    <lastmod>2026-02-27T06:05:42.849Z</lastmod>
+  </url>
+  <url>
+    <loc>https://salernos.github.io/ipd-workshop/content/Unit04_Income.html</loc>
+    <lastmod>2026-02-27T06:05:42.849Z</lastmod>
+  </url>
+  <url>
+    <loc>https://salernos.github.io/ipd-workshop/content/slides.html</loc>
+    <lastmod>2026-02-27T06:05:42.903Z</lastmod>
+  </url>
+  <url>
+    <loc>https://salernos.github.io/ipd-workshop/editing.html</loc>
+    <lastmod>2026-02-27T06:05:42.980Z</lastmod>
+  </url>
+  <url>
+    <loc>https://salernos.github.io/ipd-workshop/hosting.html</loc>
+    <lastmod>2026-02-27T06:05:42.980Z</lastmod>
   </url>
 </urlset>
