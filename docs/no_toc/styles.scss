@@ -1,0 +1,373 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap");
+
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --accent: #2563eb;
+}
+
+/* Landing page only (index.qmd wrapper) */
+.landing-page {
+  color: var(--text);
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.65;
+}
+
+.landing-page h1,
+.landing-page h2,
+.landing-page h3,
+.landing-page h4 {
+  font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--text);
+}
+
+.landing-page > * + * {
+  margin-top: 3rem;
+}
+
+.landing-page > h2,
+.landing-page > h3 {
+  margin-top: 3rem;
+  margin-bottom: 0.85rem;
+}
+
+.landing-page > h2 + p,
+.landing-page > h3 + p {
+  color: var(--muted);
+}
+
+/* Style Quarto title + metadata block like the hero (index only) */
+#quarto-content:has(.landing-page) #title-block-header.quarto-title-block.default {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 1.4rem 1.5rem 1.2rem;
+  margin-bottom: 1.25rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 0.8rem;
+  row-gap: 0.5rem;
+  align-items: start;
+}
+
+#quarto-content:has(.landing-page) #title-block-header .quarto-title .title {
+  margin: 0;
+  font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+#quarto-content:has(.landing-page) #title-block-header .quarto-title {
+  grid-column: 1 / -1;
+}
+
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-meta-author {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  gap: 0.1rem 0.35rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0.6rem 0 0 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  border-top: 1px dashed var(--border);
+  align-self: start;
+  justify-content: start;
+}
+
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-meta-author > .quarto-title-meta-heading {
+  display: none;
+}
+
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-meta-author > .quarto-title-meta-contents {
+  margin: 0;
+  line-height: 1.2;
+}
+
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-meta-author > .quarto-title-meta-contents:nth-child(odd) p.author {
+  color: var(--text);
+  font-weight: 600;
+  margin: 0;
+}
+
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-meta-author > .quarto-title-meta-contents:nth-child(even) p.affiliation {
+  color: var(--muted);
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+#quarto-content:has(.landing-page) #title-block-header p.subtitle {
+  margin-top: 0.5rem;
+  margin-bottom: 0.9rem;
+  color: var(--muted);
+  font-size: 1.03rem;
+  line-height: 1.45;
+  font-style: italic;
+}
+
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-meta {
+  margin-top: 0;
+  display: block;
+  min-width: 220px;
+  align-self: start;
+}
+
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-meta > div {
+  background: transparent;
+  border: 0;
+  border-top: 1px dashed var(--border);
+  border-radius: 0;
+  padding: 0.6rem 0 0 0;
+  position: relative;
+  text-align: right;
+}
+
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-meta-heading {
+  margin-top: 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+  display: inline-block;
+  padding-bottom: 0.15rem;
+  border-bottom: 0;
+}
+
+/* Date row: hide separate heading so the date sits on the first line */
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-meta > div .quarto-title-meta-heading {
+  display: none;
+}
+
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-meta-contents,
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-authors,
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-affiliations {
+  font-size: 0.95rem;
+}
+
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-meta-contents p,
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-authors p,
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-affiliations p {
+  margin-bottom: 0.1rem;
+  color: var(--muted);
+}
+
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-authors p {
+  color: var(--text);
+  font-weight: 600;
+}
+
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-affiliations p {
+  color: var(--muted);
+}
+
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-meta-contents {
+  display: flex;
+  align-items: center;
+  min-height: 1.6rem;
+}
+
+#quarto-content:has(.landing-page) #title-block-header .quarto-title-meta .quarto-title-meta-contents .date {
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+@media (max-width: 1180px) {
+  #quarto-content:has(.landing-page) #title-block-header.quarto-title-block.default {
+    grid-template-columns: 1fr;
+    row-gap: 0.6rem;
+  }
+
+  #quarto-content:has(.landing-page) #title-block-header .quarto-title {
+    grid-column: auto;
+  }
+
+  #quarto-content:has(.landing-page) #title-block-header .quarto-title-meta {
+    min-width: 0;
+  }
+
+  #quarto-content:has(.landing-page) #title-block-header .quarto-title-meta > div {
+    text-align: left;
+  }
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.hero-diagram {
+  background: rgba(37, 99, 235, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-diagram figure {
+  margin: 0;
+}
+
+.hero-diagram .figure,
+.hero-diagram .figure p {
+  margin-bottom: 0;
+}
+
+.hero-diagram img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0;
+  background: #fff;
+}
+
+.hero-diagram figcaption,
+.hero-diagram .figure-caption {
+  margin-top: 0.75rem;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+.goals-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 1.5rem 1.6rem;
+  font-size: 0.92rem;
+  height: 100%;
+}
+
+.goals-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.9rem;
+  font-size: 1.12rem;
+}
+
+.goals-card p {
+  margin-bottom: 0.28rem;
+}
+
+.goals-card ul {
+  margin-bottom: 0.5rem;
+  padding-left: 0.95rem;
+}
+
+.goals-card li + li {
+  margin-top: 0.12rem;
+}
+
+.quickstart-block {
+  background:
+    linear-gradient(180deg, rgba(37, 99, 235, 0.03), rgba(37, 99, 235, 0.01)),
+    var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 1.5rem 1.6rem;
+  margin-top: 1.5rem !important;
+}
+
+.quickstart-block > h2 {
+  margin-top: 0;
+  margin-bottom: 0.65rem;
+  font-size: 1.35rem;
+}
+
+.quickstart-block ol {
+  margin-bottom: 0;
+  padding-left: 1.2rem;
+}
+
+.quickstart-block li + li {
+  margin-top: 0.5rem;
+}
+
+
+/* Gentle spacing for listing sections on landing page */
+.landing-page #listing-core_units,
+.landing-page #listing-supplemental_units {
+  margin-top: 0.75rem;
+}
+
+/* Dark mode compatibility for landing page blocks only */
+body.quarto-dark .landing-page {
+  --bg: #1f2329;
+  --card: #242a31;
+  --text: #f3f4f6;
+  --muted: #c2c8d0;
+  --border: #3b4450;
+}
+
+body.quarto-dark #quarto-content:has(.landing-page) #title-block-header.quarto-title-block.default {
+  background: var(--bg);
+}
+
+body.quarto-dark .hero-diagram {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+body.quarto-dark .hero-diagram img {
+  background: #1d2127;
+}
+
+@media (max-width: 900px) {
+  #quarto-content:has(.landing-page) #title-block-header.quarto-title-block.default {
+    padding: 1.1rem 1.1rem 1rem;
+    margin-bottom: 1rem;
+    grid-template-columns: 1fr;
+    row-gap: 0.6rem;
+  }
+
+  #quarto-content:has(.landing-page) #title-block-header .quarto-title {
+    grid-column: auto;
+  }
+
+  #quarto-content:has(.landing-page) #title-block-header .quarto-title-meta-author {
+    grid-template-columns: 1fr;
+    gap: 0.05rem 0;
+    padding-top: 0.45rem;
+  }
+
+  #quarto-content:has(.landing-page) #title-block-header .quarto-title-meta-author > .quarto-title-meta-contents:nth-child(even) p.affiliation {
+    margin-bottom: 0.35rem;
+  }
+
+  #quarto-content:has(.landing-page) #title-block-header .quarto-title-meta {
+    min-width: 0;
+  }
+
+  #quarto-content:has(.landing-page) #title-block-header .quarto-title-meta > div {
+    text-align: left;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .hero-diagram,
+  .goals-card,
+  .quickstart-block {
+    width: 100%;
+  }
+
+  .goals-card,
+  .quickstart-block {
+    padding: 1.15rem 1.1rem;
+  }
+
+}

@@ -1,0 +1,182 @@
+/* add some color - if you want color behind a major point on your website */
+
+.banner_color {
+  background-color: lightblue;
+  font-weight:bold;
+
+}
+
+/* Style buttons - if you want some text centered and bolded */
+
+.center {
+  font-weight:bold;
+  text-align: center;
+}
+
+/* Style buttons - if you want to have a button */
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 8px 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+
+/* Quarto listing cards: subtle hover lift */
+.quarto-listing-container-grid .quarto-grid-item.card {
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.quarto-listing-container-grid .quarto-grid-item.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/*=== FRONT MATTER ===========================================================
+
+/*--- TITLE METADATA ---------------------------------------------------------
+
+/*-- Wrap title metadata (author + date) in subtle tan card 
+
+.quarto-title-meta {
+  background: #f6f1e7;         
+  border-left: 4px solid #c8b08b;
+  padding: 0.8rem 1.2rem;
+  margin-top: 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+/* Slightly mute metadata text
+
+.quarto-title-meta * {
+  color: #5a5246;
+}
+
+/* Tighten spacing 
+
+.quarto-title-meta p {
+  margin-bottom: 0.25rem;
+}
+
+/* Optional: subtle shadow 
+
+.quarto-title-meta {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+*/
+
+/*=== LISTINGS ===============================================================*/
+
+.quarto-listing-container-grid .quarto-grid-item.card {
+  background: #ffffff;
+  border: 1px solid #e7ebf0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(16, 24, 40, 0.06);
+}
+
+.quarto-listing-container-grid .card-img-top .card-img {
+  width: 100% !important;
+  height: 170px !important;
+  object-fit: cover;
+  display: block;
+}
+
+.quarto-listing-container-grid .card-img-top {
+  margin: 0;
+  background: linear-gradient(180deg, #f8fafc 0%, #eef3f9 100%);
+  border-bottom: 1px solid #e7ebf0;
+}
+
+.quarto-listing-container-grid .card-body,
+.quarto-listing-container-grid .quarto-grid-item .card-attribution {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.quarto-listing-container-grid .listing-title {
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 0.2rem;
+  margin-bottom: 0.35rem;
+}
+
+.quarto-listing-container-grid .listing-subtitle {
+  color: #4b5563;
+  font-size: 0.92rem;
+  margin-bottom: 0.45rem;
+}
+
+.quarto-listing-container-grid .listing-description {
+  color: #334155;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+/* Hero goals callout in index top grid */
+.hero-goals.callout {
+  margin-top: 0;
+}
+
+.hero-goals .callout-icon-container {
+  display: none;
+}
+
+.hero-goals .callout-header,
+.hero-goals .callout-body-container {
+  padding-left: 1rem;
+}
+
+/* Hide Quarto's default color-scheme switch; keep custom sidebar tool */
+a.quarto-color-scheme-toggle {
+  display: none !important;
+}
+
+/* Dark mode: make sidebar darker than main content */
+body.quarto-dark #quarto-sidebar,
+body.quarto-dark .sidebar-navigation {
+  background-color: #232323 !important;
+}
+
+/* Dark mode: module card backgrounds and text */
+body.quarto-dark .quarto-listing-container-grid .quarto-grid-item.card {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+body.quarto-dark .quarto-listing-container-grid .card-img-top {
+  background: #242424;
+  border-bottom-color: #3a3a3a;
+}
+
+body.quarto-dark .quarto-listing-container-grid .listing-title {
+  color: #f3f4f6;
+}
+
+body.quarto-dark .quarto-listing-container-grid .listing-subtitle {
+  color: #d1d5db;
+}
+
+body.quarto-dark .quarto-listing-container-grid .listing-description {
+  color: #e5e7eb;
+}
+
+/* Dark mode: footer */
+body.quarto-dark .footer,
+body.quarto-dark .nav-footer {
+  background: #232323 !important;
+  color: #d1d5db !important;
+  border-top: 1px solid #3a3a3a;
+}
+
+body.quarto-dark .nav-footer a {
+  color: #e5e7eb !important;
+}
