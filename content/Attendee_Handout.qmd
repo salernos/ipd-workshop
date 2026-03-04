@@ -6,8 +6,6 @@ format:
   html:
     toc: false
     code-fold: false
-  pdf:
-    toc: false
 ---
 
 Welcome! Thank you for joining this workshop, *Prediction-Based Inference: Methods & Applications*. 
