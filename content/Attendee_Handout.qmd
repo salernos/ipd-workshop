@@ -1,0 +1,113 @@
+---
+title: "Attendee Prep Handout"
+subtitle: "Inference with Predicted Data Workshop"
+description: "One-page checklist for prerequisites, software setup, and package installation."
+format:
+  html:
+    toc: false
+    code-fold: false
+  pdf:
+    toc: false
+---
+
+Welcome! Thank you for joining this workshop, *Prediction-Based Inference: Methods & Applications*. 
+This handout is a quick pre-session checklist so you can get set up smoothly if you would like to 
+engage interactively with the workshop materials.
+
+## Quick Checklist (10-15 minutes)
+
+Complete these before the tutorial:
+
+- Confirm you have a stable internet connection and a laptop.
+- Choose your environment:
+  - Recommended: Docker + browser-based RStudio
+  - Alternative: local R/RStudio install
+- Verify `ipd` and core R packages install successfully.
+- Test that you can run one simple R command.
+
+## Prerequisites
+
+You should be comfortable with:
+
+- Base R and `tidyverse` syntax (`dplyr`, `ggplot2`, basic pipes).
+- Basic regression modeling (`lm`, `glm`).
+- Basic predictive modeling concepts (train/test split, predictions, model error).
+
+Helpful but optional (for the supplemental modules):
+
+- Bioconductor familiarity (`ExpressionSet`, `AnnotationDbi`, `MLInterfaces`).
+
+## Software Requirements
+
+### Option A (Recommended): Docker Workshop Environment
+
+Install Docker Desktop:
+
+- [Docker Desktop (Windows/Mac/Linux)](https://www.docker.com/products/docker-desktop/)
+
+Then run:
+
+```sh
+docker run -e PASSWORD=<choose_a_password_for_rstudio> -p 8787:8787 ghcr.io/salernos/ipd-workshop:latest
+```
+
+Open:
+
+- `http://localhost:8787/`
+- Login: username `rstudio`, password = what you set above
+
+### Option B: Local R + RStudio
+
+Install:
+
+- [R (CRAN)](https://cran.r-project.org/)
+- [RStudio Desktop](https://posit.co/download/rstudio-desktop/)
+
+## R Packages to Install Ahead of Time
+
+### Core packages (required)
+
+```r
+install.packages(c(
+  "ipd", "broom", "tidyverse", "patchwork", "scales",
+  "janitor", "GGally", "randomForest", "ranger", "mgcv",
+  "pROC", "DALEX", "neuralnet", "partykit"
+))
+```
+
+### Bioconductor packages (optional, used in supplemental content)
+
+```r
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+  install.packages("BiocManager")
+}
+BiocManager::install(c(
+  "ALL", "golubEsets", "AnnotationDbi", "hgu95av2.db",
+  "hu6800.db", "MLInterfaces"
+))
+```
+
+## 60-Second Setup Test
+
+Run this in R/RStudio:
+
+```r
+library(ipd)
+library(tidyverse)
+sessionInfo()
+```
+
+If this runs without errors, you are ready.
+
+## Links You'll Need During the Workshop
+
+- Workshop site: [https://salernos.github.io/ipd-workshop](https://salernos.github.io/ipd-workshop)
+- `ipd` package repo: [https://github.com/ipd-tools/ipd](https://github.com/ipd-tools/ipd)
+- Unit 00 (start here): [Getting Started](Unit00_GettingStarted.qmd)
+
+## Support
+
+If you hit setup issues before the session, contact:
+
+- Jesse Gronsbell: [j.gronsbell@utoronto.ca](mailto:j.gronsbell@utoronto.ca)
+- Stephen Salerno: [ssalerno@fredhutch.org](mailto:ssalerno@fredhutch.org)

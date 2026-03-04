@@ -1,0 +1,12 @@
+services:
+  ipd-workshop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghcr.io/salernos/ipd-workshop:latest
+    container_name: ipd-workshop-rstudio
+    ports:
+      - "8787:8787"
+    environment:
+      PASSWORD: ${RSTUDIO_PASSWORD:-rstudio}
+    restart: unless-stopped

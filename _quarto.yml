@@ -49,6 +49,12 @@ website:
     contents:
       - text: "Home"
         href: index.qmd
+      - section: "Resources"
+        contents:
+          - text: "Attendee Prep"
+            href: content/Attendee_Handout.qmd
+          - text: "Additional Information"
+            href: content/Additional_Information.qmd
       - text: "Overview"
         href: content/slides.qmd
       - section: "Modules"
@@ -57,14 +63,14 @@ website:
             href: content/Unit00_GettingStarted.qmd
           - text: "Proteomics with AlphaFold"
             href: content/Unit01_AlphaFold.qmd
-          - text: "Measuring Adiposity"
-            href: content/Unit02_MeasuringAdiposity.qmd
       - section: "Supplemental Modules"
         contents:
+          - text: "Measuring Adiposity"
+            href: content/Unit02_MeasuringAdiposity.qmd
           - text: "BCR-ABL Fusion"
             href: content/Unit03_GeneticData.qmd
-          - text: "Income Inequality"
-            href: content/Unit04_Income.qmd
+#          - text: "Income Inequality"
+#            href: content/Unit04_Income.qmd
           - text: "The Rashomon Quartet"
             href: content/Unit05_RashomonQuartet.qmd
             
@@ -75,12 +81,12 @@ format:
       dark: darkly
     css:
       - styles.css
-      - styles.scss
     include-after-body: resources/theme-toggle-icon.html
     #mainfont: "Atkinson Hyperlegible"
     code-copy: true
     code-overflow: wrap
     toc: true
+    toc-location: right
 
 freeze: auto
 

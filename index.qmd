@@ -8,6 +8,8 @@ toc-location: right
 author: 
   - name: Jesse Gronsbell, PhD
     affiliation: University of Toronto
+  - name: Jianhu Gao, PhD
+    affiliation: University of Toronto
   - name: Stephen Salerno, PhD
     affiliation: Fred Hutchinson Cancer Center
 date-title: "Date"
@@ -16,15 +18,15 @@ listing:
     contents: 
       - content/Unit00_GettingStarted.qmd
       - content/Unit01_AlphaFold.qmd
-      - content/Unit02_MeasuringAdiposity.qmd
     type: grid
     sort: "unit"
     filter-ui: false
     fields: [title, image, subtitle, description]
   - id: supplemental_units
     contents:
+      - content/Unit02_MeasuringAdiposity.qmd
       - content/Unit03_GeneticData.qmd
-      - content/Unit04_Income.qmd
+#      - content/Unit04_Income.qmd
       - content/Unit05_RashomonQuartet.qmd
     type: grid
     sort: "unit"
@@ -78,7 +80,7 @@ The companion website for this workshop is available at:
 To use the workshop image:
 
 ```sh
-docker run -e PASSWORD=<choose_a_password_for_rstudio> -p 8787:8787 ghcr.io/salernos/ipdworkshop:latest
+docker run -e PASSWORD=<choose_a_password_for_rstudio> -p 8787:8787 ghcr.io/salernos/ipd-workshop:latest
 ```
 
 Once running, navigate to `http://localhost:8787/` and then log in with `rstudio`:`yourchosenpassword`. 
@@ -102,7 +104,7 @@ and diagnostics.
 
 ## Modules
 
-This workshop covers three modules (time permitting), each illustrating IPD in 
+This workshop covers two modules (time permitting), each illustrating IPD in 
 R using the [`ipd`](https://github.com/ipd-tools/ipd) package:[^cover-images]
 
 :::{#core_units}

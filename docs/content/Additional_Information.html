@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Reference table for IPD methods used in the workshop plus additional resources for continued learning.">
 
-<title>Overview – IPD Workshop</title>
+<title>Additional Information – IPD Workshop</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -29,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../content/Unit00_GettingStarted.html" rel="next">
-<link href="../content/Additional_Information.html" rel="prev">
+<link href="../content/slides.html" rel="next">
+<link href="../content/Attendee_Handout.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,39 +71,10 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Overview – IPD Workshop">
-<meta property="og:description" content="Promises and pitfalls of using predicted data for downstream inference">
+<meta property="og:title" content="Additional Information – IPD Workshop">
+<meta property="og:description" content="Reference table for IPD methods used in the workshop plus additional resources for continued learning.">
 <meta property="og:site_name" content="IPD Workshop">
 </head>
 
@@ -115,7 +87,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/slides.html">Overview</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/Attendee_Handout.html">Resources</a></li><li class="breadcrumb-item"><a href="../content/Additional_Information.html">Additional Information</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -125,7 +97,7 @@ window.Quarto = {
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
@@ -184,7 +156,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/Additional_Information.html" class="sidebar-item-text sidebar-link">
+  <a href="../content/Additional_Information.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Additional Information</span></a>
   </div>
 </li>
@@ -192,7 +164,7 @@ window.Quarto = {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/slides.html" class="sidebar-item-text sidebar-link active">
+  <a href="../content/slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Overview</span></a>
   </div>
 </li>
@@ -253,19 +225,40 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#methods-reference-table" id="toc-methods-reference-table" class="nav-link active" data-scroll-target="#methods-reference-table">Methods Reference Table</a></li>
+  <li><a href="#foundational-and-package-references" id="toc-foundational-and-package-references" class="nav-link" data-scroll-target="#foundational-and-package-references">Foundational and Package References</a></li>
+  <li><a href="#additional-useful-resources-for-learners" id="toc-additional-useful-resources-for-learners" class="nav-link" data-scroll-target="#additional-useful-resources-for-learners">Additional Useful Resources for Learners</a>
+  <ul class="collapse">
+  <li><a href="#reproducible-analysis-workflow" id="toc-reproducible-analysis-workflow" class="nav-link" data-scroll-target="#reproducible-analysis-workflow">Reproducible Analysis Workflow</a></li>
+  <li><a href="#model-diagnostics-and-evaluation" id="toc-model-diagnostics-and-evaluation" class="nav-link" data-scroll-target="#model-diagnostics-and-evaluation">Model Diagnostics and Evaluation</a></li>
+  <li><a href="#data-sources-used-in-the-workshop" id="toc-data-sources-used-in-the-workshop" class="nav-link" data-scroll-target="#data-sources-used-in-the-workshop">Data Sources Used in the Workshop</a></li>
+  </ul></li>
+  <li><a href="#suggested-post-workshop-practice" id="toc-suggested-post-workshop-practice" class="nav-link" data-scroll-target="#suggested-post-workshop-practice">Suggested Post-Workshop Practice</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/salernos/ipd-workshop/edit/main/content/Additional_Information.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/salernos/ipd-workshop/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/Attendee_Handout.html">Resources</a></li><li class="breadcrumb-item"><a href="../content/Additional_Information.html">Additional Information</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Overview</h1>
-<p class="subtitle lead">Promises and pitfalls of using predicted data for downstream inference</p>
+<h1 class="title">Additional Information</h1>
+<p class="subtitle lead">Methods Reference and Extended Learning Resources</p>
+</div>
+
+<div>
+  <div class="description">
+    Reference table for IPD methods used in the workshop plus additional resources for continued learning.
+  </div>
 </div>
 
 
-
-<div class="quarto-title-meta column-page-right">
+<div class="quarto-title-meta">
 
     
   
@@ -277,87 +270,124 @@ window.Quarto = {
 </header>
 
 
-<!--
-Update this PDF path after adding Jesse's slide deck to:
-  content/slides/slides.pdf
--->
-<section id="background-and-motivation" class="level2">
-<h2 class="anchored" data-anchor-id="background-and-motivation">Background and Motivation</h2>
-<p>Artificial intelligence and machine learning (AI/ML) have become essential tools in biomedical research, enabling large-scale analyses across diverse domains such as genomics, structural biology, and electronic health records-based research. Increasingly, researchers rely on model-generated predictions, rather than directly measured variables, as inputs for downstream statistical analyses. For example, predicted gene expression values or polygenic risk scores are often used in place of experimental assays, allowing researchers to expand cohort sizes and explore hypotheses when traditional data collection is infeasible, costly, or time-consuming.</p>
-<p>While this practice of “using predictions as data” holds promise for accelerating scientific discovery, it presents significant challenges for statistical inference. When predicted values are used in place of true variables, the resulting estimates of association can be biased and misleading if uncertainty in the prediction step is not properly accounted for.</p>
-<div class="callout callout-style-default callout-important callout-titled">
+<section id="methods-reference-table" class="level2">
+<h2 class="anchored" data-anchor-id="methods-reference-table">Methods Reference Table</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Method</th>
+<th><code>ipd</code> argument</th>
+<th>Typical inferential model(s)</th>
+<th>Core idea</th>
+<th>Primary reference</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Chen and Chen</td>
+<td><code>"chen"</code></td>
+<td>OLS, logistic, poisson, mean/quantile settings</td>
+<td>Anchors inference on labeled data and augments with proxy-based correction terms.</td>
+<td><a href="https://arxiv.org/pdf/2411.19908">Gronsbell et al.&nbsp;(2024)</a></td>
+</tr>
+<tr class="even">
+<td>PostPI (analytic)</td>
+<td><code>"postpi_analytic"</code></td>
+<td>OLS / GLM-style downstream tasks</td>
+<td>Uses an analytic correction to post-prediction inference bias/variance.</td>
+<td><a href="https://www.pnas.org/doi/10.1073/pnas.2001238117">Wang et al.&nbsp;(2020)</a></td>
+</tr>
+<tr class="odd">
+<td>PostPI (bootstrap)</td>
+<td><code>"postpi_boot"</code></td>
+<td>OLS / GLM-style downstream tasks</td>
+<td>Uses bootstrap calibration for uncertainty under predicted outcomes.</td>
+<td><a href="https://www.pnas.org/doi/10.1073/pnas.2001238117">Wang et al.&nbsp;(2020)</a></td>
+</tr>
+<tr class="even">
+<td>PPI</td>
+<td><code>"ppi"</code></td>
+<td>OLS, logistic, poisson, mean/quantile</td>
+<td>Prediction-powered augmentation balancing labeled and unlabeled information.</td>
+<td><a href="https://www.science.org/doi/10.1126/science.adi6000">Angelopoulos et al.&nbsp;(2023)</a></td>
+</tr>
+<tr class="odd">
+<td>PPI++</td>
+<td><code>"ppi_plusplus"</code></td>
+<td>OLS, logistic, poisson, mean/quantile</td>
+<td>Data-adaptive weighting extension of PPI for stronger finite-sample behavior.</td>
+<td><a href="https://arxiv.org/pdf/2311.01453">Angelopoulos et al.&nbsp;(2024)</a></td>
+</tr>
+<tr class="even">
+<td>PPI using all data</td>
+<td><code>"ppi_a"</code></td>
+<td>OLS, logistic, poisson, mean/quantile</td>
+<td>Variant leveraging all available data with prediction-informed correction.</td>
+<td><a href="https://arxiv.org/pdf/2411.19908">Gronsbell et al.&nbsp;(2024)</a></td>
+</tr>
+<tr class="odd">
+<td>PSPA</td>
+<td><code>"pspa"</code></td>
+<td>OLS, logistic, poisson, mean/quantile</td>
+<td>Assumption-lean adaptive weighting of naive vs classical components.</td>
+<td><a href="https://arxiv.org/abs/2311.14220">Miao et al.&nbsp;(2023)</a></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Key Takeaway
+Practical Interpretation
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Modern biomedical analyses increasingly rely on machine learning predictions as inputs to downstream statistical models. This can expand scope and improve feasibility, but treating predictions as if they were observed data can bias effect estimates and understate uncertainty.</p>
+<p>Across methods, the common goal is the same: use predicted outcomes to gain efficiency while preserving valid statistical inference (unbiased effects and calibrated uncertainty).</p>
 </div>
 </div>
 </section>
-<section id="setup" class="level2">
-<h2 class="anchored" data-anchor-id="setup">Setup</h2>
-<p>When an outcome, <span class="math inline">\(Y\)</span>, is costly or difficult to measure, it can be tempting to replace missing values with predictions, <span class="math inline">\(f(\boldsymbol{X})\)</span>, from a machine learning model (e.g., a random forest or neural network) built on easier-to-measure features, <span class="math inline">\(\boldsymbol{X}\)</span>. However, using <span class="math inline">\(f\)</span> as if it were the true outcome in downstream analyses, e.g., in estimating a regression coefficient, <span class="math inline">\(\beta\)</span>, for the association between <span class="math inline">\(Y\)</span> and <span class="math inline">\(\boldsymbol{X}\)</span>, leads to biased point estimates and underestimated uncertainty. Methods for <a href="https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267">Inference with Predicted Data (IPD)</a> address this by leveraging a small subset of “labeled” data with true <span class="math inline">\(Y\)</span> values to calibrate inference in a larger “unlabeled” dataset.</p>
-<div class="hero-grid">
-<div class="hero-diagram">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/ipd_overview.png" class="img-fluid figure-img"></p>
-<figcaption><em>Overview of setup for common ‘inference with predicted data’ problems</em></figcaption>
-</figure>
-</div>
-</div>
-<section id="the-ipd-framework" class="level2 goals-card">
-<h2 class="anchored" data-anchor-id="the-ipd-framework">The IPD Framework</h2>
-<p>Consider data arising from three sets of observations:</p>
+<section id="foundational-and-package-references" class="level2">
+<h2 class="anchored" data-anchor-id="foundational-and-package-references">Foundational and Package References</h2>
 <ul>
-<li><strong>Training Set</strong>: <span class="math inline">\(\{(X_j, Y_j)\}_{j=1}^{n_t}\)</span>, used to fit a predictive model, <span class="math inline">\(f(\cdot)\)</span>.</li>
-<li><strong>Labeled Set</strong>: <span class="math inline">\(\{(X_i, Y_i)\}_{i=1}^{n_l}\)</span>, smaller sample with true outcomes measured.</li>
-<li><strong>Unlabeled Set</strong>: <span class="math inline">\(\{(X_i)\}_{i=n_l +1}^{n_l + n_u}\)</span>, only features available.</li>
+<li><code>ipd</code> package paper: <a href="https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267">Salerno et al.&nbsp;(2025), Bioinformatics</a></li>
+<li><code>ipd</code> GitHub repository: <a href="https://github.com/ipd-tools/ipd">https://github.com/ipd-tools/ipd</a></li>
+<li>General IPD framework overview: <a href="https://arxiv.org/pdf/2501.09731">Ji et al.&nbsp;(2025)</a></li>
 </ul>
-<p>After fitting <span class="math inline">\(f\)</span> on the training set, we apply it to the labeled and unlabeled sets to obtain predictions <span class="math inline">\(f_i = f(X_i)\)</span></p>
 </section>
-</div>
-<p>Especially for ‘good’ predictions, it is tempting to treat <span class="math inline">\(f_i\)</span> as surrogate outcomes and use them to estimate quantities such as regression parameters, <span class="math inline">\(\beta\)</span>. However, as we will see, this leads to <em>invalid inference</em>. By combining the predicted <span class="math inline">\(f_i\)</span> with the observed <span class="math inline">\(Y_i\)</span> in the labeled set, we can calibrate our estimates and standard errors to achieve <em>valid inference</em>.</p>
+<section id="additional-useful-resources-for-learners" class="level2">
+<h2 class="anchored" data-anchor-id="additional-useful-resources-for-learners">Additional Useful Resources for Learners</h2>
+<section id="reproducible-analysis-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="reproducible-analysis-workflow">Reproducible Analysis Workflow</h3>
+<ul>
+<li><code>tidyverse</code> reference: <a href="https://www.tidyverse.org/">https://www.tidyverse.org/</a></li>
+<li><code>broom</code> tidying model outputs: <a href="https://broom.tidymodels.org/">https://broom.tidymodels.org/</a></li>
+<li><code>patchwork</code> for multi-panel plots: <a href="https://patchwork.data-imaginist.com/">https://patchwork.data-imaginist.com/</a></li>
+</ul>
 </section>
-<section id="key-formulas" class="level2">
-<h2 class="anchored" data-anchor-id="key-formulas">Key Formulas</h2>
-<p>Consider a simple linear regression model for the association between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>. We discuss the following potential estimators, which we will later implement using simulated data.</p>
-<section id="naive-estimator" class="level3">
-<h3 class="anchored" data-anchor-id="naive-estimator">Naive Estimator</h3>
-<p>Using only the <em>unlabeled</em> predictions, the <strong>naive</strong> OLS estimator solves</p>
-<p><span class="math display">\[
-\hat\gamma_{\text{naive}} = \arg\min_\gamma \sum_{i\in U} (f_i - X_i'\gamma)^2.
-\]</span></p>
-<p>We are careful to write the coefficients for this model as <span class="math inline">\(\gamma\)</span>, because they bear no necessary correspondence with <span class="math inline">\(\beta\)</span>, except under the extremely restrictive scenario when <span class="math inline">\(f\)</span> perfectly captures the true regression function.</p>
+<section id="model-diagnostics-and-evaluation" class="level3">
+<h3 class="anchored" data-anchor-id="model-diagnostics-and-evaluation">Model Diagnostics and Evaluation</h3>
+<ul>
+<li><code>pROC</code> for ROC/AUC analysis: <a href="https://xrobin.github.io/pROC/">https://xrobin.github.io/pROC/</a></li>
+<li><code>DALEX</code> for model explainability: <a href="https://modeloriented.github.io/DALEX/">https://modeloriented.github.io/DALEX/</a></li>
+</ul>
 </section>
-<section id="classical-estimator" class="level3">
-<h3 class="anchored" data-anchor-id="classical-estimator">Classical Estimator</h3>
-<p>Instead, a valid approach would be to use only the <em>labeled</em> data. This <strong>classical</strong> estimator solves</p>
-<p><span class="math display">\[
-\hat\beta_{\text{classical}} = \arg\min_\beta \sum_{i\in L} (Y_i - X_i'\beta)^2.
-\]</span> While this approach is valid, it has limited precision because <span class="math inline">\(n_l\)</span> is small in practice and we do not utilize any potential information from the (often much larger) <strong>unlabeled</strong> data.</p>
-</section>
-<section id="ipd-estimators" class="level3">
-<h3 class="anchored" data-anchor-id="ipd-estimators">IPD Estimators</h3>
-<p>Many estimators tailored to inference with predicted data share a similar form, as given in <a href="https://arxiv.org/pdf/2501.09731">Ji et al.&nbsp;(2025)</a>:</p>
-<p><span class="math display">\[
-\widehat\beta_\text{ipd} = \arg\min_\beta \frac{1}{n_l}\sum_{i=1}^{n_l} \ell(X_i, Y_i) - \left[\frac{1}{n_l}\sum_{i=1}^{n_l} g(X_i, f_i) - \frac{1}{n_l+n_u}\sum_{i=n_l+1}^{n_l+n_u} g(X_i, f_i)\right],
-\]</span></p>
-<p>for some loss function, <span class="math inline">\(\ell(\cdot)\)</span>, such as the squared error loss for linear regression, and some <span class="math inline">\(g(\cdot)\)</span>, which they call the ‘imputed loss’. Here, the first term is exactly the <strong>classical</strong> estimator, which anchors these methods on a valid model, and the second term in the square brackets ‘augments’ the estimator with additional information from the predictions. This allows us to have an estimator that is provably unbiased and asymptotically at least as efficient as the <strong>classical</strong> estimator, which only uses a fraction of the data.</p>
-<p>The <a href="https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267">Inference with Predicted Data (IPD)</a> package implements several recent methods for IPD, such as <strong>Chen &amp; Chen</strong> method of <a href="https://arxiv.org/pdf/2411.19908">Gronsbell et al.</a>, the Prediction-Powered Inference (<strong>PPI</strong>) and <strong>PPI++</strong> methods of <a href="https://www.science.org/doi/10.1126/science.adi6000">Angelopoulos et al.&nbsp;(a)</a> and <a href="https://arxiv.org/pdf/2311.01453">Angelopoulos et al.&nbsp;(a)</a>, the Post-Prediction Inference (<strong>PostPI</strong>) method of <a href="https://www.pnas.org/doi/10.1073/pnas.2001238117">Wang et al.</a>, and the Post-Prediction Adaptive Inference (<strong>PSPA</strong>) method of <a href="https://arxiv.org/abs/2311.14220">Miao et al.</a> to conduct valid, efficient inference, even when a large proportion of outcomes are predicted.</p>
+<section id="data-sources-used-in-the-workshop" class="level3">
+<h3 class="anchored" data-anchor-id="data-sources-used-in-the-workshop">Data Sources Used in the Workshop</h3>
+<ul>
+<li>NHANES: <a href="https://www.cdc.gov/nchs/nhanes/index.html">https://www.cdc.gov/nchs/nhanes/index.html</a></li>
+<li>AlphaFold publication context: <a href="https://www.nature.com/articles/s41586-021-03819-2">https://www.nature.com/articles/s41586-021-03819-2</a></li>
+</ul>
 </section>
 </section>
-<section id="slides-pdf" class="level2">
-<h2 class="anchored" data-anchor-id="slides-pdf">Slides (PDF)</h2>
-<div style="border: 1px solid #d9dee6; border-radius: 10px; overflow: hidden; margin-bottom: 1rem;">
-<p><iframe src="content/slides/slides.pdf" title="Background and Motivation Slides" width="100%" height="900" style="border: 0;"> </iframe></p>
-</div>
-<p><a href="content/slides/slides.pdf" target="_blank">Open slides in a new tab</a></p>
+<section id="suggested-post-workshop-practice" class="level2">
+<h2 class="anchored" data-anchor-id="suggested-post-workshop-practice">Suggested Post-Workshop Practice</h2>
+<ol type="1">
+<li>Re-run Unit 00 with different labeled/unlabeled ratios and compare method sensitivity.</li>
+<li>In Unit 01 or Unit 02, replace one predictor set and re-evaluate naive vs IPD shifts.</li>
+<li>Benchmark at least two IPD methods (<code>pspa</code> vs <code>ppi_plusplus</code>) on the same task and compare CI behavior.</li>
+</ol>
 
 
 </section>
@@ -952,15 +982,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation column-page-right">
+<nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../content/Additional_Information.html" class="pagination-link" aria-label="Additional Information">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Additional Information</span>
+      <a href="../content/Attendee_Handout.html" class="pagination-link" aria-label="Attendee Prep">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Attendee Prep</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../content/Unit00_GettingStarted.html" class="pagination-link" aria-label="Getting Started">
-        <span class="nav-page-text">Getting Started</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../content/slides.html" class="pagination-link" aria-label="Overview">
+        <span class="nav-page-text">Overview</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -972,7 +1002,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/salernos/ipd-workshop/edit/main/content/slides.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/salernos/ipd-workshop/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/salernos/ipd-workshop/edit/main/content/Additional_Information.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/salernos/ipd-workshop/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Proudly built with <a href="https://www.ottrproject.org/">OTTR</a> and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

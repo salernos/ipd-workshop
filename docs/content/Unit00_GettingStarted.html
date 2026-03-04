@@ -136,7 +136,6 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../styles.css">
-<link rel="stylesheet" href="../styles.scss">
 <meta property="og:title" content="Getting Started – IPD Workshop">
 <meta property="og:description" content="Build intuition for inference with predicted data by simulating labeled/unlabeled sets and comparing naive, classical, and IPD estimators.">
 <meta property="og:image" content="https://salernos.github.io/ipd-workshop/content/images/ipd_cover.png">
@@ -206,6 +205,29 @@ window.Quarto = {
  <span class="menu-text">Home</span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/Attendee_Handout.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Attendee Prep</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/Additional_Information.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Additional Information</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/slides.html" class="sidebar-item-text sidebar-link">
@@ -214,13 +236,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Modules</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/Unit00_GettingStarted.html" class="sidebar-item-text sidebar-link active">
@@ -233,33 +255,27 @@ window.Quarto = {
  <span class="menu-text">Proteomics with AlphaFold</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Supplemental Modules</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/Unit02_MeasuringAdiposity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Measuring Adiposity</span></a>
   </div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Supplemental Modules</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/Unit03_GeneticData.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">BCR-ABL Fusion</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/Unit04_Income.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Income Inequality</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -282,14 +298,6 @@ window.Quarto = {
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
   <ul class="collapse">
-  <li><a href="#background-and-motivation" id="toc-background-and-motivation" class="nav-link" data-scroll-target="#background-and-motivation">Background and Motivation</a></li>
-  <li><a href="#the-ipd-framework" id="toc-the-ipd-framework" class="nav-link" data-scroll-target="#the-ipd-framework">The IPD Framework</a></li>
-  <li><a href="#key-formulas" id="toc-key-formulas" class="nav-link" data-scroll-target="#key-formulas">Key Formulas</a>
-  <ul class="collapse">
-  <li><a href="#naive-estimator" id="toc-naive-estimator" class="nav-link" data-scroll-target="#naive-estimator">Naive Estimator</a></li>
-  <li><a href="#classical-estimator" id="toc-classical-estimator" class="nav-link" data-scroll-target="#classical-estimator">Classical Estimator</a></li>
-  <li><a href="#ipd-estimators" id="toc-ipd-estimators" class="nav-link" data-scroll-target="#ipd-estimators">IPD Estimators</a></li>
-  </ul></li>
   <li><a href="#installation-and-setup" id="toc-installation-and-setup" class="nav-link" data-scroll-target="#installation-and-setup">Installation and Setup</a></li>
   <li><a href="#function-references" id="toc-function-references" class="nav-link" data-scroll-target="#function-references">Function References</a>
   <ul class="collapse">
@@ -410,56 +418,7 @@ Key Takeaway
 <p>Using predicted outcomes for can improve efficiency, but treating them as if they are real data can bias downstream inference. This unit shows how IPD methods can use a small set of labeled data to recover valid inference while leveraging unlabeled data and predicted outcomes to gain more information.</p>
 </div>
 </div>
-<section id="background-and-motivation" class="level2">
-<h2 class="anchored" data-anchor-id="background-and-motivation">Background and Motivation</h2>
-<p>When an outcome, <span class="math inline">\(Y\)</span>, is costly or difficult to measure, it can be tempting to replace missing values with predictions, <span class="math inline">\(f(\boldsymbol{X})\)</span>, from a machine learning model (e.g., a random forest or neural network) built on easier-to-measure features, <span class="math inline">\(\boldsymbol{X}\)</span>. However, using <span class="math inline">\(f\)</span> as if it were the true outcome in downstream analyses, e.g., in estimating a regression coefficient, <span class="math inline">\(\beta\)</span>, for the association between <span class="math inline">\(Y\)</span> and <span class="math inline">\(\boldsymbol{X}\)</span>, leads to biased point estimates and underestimated uncertainty. Methods for <a href="https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267">Inference with Predicted Data (IPD)</a> address this by leveraging a small subset of “labeled” data with true <span class="math inline">\(Y\)</span> values to calibrate inference in a larger “unlabeled” dataset.</p>
-</section>
-<section id="the-ipd-framework" class="level2">
-<h2 class="anchored" data-anchor-id="the-ipd-framework">The IPD Framework</h2>
-<p>Consider data arising from three sets of observations:</p>
-<ul>
-<li><strong>Training Set</strong>: <span class="math inline">\(\{(X_j, Y_j)\}_{j=1}^{n_t}\)</span>, used to fit a predictive model, <span class="math inline">\(f(\cdot)\)</span>.</li>
-<li><strong>Labeled Set</strong>: <span class="math inline">\(\{(X_i, Y_i)\}_{i=1}^{n_l}\)</span>, smaller sample with true outcomes measured.</li>
-<li><strong>Unlabeled Set</strong>: <span class="math inline">\(\{(X_i)\}_{i=n_l +1}^{n_l + n_u}\)</span>, only features available.</li>
-</ul>
-<p>After fitting <span class="math inline">\(f\)</span> on the training set, we apply it to the labeled and unlabeled sets to obtain predictions <span class="math inline">\(f_i = f(X_i)\)</span>:</p>
-<p><br></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/ipd_overview.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><em>Overview of setup for common ‘inference with predicted data’ problems</em></figcaption>
-</figure>
-</div>
-<p><br></p>
-<p>Especially for ‘good’ predictions, it is tempting to treat <span class="math inline">\(f_i\)</span> as surrogate outcomes and use them to estimate quantities such as regression parameters, <span class="math inline">\(\beta\)</span>. However, as we will see, this leads to <em>invalid inference</em>. By combining the predicted <span class="math inline">\(f_i\)</span> with the observed <span class="math inline">\(Y_i\)</span> in the labeled set, we can calibrate our estimates and standard errors to achieve <em>valid inference</em>.</p>
-</section>
-<section id="key-formulas" class="level2">
-<h2 class="anchored" data-anchor-id="key-formulas">Key Formulas</h2>
-<p>Consider a simple linear regression model for the association between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>. We discuss the following potential estimators, which we will later implement using simulated data.</p>
-<section id="naive-estimator" class="level3">
-<h3 class="anchored" data-anchor-id="naive-estimator">Naive Estimator</h3>
-<p>Using only the <em>unlabeled</em> predictions, the <strong>naive</strong> OLS estimator solves</p>
-<p><span class="math display">\[
-\hat\gamma_{\text{naive}} = \arg\min_\gamma \sum_{i\in U} (f_i - X_i'\gamma)^2.
-\]</span></p>
-<p>We are careful to write the coefficients for this model as <span class="math inline">\(\gamma\)</span>, because they bear no necessary correspondence with <span class="math inline">\(\beta\)</span>, except under the extremely restrictive scenario when <span class="math inline">\(f\)</span> perfectly captures the true regression function.</p>
-</section>
-<section id="classical-estimator" class="level3">
-<h3 class="anchored" data-anchor-id="classical-estimator">Classical Estimator</h3>
-<p>Instead, a valid approach would be to use only the <em>labeled</em> data. This <strong>classical</strong> estimator solves</p>
-<p><span class="math display">\[
-\hat\beta_{\text{classical}} = \arg\min_\beta \sum_{i\in L} (Y_i - X_i'\beta)^2.
-\]</span> While this approach is valid, it has limited precision because <span class="math inline">\(n_l\)</span> is small in practice and we do not utilize any potential information from the (often much larger) <strong>unlabeled</strong> data.</p>
-</section>
-<section id="ipd-estimators" class="level3">
-<h3 class="anchored" data-anchor-id="ipd-estimators">IPD Estimators</h3>
-<p>Many estimators tailored to inference with predicted data share a similar form, as given in <a href="https://arxiv.org/pdf/2501.09731">Ji et al.&nbsp;(2025)</a>:</p>
-<p><span class="math display">\[
-\widehat\beta_\text{ipd} = \arg\min_\beta \frac{1}{n_l}\sum_{i=1}^{n_l} \ell(X_i, Y_i) - \left[\frac{1}{n_l}\sum_{i=1}^{n_l} g(X_i, f_i) - \frac{1}{n_l+n_u}\sum_{i=n_l+1}^{n_l+n_u} g(X_i, f_i)\right],
-\]</span></p>
-<p>for some loss function, <span class="math inline">\(\ell(\cdot)\)</span>, such as the squared error loss for linear regression, and some <span class="math inline">\(g(\cdot)\)</span>, which they call the ‘imputed loss’. Here, the first term is exactly the <strong>classical</strong> estimator, which anchors these methods on a valid model, and the second term in the square brackets ‘augments’ the estimator with additional information from the predictions. This allows us to have an estimator that is provably unbiased and asymptotically at least as efficient as the <strong>classical</strong> estimator, which only uses a fraction of the data.</p>
-<p>The <a href="https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267">Inference with Predicted Data (IPD)</a> package implements several recent methods for IPD, such as <strong>Chen &amp; Chen</strong> method of <a href="https://arxiv.org/pdf/2411.19908">Gronsbell et al.</a>, the Prediction-Powered Inference (<strong>PPI</strong>) and <strong>PPI++</strong> methods of <a href="https://www.science.org/doi/10.1126/science.adi6000">Angelopoulos et al.&nbsp;(a)</a> and <a href="https://arxiv.org/pdf/2311.01453">Angelopoulos et al.&nbsp;(a)</a>, the Post-Prediction Inference (<strong>PostPI</strong>) method of <a href="https://www.pnas.org/doi/10.1073/pnas.2001238117">Wang et al.</a>, and the Post-Prediction Adaptive Inference (<strong>PSPA</strong>) method of <a href="https://arxiv.org/abs/2311.14220">Miao et al.</a> to conduct valid, efficient inference, even when a large proportion of outcomes are predicted.</p>
-<p>In this first tutorial, we demonstrate how to:</p>
+<p>In this first module, we demonstrate how to:</p>
 <ol type="1">
 <li><strong>Generate</strong> fully synthetic data with <code>ipd::simdat()</code>.</li>
 <li><strong>Fit</strong> a simple linear prediction model (e.g., linear regression).</li>
@@ -467,13 +426,11 @@ Key Takeaway
 <li><strong>Compare</strong> the <strong>naive</strong>, <strong>classical</strong>, and <strong>IPD</strong> estimates of <span class="math inline">\(\beta\)</span>.</li>
 <li><strong>Visualize</strong> these results.</li>
 </ol>
-</section>
-</section>
 <section id="installation-and-setup" class="level2">
 <h2 class="anchored" data-anchor-id="installation-and-setup">Installation and Setup</h2>
 <p>First, insure you have the <code>ipd</code> package and some additional packages installed:</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install these packages if you have not already:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("ipd", "broom", "tidyverse", "patchwork"))</span></span>
