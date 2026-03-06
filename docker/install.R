@@ -21,7 +21,7 @@ install.packages(c(
 
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
 
-  install.packages("BiocManager", repos="http://cran.rstudio.com/")
+  install.packages("BiocManager")
 } 
 
 BiocManager::install(c(
