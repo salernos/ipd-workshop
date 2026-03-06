@@ -1,10 +1,6 @@
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 
-if (!requireNamespace("pak", quietly = TRUE)) {
-  install.packages("pak")
-}
-
-pak::pkg_install(c(
+install.packages(c(
   "ipd",
   "broom",
   "tidyverse",
@@ -20,12 +16,9 @@ pak::pkg_install(c(
   "pROC",
   "DALEX",
   "neuralnet",
-  "partykit"
+  "partykit",
+  "BiocManager"
 ))
-
-if (!requireNamespace("BiocManager", quietly = TRUE)) {
-  install.packages("BiocManager")
-}
 
 BiocManager::install(c(
   "ALL",
