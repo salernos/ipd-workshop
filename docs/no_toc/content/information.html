@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Reference table for IPD methods used in the workshop plus additional resources for continued learning.">
+
+<title>Additional Information – IPD Workshop</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../content/slides.html" rel="next">
+<link href="../content/setup.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-5d358c139d2e90da63c14cb1e16cafdd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-dd257045cb431b75a7b6ce73c259ef30.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-5d358c139d2e90da63c14cb1e16cafdd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="Additional Information – IPD Workshop">
+<meta property="og:description" content="Reference table for IPD methods used in the workshop plus additional resources for continued learning.">
+<meta property="og:site_name" content="IPD Workshop">
+</head>
+
+<body class="quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#methods-references" id="toc-methods-references" class="nav-link active" data-scroll-target="#methods-references">Methods References</a></li>
+  <li><a href="#data-sources-used-in-this-workshop" id="toc-data-sources-used-in-this-workshop" class="nav-link" data-scroll-target="#data-sources-used-in-this-workshop">Data Sources Used in this Workshop</a>
+  <ul class="collapse">
+  <li><a href="#where-each-dataset-appears" id="toc-where-each-dataset-appears" class="nav-link" data-scroll-target="#where-each-dataset-appears">Where Each Dataset Appears</a></li>
+  <li><a href="#simulated-data" id="toc-simulated-data" class="nav-link" data-scroll-target="#simulated-data">Simulated Data</a></li>
+  <li><a href="#alphafold" id="toc-alphafold" class="nav-link" data-scroll-target="#alphafold">AlphaFold</a></li>
+  <li><a href="#nhanes" id="toc-nhanes" class="nav-link" data-scroll-target="#nhanes">NHANES</a></li>
+  <li><a href="#leukemia-gene-expression-data-all-and-golub" id="toc-leukemia-gene-expression-data-all-and-golub" class="nav-link" data-scroll-target="#leukemia-gene-expression-data-all-and-golub">Leukemia Gene Expression Data: <code>ALL</code> and <code>Golub</code></a>
+  <ul class="collapse">
+  <li><a href="#all" id="toc-all" class="nav-link" data-scroll-target="#all"><code>ALL</code></a></li>
+  <li><a href="#golub_merge" id="toc-golub_merge" class="nav-link" data-scroll-target="#golub_merge"><code>Golub_Merge</code></a></li>
+  </ul></li>
+  <li><a href="#the-rashomon-quartet" id="toc-the-rashomon-quartet" class="nav-link" data-scroll-target="#the-rashomon-quartet">The Rashomon Quartet</a></li>
+  </ul></li>
+  <li><a href="#additional-useful-resources" id="toc-additional-useful-resources" class="nav-link" data-scroll-target="#additional-useful-resources">Additional Useful Resources</a>
+  <ul class="collapse">
+  <li><a href="#package-references" id="toc-package-references" class="nav-link" data-scroll-target="#package-references">Package References</a></li>
+  <li><a href="#reproducible-data-analysis" id="toc-reproducible-data-analysis" class="nav-link" data-scroll-target="#reproducible-data-analysis">Reproducible Data Analysis</a>
+  <ul class="collapse">
+  <li><a href="#model-diagnostics-and-evaluation" id="toc-model-diagnostics-and-evaluation" class="nav-link" data-scroll-target="#model-diagnostics-and-evaluation">Model Diagnostics and Evaluation</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#suggested-post-workshop-practice" id="toc-suggested-post-workshop-practice" class="nav-link" data-scroll-target="#suggested-post-workshop-practice">Suggested Post-Workshop Practice</a></li>
+  <li><a href="#closing-note" id="toc-closing-note" class="nav-link" data-scroll-target="#closing-note">Closing Note</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/salernos/ipd-workshop/edit/main/content/information.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/salernos/ipd-workshop/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/setup.html">Resources</a></li><li class="breadcrumb-item"><a href="../content/information.html">Additional Information</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Additional Information</h1>
+<p class="subtitle lead">Methods Reference and Extended Learning Resources</p>
+</div>
+
+<div>
+  <div class="description">
+    Reference table for IPD methods used in the workshop plus additional resources for continued learning.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="methods-references" class="level1">
+<h1>Methods References</h1>
+<p>Throughout the workshop we use several approaches for conducting inference with predicted data. These methods address a common challenge in modern data science:</p>
+<blockquote class="blockquote">
+<p>How can we use machine learning predictions as ‘data,’ to improve efficiency while still guaranteeing valid statistical inference?</p>
+</blockquote>
+<p>Each approach reviewed here combines information from:</p>
+<ul>
+<li><strong>Labeled Data</strong>: Where the true outcome is observed, and</li>
+<li><strong>Unlabeled data</strong>: Where only predictions are available.</li>
+</ul>
+<p>The table below summarizes the main methods implemented in the <code>ipd</code> package.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Method</th>
+<th><code>ipd</code> Argument</th>
+<th>Inferential Model(s) Implemented</th>
+<th>Primary Reference</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Chen and Chen</td>
+<td><code>"chen"</code></td>
+<td>OLS, logistic, Poisson</td>
+<td><a href="https://arxiv.org/pdf/2411.19908">Gronsbell et al.&nbsp;(2026)</a></td>
+</tr>
+<tr class="even">
+<td>PDC</td>
+<td><code>"pdc"</code></td>
+<td>OLS, logistic, Poisson</td>
+<td><a href="https://onlinelibrary.wiley.com/doi/10.1111/anzs.12429">Gan et al.&nbsp;(2024)</a></td>
+</tr>
+<tr class="odd">
+<td>PostPI (analytic)</td>
+<td><code>"postpi_analytic"</code></td>
+<td>OLS</td>
+<td><a href="https://www.pnas.org/doi/10.1073/pnas.2001238117">Wang et al.&nbsp;(2020)</a></td>
+</tr>
+<tr class="even">
+<td>PostPI (bootstrap)</td>
+<td><code>"postpi_boot"</code></td>
+<td>OLS, logistic</td>
+<td><a href="https://www.pnas.org/doi/10.1073/pnas.2001238117">Wang et al.&nbsp;(2020)</a></td>
+</tr>
+<tr class="odd">
+<td>PPI</td>
+<td><code>"ppi"</code></td>
+<td>OLS, logistic, Poisson, mean, quantile</td>
+<td><a href="https://www.science.org/doi/10.1126/science.adi6000">Angelopoulos et al.&nbsp;(2023)</a></td>
+</tr>
+<tr class="even">
+<td>PPI++</td>
+<td><code>"ppi_plusplus"</code></td>
+<td>OLS, logistic, Poisson, mean, quantile</td>
+<td><a href="https://arxiv.org/pdf/2311.01453">Angelopoulos et al.&nbsp;(2024)</a></td>
+</tr>
+<tr class="odd">
+<td>PPI (using all data)</td>
+<td><code>"ppi_a"</code></td>
+<td>OLS</td>
+<td><a href="https://arxiv.org/pdf/2411.19908">Gronsbell et al.&nbsp;(2026)</a></td>
+</tr>
+<tr class="even">
+<td>PSPA</td>
+<td><code>"pspa"</code></td>
+<td>OLS, logistic, Poisson, mean, quantile</td>
+<td><a href="https://www.jmlr.org/papers/volume26/24-0056/24-0056.pdf">Miao et al.&nbsp;(2023)</a></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Practical Interpretation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Across all of these approaches, the goal is the same:</p>
+<ul>
+<li><strong>Use predictions to improve efficiency</strong>, and</li>
+<li><strong>Maintain guarantees of valid statistical inference</strong>.</li>
+</ul>
+<p>In practice this means preserving:</p>
+<ul>
+<li>Unbiased or approximately unbiased effect estimates</li>
+<li>Properly calibrated confidence intervals</li>
+<li>Improved statistical power when predictions are informative</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="data-sources-used-in-this-workshop" class="level1">
+<h1>Data Sources Used in this Workshop</h1>
+<section id="where-each-dataset-appears" class="level2">
+<h2 class="anchored" data-anchor-id="where-each-dataset-appears">Where Each Dataset Appears</h2>
+<p>The workshop modules draw on several synthetic and real-world datasets across multiple scientific domains.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Unit</th>
+<th>Title</th>
+<th>Dataset</th>
+<th>Scientific Context</th>
+<th>Role in the Workshop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Unit 00</td>
+<td><a href="../content/Unit00_GettingStarted.html">Getting Started</a></td>
+<td>Simulated</td>
+<td>General Statistical Setting</td>
+<td>Introduces labeled/unlabeled structure and core IPD ideas</td>
+</tr>
+<tr class="even">
+<td>Unit 01</td>
+<td><a href="Unit01_Alphafold.qmd">Proteomics with AlphaFold</a></td>
+<td>AlphaFold / PTM</td>
+<td>Proteomics and Structural Biology</td>
+<td>Study the association between PTMs and disorder when disorder is predicted at scale</td>
+</tr>
+<tr class="odd">
+<td>Unit 02</td>
+<td><a href="../content/Unit02_MeasuringAdiposity.html">Measuring Adiposity</a></td>
+<td>NHANES</td>
+<td>Public Health and Epidemiology</td>
+<td>BMI and waist circumference as proxies for DXA-based adiposity</td>
+</tr>
+<tr class="even">
+<td>Unit 03</td>
+<td><a href="../content/Unit03_GeneticData.html">BCR-ABL Fusion</a></td>
+<td>ALL / Golub</td>
+<td>Genomics and Molecular Classification</td>
+<td>Predict BCR-ABL1 fusion status from gene expression and correct downstream inference</td>
+</tr>
+<tr class="odd">
+<td>Unit 04</td>
+<td><a href="../content/Unit05_RashomonQuartet.html">The Rashomon Quartet</a></td>
+<td>Rashomon Quartet</td>
+<td>Prediction Ambiguity and Interpretation</td>
+<td>Shows that similar predictive performance can still support very different downstream conclusions</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="simulated-data" class="level2">
+<h2 class="anchored" data-anchor-id="simulated-data">Simulated Data</h2>
+<p>Our Getting Started unit uses <strong>simulated data</strong>. This is especially useful because it lets us control:</p>
+<ul>
+<li>The true data-generating process,</li>
+<li>The amount of prediction error,</li>
+<li>The labeled/unlabeled sample sizes, and</li>
+<li>The strength of the associations of interest.</li>
+</ul>
+<p>Simulation is often the clearest way to build intuition for:</p>
+<ul>
+<li>Bias-variance tradeoffs,</li>
+<li>Confidence interval behavior,</li>
+<li>Efficiency gains, and</li>
+<li>The conditions under which IPD methods are most useful.</li>
+</ul>
+</section>
+<section id="alphafold" class="level2">
+<h2 class="anchored" data-anchor-id="alphafold">AlphaFold</h2>
+<p>The proteomics module is motivated by a modern structural biology setting in which machine learning predictions are available at massive scale, while experimental validation remains much more limited.</p>
+<p>Resources:</p>
+<ul>
+<li><a href="https://www.nature.com/articles/s41586-021-03819-2">AlphaFold Paper</a></li>
+<li><a href="https://alphafold.ebi.ac.uk/">AlphaFold Protein Structure Database</a></li>
+</ul>
+<p>AlphaFold predicts protein structure from amino acid sequence with remarkably high accuracy and now provides structural annotations for essentially the whole proteome. These predictions make large-scale downstream analyses possible, but they do not remove the need for careful inference.</p>
+<p>In the workshop module, the scientific question is whether certain <strong>post-translational modifications (PTMs)</strong> are more likely to occur in <strong>intrinsically disordered regions (IDRs)</strong>. Each residue has:</p>
+<ul>
+<li><p><code>Y</code>: A binary gold-standard disorder label</p></li>
+<li><p><code>Yhat</code>: A predicted probability of disorder derived from AlphaFold-based processing</p></li>
+<li><p>PTM indicators such as:</p>
+<ul>
+<li><code>phosphorylated</code></li>
+<li><code>ubiquitinated</code></li>
+<li><code>acetylated</code></li>
+</ul></li>
+</ul>
+<p>The inferential target is the association between PTM status and disorder, typically summarized through an odds ratio from logistic regression. This is an especially clean IPD example because it has the exact structure the methods are designed for:</p>
+<ul>
+<li>A limited set of residues with trusted disorder labels,</li>
+<li>A much larger set with model-based disorder predictions, and</li>
+<li>A downstream scientific question about association rather than prediction alone.</li>
+</ul>
+<p>The module uses the complete dataset to simulate partial labeling, so participants can see how classical, naive, and IPD methods behave as the number of labeled residues changes.</p>
+</section>
+<section id="nhanes" class="level2">
+<h2 class="anchored" data-anchor-id="nhanes">NHANES</h2>
+<p>The <strong>National Health and Nutrition Examination Survey (NHANES)</strong> is a nationally representative program conducted by the U.S. Centers for Disease Control and Prevention. It combines interviews, physical examinations, and laboratory measurements to assess the health and nutritional status of the U.S. population.</p>
+<p>Resources:</p>
+<ul>
+<li><a href="https://www.cdc.gov/nchs/nhanes/index.html">NHANES homepage</a></li>
+<li><a href="https://wwwn.cdc.gov/nchs/nhanes/">NHANES data portal</a></li>
+</ul>
+<p>In the workshop, NHANES is used to study a very natural example of inference with predicted data, but where the predictions are not complex. Here, the scientific target is <strong>true adiposity</strong>, measured using <strong>percent body fat</strong>. But in many studies, percent body fat is unavailable, so researchers instead rely on simpler proxies such as:</p>
+<ul>
+<li><strong>BMI</strong></li>
+<li><strong>Waist circumference</strong></li>
+</ul>
+<p>This is a particularly useful teaching example because BMI is often treated as if it were the ‘real’ outcome, when in practice it is better viewed as a <strong>proxy or crude prediction</strong> of underlying adiposity. From the IPD perspective, that is exactly the setting we care about.</p>
+<p>In this module, the data are organized into a realistic labeled/unlabeled split:</p>
+<ul>
+<li>The <strong>2017–2018 NHANES wave</strong> serves as the <strong>labeled dataset</strong>, because it includes DXA-based percent body fat,</li>
+<li>The <strong>August 2021–August 2023 wave</strong> serves as the <strong>unlabeled dataset</strong>, because DXA was no longer collected after the pandemic disruption.</li>
+</ul>
+<p>This setup allows the workshop to show how IPD can be used to estimate associations with true adiposity when:</p>
+<ul>
+<li>The biologically meaningful outcome is only available in an older cohort, and</li>
+<li>The newer cohort contains only cheaper anthropometric proxies.</li>
+</ul>
+<p>Substantively, the example also highlights an important public health lesson that even familiar measurements like BMI can introduce bias when used uncritically in downstream inference.</p>
+</section>
+<section id="leukemia-gene-expression-data-all-and-golub" class="level2">
+<h2 class="anchored" data-anchor-id="leukemia-gene-expression-data-all-and-golub">Leukemia Gene Expression Data: <code>ALL</code> and <code>Golub</code></h2>
+<p>The genomics module uses two classic <strong>Bioconductor</strong> datasets.</p>
+<section id="all" class="level3">
+<h3 class="anchored" data-anchor-id="all"><code>ALL</code></h3>
+<p>The <a href="https://www.bioconductor.org/packages/release/data/experiment/html/ALL.html"><code>ALL</code></a> package contains microarray expression data from patients with <strong>acute lymphoblastic leukemia (ALL)</strong>.</p>
+<p>This dataset includes:</p>
+<ul>
+<li>128 leukemia samples</li>
+<li>Affymetrix HGU95Av2 expression measurements</li>
+<li>Phenotype information including immunophenotype, molecular subtype, age, and sex</li>
+</ul>
+<p>In the workshop, the <code>ALL</code> data are filtered to focus on B-cell lineage ALL and used to train predictive models for <strong>BCR-ABL1 fusion status</strong>.</p>
+</section>
+<section id="golub_merge" class="level3">
+<h3 class="anchored" data-anchor-id="golub_merge"><code>Golub_Merge</code></h3>
+<p>The <a href="https://www.bioconductor.org/packages/release/data/experiment/manuals/golubEsets/man/golubEsets.pdf"><code>golubEsets</code></a> package contains the well-known Golub leukemia data.</p>
+<p>The <code>Golub_Merge</code> object includes:</p>
+<ul>
+<li>Leukemia samples from ALL and AML patients</li>
+<li>Measurements on a different Affymetrix platform</li>
+<li>Phenotype annotations including lineage and sex</li>
+</ul>
+<p>In the workshop, this second dataset serves as an <strong>unlabeled cohort</strong>. A classifier trained on the labeled <code>ALL</code> data is transferred to the Golub samples, and IPD is then used to estimate downstream associations while correcting for the fact that the subtype labels are predicted rather than directly observed.</p>
+<p>This mirrors a real translational genomics workflow in that only a subset of patients may receive gold-standard molecular testing, while a larger cohort has rich molecular features but incomplete labeling.</p>
+</section>
+</section>
+<section id="the-rashomon-quartet" class="level2">
+<h2 class="anchored" data-anchor-id="the-rashomon-quartet">The Rashomon Quartet</h2>
+<p>The workshop also uses the <strong>Rashomon Quartet</strong> as a conceptual example about the gap between predictive performance and scientific interpretation.</p>
+<p>The Rashomon effect describes settings where many different models fit the data similarly well, yet support different interpretations or downstream decisions.</p>
+<p>This example pairs naturally with IPD because it reinforces a central lesson of the workshop:</p>
+<blockquote class="blockquote">
+<p>Strong predictive performance does not automatically imply valid inference.</p>
+</blockquote>
+<p>Even when models appear equally good from a prediction standpoint, the consequences of using their outputs in later analyses may differ substantially.</p>
+</section>
+</section>
+<section id="additional-useful-resources" class="level1">
+<h1>Additional Useful Resources</h1>
+<section id="package-references" class="level2">
+<h2 class="anchored" data-anchor-id="package-references">Package References</h2>
+<p>These are good starting points if you would like to read more about the software used in this workshop:</p>
+<ul>
+<li><code>ipd</code> package paper: <a href="https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267">Salerno et al.&nbsp;(2025), Bioinformatics</a></li>
+<li><code>ipd</code> GitHub repository: <a href="https://github.com/ipd-tools/ipd">https://github.com/ipd-tools/ipd</a></li>
+</ul>
+</section>
+<section id="reproducible-data-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="reproducible-data-analysis">Reproducible Data Analysis</h2>
+<p>These packages are useful throughout the workshop for wrangling, summarizing, and visualizing results:</p>
+<ul>
+<li><a href="https://www.tidyverse.org/"><code>tidyverse</code></a></li>
+<li><a href="https://broom.tidymodels.org/"><code>broom</code></a></li>
+<li><a href="https://patchwork.data-imaginist.com/"><code>patchwork</code></a></li>
+</ul>
+<section id="model-diagnostics-and-evaluation" class="level3">
+<h3 class="anchored" data-anchor-id="model-diagnostics-and-evaluation">Model Diagnostics and Evaluation</h3>
+<p>These tools can be helpful when you want to inspect predictive performance more closely:</p>
+<ul>
+<li><a href="https://xrobin.github.io/pROC/"><code>pROC</code></a> for ROC curves and AUC analyses</li>
+<li><a href="https://modeloriented.github.io/DALEX/"><code>DALEX</code></a> for model explainability and diagnostics</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="suggested-post-workshop-practice" class="level1">
+<h1>Suggested Post-Workshop Practice</h1>
+<p>If you would like to continue exploring these ideas after the workshop, here are a few useful next steps:</p>
+<ol type="1">
+<li><p><strong>Change the labeled/unlabeled split</strong> Re-run a simulation or applied example with different numbers of labeled observations and compare how the methods behave.</p></li>
+<li><p><strong>Swap the predictive model or proxy</strong> Replace one prediction rule with another and examine how the naive and corrected estimates change.</p></li>
+<li><p><strong>Compare several IPD methods on the same task</strong> For example, try <code>pspa</code>, <code>ppi_plusplus</code>, and a <code>postpi</code> method on the same problem and compare interval width, stability, and bias.</p></li>
+<li><p><strong>Deliberately worsen prediction quality</strong> Add noise, reduce features, or use a weaker model and study how sensitive downstream inference is to lower-quality predictions.</p></li>
+<li><p><strong>Think carefully about the scientific target</strong> In many applications, the hardest question is not how to fit the model, but what quantity is actually the scientific outcome of interest and how well the observed proxy represents it.</p></li>
+</ol>
+</section>
+<section id="closing-note" class="level1">
+<h1>Closing Note</h1>
+<p>A central theme of this workshop is that <strong>prediction and inference are not the same task</strong>. Modern scientific data analysis often depends on surrogate outcomes, machine learning predictions, and partially labeled datasets. The goal of this workshop is to demonstrate how we can us use these tools while ensuring principled statistical inference.</p>
+<hr>
+<p><em>For questions or feedback, please contact</em> <em>Stephen Salerno (<a href="mailto:ssalerno@fredhutch.org">ssalerno@fredhutch.org</a>)</em>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const selector =
+      'a[href="javascript:window.quartoToggleColorScheme();"]:not(.quarto-color-scheme-toggle)';
+
+    const button = document.querySelector(selector);
+    if (!button) return;
+
+    const updateIcon = function () {
+      const isDark = document.body.classList.contains("quarto-dark");
+      button.innerHTML = isDark ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon"></i>';
+      button.title = isDark ? "Switch to Light Mode" : "Switch to Dark Mode";
+      button.setAttribute("aria-label", button.title);
+    };
+
+    updateIcon();
+
+    const observer = new MutationObserver(updateIcon);
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+
+    button.addEventListener("click", function () {
+      setTimeout(updateIcon, 0);
+    });
+  });
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/salernos\.github\.io\/ipd-workshop\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../content/setup.html" class="pagination-link" aria-label="Setup &amp; Prerequisites">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Setup &amp; Prerequisites</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../content/slides.html" class="pagination-link" aria-label="Overview">
+        <span class="nav-page-text">Overview</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Jesse Gronsbell, Jianhui Gao, and Stephen Salerno</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/salernos/ipd-workshop/edit/main/content/information.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/salernos/ipd-workshop/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Proudly built with <a href="https://www.ottrproject.org/">OTTR</a> and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
