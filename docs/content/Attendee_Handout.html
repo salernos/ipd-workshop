@@ -8,7 +8,7 @@
 
 <meta name="description" content="One-page checklist for prerequisites, software setup, and package installation.">
 
-<title>Attendee Prep Handout – IPD Workshop</title>
+<title>Setup/Prerequisites – IPD Workshop</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -107,12 +107,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Attendee Prep Handout – IPD Workshop">
+<meta property="og:title" content="Setup/Prerequisites – IPD Workshop">
 <meta property="og:description" content="One-page checklist for prerequisites, software setup, and package installation.">
 <meta property="og:site_name" content="IPD Workshop">
 </head>
 
-<body class="nav-sidebar docked">
+<body class="nav-sidebar docked fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -259,15 +259,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Attendee_Handout.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/Attendee_Handout.html">Resources</a></li><li class="breadcrumb-item"><a href="../content/Attendee_Handout.html">Attendee Prep</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Attendee Prep Handout</h1>
-<p class="subtitle lead">Inference with Predicted Data Workshop</p>
+<h1 class="title">Setup/Prerequisites</h1>
+<p class="subtitle lead">Getting Started with the Workshop Materials</p>
 </div>
 
 <div>
@@ -289,7 +288,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Welcome! Thank you for joining this workshop, <em>Prediction-Based Inference: Methods &amp; Applications</em>. This handout is a quick pre-session checklist so you can get set up smoothly if you would like to engage interactively with the workshop materials.</p>
+<p>Welcome! Thank you for joining this workshop, <em>Prediction-Based Inference: Methods &amp; Applications</em>. This is a quick pre-session checklist so you can get set up smoothly if you would like to engage interactively with the workshop materials.</p>
 <section id="quick-checklist-10-15-minutes" class="level2">
 <h2 class="anchored" data-anchor-id="quick-checklist-10-15-minutes">Quick Checklist (10-15 minutes)</h2>
 <p>Complete these before the tutorial:</p>
@@ -300,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Recommended: Docker + browser-based RStudio</li>
 <li>Alternative: local R/RStudio install</li>
 </ul></li>
-<li>Verify <code>ipd</code> and core R packages install successfully.</li>
+<li>Verify <code>ipd</code> and core R packages install successfully (Option B only).</li>
 <li>Test that you can run one simple R command.</li>
 </ul>
 </section>
@@ -344,31 +343,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="r-packages-to-install-ahead-of-time" class="level2">
 <h2 class="anchored" data-anchor-id="r-packages-to-install-ahead-of-time">R Packages to Install Ahead of Time</h2>
-<section id="core-packages-required" class="level3">
-<h3 class="anchored" data-anchor-id="core-packages-required">Core packages (required)</h3>
+<p>If you use <strong>Option A (Docker)</strong>, all required packages are already included in the workshop image and you can skip installation.</p>
+<section id="core-packages-required-for-option-b" class="level3">
+<h3 class="anchored" data-anchor-id="core-packages-required-for-option-b">Core packages (required for Option B)</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ipd"</span>, <span class="st">"broom"</span>, <span class="st">"tidyverse"</span>, <span class="st">"patchwork"</span>, <span class="st">"scales"</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"janitor"</span>, <span class="st">"GGally"</span>, <span class="st">"randomForest"</span>, <span class="st">"ranger"</span>, <span class="st">"mgcv"</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"pROC"</span>, <span class="st">"DALEX"</span>, <span class="st">"neuralnet"</span>, <span class="st">"partykit"</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ipd"</span>, <span class="st">"broom"</span>, <span class="st">"tidyverse"</span>, <span class="st">"future"</span>, <span class="st">"furrr"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="supplemental-packages" class="level3">
+<h3 class="anchored" data-anchor-id="supplemental-packages">Supplemental Packages</h3>
+<p>Install these only if you want to explore modules outside Unit 00 and Unit 01.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"patchwork"</span>, <span class="st">"scales"</span>, <span class="st">"janitor"</span>, <span class="st">"GGally"</span>, <span class="st">"randomForest"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ranger"</span>, <span class="st">"mgcv"</span>, <span class="st">"pROC"</span>, <span class="st">"DALEX"</span>, <span class="st">"neuralnet"</span>, <span class="st">"partykit"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="bioconductor-packages-optional-used-in-supplemental-content" class="level3">
 <h3 class="anchored" data-anchor-id="bioconductor-packages-optional-used-in-supplemental-content">Bioconductor packages (optional, used in supplemental content)</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"BiocManager"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ALL"</span>, <span class="st">"golubEsets"</span>, <span class="st">"AnnotationDbi"</span>, <span class="st">"hgu95av2.db"</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"hu6800.db"</span>, <span class="st">"MLInterfaces"</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"BiocManager"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ALL"</span>, <span class="st">"golubEsets"</span>, <span class="st">"AnnotationDbi"</span>, <span class="st">"hgu95av2.db"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"hu6800.db"</span>, <span class="st">"MLInterfaces"</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="second-setup-test" class="level2">
 <h2 class="anchored" data-anchor-id="second-setup-test">60-Second Setup Test</h2>
-<p>Run this in R/RStudio:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ipd)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Run this in R/RStudio (for Option B, this confirms local setup is complete):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ipd)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(future)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furrr)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Optional check (if one fails, install that package and rerun this chunk):</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>required <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ipd"</span>, <span class="st">"broom"</span>, <span class="st">"tidyverse"</span>, <span class="st">"future"</span>, <span class="st">"furrr"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>missing <span class="ot">&lt;-</span> required[<span class="sc">!</span><span class="fu">vapply</span>(required, requireNamespace, <span class="fu">logical</span>(<span class="dv">1</span>), <span class="at">quietly =</span> <span class="cn">TRUE</span>)]</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(missing) <span class="sc">==</span> <span class="dv">0</span>L) {</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"All required packages are available."</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>(<span class="fu">sprintf</span>(<span class="st">"Missing required packages: %s"</span>, <span class="fu">paste</span>(missing, <span class="at">collapse =</span> <span class="st">", "</span>)))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If this runs without errors, you are ready.</p>
 </section>
 <section id="links-youll-need-during-the-workshop" class="level2">

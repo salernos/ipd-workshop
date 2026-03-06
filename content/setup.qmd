@@ -1,0 +1,139 @@
+---
+title: "Setup & Prerequisites"
+subtitle: "Getting Started with the Workshop Materials"
+description: "Quick checklist for software setup and package installation."
+format:
+  html:
+    toc: false
+    code-fold: false
+---
+
+Welcome, and thanks for joining the workshop, *Prediction-Based Inference: Methods & Applications!*
+
+This page is a quick checklist to help you get set up before the session. 
+If you'd like to follow along interactively during the workshop, 
+these steps will make sure everything runs smoothly.
+
+## Quick Checklist (10-15 minutes)
+
+Complete these before the tutorial:
+
+- Confirm you have a stable internet connection and a laptop.
+- Choose your environment:
+  - Recommended: Docker + browser-based RStudio
+  - Alternative: local R/RStudio install
+- Verify `ipd` and core R packages install successfully (Option B only).
+
+## Prerequisites
+
+You should be comfortable with:
+
+- Base `R` and `tidyverse` syntax (`dplyr`, `ggplot2`, basic pipes).
+- Basic regression modeling (`lm`, `glm`).
+- Basic predictive modeling concepts (train/test split, predictions, model error).
+
+Helpful but optional (for the supplemental modules):
+
+- Bioconductor familiarity (`ExpressionSet`, `AnnotationDbi`, `MLInterfaces`).
+
+## Software Requirements
+
+### Option A (Recommended): Docker Workshop Environment
+
+Install Docker Desktop:
+
+- [Docker Desktop (Windows/Mac/Linux)](https://www.docker.com/products/docker-desktop/)
+
+Then run:
+
+```sh
+docker run -e PASSWORD=<choose_a_password_for_rstudio> -p 8787:8787 ghcr.io/salernos/ipd-workshop:latest
+```
+
+Open:
+
+- `http://localhost:8787/`
+- Login: username `rstudio`, password = what you set above
+
+### Option B: Local R + RStudio
+
+You need `R` **4.1.0 or newer**.
+
+Install:
+
+- [R (CRAN)](https://cran.r-project.org/)
+- [RStudio Desktop](https://posit.co/download/rstudio-desktop/)
+
+## R Packages to Install Ahead of Time
+
+If you use **Option A (Docker)**, all required packages are already included in the
+workshop image and you can skip installation.
+
+### Core packages (required for Option B)
+
+```r
+install.packages(c(
+  "ipd", "broom", "tidyverse", "future", "furrr"
+))
+```
+
+### Supplemental packages (optional, used outside Units 00 and 01)
+
+Install these only if you want to explore modules outside Unit 00 and Unit 01.
+
+```r
+# CRAN packages for optional supplemental units
+install.packages(c(
+  "patchwork", "scales", "janitor", "GGally", "randomForest",
+  "ranger", "mgcv", "pROC", "DALEX", "neuralnet", "partykit"
+))
+
+# Bioconductor packages for optional supplemental biological modules
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+  install.packages("BiocManager")
+}
+BiocManager::install(c(
+  "ALL", "golubEsets", "AnnotationDbi", "hgu95av2.db",
+  "hu6800.db", "MLInterfaces"
+))
+```
+
+## 60-Second Setup Test
+
+Run this in R/RStudio (for Option B, this confirms local setup is complete):
+
+```r
+library(ipd)
+library(tidyverse)
+library(broom)
+library(future)
+library(furrr)
+sessionInfo()
+```
+
+Optional check (if one fails, install that package and rerun this chunk):
+
+```r
+required <- c("ipd", "broom", "tidyverse", "future", "furrr")
+
+missing <- required[!vapply(required, requireNamespace, logical(1), quietly = TRUE)]
+
+if (length(missing) == 0L) {
+  message("All required packages are available.")
+} else {
+  stop(sprintf("Missing required packages: %s", paste(missing, collapse = ", ")))
+}
+```
+
+If this runs without errors, you are ready.
+
+## Links You'll Need During the Workshop
+
+- Workshop site: [https://salernos.github.io/ipd-workshop](https://salernos.github.io/ipd-workshop)
+- `ipd` package repo: [https://github.com/ipd-tools/ipd](https://github.com/ipd-tools/ipd)
+- Unit 00 (start here): [Getting Started](Unit00_GettingStarted.qmd)
+
+## Support
+
+If you hit setup issues before the session, contact Stephen Salerno 
+([ssalerno@fredhutch.org](mailto:ssalerno@fredhutch.org))

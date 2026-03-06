@@ -17,7 +17,7 @@ website:
   
   page-footer:
     right: "Proudly built with [OTTR](https://www.ottrproject.org/) and [Quarto](https://quarto.org/)."
-    left: "&copy; Copyright 2026, Jesse Gronsbell and Stephen Salerno"
+    left: "&copy; Copyright 2026, Jesse Gronsbell, Jianhui Gao, and Stephen Salerno"
     background: "#F4F4F4"
   
   sidebar:
@@ -40,6 +40,8 @@ website:
         menu:
           - text: Jesse Gronsbell, PhD
             url: https://sites.google.com/view/jgronsbell/home
+          - text: Jianhui Gao, PhD
+            url: https://sites.google.com/view/jianhuigao
           - text: Stephen Salerno, PhD
             url: https://salernos.github.io/
           
@@ -51,10 +53,10 @@ website:
         href: index.qmd
       - section: "Resources"
         contents:
-          - text: "Attendee Prep"
-            href: content/Attendee_Handout.qmd
+          - text: "Setup & Prerequisites"
+            href: content/setup.qmd
           - text: "Additional Information"
-            href: content/Additional_Information.qmd
+            href: content/information.qmd
       - text: "Overview"
         href: content/slides.qmd
       - section: "Modules"
@@ -82,7 +84,6 @@ format:
     css:
       - styles.css
     include-after-body: resources/theme-toggle-icon.html
-    #mainfont: "Atkinson Hyperlegible"
     code-copy: true
     code-overflow: wrap
     toc: true

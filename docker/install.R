@@ -8,6 +8,8 @@ pak::pkg_install(c(
   "ipd-tools/ipd",
   "broom",
   "tidyverse",
+  "future",
+  "furrr",
   "patchwork",
   "scales",
   "janitor",

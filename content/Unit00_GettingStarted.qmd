@@ -18,53 +18,65 @@ execute:
   message: false
 ---
 
+
 # Overview
 
-Welcome to this workshop on *Inference with Predicted Data (IPD)*! In this 
-module, we will:
+Welcome to this workshop on *Inference with Predicted Data (IPD)*.
 
-* Introduce the [`ipd`](https://github.com/ipd-tools/ipd) package and its main functions.
-* Demonstrate how to generate synthetic data for different types of outcomes.
-* Fit and compare various IPD methods.
-* Inspect results using built-in `tidy`, `glance`, and `augment` methods.
+In this first module, we use a simple synthetic example to build intuition for
+how IPD works and why it is needed. We will:
 
-Throughout the workshop, exercises are provided with solutions for practice.
+- Introduce the [`ipd`](https://github.com/ipd-tools/ipd) package,
+- Generate synthetic labeled and unlabeled data,
+- Compare naive, classical, and IPD-based estimators, and
+- Inspect results using built-in `tidy()`, `glance()`, and `augment()` methods.
+
+Throughout the workshop, each exercise includes a solution and short notes to
+help connect the results back to the main IPD ideas.
 
 ::: {.callout-tip}
+
 ## How to Use This Module
 
 - Try each **Exercise** on your own first.
 - Expand the **Answer** callout to view one possible solution.
-- Use the **Notes** callouts to interpret results and connect them to IPD concepts.
+- Use the **Notes** callouts to interpret the results and connect them to the 
+  main concepts.
+
 :::
 
 ::: {.callout-note}
+
 ## Why This Unit Uses Synthetic Data
 
-Unit 00 intentionally uses synthetic examples. The goal is to make the
-IPD workflow concrete before moving to real data in later modules.
+Unit 00 uses synthetic examples on purpose. The goal is to make the IPD
+workflow concrete before moving to real applications in later modules.
+
 :::
 
 ::: {.callout-important}
+
 ## Key Takeaway
 
-Using predicted outcomes for can improve efficiency, but treating them as if they 
-are real data can bias downstream inference. This unit shows how IPD methods
-can use a small set of labeled data to recover valid inference while leveraging 
-unlabeled data and predicted outcomes to gain more information.
+Using predicted outcomes can improve efficiency, but treating them as if they
+were the true observed outcomes can bias downstream inference. IPD methods use
+a small labeled set to correct that bias while still borrowing information from
+unlabeled data and predictions.
+
 :::
 
-In this first module, we demonstrate how to:
+In this unit, we will:
 
-1. **Generate** fully synthetic data with `ipd::simdat()`.
-2. **Fit** a simple linear prediction model (e.g., linear regression).
-3. **Apply** `ipd::ipd()` to estimate the association, $\beta$, between $Y$ and $X$ using *labeled* and *unlabeled* data.
-4. **Compare** the **naive**, **classical**, and **IPD** estimates of $\beta$.
-5. **Visualize** these results.
+1. **Generate** synthetic data with `ipd::simdat()`.
+2. **Fit** simple downstream regression models.
+3. **Apply** `ipd::ipd()` to estimate the association between `Y` and `X1`.
+4. **Compare** naive, classical, and IPD-based estimates.
+5. **Visualize** uncertainty across methods.
 
 ## Installation and Setup
 
-First, insure you have the `ipd` package and some additional packages installed:
+First, make sure you have the `ipd` package and a few supporting packages
+installed:
 
 ```{r setup}
 #| code-fold: show
@@ -77,16 +89,16 @@ library(tidyverse)
 library(patchwork)
 ```
 
-Throughout the workshop, we will use reproducible seeds and 
-[tidyverse](https://www.tidyverse.org/) conventions.
+Throughout the workshop, we will use reproducible seeds and
+[`tidyverse`](https://www.tidyverse.org/) conventions.
 
 ## Function References
 
-Below is a high-level summary of the core ``ipd`` functions.
+Here is a brief overview of the main `ipd` functions used in this unit.
 
 ### `simdat()`
 
-Generates synthetic datasets for various inferential models.
+`simdat()` generates synthetic datasets for several inferential settings.
 
 ```{r, eval=FALSE}
 simdat(
@@ -97,6 +109,7 @@ simdat(
   ...       # Additional arguments
 )
 ```
+
 This function returns a data.frame with columns:
 
 * `X1, X2, ...`: covariates
@@ -106,13 +119,13 @@ This function returns a data.frame with columns:
 
 ### `ipd()`
 
-Fits IPD methods for downstream inference on predicted data.
+`ipd()` fits IPD estimators for downstream inference with predicted outcomes.
 
 ```{r, eval=FALSE}
 ipd(
   formula,      # A formula: e.g., Y - f ~ X1 + X2 + ...
-  method,       # Character: one of "chen", "postpi_boot", "postpi_analytic", 
-                # "ppi", "ppi_all", "ppi_plusplus", "pspa"
+  method,       # Character: one of "chen", "pdc", "postpi_analytic", 
+                # "postpi_boot", "ppi", "ppi_all", "ppi_plusplus", "pspa"
   model,        # Character: one of "mean", "quantile", "ols", "logistic", 
                 # "poisson"
   data,         # Data frame containing columns for formula and label
@@ -124,15 +137,20 @@ ipd(
 
 #### Supported Methods
 
-* **chen**: Chen and Chen estimator ([Gronsbell et al., 2025](https://arxiv.org/pdf/2411.19908))
-* **postpi_analytic**: analytic post-prediction inference ([Wang et al., 2020](https://www.pnas.org/doi/10.1073/pnas.2001238117)).
-* **postpi_boot**: bootstrap post-prediction inference [Wang et al., 2020](https://www.pnas.org/doi/10.1073/pnas.2001238117)).
-* **ppi**: prediction-powered inference ([Angelopoulos et al., 2023](https://www.science.org/doi/10.1126/science.adi6000))
-* **ppi_plusplus**: PPI++ (PPI with data-driven weighting; [Angelopoulos et al., 2024](https://arxiv.org/pdf/2311.01453))
-* **ppi_a**: PPI using all data ([Gronsbell et al., 2025](https://arxiv.org/pdf/2411.19908))
-* **pspa**: assumption-lean and data-adaptive post-prediction inference ([Miao et al., 2024](https://arxiv.org/pdf/2311.14220))
+Methods currently implemented are:
+
+* `chen`: Chen and Chen Estimator ([Gronsbell et al., 2025](https://arxiv.org/pdf/2411.19908))
+* `pdc`: Prediction Decorrelated Inference ([Gan et al., 2024](https://onlinelibrary.wiley.com/doi/10.1111/anzs.12429))
+* `postpi_analytic`: Analytic Post-Prediction Inference ([Wang et al., 2020](https://www.pnas.org/doi/10.1073/pnas.2001238117)).
+* `postpi_boot`: Bootstrap Post-Prediction Inference ([Wang et al., 2020](https://www.pnas.org/doi/10.1073/pnas.2001238117)).
+* `ppi`: Prediction-Powered Inference ([Angelopoulos et al., 2023](https://www.science.org/doi/10.1126/science.adi6000))
+* `ppi_plusplus`: PPI++ (PPI with Data-Driven Weighting; [Angelopoulos et al., 2024](https://arxiv.org/pdf/2311.01453))
+* `ppi_a`: PPI using All Data ([Gronsbell et al., 2025](https://arxiv.org/pdf/2411.19908))
+* `pspa`: Assumption-Lean and Data-Adaptive Post-Prediction Inference ([Miao et al., 2024](https://www.jmlr.org/papers/volume26/24-0056/24-0056.pdf))
 
 ### Tidy Methods
+
+Like many model objects in R, `ipd` fits work with familiar helper functions:
 
 * `print()` and `summary()`: display model summaries.
 * `tidy()`: return a tibble of estimates and standard errors.
@@ -145,7 +163,8 @@ The `ipd::simdat()` function makes it easy to generate:
 
 * A **training set** (where you fit your prediction model),
 * A **labeled set** (where you observe the true $Y$),
-* An **unlabeled set** (where $Y$ is *presumed missing* but you compute predictions $f$).
+* An **unlabeled set** (where $Y$ is *presumed missing* but you compute 
+  predictions $f$).
 
 We supply the sample sizes, `n = c(n_train, n_label, n_unlabel)`, an effect 
 size (`effect`), residual standard deviation (`sigma_Y`; i.e., how much random
@@ -238,62 +257,9 @@ dat |>
 
 :::
 
-## Generating Predictions
-
-In practice, we would take the **training** portion and fit an AI/ML model to 
-predict $Y$ from $(X_1, X_2, X_3, X_4)$. This is done automatically by the
-`simdat` function, but we will do this for demonstration.
-
-### Exercise 2: Fitting a Linear Prediction Model
-
-Let us fit a *linear prediction model* on the training data:
-
-::: {.callout-note collapse="true"}
-
-## Answer
-
-```{r}
-# 1) Subset training set
-dat_train <- dat |> 
-  filter(set_label == "training")
-
-# 2) Fit a linear model: Y ~ X1 + X2 + X3 + X4
-lm_pred <- lm(Y ~ X1 + X2 + X3 + X4, data = dat_train)
-
-# 3) Prepare a full-length vector of NA
-dat$f_pred <- NA_real_
-
-# 4) Identify the rows to predict (all non–training rows)
-idx_analytic <- dat$set_label != "training"
-
-# 5) Generate predictions just once on that subset (shifted and scaled to match)
-pred_vals <- (predict(lm_pred, newdata = dat[idx_analytic, ]) - 1) / 2 
-
-# 6) Insert them back into the full data frame
-dat$f_pred[idx_analytic] <- pred_vals
-
-# 7) Verify: `f_pred` is equal to `f` for the labeled and unlabeled data
-dat |> 
-  select(set_label, Y, f, f_pred) |> 
-  filter(set_label != "training") |>
-  glimpse()
-```
-
-:::
-
-::: {.callout-tip}
-
-## Notes
-
-* `lm(Y ~ X1 + X2 + X3 + X4, data = dat_train)` fits an ordinary least squares (OLS) regression on the training subset.
-* `predict(lm_pred, newdata = .)` generates a new `f` (stored as `f_pred`) for each row outside of the training set.
-* In real workflows, you might use random forests (`ranger::ranger()`), gradients (`xgboost::xgboost()`), or any other ML algorithm; the IPD methods only require that you supply a vector of predictions, `f`, in your data.
-
-:::
-
 ## Creating 'Labeled' and 'Unlabeled' Datasets
 
-### Exercise 3: Splitting the Data
+### Exercise 2: Splitting the Data
 
 We now split the data into two subsets:
 
@@ -333,7 +299,7 @@ dat_ipd |>
 Before modeling, it is helpful to see graphically how the predicted values, 
 $f$, compare to the true outcomes, $Y$. 
 
-### Exercise 4: Plotting the Data
+### Exercise 3: Plotting the Data
 
 We can visually assess the **bias** and **variance** of our predicted 
 outcomes, $f$, versus the true outcomes, $Y$, in our analytic data by 
@@ -401,7 +367,7 @@ Before applying IPD, let's see what happens if we:
 
 We will compare these to IPD‐corrected estimates.
 
-### Exercise 5: Naive vs. Classical Model Fitting
+### Exercise 4: Naive vs. Classical Model Fitting
 
 Using the `labeled` and `unlabeled` sets, fit two models:
 
@@ -483,30 +449,31 @@ ipd(
 
 :::
 
-### Exercise 6: IPD Model Fitting via the PSPA Estimator
+### Exercise 5: IPD Model Fitting via the Chen + Chen Estimator
 
-Let's run one method, `pspa`, proposed by [Miao et al., 2024](https://arxiv.org/pdf/2311.14220). The **PSPA** 
+Let's run one method, `chen`, proposed by 
+[Gronsbell et al., 2025](https://arxiv.org/pdf/2411.19908). The **Chen + Chen** 
 estimator is an IPD method that combines information from:
 
 1. **Labeled data** (where the true outcome, $Y$, and model predictions, $f$, are available), and  
 2. **Unlabeled data** (where only model predictions, $f$, are available).
 
-Rather than treating the predicted outcomes with the same importance as the true outcomes, 
-the method estimates a **data-driven weight**, $\hat{\omega}$, and applies it to the predicted 
-outcome contributions:
+Rather than treating the predicted outcomes with the same importance as the 
+true outcomes, the method estimates a **data-driven weight**, $\hat{\omega}$, 
+and applies it to the predicted outcome contributions:
 
 $$
-\hat{\beta}_\text{pspa} = \hat{\beta}_\text{classical} - \hat{\omega}\cdot (\hat{\gamma}_\text{naive}^l - \hat{\gamma}_\text{naive}^u),
+\hat{\beta}_\text{cc} = \hat{\beta}_\text{classical} - \hat{\omega}\cdot (\hat{\gamma}_\text{naive}^l - \hat{\gamma}_\text{naive}^\text{all}),
 $$
 
 where $\hat{\beta}_{\rm classical}$ is the estimate from the **classical** 
 regression, $\hat{\gamma}_{\rm naive}^l$ is the estimate from the **naive**
-regression in the *labeled* data, $\hat{\gamma}_{\rm naive}^u$ is the estimate
-from the **naive** regression in the *unlabeled* data, and 
-$\hat{\omega}$ reflects the amount of additional information carried by the
-predictions. By adaptively weighting the unlabeled information, the **PSPA**
-estimator achieves greater precision than by using the labeled data alone, 
-without sacrificing validity, even when the predictions are imperfect.  
+regression on the *labeled* data, $\hat{\gamma}_{\rm naive}^\text{all}$ is the 
+estimate from the **naive** regression on *all* the data, and $\hat{\omega}$ 
+reflects the amount of additional information carried by the predictions. By 
+adaptively weighting the unlabeled information, the **Chen + Chen** estimator 
+achieves greater precision than by using the labeled data alone, without 
+sacrificing validity, even when the predictions are imperfect.  
 
 Let's call the method using the `ipd()` function and collect the estimate for 
 the slope of `X1` in a linear regression (`model = "ols"`):
@@ -521,7 +488,7 @@ ipd_model <- ipd(
   formula = Y - f ~ X1,
   data    = dat_ipd,
   label   = "set_label",
-  method  = "pspa",
+  method  = "chen",
   model   = "ols"
 )
 
@@ -530,10 +497,10 @@ ipd_model
 
 :::
 
-The `ipd_model` is an `S4` object with slots for things like the coefficient, se, 
-ci, coefTable, fit, formula, data_l, data_u, method, model, and intercept. We 
-can extract the coefficient table using `ipd`'s `tidy` helper and compare with
-the naive and classical methods:
+The `ipd_model` is an `S4` object with slots for things like the coefficient, 
+se, ci, coefTable, fit, formula, data_l, data_u, method, model, and intercept. 
+We can extract the coefficient table using `ipd`'s `tidy` helper and compare 
+with the naive and classical methods:
 
 ::: {.callout-note collapse="true"}
 
@@ -623,6 +590,59 @@ broom::tidy(naive_model)
 
 * Try other methods such as **PPI++** (`"ppi_plusplus"`). How do the results compare?
 * Repeat the analysis for a **logistic** model by setting `model = "logistic"` in both `simdat()` and `ipd()`.
+
+## Optional: Generating Your Own Predictions
+
+In practice, we would take the **training** portion and fit an AI/ML model to
+predict $Y$ from $(X_1, X_2, X_3, X_4)$. This is done automatically by the
+`simdat` function, but this optional activity gives you a hands-on implementation.
+
+### Extra Activity: Fitting a Linear Prediction Model
+
+Fit a *linear prediction model* on the training data:
+
+::: {.callout-note collapse="true"}
+
+## Answer
+
+```{r}
+# 1) Subset training set
+dat_train <- dat |> 
+  filter(set_label == "training")
+
+# 2) Fit a linear model: Y ~ X1 + X2 + X3 + X4
+lm_pred <- lm(Y ~ X1 + X2 + X3 + X4, data = dat_train)
+
+# 3) Prepare a full-length vector of NA
+dat$f_pred <- NA_real_
+
+# 4) Identify the rows to predict (all non-training rows)
+idx_analytic <- dat$set_label != "training"
+
+# 5) Generate predictions just once on that subset (shifted and scaled to match)
+pred_vals <- (predict(lm_pred, newdata = dat[idx_analytic, ]) - 1) / 2
+
+# 6) Insert them back into the full data frame
+dat$f_pred[idx_analytic] <- pred_vals
+
+# 7) Verify: `f_pred` is equal to `f` for the labeled and unlabeled data
+dat |> 
+  select(set_label, Y, f, f_pred) |> 
+  filter(set_label != "training") |>
+  glimpse()
+```
+
+:::
+
+::: {.callout-tip}
+
+## Notes
+
+* `lm(Y ~ X1 + X2 + X3 + X4, data = dat_train)` fits an ordinary least squares (OLS) regression on the training subset.
+* `predict(lm_pred, newdata = .)` generates a new `f` (stored as `f_pred`) for each row outside of the training set.
+* In real workflows, you might use random forests (`ranger::ranger()`), gradients (`xgboost::xgboost()`), or any other ML algorithm; the IPD methods only require that you supply a vector of predictions, `f`, in your data.
+
+:::
 
 Happy coding! Feel free to modify and extend these exercises for your own data.
 

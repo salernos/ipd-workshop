@@ -1,0 +1,283 @@
+---
+title: "Additional Information"
+subtitle: "Methods Reference and Extended Learning Resources"
+description: "Reference table for IPD methods used in the workshop plus additional resources for continued learning."
+format:
+  html:
+    toc: true
+    number-sections: false
+---
+
+# Methods References
+
+Throughout the workshop we use several approaches for conducting inference with 
+predicted data. These methods address a common challenge in modern data science:
+
+> How can we use machine learning predictions as 'data,' to improve efficiency
+> while still guaranteeing valid statistical inference?
+
+Each approach reviewed here combines information from:
+
+* **Labeled Data**: Where the true outcome is observed, and
+* **Unlabeled data**: Where only predictions are available.
+
+The table below summarizes the main methods implemented in the `ipd` package.
+
+| Method               | `ipd` Argument      | Inferential Model(s) Implemented       | Primary Reference                                                                 |
+| -------------------- | ------------------- | -------------------------------------- | --------------------------------------------------------------------------------- |
+| Chen and Chen        | `"chen"`            | OLS, logistic, Poisson                 | [Gronsbell et al. (2026)](https://arxiv.org/pdf/2411.19908)                       |
+| PDC                  | `"pdc"`             | OLS, logistic, Poisson                 | [Gan et al. (2024)](https://onlinelibrary.wiley.com/doi/10.1111/anzs.12429)       |
+| PostPI (analytic)    | `"postpi_analytic"` | OLS                                    | [Wang et al. (2020)](https://www.pnas.org/doi/10.1073/pnas.2001238117)            |
+| PostPI (bootstrap)   | `"postpi_boot"`     | OLS, logistic                          | [Wang et al. (2020)](https://www.pnas.org/doi/10.1073/pnas.2001238117)            |
+| PPI                  | `"ppi"`             | OLS, logistic, Poisson, mean, quantile | [Angelopoulos et al. (2023)](https://www.science.org/doi/10.1126/science.adi6000) |
+| PPI++                | `"ppi_plusplus"`    | OLS, logistic, Poisson, mean, quantile | [Angelopoulos et al. (2024)](https://arxiv.org/pdf/2311.01453)                    |
+| PPI (using all data) | `"ppi_a"`           | OLS                                    | [Gronsbell et al. (2026)](https://arxiv.org/pdf/2411.19908)                       |
+| PSPA                 | `"pspa"`            | OLS, logistic, Poisson, mean, quantile | [Miao et al. (2023)](https://www.jmlr.org/papers/volume26/24-0056/24-0056.pdf)    |
+
+::: {.callout-note}
+
+## Practical Interpretation
+
+Across all of these approaches, the goal is the same:
+
+* **Use predictions to improve efficiency**, and
+* **Maintain guarantees of valid statistical inference**.
+
+In practice this means preserving:
+
+* Unbiased or approximately unbiased effect estimates
+* Properly calibrated confidence intervals
+* Improved statistical power when predictions are informative
+
+:::
+
+# Data Sources Used in this Workshop
+
+## Where Each Dataset Appears
+
+The workshop modules draw on several synthetic and real-world datasets across 
+multiple scientific domains.
+
+| Unit           | Title                                                | Dataset          | Scientific Context                      | Role in the Workshop                                                                              |
+| -------------- | ---------------------------------------------------- | ---------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| Unit 00        | [Getting Started](Unit00_GettingStarted.qmd)         | Simulated        | General Statistical Setting             | Introduces labeled/unlabeled structure and core IPD ideas                                         |
+| Unit 01        | [Proteomics with AlphaFold](Unit01_Alphafold.qmd)    | AlphaFold / PTM  | Proteomics and Structural Biology       | Study the association between PTMs and disorder when disorder is predicted at scale               |
+| Unit 02        | [Measuring Adiposity](Unit02_MeasuringAdiposity.qmd) | NHANES           | Public Health and Epidemiology          | BMI and waist circumference as proxies for DXA-based adiposity                                    |
+| Unit 03        | [BCR-ABL Fusion](Unit03_GeneticData.qmd)             | ALL / Golub      | Genomics and Molecular Classification   | Predict BCR-ABL1 fusion status from gene expression and correct downstream inference              |                  
+| Unit 04        | [The Rashomon Quartet](Unit05_RashomonQuartet.qmd)   | Rashomon Quartet | Prediction Ambiguity and Interpretation | Shows that similar predictive performance can still support very different downstream conclusions |
+
+## Simulated Data
+
+Our Getting Started unit uses **simulated data**. This is especially useful 
+because it lets us control:
+
+* The true data-generating process,
+* The amount of prediction error,
+* The labeled/unlabeled sample sizes, and
+* The strength of the associations of interest.
+
+Simulation is often the clearest way to build intuition for:
+
+* Bias-variance tradeoffs,
+* Confidence interval behavior,
+* Efficiency gains, and
+* The conditions under which IPD methods are most useful.
+
+## AlphaFold
+
+The proteomics module is motivated by a modern structural biology setting in 
+which machine learning predictions are available at massive scale, while 
+experimental validation remains much more limited.
+
+Resources:
+
+* [AlphaFold Paper](https://www.nature.com/articles/s41586-021-03819-2)
+* [AlphaFold Protein Structure Database](https://alphafold.ebi.ac.uk/)
+
+AlphaFold predicts protein structure from amino acid sequence with remarkably 
+high accuracy and now provides structural annotations for essentially the whole 
+proteome. These predictions make large-scale downstream analyses possible, 
+but they do not remove the need for careful inference.
+
+In the workshop module, the scientific question is whether certain 
+**post-translational modifications (PTMs)** are more likely to occur in 
+**intrinsically disordered regions (IDRs)**. Each residue has:
+
+* `Y`: A binary gold-standard disorder label
+* `Yhat`: A predicted probability of disorder derived from AlphaFold-based processing
+* PTM indicators such as:
+
+  * `phosphorylated`
+  * `ubiquitinated`
+  * `acetylated`
+
+The inferential target is the association between PTM status and disorder, 
+typically summarized through an odds ratio from logistic regression. This is 
+an especially clean IPD example because it has the exact structure the methods 
+are designed for:
+
+* A limited set of residues with trusted disorder labels,
+* A much larger set with model-based disorder predictions, and
+* A downstream scientific question about association rather than prediction alone.
+
+The module uses the complete dataset to simulate partial labeling, so 
+participants can see how classical, naive, and IPD methods behave as the 
+number of labeled residues changes.
+
+## NHANES
+
+The **National Health and Nutrition Examination Survey (NHANES)** is a 
+nationally representative program conducted by the U.S. Centers for Disease 
+Control and Prevention. It combines interviews, physical examinations, and 
+laboratory measurements to assess the health and nutritional status of the 
+U.S. population.
+
+Resources:
+
+* [NHANES homepage](https://www.cdc.gov/nchs/nhanes/index.html)
+* [NHANES data portal](https://wwwn.cdc.gov/nchs/nhanes/)
+
+In the workshop, NHANES is used to study a very natural example of inference 
+with predicted data, but where the predictions are not complex. Here, the 
+scientific target is **true adiposity**, measured using 
+**percent body fat**. But in many studies, percent body fat is unavailable, 
+so researchers instead rely on simpler proxies such as:
+
+* **BMI** 
+* **Waist circumference** 
+
+This is a particularly useful teaching example because BMI is often treated as 
+if it were the 'real' outcome, when in practice it is better viewed as a 
+**proxy or crude prediction** of underlying adiposity. From the IPD perspective,
+that is exactly the setting we care about.
+
+In this module, the data are organized into a realistic labeled/unlabeled split:
+
+* The **2017–2018 NHANES wave** serves as the **labeled dataset**, because it includes DXA-based percent body fat,
+* The **August 2021–August 2023 wave** serves as the **unlabeled dataset**, because DXA was no longer collected after the pandemic disruption.
+
+This setup allows the workshop to show how IPD can be used to estimate 
+associations with true adiposity when:
+
+* The biologically meaningful outcome is only available in an older cohort, and
+* The newer cohort contains only cheaper anthropometric proxies.
+
+Substantively, the example also highlights an important public health lesson 
+that even familiar measurements like BMI can introduce bias when used 
+uncritically in downstream inference.
+
+## Leukemia Gene Expression Data: `ALL` and `Golub`
+
+The genomics module uses two classic **Bioconductor** datasets.
+
+### `ALL`
+
+The [`ALL`](https://www.bioconductor.org/packages/release/data/experiment/html/ALL.html) 
+package contains microarray expression data from patients with 
+**acute lymphoblastic leukemia (ALL)**.
+
+This dataset includes:
+
+* 128 leukemia samples
+* Affymetrix HGU95Av2 expression measurements
+* Phenotype information including immunophenotype, molecular subtype, age, and sex
+
+In the workshop, the `ALL` data are filtered to focus on B-cell lineage ALL and 
+used to train predictive models for **BCR-ABL1 fusion status**.
+
+### `Golub_Merge`
+
+The [`golubEsets`](https://www.bioconductor.org/packages/release/data/experiment/manuals/golubEsets/man/golubEsets.pdf) 
+package contains the well-known Golub leukemia data.
+
+The `Golub_Merge` object includes:
+
+* Leukemia samples from ALL and AML patients
+* Measurements on a different Affymetrix platform
+* Phenotype annotations including lineage and sex
+
+In the workshop, this second dataset serves as an **unlabeled cohort**. 
+A classifier trained on the labeled `ALL` data is transferred to the Golub 
+samples, and IPD is then used to estimate downstream associations while 
+correcting for the fact that the subtype labels are predicted rather than 
+directly observed.
+
+This mirrors a real translational genomics workflow in that only a subset of 
+patients may receive gold-standard molecular testing, while a larger cohort has 
+rich molecular features but incomplete labeling.
+
+## The Rashomon Quartet
+
+The workshop also uses the **Rashomon Quartet** as a conceptual example about 
+the gap between predictive performance and scientific interpretation.
+
+The Rashomon effect describes settings where many different models fit the data 
+similarly well, yet support different interpretations or downstream decisions.
+
+This example pairs naturally with IPD because it reinforces a central lesson of 
+the workshop:
+
+> Strong predictive performance does not automatically imply valid inference.
+
+Even when models appear equally good from a prediction standpoint, the 
+consequences of using their outputs in later analyses may differ substantially.
+
+# Additional Useful Resources
+
+## Package References
+
+These are good starting points if you would like to read more about the software 
+used in this workshop:
+
+- `ipd` package paper: [Salerno et al. (2025), Bioinformatics](https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267)
+- `ipd` GitHub repository: [https://github.com/ipd-tools/ipd](https://github.com/ipd-tools/ipd)
+
+## Reproducible Data Analysis
+
+These packages are useful throughout the workshop for wrangling, summarizing, 
+and visualizing results:
+
+* [`tidyverse`](https://www.tidyverse.org/)
+* [`broom`](https://broom.tidymodels.org/)
+* [`patchwork`](https://patchwork.data-imaginist.com/)
+
+### Model Diagnostics and Evaluation
+
+These tools can be helpful when you want to inspect predictive performance more 
+closely:
+
+* [`pROC`](https://xrobin.github.io/pROC/) for ROC curves and AUC analyses
+* [`DALEX`](https://modeloriented.github.io/DALEX/) for model explainability and diagnostics
+
+# Suggested Post-Workshop Practice
+
+If you would like to continue exploring these ideas after the workshop, here are 
+a few useful next steps:
+
+1. **Change the labeled/unlabeled split**
+   Re-run a simulation or applied example with different numbers of labeled observations and compare how the methods behave.
+
+2. **Swap the predictive model or proxy**
+   Replace one prediction rule with another and examine how the naive and corrected estimates change.
+
+3. **Compare several IPD methods on the same task**
+   For example, try `pspa`, `ppi_plusplus`, and a `postpi` method on the same problem and compare interval width, stability, and bias.
+
+4. **Deliberately worsen prediction quality**
+   Add noise, reduce features, or use a weaker model and study how sensitive downstream inference is to lower-quality predictions.
+
+5. **Think carefully about the scientific target**
+   In many applications, the hardest question is not how to fit the model, but what quantity is actually the scientific outcome of interest and how well the observed proxy represents it.
+
+# Closing Note
+
+A central theme of this workshop is that 
+**prediction and inference are not the same task**. Modern scientific data 
+analysis often depends on surrogate outcomes, machine learning predictions, and 
+partially labeled datasets. The goal of this workshop is to demonstrate how we 
+can us use these tools while ensuring principled statistical inference.
+
+---
+
+*For questions or feedback, please contact* 
+*Stephen Salerno ([ssalerno@fredhutch.org](mailto:ssalerno@fredhutch.org))*.
