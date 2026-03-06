@@ -333,9 +333,9 @@ window.Quarto = {
   <li><a href="#exercise-8-inspecting-results" id="toc-exercise-8-inspecting-results" class="nav-link" data-scroll-target="#exercise-8-inspecting-results">Exercise 8: Inspecting Results</a></li>
   </ul></li>
   <li><a href="#summary-and-key-takeaways" id="toc-summary-and-key-takeaways" class="nav-link" data-scroll-target="#summary-and-key-takeaways">Summary and Key Takeaways</a></li>
-  <li><a href="#further-exploration" id="toc-further-exploration" class="nav-link" data-scroll-target="#further-exploration">Further Exploration</a>
+  <li><a href="#further-exploration" id="toc-further-exploration" class="nav-link" data-scroll-target="#further-exploration">Further Exploration</a></li>
+  <li><a href="#optional-generating-your-own-predictions" id="toc-optional-generating-your-own-predictions" class="nav-link" data-scroll-target="#optional-generating-your-own-predictions">Optional: Generating Your Own Predictions</a>
   <ul class="collapse">
-  <li><a href="#generating-your-own-predictions" id="toc-generating-your-own-predictions" class="nav-link" data-scroll-target="#generating-your-own-predictions">Generating Your Own Predictions</a></li>
   <li><a href="#extra-activity-fitting-a-linear-prediction-model" id="toc-extra-activity-fitting-a-linear-prediction-model" class="nav-link" data-scroll-target="#extra-activity-fitting-a-linear-prediction-model">Extra Activity: Fitting a Linear Prediction Model</a></li>
   </ul></li>
   </ul></li>
@@ -372,14 +372,15 @@ window.Quarto = {
 
 <section id="overview" class="level1">
 <h1>Overview</h1>
-<p>Welcome to this workshop on <em>Inference with Predicted Data (IPD)</em>! In this module, we will:</p>
+<p>Welcome to this workshop on <em>Inference with Predicted Data (IPD)</em>.</p>
+<p>In this first module, we use a simple synthetic example to build intuition for how IPD works and why it is needed. We will:</p>
 <ul>
-<li>Introduce the <a href="https://github.com/ipd-tools/ipd"><code>ipd</code></a> package and its main functions.</li>
-<li>Demonstrate how to generate synthetic data for different types of outcomes.</li>
-<li>Fit and compare various IPD methods.</li>
-<li>Inspect results using built-in <code>tidy</code>, <code>glance</code>, and <code>augment</code> methods.</li>
+<li>Introduce the <a href="https://github.com/ipd-tools/ipd"><code>ipd</code></a> package,</li>
+<li>Generate synthetic labeled and unlabeled data,</li>
+<li>Compare naive, classical, and IPD-based estimators, and</li>
+<li>Inspect results using built-in <code>tidy()</code>, <code>glance()</code>, and <code>augment()</code> methods.</li>
 </ul>
-<p>Throughout the workshop, exercises are provided with solutions for practice.</p>
+<p>Throughout the workshop, each exercise includes a solution and short notes to help connect the results back to the main IPD ideas.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -393,7 +394,7 @@ How to Use This Module
 <ul>
 <li>Try each <strong>Exercise</strong> on your own first.</li>
 <li>Expand the <strong>Answer</strong> callout to view one possible solution.</li>
-<li>Use the <strong>Notes</strong> callouts to interpret results and connect them to IPD concepts.</li>
+<li>Use the <strong>Notes</strong> callouts to interpret the results and connect them to the main concepts.</li>
 </ul>
 </div>
 </div>
@@ -407,7 +408,7 @@ Why This Unit Uses Synthetic Data
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Unit 00 intentionally uses synthetic examples. The goal is to make the IPD workflow concrete before moving to real data in later modules.</p>
+<p>Unit 00 uses synthetic examples on purpose. The goal is to make the IPD workflow concrete before moving to real applications in later modules.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -420,20 +421,20 @@ Key Takeaway
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Using predicted outcomes for can improve efficiency, but treating them as if they are real data can bias downstream inference. This unit shows how IPD methods can use a small set of labeled data to recover valid inference while leveraging unlabeled data and predicted outcomes to gain more information.</p>
+<p>Using predicted outcomes can improve efficiency, but treating them as if they were the true observed outcomes can bias downstream inference. IPD methods use a small labeled set to correct that bias while still borrowing information from unlabeled data and predictions.</p>
 </div>
 </div>
-<p>In this first module, we demonstrate how to:</p>
+<p>In this unit, we will:</p>
 <ol type="1">
-<li><strong>Generate</strong> fully synthetic data with <code>ipd::simdat()</code>.</li>
-<li><strong>Fit</strong> a simple linear prediction model (e.g., linear regression).</li>
-<li><strong>Apply</strong> <code>ipd::ipd()</code> to estimate the association, <span class="math inline">\(\beta\)</span>, between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span> using <em>labeled</em> and <em>unlabeled</em> data.</li>
-<li><strong>Compare</strong> the <strong>naive</strong>, <strong>classical</strong>, and <strong>IPD</strong> estimates of <span class="math inline">\(\beta\)</span>.</li>
-<li><strong>Visualize</strong> these results.</li>
+<li><strong>Generate</strong> synthetic data with <code>ipd::simdat()</code>.</li>
+<li><strong>Fit</strong> simple downstream regression models.</li>
+<li><strong>Apply</strong> <code>ipd::ipd()</code> to estimate the association between <code>Y</code> and <code>X1</code>.</li>
+<li><strong>Compare</strong> naive, classical, and IPD-based estimates.</li>
+<li><strong>Visualize</strong> uncertainty across methods.</li>
 </ol>
 <section id="installation-and-setup" class="level2">
 <h2 class="anchored" data-anchor-id="installation-and-setup">Installation and Setup</h2>
-<p>First, insure you have the <code>ipd</code> package and some additional packages installed:</p>
+<p>First, make sure you have the <code>ipd</code> package and a few supporting packages installed:</p>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -446,14 +447,14 @@ Key Takeaway
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Throughout the workshop, we will use reproducible seeds and <a href="https://www.tidyverse.org/">tidyverse</a> conventions.</p>
+<p>Throughout the workshop, we will use reproducible seeds and <a href="https://www.tidyverse.org/"><code>tidyverse</code></a> conventions.</p>
 </section>
 <section id="function-references" class="level2">
 <h2 class="anchored" data-anchor-id="function-references">Function References</h2>
-<p>Below is a high-level summary of the core <code>ipd</code> functions.</p>
+<p>Here is a brief overview of the main <code>ipd</code> functions used in this unit.</p>
 <section id="simdat" class="level3">
 <h3 class="anchored" data-anchor-id="simdat"><code>simdat()</code></h3>
-<p>Generates synthetic datasets for various inferential models.</p>
+<p><code>simdat()</code> generates synthetic datasets for several inferential settings.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -476,14 +477,14 @@ Key Takeaway
 </section>
 <section id="ipd" class="level3">
 <h3 class="anchored" data-anchor-id="ipd"><code>ipd()</code></h3>
-<p>Fits IPD methods for downstream inference on predicted data.</p>
+<p><code>ipd()</code> fits IPD estimators for downstream inference with predicted outcomes.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ipd</span>(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  formula,      <span class="co"># A formula: e.g., Y - f ~ X1 + X2 + ...</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  method,       <span class="co"># Character: one of "chen", "postpi_boot", "postpi_analytic", </span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                <span class="co"># "ppi", "ppi_all", "ppi_plusplus", "pspa"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  method,       <span class="co"># Character: one of "chen", "pdc", "postpi_analytic", </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                <span class="co"># "postpi_boot", "ppi", "ppi_all", "ppi_plusplus", "pspa"</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  model,        <span class="co"># Character: one of "mean", "quantile", "ols", "logistic", </span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                <span class="co"># "poisson"</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  data,         <span class="co"># Data frame containing columns for formula and label</span></span>
@@ -495,20 +496,22 @@ Key Takeaway
 </div>
 <section id="supported-methods" class="level4">
 <h4 class="anchored" data-anchor-id="supported-methods">Supported Methods</h4>
+<p>Methods currently implemented are:</p>
 <ul>
-<li><strong>chen</strong>: Chen and Chen estimator (<a href="https://arxiv.org/pdf/2411.19908">Gronsbell et al., 2025</a>)</li>
-<li><strong>pdc</strong>: Prediction Decorrelated Inference (<a href="https://onlinelibrary.wiley.com/doi/10.1111/anzs.12429">Gan et al., 2024</a>)</li>
-<li><strong>postpi_analytic</strong>: analytic post-prediction inference (<a href="https://www.pnas.org/doi/10.1073/pnas.2001238117">Wang et al., 2020</a>).</li>
-<li><strong>postpi_boot</strong>: bootstrap post-prediction inference (<a href="https://www.pnas.org/doi/10.1073/pnas.2001238117">Wang et al., 2020</a>).</li>
-<li><strong>ppi</strong>: prediction-powered inference (<a href="https://www.science.org/doi/10.1126/science.adi6000">Angelopoulos et al., 2023</a>)</li>
-<li><strong>ppi_plusplus</strong>: PPI++ (PPI with data-driven weighting; <a href="https://arxiv.org/pdf/2311.01453">Angelopoulos et al., 2024</a>)</li>
-<li><strong>ppi_a</strong>: PPI using all data (<a href="https://arxiv.org/pdf/2411.19908">Gronsbell et al., 2025</a>)</li>
-<li><strong>pspa</strong>: assumption-lean and data-adaptive post-prediction inference (<a href="https://www.jmlr.org/papers/volume26/24-0056/24-0056.pdf">Miao et al., 2024</a>)</li>
+<li><code>chen</code>: Chen and Chen Estimator (<a href="https://arxiv.org/pdf/2411.19908">Gronsbell et al., 2025</a>)</li>
+<li><code>pdc</code>: Prediction Decorrelated Inference (<a href="https://onlinelibrary.wiley.com/doi/10.1111/anzs.12429">Gan et al., 2024</a>)</li>
+<li><code>postpi_analytic</code>: Analytic Post-Prediction Inference (<a href="https://www.pnas.org/doi/10.1073/pnas.2001238117">Wang et al., 2020</a>).</li>
+<li><code>postpi_boot</code>: Bootstrap Post-Prediction Inference (<a href="https://www.pnas.org/doi/10.1073/pnas.2001238117">Wang et al., 2020</a>).</li>
+<li><code>ppi</code>: Prediction-Powered Inference (<a href="https://www.science.org/doi/10.1126/science.adi6000">Angelopoulos et al., 2023</a>)</li>
+<li><code>ppi_plusplus</code>: PPI++ (PPI with Data-Driven Weighting; <a href="https://arxiv.org/pdf/2311.01453">Angelopoulos et al., 2024</a>)</li>
+<li><code>ppi_a</code>: PPI using All Data (<a href="https://arxiv.org/pdf/2411.19908">Gronsbell et al., 2025</a>)</li>
+<li><code>pspa</code>: Assumption-Lean and Data-Adaptive Post-Prediction Inference (<a href="https://www.jmlr.org/papers/volume26/24-0056/24-0056.pdf">Miao et al., 2024</a>)</li>
 </ul>
 </section>
 </section>
 <section id="tidy-methods" class="level3">
 <h3 class="anchored" data-anchor-id="tidy-methods">Tidy Methods</h3>
+<p>Like many model objects in R, <code>ipd</code> fits work with familiar helper functions:</p>
 <ul>
 <li><code>print()</code> and <code>summary()</code>: display model summaries.</li>
 <li><code>tidy()</code>: return a tibble of estimates and standard errors.</li>
@@ -1223,10 +1226,10 @@ $ .resid    &lt;dbl&gt; -2.80881752, -2.10307201, -4.13261179, 0.57692878, -3.95
 <li>Try other methods such as <strong>PPI++</strong> (<code>"ppi_plusplus"</code>). How do the results compare?</li>
 <li>Repeat the analysis for a <strong>logistic</strong> model by setting <code>model = "logistic"</code> in both <code>simdat()</code> and <code>ipd()</code>.</li>
 </ul>
-<section id="generating-your-own-predictions" class="level3">
-<h3 class="anchored" data-anchor-id="generating-your-own-predictions">Generating Your Own Predictions</h3>
-<p>In practice, we would take the <strong>training</strong> portion and fit an AI/ML model to predict <span class="math inline">\(Y\)</span> from <span class="math inline">\((X_1, X_2, X_3, X_4)\)</span>. This is done automatically by the <code>simdat</code> function, but this optional activity gives you a hands-on implementation.</p>
 </section>
+<section id="optional-generating-your-own-predictions" class="level2">
+<h2 class="anchored" data-anchor-id="optional-generating-your-own-predictions">Optional: Generating Your Own Predictions</h2>
+<p>In practice, we would take the <strong>training</strong> portion and fit an AI/ML model to predict <span class="math inline">\(Y\)</span> from <span class="math inline">\((X_1, X_2, X_3, X_4)\)</span>. This is done automatically by the <code>simdat</code> function, but this optional activity gives you a hands-on implementation.</p>
 <section id="extra-activity-fitting-a-linear-prediction-model" class="level3">
 <h3 class="anchored" data-anchor-id="extra-activity-fitting-a-linear-prediction-model">Extra Activity: Fitting a Linear Prediction Model</h3>
 <p>Fit a <em>linear prediction model</em> on the training data:</p>
