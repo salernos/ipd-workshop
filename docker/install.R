@@ -16,9 +16,13 @@ install.packages(c(
   "pROC",
   "DALEX",
   "neuralnet",
-  "partykit",
-  "BiocManager"
+  "partykit"
 ))
+
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+
+  install.packages("BiocManager", repos="http://cran.rstudio.com/")
+} 
 
 BiocManager::install(c(
   "ALL",
