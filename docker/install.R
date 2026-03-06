@@ -5,7 +5,7 @@ if (!requireNamespace("pak", quietly = TRUE)) {
 }
 
 pak::pkg_install(c(
-  "ipd-tools/ipd",
+  "ipd",
   "broom",
   "tidyverse",
   "future",
