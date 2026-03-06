@@ -57,7 +57,7 @@ Open:
 
 ### Option B: Local R + RStudio
 
-You need `R` **4.1.0 or newer**.
+You need `R` **4.4.1 or newer**.
 
 Install:
 

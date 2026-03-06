@@ -39,7 +39,7 @@ listing:
 ::: {.hero-grid}
 
 ::: {.hero-diagram}
-![Source: [https://arxiv.org/pdf/2411.19908v1](https://arxiv.org/pdf/2411.19908v1)](/content/images/pbinference_gronsbell.png)
+![Source: [https://arxiv.org/pdf/2411.19908v1](https://arxiv.org/pdf/2411.19908v1)](/content/images/pbinference_gronsbell.PNG)
 :::
 
 ::: {.goals-card}
