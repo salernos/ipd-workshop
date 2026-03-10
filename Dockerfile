@@ -1,4 +1,5 @@
-FROM rocker/rstudio:4.4.1
+FROM bioconductor/bioconductor_docker:devel
+#FROM rocker/rstudio:4.4.1
 
 # System dependencies needed by common workshop packages.
 RUN apt-get update && apt-get install -y --no-install-recommends \
