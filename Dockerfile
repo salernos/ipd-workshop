@@ -1,5 +1,4 @@
 FROM bioconductor/bioconductor_docker:devel
-#FROM rocker/rstudio:4.4.1
 
 # System dependencies needed by common workshop packages.
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -19,11 +18,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     make \
   && rm -rf /var/lib/apt/lists/*
 
+# Install R package dependencies for the workshop.
 COPY docker/install.R /tmp/install.R
 RUN Rscript /tmp/install.R && rm /tmp/install.R
 
-# Make workshop materials available immediately in RStudio.
-COPY . /home/rstudio/ipd-workshop
+# Copy only the workshop materials that participants need.
+RUN mkdir -p /home/rstudio/ipd-workshop/content
+COPY content/ /home/rstudio/ipd-workshop/content/
+
+# Ensure the rstudio user owns the workshop directory.
 RUN chown -R rstudio:rstudio /home/rstudio/ipd-workshop
 
-WORKDIR /home/rstudio/ipd-workshop
+# Open RStudio in the workshop materials directory by default.
+WORKDIR /home/rstudio/ipd-workshop/content
