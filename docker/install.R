@@ -1,5 +1,20 @@
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+  
+  install.packages("BiocManager")
+} 
+
+BiocManager::install(c(
+  "BiocGenerics",
+  "ALL",
+  "golubEsets",
+  "AnnotationDbi",
+  "hgu95av2.db",
+  "hu6800.db",
+  "MLInterfaces"
+), ask = FALSE, update = FALSE)
+
 install.packages(c(
   "ipd",
   "broom",
@@ -19,16 +34,4 @@ install.packages(c(
   "partykit"
 ))
 
-if (!requireNamespace("BiocManager", quietly = TRUE)) {
 
-  install.packages("BiocManager")
-} 
-
-BiocManager::install(c(
-  "ALL",
-  "golubEsets",
-  "AnnotationDbi",
-  "hgu95av2.db",
-  "hu6800.db",
-  "MLInterfaces"
-), ask = FALSE, update = FALSE)

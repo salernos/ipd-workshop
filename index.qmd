@@ -8,7 +8,7 @@ toc-location: right
 author: 
   - name: Jesse Gronsbell, PhD
     affiliation: University of Toronto
-  - name: Jianhu Gao, PhD
+  - name: Jianhu Gao, MS
     affiliation: University of Toronto
   - name: Stephen Salerno, PhD
     affiliation: Fred Hutchinson Cancer Center
