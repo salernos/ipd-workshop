@@ -20,7 +20,7 @@ execute:
 
 ```{r setup, include=FALSE}
 # Load necessary packages
-library(ipd)
+library(ipd) 
 library(ALL)            # ALL ExpressionSet
 library(golubEsets)     # Golub_Merge ExpressionSet
 library(AnnotationDbi)  
