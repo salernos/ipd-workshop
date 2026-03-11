@@ -6,8 +6,8 @@ project:
   
 website:
   page-navigation: true
-  title: "IPD Workshop"
-  description: "Workshop Materials for Inference with Predicted Data (IPD)"
+  title: "Prediction-Based Inference: Methods & Applications"
+  description: "Workshop Materials for Prediction-Based Inference: Methods & Applications"
   site-url: "https://salernos.github.io/ipd-workshop/"
 
   repo-url: https://github.com/salernos/ipd-workshop

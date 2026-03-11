@@ -49,19 +49,18 @@ easier-to-measure features, $\boldsymbol{X}$. However, using $f$ as if
 it were the true outcome in downstream analyses, e.g., in estimating a 
 regression coefficient, $\beta$, for the association between $Y$ and 
 $\boldsymbol{X}$, leads to biased point estimates and underestimated 
-uncertainty. Methods for 
-[Inference with Predicted Data (IPD)](https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267) 
-address this by leveraging a small subset of "labeled" data with true $Y$ 
-values to calibrate inference in a larger "unlabeled" dataset. 
+uncertainty. Methods for Prediction-Based (PB) Inference address this by 
+leveraging a small subset of "labeled" data with true $Y$ values to calibrate 
+inference in a larger "unlabeled" dataset. 
 
 ::: {.hero-grid}
 
 ::: {.hero-diagram}
-![*Overview of setup for common 'inference with predicted data' problems*](images/ipd_overview.png)
+![*Overview of setup for common 'prediction-based inference' problems*](images/ipd_overview.png)
 :::
 
 ::: {.goals-card}
-## The IPD Framework
+## The Prediction-Based (PB) Inference Framework
 
 Consider data arising from three sets of observations:
 
@@ -110,14 +109,13 @@ While this approach is valid, it has limited precision because $n_l$ is small
 in practice and we do not utilize any potential information from the (often
 much larger) **unlabeled** data.
 
-### IPD Estimators
+### PB Estimators
 
-Many estimators tailored to inference with predicted data
-share a similar form, as given in 
+Many estimators tailored to PB inference share a similar form, as given in 
 [Ji et al. (2025)](https://arxiv.org/pdf/2501.09731):
 
 $$
-\widehat\beta_\text{ipd} = \arg\min_\beta \frac{1}{n_l}\sum_{i=1}^{n_l} \ell(X_i, Y_i) - \left[\frac{1}{n_l}\sum_{i=1}^{n_l} g(X_i, f_i) - \frac{1}{n_l+n_u}\sum_{i=n_l+1}^{n_l+n_u} g(X_i, f_i)\right],
+\widehat\beta_\text{pb} = \arg\min_\beta \frac{1}{n_l}\sum_{i=1}^{n_l} \ell(X_i, Y_i) - \left[\frac{1}{n_l}\sum_{i=1}^{n_l} g(X_i, f_i) - \frac{1}{n_l+n_u}\sum_{i=n_l+1}^{n_l+n_u} g(X_i, f_i)\right],
 $$
 
 for some loss function, $\ell(\cdot)$, such as the squared error loss for 
@@ -130,9 +128,9 @@ asymptotically at least as efficient as the **classical** estimator, which
 only uses a fraction of the data.
 
 The 
-[Inference with Predicted Data (IPD)](https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267) 
-package implements several recent methods for IPD, such as **Chen & Chen** 
-method of
+[`ipd` (inference with predicted data)](https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267) 
+package implements several recent methods for PB inference, such as the 
+**Chen & Chen** method of
 [Gronsbell et al.](https://arxiv.org/pdf/2411.19908), 
 the Prediction-Powered Inference (**PPI**) and **PPI++** methods of 
 [Angelopoulos et al. (a)](https://www.science.org/doi/10.1126/science.adi6000) 

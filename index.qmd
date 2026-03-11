@@ -39,7 +39,7 @@ listing:
 ::: {.hero-grid}
 
 ::: {.hero-diagram}
-![Source: [https://arxiv.org/pdf/2411.19908v1](https://arxiv.org/pdf/2411.19908v1)](/content/images/pbinference_gronsbell.PNG)
+![Source: [https://arxiv.org/pdf/2411.19908](https://arxiv.org/pdf/2411.19908)](/content/images/pbinference_gronsbell.PNG)
 :::
 
 ::: {.goals-card}
@@ -55,7 +55,7 @@ listing:
 
 * **Explore** data with AI/ML-predicted outcomes and diagnose bias/variance in predictions.
 * **Apply** `ipd::ipd()` to continuous and binary outcomes.
-* **Interpret** IPD outputs and visualize model results.
+* **Interpret** prediction-based (PB) inference outputs and visualize model results.
 :::
 
 :::
@@ -91,20 +91,18 @@ Then [begin](content/Unit00_GettingStarted.qmd)!
 ## Workshop Overview
 
 In this workshop, we explore the consequences of conducting inference on 
-predicted data across several applications. We will present a suite of 
-prediction-based inference methods that adjust for prediction-related 
-uncertainty and improve inference validity and efficiency. 
-We will also introduce [`ipd`](https://github.com/ipd-tools/ipd), a 
-user-friendly `R` package that implements several of these correction methods 
-through a unified interface. The package supports modular integration into 
-existing workflows and includes 
+predicted data across several applications and present a suite of 
+prediction-based (PB) inference methods that adjust for prediction-related 
+uncertainty to improve inference validity and efficiency. We also introduce [`ipd`](https://github.com/ipd-tools/ipd), a user-friendly `R` package that 
+implements the PB inference methods through a unified interface. The package 
+supports modular integration into existing workflows and includes 
 [`tidy`](https://broom.tidymodels.org/index.html) methods for model inspection 
 and diagnostics.
 
 ## Modules
 
-This workshop covers two modules (time permitting), each illustrating IPD in 
-R using the [`ipd`](https://github.com/ipd-tools/ipd) package:[^cover-images]
+This workshop covers two modules, each illustrated with the 
+[`ipd`](https://github.com/ipd-tools/ipd) package:[^cover-images]
 
 :::{#core_units}
 :::

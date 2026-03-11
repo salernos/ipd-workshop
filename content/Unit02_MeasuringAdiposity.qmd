@@ -2,7 +2,7 @@
 title: "Measuring Adiposity"
 subtitle: "BMI vs. DXA"
 description:  |  
-  Compare BMI and DXA-based adiposity measures and use IPD corrections to 
+  Compare BMI and DXA-based adiposity measures and use PB corrections to 
   improve regression inference under predicted outcomes.
 image: images/adiposity_cover.png
 unit: 0
@@ -11,7 +11,7 @@ format:
   html:
     toc: true
     number-sections: false
-    code-fold: true
+    code-fold: false
     code-tools: false
 execute:
   warning: false
@@ -59,17 +59,17 @@ population-level inference, under the assumption that individual-level
 misclassification errors are harmless when estimating group-level trends. 
 This justification appears frequently in epidemiology, where BMI is treated 
 as a convenient stand-in for adiposity in regression models. But this reasoning 
-masks a deeper issue central to the IPD framework: BMI is itself a prediction 
-model, a crude one, but a model nonetheless. It encodes a deterministic 
-function (weight divided by height squared) to approximate an unobserved 
-latent quantity (body fat), and like any prediction model, it introduces 
-systematic biases that may not vanish with aggregation. IPD adopts a 
-prediction-agnostic perspective: whether the surrogate is a simple index like 
-BMI or a high-dimensional neural network, the challenge is the same: how to 
-draw valid statistical inference when the outcome is a model-based proxy. By 
-treating BMI as a prediction rather than a ground truth, we clarify the role 
-of uncertainty, calibration, and correction, and demonstrate how IPD methods 
-can help recover valid estimates even when only such surrogates are available.
+masks a deeper issue central to the prediction-based (PB) inference framework: 
+BMI is itself a prediction model, a crude one, but a model nonetheless. It 
+encodes a deterministic function (weight divided by height squared) to 
+approximate an unobserved latent quantity (body fat), and like any prediction 
+model, it introduces systematic biases that may not vanish with aggregation. PB 
+inference adopts a prediction-agnostic perspective: whether the surrogate is a 
+simple index like BMI or a high-dimensional neural network, the challenge is the 
+same: how to draw valid statistical inference when the outcome is a model-based 
+proxy. By treating BMI as a prediction rather than a ground truth, we clarify 
+the role of uncertainty, calibration, and correction, and demonstrate how PB 
+methods can help recover valid estimates even when only such surrogates are available.
 
 In this module, we will use data from the [National Health and Nutrition Examination Survey  (NHANES)](https://www.cdc.gov/nchs/nhanes/index.html) to:
 
@@ -88,7 +88,7 @@ race/ethnicity
 By the end, we may have a better understanding of the strengths and limitations 
 of BMI and WC as proxies for adiposity, know how to assess 
 their sensitivity and specificity versus DXA, and be equipped to correct for 
-measurement error using IPD when only BMI/WC are available.
+measurement error using PB methods when only BMI/WC are available.
 
 ### NHANES
 
@@ -119,7 +119,7 @@ waves, including the **August 2021 - August 2023** data, do **not** include
 DXA measurements. In this tutorial, we will therefore:
 
 1. Use the **2017-2018** wave as our *labeled* data (which includes `DXDTOPF`).  
-2. Use **IPD** to correct our inference when estimating associations between 
+2. Use **PB** inference to correct our inference when estimating associations between 
 % body fat and other covariates in the absence of direct DXA measurements in 
 the *unlabeled* **August 2021 - August 2023** wave. 
 
@@ -131,7 +131,7 @@ cohorts.
 
 We will now load a pre-compiled NHANES dataset, explore key variables (BMI, 
 waist circumference, DXA % body fat) by cohort, and define obesity categories 
-for later misclassification analyses and IPD.
+for later misclassification analyses and PB inference.
 
 ### Loading the Pre-Compiled NHANES Data
 
@@ -237,7 +237,7 @@ Expected:
 
 ### Discussion Questions
 
-* Why is this a natural labeled/unlabeled split for IPD?
+* Why is this a natural labeled/unlabeled split for PB inference?
 * What inferential bias would appear if we ignored the structured missingness?
 
 ### Exercise 4: Descriptive Statistics
@@ -552,11 +552,11 @@ BMI misclassification varies systematically across subgroups:
 
 **Implications**: Reliance on BMI alone can bias epidemiologic associations with true adiposity-driven outcomes (e.g., diabetes, cardiovascular disease). When DXA or other body-composition measures are impractical, consider calibration equations or subgroup-specific BMI thresholds.
 
-**Next:** we will split the combined NHANES data into **labeled** (2017-2018 with `DXDTOPF`) and **unlabeled** (2021-2023 without DXA), and then proceed with IPD using BMI or WC as our proxy.
+**Next:** we will split the combined NHANES data into **labeled** (2017-2018 with `DXDTOPF`) and **unlabeled** (2021-2023 without DXA), and then proceed with PB inference using BMI or WC as our proxy.
 
-## Demographic Associations: Naive vs Classical vs IPD
+## Demographic Associations: Naive vs Classical vs PB Inference Methods
 
-### Exercise 8: Naive vs Classical vs IPD Inference
+### Exercise 8: Naive vs Classical vs PB Inference
 
 We are interested in studying the *association* between *true percent body fat* 
 (DXA % fat) and risk factors such as age, sex, and race. We model the *binary*
@@ -565,7 +565,7 @@ obesity outcome (DXA-defined "true" vs BMI/WC "proxy") as a function of *Age*,
 
 - **Naive:** proxy-only model on *unlabeled* data (2021-2023)  
 - **Classical:** true-only model on *labeled* data (2017-2018)  
-- **IPD:** combine both while correcting for proxy error
+- **PB Inference:** combine both while correcting for proxy error
 
 #### Exercise 8a: Setup Labeled vs Unlabeled Data
 
@@ -577,7 +577,7 @@ obesity outcome (DXA-defined "true" vs BMI/WC "proxy") as a function of *Age*,
 labeled   <- NHANES |> filter(Cohort == "2017-2018")
 unlabeled <- NHANES |> filter(Cohort == "2021-2023")
 
-# Stack for IPD
+# Stack for PB Inference
 combined <- bind_rows(
   labeled   |> mutate(set_label = "labeled"),
   unlabeled |> mutate(set_label = "unlabeled")
@@ -589,7 +589,7 @@ combined <- bind_rows(
 ::: {.callout-tip}
 ## Notes
 
-This split defines the labeled and unlabeled sets used by IPD.
+This split defines the labeled and unlabeled sets used by PB methods.
 :::
 
 #### Exercise 8b: Naive versus Classical Regressions
@@ -685,9 +685,9 @@ ggplot(coef_df, aes(x = estimate, y = term, color = method)) +
 * Which coefficients are most sensitive to proxy choice?
 * Do BMI and WC induce similar bias patterns?
 
-#### Exercise 9: IPD Corrections
+#### Exercise 9: PB Inference Corrections
 
-We now apply **IPD** to leverage all participants (labeled + unlabeled) while adjusting for prediction error. We run two IPD analyses, one using `BMI` as our '`f`' and one using `WC`.
+We now apply **PB inference** to leverage all participants (labeled + unlabeled) while adjusting for prediction error. We run two IPD analyses, one using `BMI` as our '`f`' and one using `WC`.
 
 > **A note on two calling styles:**
 >
@@ -711,7 +711,7 @@ We now apply **IPD** to leverage all participants (labeled + unlabeled) while ad
 >   method         = "pspa"
 > )
 
-Now we can try to run the IPD model:
+Now we can try to run the PB model:
 
 ::: {.callout-note collapse="true"}
 ## Answer
@@ -742,15 +742,15 @@ Now we can try to run the IPD model:
 ::: {.callout-tip}
 ## Notes
 
-The warning is expected: labeled and unlabeled datasets must share factor levels for IPD model fitting.
+The warning is expected: labeled and unlabeled datasets must share factor levels for PB model fitting.
 :::
 
 ### Discussion Questions
 
-* Why do mismatched factor levels break IPD fitting?
+* Why do mismatched factor levels break PB inference fitting?
 * What preprocessing checks should you run before modeling?
 
-We can see that the *labeled* subset does *not* include any `"60+"` observations, but IPD expects the same factor levels in both sets in order to fit the model using all the data. To fix this, let us refactor both the *labeled* and *unlabeled* data so they have consistent age categories:
+We can see that the *labeled* subset does *not* include any `"60+"` observations, but `ipd` expects the same factor levels in both sets in order to fit the model using all the data. To fix this, let us refactor both the *labeled* and *unlabeled* data so they have consistent age categories:
 
 ::: {.callout-note collapse="true"}
 ## Answer
@@ -767,7 +767,7 @@ labeled2   <- NHANES2 |>
 unlabeled2 <- NHANES2 |> filter(Cohort == "2021-2023") |> 
   select(obese_DXA, obese_BMI, obese_WC, Age_recode, Sex, Race)
 
-# Stack for IPD
+# Stack for PB Inference
 combined2 <- bind_rows(
   labeled2   |> mutate(set_label = "labeled"),
   unlabeled2 |> mutate(set_label = "unlabeled")
@@ -776,7 +776,7 @@ combined2 <- bind_rows(
 
 :::
 
-### Exercise 10: Run IPD and Compare Against Naive/Classical
+### Exercise 10: Run PB Inference and Compare Against Naive/Classical
 
 Now let us rerun `ipd::ipd()` and compare our results to the **Naive** and 
 **Classical** models:
@@ -804,10 +804,10 @@ ipd_wc_fit <- ipd(
 
 # Collect results using the tidy() method
 ipd_bmi_df <- tidy(ipd_bmi_fit) |>
-  mutate(method = "IPD (BMI)")
+  mutate(method = "PSPA (BMI)")
 
 ipd_wc_df  <- tidy(ipd_wc_fit) |>
-  mutate(method = "IPD (WC)")
+  mutate(method = "PSPA (WC)")
 ```
 
 ```{r, fig.height=6, fig.width=8, out.width="100%", dpi=300}
@@ -845,7 +845,7 @@ coef_df <- bind_rows(
       "RaceOther Race - Including Multi-Racial" = "Other Race - Including Multi-Racial (vs Non-Hispanic White)"
     ),
     method = factor(method, 
-      levels = c("IPD (BMI)", "IPD (WC)", 
+      levels = c("PSPA (BMI)", "PSPA (WC)", 
                  "Classical (DXA)", "Naive (BMI)", "Naive (WC)"))
   )
     
@@ -864,8 +864,8 @@ ggplot(coef_df, aes(x = estimate, y = term,
       "Classical (DXA)" = "#1B365D", 
       "Naive (BMI)"     = "#00C1D5", 
       "Naive (WC)"      = "#AA4AC4",
-      "IPD (BMI)"       = "#00C1D5",
-      "IPD (WC)"        = "#AA4AC4"
+      "PSPA (BMI)"       = "#00C1D5",
+      "PSPA (WC)"        = "#AA4AC4"
     )
   ) +
   scale_color_manual(
@@ -873,8 +873,8 @@ ggplot(coef_df, aes(x = estimate, y = term,
       "Classical (DXA)" = "#1B365D", 
       "Naive (BMI)"     = "#00C1D5", 
       "Naive (WC)"      = "#AA4AC4",
-      "IPD (BMI)"       = "#00C1D5",
-      "IPD (WC)"        = "#AA4AC4"
+      "PSPA (BMI)"       = "#00C1D5",
+      "PSPA (WC)"        = "#AA4AC4"
     )
   ) +
   scale_shape_manual(
@@ -882,8 +882,8 @@ ggplot(coef_df, aes(x = estimate, y = term,
       "Classical (DXA)" = 16, 
       "Naive (BMI)"     = 16, 
       "Naive (WC)"      = 16,
-      "IPD (BMI)"       = 17,
-      "IPD (WC)"        = 17
+      "PSPA (BMI)"       = 17,
+      "PSPA (WC)"        = 17
     )
   ) +
   labs(
@@ -900,20 +900,20 @@ ggplot(coef_df, aes(x = estimate, y = term,
 ::: {.callout-tip}
 ## Notes
 
-IPD combines both cohorts to correct proxy-induced bias while leveraging unlabeled sample size for efficiency.
+PB inference combines both cohorts to correct proxy-induced bias while leveraging unlabeled sample size for efficiency.
 :::
 
 ### Discussion Questions
 
-* Which covariates move closest to classical after IPD correction?
-* Do IPD(BMI) and IPD(WC) differ meaningfully in uncertainty?
+* Which covariates move closest to classical after PB inference correction?
+* Do PSPA (BMI) and PSPA (WC) differ meaningfully in uncertainty?
 
 ## Summary and Key Takeaways
 
 - **BMI** and **WC** are imperfect proxies for DXA-based % body fat. 
 - **Naive** regression on BMI or WC leads to biased estimates for associations between obesity and risk factors such as age, sex, and race.
 - **Classical** regression on true DXA-based % fat is unbiased but costly.
-- **IPD** allows you to leverage a *large cohort with only BMI + covariates*, correct for prediction error, and recover unbiased estimates with more precision than the **Classical** approach.
+- **PB inference** allows you to leverage a *large cohort with only BMI + covariates*, correct for prediction error, and recover unbiased estimates with more precision than the **Classical** approach.
 - Understanding how different *proxies* like BMI and WC affect **population-level inference** is important for epidemiologic and clinical studies.
 
 ## References

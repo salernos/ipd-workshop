@@ -2,7 +2,7 @@
 title: "Proteomics with AlphaFold"
 subtitle: "Protein Disorder and PTMs"
 description:  |
-  Apply IPD methods in a proteomics setting to estimate associations when key 
+  Apply PB methods in a proteomics setting to estimate associations when key 
   outcomes are model-predicted rather than directly measured.
 image: images/alphafold_cover.png
 unit: 0
@@ -11,7 +11,7 @@ format:
   html:
     toc: true
     number-sections: false
-    code-fold: true
+    code-fold: false
     code-tools: false
 execute:
   warning: false
@@ -45,7 +45,7 @@ By the end of this module, you will be able to:
 
 1. Construct labeled and unlabeled splits from biological data,
 2. Estimate PTM–disorder associations using logistic regression,
-3. Compare naive, classical, and IPD-based inference,
+3. Compare naive, classical, and prediction-based (PB) inference,
 4. Quantify efficiency gains from unlabeled data, and
 5. Study how many labeled observations may be needed for adequate power.
 
@@ -309,7 +309,7 @@ ratio:
 * **Oracle logistic regression**: uses `Y` for all residues
 * **Classical logistic regression**: uses `Y` only in the labeled subset
 * **Naive logistic regression**: thresholds `Yhat` and treats it as truth
-* **IPD methods**:
+* **PB inference methods**:
 
   * PPI
   * Chen & Chen
@@ -324,7 +324,7 @@ With `n_labeled = 500`:
 
 1. Create a labeled/unlabeled split,
 2. Fit the oracle, classical, and naive models,
-5. Fit the IPD models,
+5. Fit the PB inference models,
 6. Compare the estimated odds ratios and 95% confidence intervals.
 
 ::: {.callout-note collapse="true"}
@@ -441,14 +441,14 @@ This single-split comparison illustrates several common patterns:
 * **Classical** uses only labeled data and is often valid but inefficient.
 * **Naive** treats predictions as truth and often gives intervals that are too
   narrow.
-* **IPD methods** use the labeled subset to correct bias and account for
-  prediction uncertainty while borrowing strength from the unlabeled data.
+* **PB inference methods** use the labeled subset to correct bias and account 
+  for prediction uncertainty while borrowing strength from the unlabeled data.
 
 We should see:
 
 * Classical intervals that are wide,
 * Naive intervals that look overly precise,
-* IPD intervals that are narrower than classical but more honest than naive.
+* PB intervals that are narrower than classical but more honest than naive.
 
 :::
 
@@ -583,13 +583,13 @@ In general, we expect:
 * Interval widths to decrease as `n` increases,
 * Classical inference to improve steadily but slowly,
 * Naive intervals to remain artificially tight,
-* IPD methods to leverage unlabeled data and often achieve meaningful gains.
+* PB inference methods to leverage unlabeled data and often achieve meaningful gains.
 
 :::
 
 ### Discussion Questions
 
-* Why do some IPD methods outperform others?
+* Why do some PB inference methods outperform others?
 * Are the methods more variable across repeated trials when `n` is small?
 * What does this suggest for pilot studies?
 
@@ -665,7 +665,7 @@ This figure summarizes efficiency across methods:
 
 * The **oracle** sets the best achievable benchmark,
 * **Classical** requires many more labels to approach that benchmark,
-* **IPD methods** can recover a meaningful fraction of that lost efficiency.
+* **PB inference methods** can recover a meaningful fraction of that lost efficiency.
 
 :::
 
@@ -677,7 +677,7 @@ This figure summarizes efficiency across methods:
 
 # Summary and Takeaways
 
-This module illustrates how IPD can be used in a modern proteomics workflow:
+This module illustrates how PB inference can be used in a modern proteomics workflow:
 
 1. Use deep learning to generate predictions at scale,
 2. Obtain limited ground truth labels,
@@ -689,7 +689,7 @@ In this AlphaFold/PTM example, we saw that:
   scarce,
 - **Naive** imputation can look precise while remaining biased and
   anticonservative,
-- **IPD methods** can preserve validity while recovering some of the efficiency
+- **PB inference methods** can preserve validity while recovering some of the efficiency
   available in the large unlabeled dataset.
 
 ## Take-Home Messages
@@ -697,8 +697,8 @@ In this AlphaFold/PTM example, we saw that:
 - AlphaFold enables proteome-scale structural annotation, but 
   **prediction is not the same as inference**.
 - PTM–disorder questions are naturally framed as **association problems**,
-  making them a good setting for IPD.
-- When only a subset of residues has trusted labels, **IPD can improve on
+  making them a good setting for PB inference.
+- When only a subset of residues has trusted labels, **PB inference can improve on
   classical inference without treating predictions as real data**.
 - The value of unlabeled data depends on the quality and calibration of the
   predictive model.
@@ -711,7 +711,7 @@ make it possible to ask questions at a proteome-wide scale, but downstream
 scientific conclusions still depend on how we handle uncertainty, labeling
 limitations, and prediction error.
 
-IPD provides one principled way to bridge that gap.
+PB inference methods provide principled ways to bridge that gap.
 
 ---
 
@@ -981,7 +981,7 @@ You may find that:
 
 * Some PTMs are more enriched in disorder,
 * Some show weaker or noisier associations,
-* The inferential gains from IPD differ across PTMs.
+* The inferential gains from PB inference methods differ across PTMs.
 
 #### Statistical Goal
 
@@ -997,6 +997,6 @@ If you continue this work, possible extensions include:
 
 * Accounting for *protein-level clustering*,
 * Adding biological covariates such as amino acid type or sequence position,
-* Comparing additional IPD methods,
+* Comparing additional PB inference methods,
 * Perturbing `Yhat` to study robustness to miscalibration,
 * Applying the same workflow to a different ML-derived phenotype.

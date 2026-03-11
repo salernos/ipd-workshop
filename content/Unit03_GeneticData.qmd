@@ -3,7 +3,7 @@ title: "BCR-ABL Fusion"
 subtitle: "in B-Cell Leukemia"
 description:  |
   Study BCR-ABL prediction from gene-expression profiles and evaluate how 
-  IPD methods calibrate downstream inference in genomics.
+  PB inference methods calibrate downstream inference in genomics.
 image: images/genetics_cover.png
 unit: 0
 core: true
@@ -11,7 +11,7 @@ format:
   html:
     toc: true
     number-sections: false
-    code-fold: true
+    code-fold: false
     code-tools: false
 execute:
   warning: false
@@ -65,17 +65,17 @@ expression classifier on the small labeled subset and apply it to the larger
 unlabeled cohort. Yet, naive downstream analyses, treating predicted labels 
 as ground truth, can yield biased effect estimates and understate uncertainty.
 
-[**Inference with Predicted Data (IPD)**](https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267) 
-offers a principled remedy: it combines a small labeled set with the predicted 
-labels (e.g., with true fusion status) with a larger unlabeled set, adjusting 
-both bias and variance. In this module, we will:
+Prediction-based (PB) inference methods offer a principled remedy: combine a 
+small labeled set with the predicted labels (e.g., with true fusion status) 
+with a larger unlabeled set, adjusting both bias and variance. In this module, 
+we will:
 
 1. **Describe** the [`ALL`](https://www.bioconductor.org/packages/release/data/experiment/html/ALL.html) and [`Golub`](https://www.bioconductor.org/packages/release/data/experiment/manuals/golubEsets/man/golubEsets.pdf) Bioconductor datasets.
 2. **Subset** the `ALL` data to B-cell ALL and filter to the top 500 variable probes.
 3. **Harmonize** probes across platforms via gene symbols.
 4. **Split** the `ALL` data and train three classifiers for BCR-ABL1 fusion status.
 5. **Predict** on the holdout `ALL` and `Golub` B-cell ALL data using the `ALL`-trained classifier.
-6. **Apply** IPD to estimate the association between fusion status and patient sex assigned at birth.
+6. **Apply** PB inference to estimate the association between fusion status and patient sex assigned at birth.
 
 By the end, you will understand how to leverage expression-based predictions 
 while maintaining valid inference on genetic subtypes in cohorts with partially 
@@ -95,7 +95,7 @@ We work with two public [Bioconductor](https://www.bioconductor.org/) datasets:
 * [**Golub_Merge**](https://www.bioconductor.org/packages/release/data/experiment/manuals/golubEsets/man/golubEsets.pdf) (`golubEsets` package): 72 samples of leukemias (ALL vs. AML), profiled on Affymetrix HGU6800. Phenotype data include `ALL.AML`, `T.B.cell` (lineage), age, and sex.
 
 We will train our classifiers on a subset of the `ALL` data, test the model on 
-the holdout `ALL` data, and perform IPD on the holdout `ALL` and `Golub` data.
+the holdout `ALL` data, and perform PB inference on the holdout `ALL` and `Golub` data.
 
 ## Phenotype Reduction and Feature Filtering
 
@@ -353,7 +353,7 @@ cat("Accuracy:", sprintf("%.2f%%", acc_rf * 100))
 ```
 
 > **Interpretation:**
-> Only the Random Forest achieves perfect separation in the validation samples. This highlights the challenge of discriminating BCR-ABL1 status based solely on the top variable probes and underscores why downstream IPD corrections (for regression inference) remain valuable.
+> Only the Random Forest achieves perfect separation in the validation samples. This highlights the challenge of discriminating BCR-ABL1 status based solely on the top variable probes and underscores why downstream PB inference corrections (for regression inference) remain valuable.
 
 ## Predictions on ALL Test and Golub
 
@@ -379,11 +379,11 @@ golub_pred <- MLInterfaces::predict.classifierOutput(rf_mod, golub_bALL)
 table(golub_pred$testPredictions)
 ```
 
-> **Note:** We retain **true** labels in the ALL test set for later IPD; Golub remains **unlabeled**.
+> **Note:** We retain **true** labels in the ALL test set for later PB inference; Golub remains **unlabeled**.
 
-## IPD Inference on Sex Effect
+## PB Inference on Sex Effect
 
-We will now use **Inference with Predicted Data (IPD)** to estimate the log-odds effect of **sex** (male vs female) on true BCR-ABL1 status, combining the holdout ALL data with true and predict fusion status (i.e., our labeled data) and the Golub data with the predicted fusion status (i.e., our unlabeled data)
+We will now use **PB Inference** to estimate the log-odds effect of **sex** (male vs female) on true BCR-ABL1 status, combining the holdout ALL data with true and predict fusion status (i.e., our labeled data) and the Golub data with the predicted fusion status (i.e., our unlabeled data)
 
 ```{r}
 # Build labeled (ALL test) data frame
@@ -404,7 +404,7 @@ df_golub <- tibble(
   sex    = factor(pData(golub_bALL)$Gender, levels = c("F","M"))
 )
 
-# Combine for IPD
+# Combine for PB Inference
 ipd_df <- bind_rows(df_test, df_golub) |> drop_na(sex)
 ```
 
@@ -419,7 +419,7 @@ naive_fit <- glm(pred ~ sex, "binomial", df_golub)
 naive_df  <- broom::tidy(naive_fit) |>
   mutate(method = "Naive")
 
-# IPD logistic regression
+# PB logistic regression
 ipd_fit <- ipd(
   formula   = true - pred ~ sex,
   method    = "pspa",
@@ -428,7 +428,7 @@ ipd_fit <- ipd(
   label     = "set",
 )
 ipd_df  <- tidy(ipd_fit) |>
-  mutate(method = "IPD")
+  mutate(method = "PSPA")
 
 # Summarize coefficients
 combined <- bind_rows(class_df, naive_df, ipd_df) |>
@@ -454,7 +454,7 @@ ggplot(combined, aes(x = estimate, y = term, color = method)) +
   theme_minimal()
 ```
 
-> **Insight:** By treating the ALL test set as labeled and Golub as unlabeled, IPD  combines information across cohorts to correct bias and improve precision when estimating the association between BCR-ABL1 status and patient sex.
+> **Insight:** By treating the ALL test set as labeled and Golub as unlabeled, PB inference combines information across cohorts to correct bias and improve precision when estimating the association between BCR-ABL1 status and patient sex.
 
 ---
 

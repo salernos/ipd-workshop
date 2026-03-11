@@ -11,7 +11,7 @@ format:
   html:
     toc: true
     number-sections: false
-    code-fold: true
+    code-fold: false
     code-tools: false
 execute:
   warning: false

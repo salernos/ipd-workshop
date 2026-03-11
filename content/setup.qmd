@@ -66,8 +66,8 @@ Install:
 
 ## R Packages to Install Ahead of Time
 
-If you use **Option A (Docker)**, all required packages are already included in the
-workshop image and you can skip installation.
+If you use **Option A (Docker)**, all required packages are already included in 
+the workshop image and you can skip installation.
 
 ### Core packages (required for Option B)
 
@@ -79,7 +79,8 @@ install.packages(c(
 
 ### Supplemental packages (optional, used outside Units 00 and 01)
 
-Install these only if you want to explore modules outside Unit 00 and Unit 01.
+During the workshop, we will only cover Unit 00 and Unit 01. You can install 
+the following only if you want to explore modules outside Unit 00 and Unit 01.
 
 ```r
 # CRAN packages for optional supplemental units

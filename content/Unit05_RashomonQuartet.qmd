@@ -3,7 +3,7 @@ title: "The Rashomon Quartet"
 subtitle: "i.e., Performance is not Enough"
 description:  |
   Examine how equally predictive models can yield different scientific 
-  conclusions and compare naive, classical, and IPD-based inference.
+  conclusions and compare naive, classical, and PB inference.
 image: images/rashomon_cover.png
 unit: 0
 core: true
@@ -11,7 +11,7 @@ format:
   html:
     toc: true
     number-sections: false
-    code-fold: true
+    code-fold: false
     code-tools: false
 execute:
   warning: false
@@ -29,7 +29,7 @@ we will:
 
 1. **Fit** each model on a *training* set. 
 2. **Evaluate** their *predictive* performance on a *testing* set. 
-3. **Demonstrate** how the **naive**, **classical**, and **IPD**-based *inference* results differ.
+3. **Demonstrate** how the **naive**, **classical**, and **prediction-based (PB)** *inference* results differ.
 
 >
 > **Note:** We will replicate the results of the Rashomon Quartet analysis following:
@@ -123,7 +123,7 @@ glimpse(test)
 > **Confirm Dimensions and Column Names:**
 >
 > * Each dataset should have exactly 1,000 rows and four columns: `y`, `x1`, `x2`, `x3`.
-> * We will use all 1,000 rows of `train` to fit each predictive model, and then randomly split the 1,000-row `test` for IPD.
+> * We will use all 1,000 rows of `train` to fit each predictive model, and then randomly split the 1,000-row `test` for PB inference.
 
 ## Predictive Model Training on the Training Set
 
@@ -249,7 +249,7 @@ We now take a quick look at each model's internal structure or summary.
 > **Note:** 
 >
 > * Often, in practice, we do not know the operating characteristics of the predictive model or have access to its training data. 
-> * IPD methods are distinct in that they are agnostic to the source or form of these 'black-box' predictions
+> * PB inference methods are distinct in that they are agnostic to the source or form of these 'black-box' predictions
 >
 
 ### Decision Tree Visualization
@@ -328,7 +328,7 @@ plot(pd_dt, pd_nn, pd_rf, pd_lm)
 >
 > Because $x_{3}$ does not appear in the generating formula, its PD should be nearly flat—though correlation can induce slight structure.
 
-## Inference with Predicted Data (IPD)
+## Prediction-Based (PB) Inference
 
 We now demonstrate how to perform valid inference in the *testing* set when 
 only some test rows have true $Y$. Specifically, we:
@@ -339,7 +339,7 @@ only some test rows have true $Y$. Specifically, we:
    * An *unlabeled* subset of size $n_u = 1,000 - n_l$.
 2. In the *labeled* subset, regress $Y$ on $X_1$, $X_2$, and $X_3$ (**Classical**).
 5. In the *unlabeled* subset, regress $f$ on $X_1$, $X_2$, and $X_3$ (**Naive**).
-6. Use both subsets in an **IPD** pipeline and run:
+6. Use both subsets in a **PB inference** pipeline and run:
 
    ```r
    ipd_res <- ipd(
@@ -413,33 +413,33 @@ naive_fit_nn <- lm(preds_nn ~ x1 + x2 + x3, data = test_unlabeled)
 naive_df_nn  <- broom::tidy(naive_fit_nn) |>
   mutate(method = "Naive (nn)") 
 
-# IPD (Linear Model)
+# PB Inference (Linear Model)
 ipd_fit_lm <- ipd(y - preds_lm ~ x1 + x2 + x3, 
   data = test_labeled, unlabeled_data = test_unlabeled, 
   method = "pspa", model = "ols")
 ipd_df_lm  <- tidy(ipd_fit_lm) |>
-  mutate(method = "IPD (lm)") 
+  mutate(method = "PSPA (lm)") 
 
-# IPD (Decision Tree)
+# PB Inference (Decision Tree)
 ipd_fit_dt <- ipd(y - preds_dt ~ x1 + x2 + x3, 
   data = test_labeled, unlabeled_data = test_unlabeled,
   method = "pspa", model = "ols")
 ipd_df_dt  <- tidy(ipd_fit_dt) |>
-  mutate(method = "IPD (dt)") 
+  mutate(method = "PSPA (dt)") 
 
-# IPD (Random Forest)
+# PB Inference (Random Forest)
 ipd_fit_rf <- ipd(y - preds_rf ~ x1 + x2 + x3, 
   data = test_labeled, unlabeled_data = test_unlabeled,
   method = "pspa", model = "ols")
 ipd_df_rf  <- tidy(ipd_fit_rf) |>
-  mutate(method = "IPD (rf)") 
+  mutate(method = "PSPA (rf)") 
 
-# IPD (Neural Net)
+# PB Inference (Neural Net)
 ipd_fit_nn <- ipd(y - preds_nn ~ x1 + x2 + x3, 
   data = test_labeled, unlabeled_data = test_unlabeled,
   method = "pspa", model = "ols")
 ipd_df_nn  <- tidy(ipd_fit_nn) |>
-  mutate(method = "IPD (nn)") 
+  mutate(method = "PSPA (nn)") 
 
 combined_df <- bind_rows(class_df,
   naive_df_lm, naive_df_dt, naive_df_rf, naive_df_nn,
@@ -488,7 +488,7 @@ ggplot(combined_df, aes(x = estimate, y = method, color = method)) +
 >
 > 1. The **Naive** estimates are biased due to the prediction error and has artificially narrow confidence intervals.
 > 2. The **Classical** is our benchmark, as it is unbiased, but has wider CI's
-> 3. The **IPD** methods cover the **Classical** estimates and have wider CI's to account for the prediction uncertainty.
+> 3. The **PB Inference** methods cover the **Classical** estimates and have wider CI's to account for the prediction uncertainty.
 >
 
 ## Data Distribution: Train vs Test (`GGally::ggpairs`)
@@ -537,15 +537,15 @@ ggpairs(
 
    * Variable Importance and Partial-Dependence plots highlight how each model "tells a different story" about which features matter and how $y$ responds to $x_{1},x_{2},x_{3}$.
    * The Neural Network's PD best tracks the true sine function; the tree's PD is piecewise-constant; the forest's PD is smoothed piecewise; the linear PD is a straight line.
-3. **Inference on Predicted Data (IPD):**
+3. **Prediction-Based (PB) Inference:**
 
    * By randomly splitting the test set into "labeled" and "unlabeled" halves, we simulate a real-world scenario where only some new observations have true $y$.
    * **Naive** regression of $f \sim x_{1} + x_{2} + x_{3}$ on the unlabeled set is biased due to prediction error.
    * **Classical** regression of $y \sim x_{1} + x_{2} + x_{3}$ on the labeled set is unbiased but less efficient.
-   * **IPD** methods  combine the labeled/unlabeled sets to correct bias and properly estimate variance. 
+   * **PB Inference** methods  combine the labeled/unlabeled sets to correct bias and properly estimate variance. 
 4. **Key Lesson:**
 
-   * **"Performance is not enough."** Even models with identical $R^2$ can lead to very different bias and variance in downstream inference on covariate effects. IPD provides a principled correction when using model predictions in place of true outcomes for some observations.
+   * **"Performance is not enough."** Even models with identical $R^2$ can lead to very different bias and variance in downstream inference on covariate effects. PB Inference provides a principled correction when using model predictions in place of true outcomes for some observations.
 
 ## References
 
