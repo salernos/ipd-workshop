@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,7 +10,7 @@
 <meta name="author" content="Jianhu Gao, MS">
 <meta name="author" content="Stephen Salerno, PhD">
 
-<title>Prediction-Based Inference: Methods &amp; Applications – IPD Workshop</title>
+<title>Prediction-Based Inference: Methods &amp; Applications</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -72,19 +72,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-5d358c139d2e90da63c14cb1e16cafdd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-dd257045cb431b75a7b6ce73c259ef30.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-5d358c139d2e90da63c14cb1e16cafdd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-affda8cd2d7e1fc5be1375ea7c5928c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-0c0a357e8fa1b2f0afa7038f8c9f2303.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-affda8cd2d7e1fc5be1375ea7c5928c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -184,7 +183,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+      if (mathElements[i].tagName == "SPAN") {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -201,10 +200,10 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Prediction-Based Inference: Methods &amp; Applications – IPD Workshop">
+<meta property="og:title" content="Prediction-Based Inference: Methods &amp; Applications">
 <meta property="og:description" content="What do we do after we have machine learned everything?">
 <meta property="og:image" content="https://salernos.github.io/ipd-workshop/content/images/ipd_cover.png">
-<meta property="og:site_name" content="IPD Workshop">
+<meta property="og:site_name" content="Prediction-Based Inference: Methods &amp; Applications">
 <meta property="og:image:height" content="1024">
 <meta property="og:image:width" content="1536">
 </head>
@@ -395,8 +394,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="./index.html" class="sidebar-logo-link">
-      <img src="./content/images/ipd.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="./content/images/ipd.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <img src="./content/images/ipd.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="javascript:window.quartoToggleColorScheme();" title="Toggle Dark Mode" class="quarto-navigation-tool px-1" aria-label="Toggle Dark Mode"><i class="bi bi-moon"></i></a>
@@ -574,7 +572,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">Tuesday, March 17, 2026 | 6:45 pm UTC</p>
+      <p class="date">Tuesday, March 17, 2026 | 2:45 pm EDT</p>
     </div>
   </div>
   
@@ -592,7 +590,7 @@ window.Quarto = {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="./content/images/pbinference_gronsbell.PNG" class="img-fluid figure-img"></p>
-<figcaption>Source: <a href="https://arxiv.org/pdf/2411.19908v1">https://arxiv.org/pdf/2411.19908v1</a></figcaption>
+<figcaption>Source: <a href="https://arxiv.org/pdf/2411.19908">https://arxiv.org/pdf/2411.19908</a></figcaption>
 </figure>
 </div>
 </div>
@@ -608,7 +606,7 @@ window.Quarto = {
 <ul>
 <li><strong>Explore</strong> data with AI/ML-predicted outcomes and diagnose bias/variance in predictions.</li>
 <li><strong>Apply</strong> <code>ipd::ipd()</code> to continuous and binary outcomes.</li>
-<li><strong>Interpret</strong> IPD outputs and visualize model results.</li>
+<li><strong>Interpret</strong> prediction-based (PB) inference outputs and visualize model results.</li>
 </ul>
 </section>
 </div>
@@ -650,20 +648,20 @@ window.Quarto = {
 <p>The companion website for this workshop is available at:</p>
 <p><a href="https://salernos.github.io/ipd-workshop">https://salernos.github.io/ipd-workshop</a></p>
 <p>To use the workshop image:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-e</span> PASSWORD=<span class="op">&lt;</span>choose_a_password_for_rstudio<span class="op">&gt;</span> -p 8787:8787 ghcr.io/salernos/ipd-workshop:latest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-e</span> PASSWORD=<span class="op">&lt;</span>choose_a_password_for_rstudio<span class="op">&gt;</span> -p 8787:8787 ghcr.io/salernos/ipd-workshop:latest</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Once running, navigate to <code>http://localhost:8787/</code> and then log in with <code>rstudio</code>:<code>yourchosenpassword</code>.</p>
 <p>Then <a href="./content/Unit00_GettingStarted.html">begin</a>!</p>
 </section>
 <section id="workshop-overview" class="level2">
 <h2 class="anchored" data-anchor-id="workshop-overview">Workshop Overview</h2>
-<p>In this workshop, we explore the consequences of conducting inference on predicted data across several applications. We will present a suite of prediction-based inference methods that adjust for prediction-related uncertainty and improve inference validity and efficiency. We will also introduce <a href="https://github.com/ipd-tools/ipd"><code>ipd</code></a>, a user-friendly <code>R</code> package that implements several of these correction methods through a unified interface. The package supports modular integration into existing workflows and includes <a href="https://broom.tidymodels.org/index.html"><code>tidy</code></a> methods for model inspection and diagnostics.</p>
+<p>In this workshop, we explore the consequences of conducting inference on predicted data across several applications and present a suite of prediction-based (PB) inference methods that adjust for prediction-related uncertainty to improve inference validity and efficiency. We also introduce <a href="https://github.com/ipd-tools/ipd"><code>ipd</code></a>, a user-friendly <code>R</code> package that implements the PB inference methods through a unified interface. The package supports modular integration into existing workflows and includes <a href="https://broom.tidymodels.org/index.html"><code>tidy</code></a> methods for model inspection and diagnostics.</p>
 </section>
 <section id="modules" class="level2">
 <h2 class="anchored" data-anchor-id="modules">Modules</h2>
-<p>This workshop covers two modules (time permitting), each illustrating IPD in R using the <a href="https://github.com/ipd-tools/ipd"><code>ipd</code></a> package:<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>This workshop covers two modules, each illustrated with the <a href="https://github.com/ipd-tools/ipd"><code>ipd</code></a> package:<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <div id="listing-core_units" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1773181875420" data-listing-reading-time-sort="16" data-listing-word-count-sort="3009">
+<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1773337729037" data-listing-reading-time-sort="16" data-listing-word-count-sort="3017">
 <a href="./content/Unit00_GettingStarted.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -674,15 +672,15 @@ window.Quarto = {
 Getting Started
 </h5>
 <div class="card-subtitle listing-subtitle">
-Inference with Predicted Data
+Prediction-Based Inference: Methods &amp; Applications
 </div>
 <div class="card-text listing-description delink">
-<p>Build intuition for inference with predicted data by simulating labeled/unlabeled sets and comparing naive, classical, and IPD estimators.</p>
+<p>Build intuition for prediction-based inference by simulating data and comparing different methods.</p>
 </div>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1773181875420" data-listing-reading-time-sort="23" data-listing-word-count-sort="4431">
+<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1773337729037" data-listing-reading-time-sort="23" data-listing-word-count-sort="4447">
 <a href="./content/Unit01_AlphaFold.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -696,7 +694,7 @@ Proteomics with AlphaFold
 Protein Disorder and PTMs
 </div>
 <div class="card-text listing-description delink">
-<p>Apply IPD methods in a proteomics setting to estimate associations when key outcomes are model-predicted rather than directly measured.</p>
+<p>Apply PB methods in a proteomics setting to estimate associations when key outcomes are model-predicted rather than directly measured.</p>
 </div>
 </div>
 </div></a>
@@ -710,7 +708,7 @@ Protein Disorder and PTMs
 <p>We have also included some supplemental modules for you to explore on your own:</p>
 <div id="listing-supplemental_units" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1773181875420" data-listing-reading-time-sort="26" data-listing-word-count-sort="5134">
+<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1773337729038" data-listing-reading-time-sort="26" data-listing-word-count-sort="5157">
 <a href="./content/Unit02_MeasuringAdiposity.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -724,12 +722,12 @@ Measuring Adiposity
 BMI vs.&nbsp;DXA
 </div>
 <div class="card-text listing-description delink">
-<p>Compare BMI and DXA-based adiposity measures and use IPD corrections to improve regression inference under predicted outcomes.</p>
+<p>Compare BMI and DXA-based adiposity measures and use PB corrections to improve regression inference under predicted outcomes.</p>
 </div>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1773181875420" data-listing-reading-time-sort="11" data-listing-word-count-sort="2095">
+<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1773337729038" data-listing-reading-time-sort="11" data-listing-word-count-sort="2096">
 <a href="./content/Unit03_GeneticData.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -743,12 +741,12 @@ BCR-ABL Fusion
 in B-Cell Leukemia
 </div>
 <div class="card-text listing-description delink">
-<p>Study BCR-ABL prediction from gene-expression profiles and evaluate how IPD methods calibrate downstream inference in genomics.</p>
+<p>Study BCR-ABL prediction from gene-expression profiles and evaluate how PB inference methods calibrate downstream inference in genomics.</p>
 </div>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1773181875421" data-listing-reading-time-sort="15" data-listing-word-count-sort="2868">
+<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1773337729038" data-listing-reading-time-sort="15" data-listing-word-count-sort="2875">
 <a href="./content/Unit05_RashomonQuartet.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -762,7 +760,7 @@ The Rashomon Quartet
 i.e., Performance is not Enough
 </div>
 <div class="card-text listing-description delink">
-<p>Examine how equally predictive models can yield different scientific conclusions and compare naive, classical, and IPD-based inference.</p>
+<p>Examine how equally predictive models can yield different scientific conclusions and compare naive, classical, and PB inference.</p>
 </div>
 </div>
 </div></a>
@@ -895,14 +893,13 @@ i.e., Performance is not Enough
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

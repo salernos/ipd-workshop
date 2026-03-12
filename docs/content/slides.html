@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Overview – IPD Workshop</title>
+<title>Overview – Prediction-Based Inference: Methods &amp; Applications</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,19 +33,18 @@ ul.task-list li input[type="checkbox"] {
 <link href="../content/information.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5d358c139d2e90da63c14cb1e16cafdd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-dd257045cb431b75a7b6ce73c259ef30.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-5d358c139d2e90da63c14cb1e16cafdd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-affda8cd2d7e1fc5be1375ea7c5928c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-0c0a357e8fa1b2f0afa7038f8c9f2303.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-affda8cd2d7e1fc5be1375ea7c5928c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -88,7 +87,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+      if (mathElements[i].tagName == "SPAN") {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -105,10 +104,10 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Overview – IPD Workshop">
+<meta property="og:title" content="Overview – Prediction-Based Inference: Methods &amp; Applications">
 <meta property="og:description" content="Promises and pitfalls of using predicted data for downstream inference">
 <meta property="og:image" content="https://salernos.github.io/ipd-workshop/content/images/ipd_overview.png">
-<meta property="og:site_name" content="IPD Workshop">
+<meta property="og:site_name" content="Prediction-Based Inference: Methods &amp; Applications">
 <meta property="og:image:height" content="502">
 <meta property="og:image:width" content="1061">
 </head>
@@ -299,8 +298,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../content/images/ipd.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="../content/images/ipd.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <img src="../content/images/ipd.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="javascript:window.quartoToggleColorScheme();" title="Toggle Dark Mode" class="quarto-navigation-tool px-1" aria-label="Toggle Dark Mode"><i class="bi bi-moon"></i></a>
@@ -467,7 +465,7 @@ Update this PDF path after adding Jesse's slide deck to:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Key Takeaway
+Key Takeaway
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -477,18 +475,18 @@ Update this PDF path after adding Jesse's slide deck to:
 </section>
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
-<p>When an outcome, <span class="math inline">\(Y\)</span>, is costly or difficult to measure, it can be tempting to replace missing values with predictions, <span class="math inline">\(f(\boldsymbol{X})\)</span>, from a machine learning model (e.g., a random forest or neural network) built on easier-to-measure features, <span class="math inline">\(\boldsymbol{X}\)</span>. However, using <span class="math inline">\(f\)</span> as if it were the true outcome in downstream analyses, e.g., in estimating a regression coefficient, <span class="math inline">\(\beta\)</span>, for the association between <span class="math inline">\(Y\)</span> and <span class="math inline">\(\boldsymbol{X}\)</span>, leads to biased point estimates and underestimated uncertainty. Methods for <a href="https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267">Inference with Predicted Data (IPD)</a> address this by leveraging a small subset of “labeled” data with true <span class="math inline">\(Y\)</span> values to calibrate inference in a larger “unlabeled” dataset.</p>
+<p>When an outcome, <span class="math inline">\(Y\)</span>, is costly or difficult to measure, it can be tempting to replace missing values with predictions, <span class="math inline">\(f(\boldsymbol{X})\)</span>, from a machine learning model (e.g., a random forest or neural network) built on easier-to-measure features, <span class="math inline">\(\boldsymbol{X}\)</span>. However, using <span class="math inline">\(f\)</span> as if it were the true outcome in downstream analyses, e.g., in estimating a regression coefficient, <span class="math inline">\(\beta\)</span>, for the association between <span class="math inline">\(Y\)</span> and <span class="math inline">\(\boldsymbol{X}\)</span>, leads to biased point estimates and underestimated uncertainty. Methods for Prediction-Based (PB) Inference address this by leveraging a small subset of “labeled” data with true <span class="math inline">\(Y\)</span> values to calibrate inference in a larger “unlabeled” dataset.</p>
 <div class="hero-grid">
 <div class="hero-diagram">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/ipd_overview.png" class="img-fluid figure-img"></p>
-<figcaption><em>Overview of setup for common ‘inference with predicted data’ problems</em></figcaption>
+<figcaption><em>Overview of setup for common ‘prediction-based inference’ problems</em></figcaption>
 </figure>
 </div>
 </div>
-<section id="the-ipd-framework" class="level2 goals-card">
-<h2 class="anchored" data-anchor-id="the-ipd-framework">The IPD Framework</h2>
+<section id="the-prediction-based-pb-inference-framework" class="level2 goals-card">
+<h2 class="anchored" data-anchor-id="the-prediction-based-pb-inference-framework">The Prediction-Based (PB) Inference Framework</h2>
 <p>Consider data arising from three sets of observations:</p>
 <ul>
 <li><strong>Training Set</strong>: <span class="math inline">\(\{(X_j, Y_j)\}_{j=1}^{n_t}\)</span>, used to fit a predictive model, <span class="math inline">\(f(\cdot)\)</span>.</li>
@@ -518,22 +516,22 @@ Update this PDF path after adding Jesse's slide deck to:
 \hat\beta_{\text{classical}} = \arg\min_\beta \sum_{i\in L} (Y_i - X_i'\beta)^2.
 \]</span> While this approach is valid, it has limited precision because <span class="math inline">\(n_l\)</span> is small in practice and we do not utilize any potential information from the (often much larger) <strong>unlabeled</strong> data.</p>
 </section>
-<section id="ipd-estimators" class="level3">
-<h3 class="anchored" data-anchor-id="ipd-estimators">IPD Estimators</h3>
-<p>Many estimators tailored to inference with predicted data share a similar form, as given in <a href="https://arxiv.org/pdf/2501.09731">Ji et al.&nbsp;(2025)</a>:</p>
+<section id="pb-estimators" class="level3">
+<h3 class="anchored" data-anchor-id="pb-estimators">PB Estimators</h3>
+<p>Many estimators tailored to PB inference share a similar form, as given in <a href="https://arxiv.org/pdf/2501.09731">Ji et al.&nbsp;(2025)</a>:</p>
 <p><span class="math display">\[
-\widehat\beta_\text{ipd} = \arg\min_\beta \frac{1}{n_l}\sum_{i=1}^{n_l} \ell(X_i, Y_i) - \left[\frac{1}{n_l}\sum_{i=1}^{n_l} g(X_i, f_i) - \frac{1}{n_l+n_u}\sum_{i=n_l+1}^{n_l+n_u} g(X_i, f_i)\right],
+\widehat\beta_\text{pb} = \arg\min_\beta \frac{1}{n_l}\sum_{i=1}^{n_l} \ell(X_i, Y_i) - \left[\frac{1}{n_l}\sum_{i=1}^{n_l} g(X_i, f_i) - \frac{1}{n_l+n_u}\sum_{i=n_l+1}^{n_l+n_u} g(X_i, f_i)\right],
 \]</span></p>
 <p>for some loss function, <span class="math inline">\(\ell(\cdot)\)</span>, such as the squared error loss for linear regression, and some <span class="math inline">\(g(\cdot)\)</span>, which they call the ‘imputed loss’. Here, the first term is exactly the <strong>classical</strong> estimator, which anchors these methods on a valid model, and the second term in the square brackets ‘augments’ the estimator with additional information from the predictions. This allows us to have an estimator that is provably unbiased and asymptotically at least as efficient as the <strong>classical</strong> estimator, which only uses a fraction of the data.</p>
-<p>The <a href="https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267">Inference with Predicted Data (IPD)</a> package implements several recent methods for IPD, such as <strong>Chen &amp; Chen</strong> method of <a href="https://arxiv.org/pdf/2411.19908">Gronsbell et al.</a>, the Prediction-Powered Inference (<strong>PPI</strong>) and <strong>PPI++</strong> methods of <a href="https://www.science.org/doi/10.1126/science.adi6000">Angelopoulos et al.&nbsp;(a)</a> and <a href="https://arxiv.org/pdf/2311.01453">Angelopoulos et al.&nbsp;(a)</a>, the Post-Prediction Inference (<strong>PostPI</strong>) method of <a href="https://www.pnas.org/doi/10.1073/pnas.2001238117">Wang et al.</a>, and the Post-Prediction Adaptive Inference (<strong>PSPA</strong>) method of <a href="https://arxiv.org/abs/2311.14220">Miao et al.</a> to conduct valid, efficient inference, even when a large proportion of outcomes are predicted.</p>
+<p>The <a href="https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267"><code>ipd</code> (inference with predicted data)</a> package implements several recent methods for PB inference, such as the <strong>Chen &amp; Chen</strong> method of <a href="https://arxiv.org/pdf/2411.19908">Gronsbell et al.</a>, the Prediction-Powered Inference (<strong>PPI</strong>) and <strong>PPI++</strong> methods of <a href="https://www.science.org/doi/10.1126/science.adi6000">Angelopoulos et al.&nbsp;(a)</a> and <a href="https://arxiv.org/pdf/2311.01453">Angelopoulos et al.&nbsp;(a)</a>, the Post-Prediction Inference (<strong>PostPI</strong>) method of <a href="https://www.pnas.org/doi/10.1073/pnas.2001238117">Wang et al.</a>, and the Post-Prediction Adaptive Inference (<strong>PSPA</strong>) method of <a href="https://arxiv.org/abs/2311.14220">Miao et al.</a> to conduct valid, efficient inference, even when a large proportion of outcomes are predicted.</p>
 </section>
 </section>
 <section id="slides-pdf" class="level2">
 <h2 class="anchored" data-anchor-id="slides-pdf">Slides (PDF)</h2>
 <div style="border: 1px solid #d9dee6; border-radius: 10px; overflow: hidden; margin-bottom: 1rem;">
-<p><iframe src="content/slides/slides.pdf" title="Background and Motivation Slides" width="100%" height="900" style="border: 0;"> </iframe></p>
+<p><iframe src="slides/slides.pdf" title="Background and Motivation Slides" width="100%" height="900" style="border: 0;"> </iframe></p>
 </div>
-<p><a href="content/slides/slides.pdf" target="_blank">Open slides in a new tab</a></p>
+<p><a href="slides/slides.pdf" target="_blank">Open slides in a new tab</a></p>
 
 
 </section>
@@ -628,14 +626,13 @@ Update this PDF path after adding Jesse's slide deck to:
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
