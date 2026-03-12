@@ -1,4 +1,4 @@
-FROM bioconductor/bioconductor_docker:devel
+FROM bioconductor/bioconductor_docker:RELEASE_3_21
 
 # System dependencies needed by common workshop packages.
 RUN apt-get update && apt-get install -y --no-install-recommends \
