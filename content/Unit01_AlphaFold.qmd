@@ -24,22 +24,11 @@ execute:
 
 ## Background
 
-Modern protein biology increasingly relies on machine learning predictions.  
-AlphaFold, developed by Google DeepMind, predicts a protein's 3D structure from
-its amino acid sequence with remarkably high accuracy. These predictions have
-transformed structural biology by providing proteome-scale annotations that
-would be impossible to obtain experimentally at the same scale.
+Modern protein biology increasingly relies on machine learning predictions. AlphaFold, developed by Google DeepMind, predicts a protein's 3D structure from its amino acid sequence with remarkably high accuracy. These predictions have transformed structural biology by providing proteome-scale annotations that would be impossible to obtain experimentally at the same scale.
 
-At the same time, many downstream biological questions remain fundamentally
-*inferential* rather than predictive. For example, we may want to ask whether
-post-translational modifications (PTMs) occur more often in intrinsically
-disordered regions (IDRs), or whether certain PTMs are associated with
-different structural environments. In settings like this, model predictions are
-useful, but they are not the same thing as directly observed truth.
+At the same time, many downstream biological questions remain fundamentally *inferential* rather than predictive. For example, we may want to ask whether post-translational modifications (PTMs) occur more often in intrinsically disordered regions (IDRs), or whether certain PTMs are associated with different structural environments. In settings like this, model predictions are useful, but they are not the same thing as directly observed truth.
 
-This module uses the `ipd` package to study that problem. We will combine
-AlphaFold-derived predictions with a limited amount of ground truth and ask how
-different inferential strategies behave.
+This module uses the `ipd` package to study that problem. We will combine AlphaFold-derived predictions with a limited amount of ground truth and ask how different inferential strategies behave.
 
 By the end of this module, you will be able to:
 
@@ -51,16 +40,9 @@ By the end of this module, you will be able to:
 
 ## Biological Motivation
 
-AlphaFold predictions can be post-processed to identify *intrinsically
-disordered regions (IDRs)*, that is, stretches of a protein that do not adopt
-a stable folded structure.
+AlphaFold predictions can be post-processed to identify *intrinsically disordered regions (IDRs)*, that is, stretches of a protein that do not adopt a stable folded structure.
 
-IDRs are central to signaling and regulation. They are flexible, accessible,
-and often enriched for short linear motifs. Many post-translational
-modifications, especially *phosphorylation*, *ubiquitination*, and
-*acetylation*, are hypothesized to occur preferentially in disordered
-regions, consistent with the idea that structural disorder supports rapid and
-dynamic regulation.
+IDRs are central to signaling and regulation. They are flexible, accessible, and often enriched for short linear motifs. Many post-translational modifications, especially *phosphorylation*, *ubiquitination*, and *acetylation*, are hypothesized to occur preferentially in disordered regions, consistent with the idea that structural disorder supports rapid and dynamic regulation.
 
 In this workshop, each amino acid residue has:
 
@@ -78,15 +60,15 @@ Our scientific question is:
 
 ## Statistical Framing
 
-For a chosen PTM, `Z`:
+For a chosen PTM, `X`:
 
-- `Z = 1` if the residue carries that PTM,
+- `X = 1` if the residue carries that PTM,
 - `Y = 1` if the residue lies in an IDR.
 
 We summarize the association using an odds ratio from logistic regression:
 
 $$
-\text{OR} = \frac{\text{Odds}(Y = 1 \mid Z = 1)}{\text{Odds}(Y = 1 \mid Z = 0)}.
+\text{OR} = \frac{\text{Odds}(Y = 1 \mid X = 1)}{\text{Odds}(Y = 1 \mid X = 0)}.
 $$
 
 In practice, however, we may only observe `Y` on a *labeled subset*, while
@@ -109,8 +91,7 @@ library(future)
 library(furrr)
 ```
 
-We have included a file, `alphafold.RData`, containing a `tibble` named
-`alphafold` with columns:
+We have included a file, `data/alphafold.RData`, containing a `tibble` named `alphafold` with columns:
 
 * `Y`
 * `Yhat`
@@ -177,7 +158,7 @@ We should observe that:
 
 For illustration, we will analyze **one PTM at a time**. For a chosen PTM:
 
-* `Z` is its binary indicator,
+* `X` is its binary indicator,
 * `Y` is the true disorder label,
 * `Yhat` is the predicted disorder probability.
 
@@ -187,7 +168,7 @@ Let us begin with **phosphorylation**. Create a working dataset with columns:
 
 * `Y`
 * `Yhat`
-* `Z` (phosphorylation indicator)
+* `X` (phosphorylation indicator)
 
 This will be the working dataset for the rest of this module.
 
@@ -204,11 +185,11 @@ dat <- alphafold |>
   transmute(
     Y    = as.integer(Y),
     Yhat = as.numeric(Yhat),
-    Z    = as.integer(.data[[ptm]])
+    X    = as.integer(.data[[ptm]])
   )
 
 dat |>
-  count(Z) |>
+  count(X) |>
   mutate(pct = n / sum(n) * 100)
 ```
 
@@ -222,9 +203,9 @@ We have now defined our three core variables:
 
 * `Y`: true disorder,
 * `Yhat`: predicted disorder,
-* `Z`: PTM indicator.
+* `X`: PTM indicator.
 
-For phosphorylation, we should see that `Z = 1` for a substantial fraction of
+For phosphorylation, we should see that `X = 1` for a substantial fraction of
 residues.
 
 :::
@@ -312,8 +293,8 @@ ratio:
 * **PB inference methods**:
 
   * PPI
-  * Chen & Chen
   * PDC
+  * Chen & Chen
 
 The oracle is included as a benchmark, but in practice it is usually 
 unavailable.
@@ -338,23 +319,23 @@ alpha <- 0.05
 
 stacked <- make_split(dat = dat, n_labeled = 500, seed = 123)
 
-fit_oracle <- glm(Y ~ Z, data = dat, family = binomial())
+fit_oracle <- glm(Y ~ X, data = dat, family = binomial())
 
-fit_classical <- glm(Y ~ Z, data = filter(stacked, set_label == "labeled"),
+fit_classical <- glm(Y ~ X, data = filter(stacked, set_label == "labeled"),
                      
   family = binomial())
   
-fit_naive <- glm(I(Yhat > 0.5) ~ Z, data = stacked, family = binomial())
+fit_naive <- glm(I(Yhat > 0.5) ~ X, data = stacked, family = binomial())
 
-fit_ppi <- ipd(Y - I(Yhat > 0.5) ~ Z, method = "ppi", model = "logistic", 
+fit_ppi <- ipd(Y - I(Yhat > 0.5) ~ X, method = "ppi", model = "logistic", 
                
   data = stacked, label = "set_label")
 
-fit_chen <- ipd(Y - I(Yhat > 0.5) ~ Z, method = "chen", model = "logistic", 
+fit_pdc <- ipd(Y - I(Yhat > 0.5) ~ X, method = "pdc", model = "logistic", 
                
   data = stacked, label = "set_label")
 
-fit_pdc <- ipd(Y - I(Yhat > 0.5) ~ Z, method = "pdc", model = "logistic", 
+fit_chen <- ipd(Y - I(Yhat > 0.5) ~ X, method = "chen", model = "logistic", 
                
   data = stacked, label = "set_label")
 
@@ -367,18 +348,18 @@ ex4_results <- bind_rows(
   tidy(fit_naive,     conf.int = TRUE) |> mutate(Method = "Naive"),
   
   tidy(fit_ppi)                        |> mutate(Method = "PPI"),
-
-  tidy(fit_chen)                       |> mutate(Method = "Chen + Chen"),
-
-  tidy(fit_pdc)                        |> mutate(Method = "PDC")) |>
   
-  filter(term == "Z") |>
+  tidy(fit_pdc)                        |> mutate(Method = "PDC"),
+
+  tidy(fit_chen)                       |> mutate(Method = "Chen + Chen")) |>
+  
+  filter(term == "X") |>
   
   mutate(
     
     Method = factor(Method) |>
       
-      fct_relevel("Oracle", "Classical", "Naive", "PPI", "Chen + Chen", "PDC"),
+      fct_relevel("Oracle", "Naive", "Classical", "PPI", "PDC", "Chen + Chen"),
     
     OR  = exp(estimate),
     
@@ -439,15 +420,13 @@ This single-split comparison illustrates several common patterns:
 
 * **Oracle** uses the full ground truth and serves as a benchmark.
 * **Classical** uses only labeled data and is often valid but inefficient.
-* **Naive** treats predictions as truth and often gives intervals that are too
-  narrow.
-* **PB inference methods** use the labeled subset to correct bias and account 
-  for prediction uncertainty while borrowing strength from the unlabeled data.
+* **Naive** treats predictions as truth and often gives biased estimates intervals that are too narrow.
+* **PB inference methods** use the labeled subset to correct bias and account for prediction uncertainty while borrowing strength from the unlabeled data.
 
 We should see:
 
 * Classical intervals that are wide,
-* Naive intervals that look overly precise,
+* Naive intervals that are biased and look overly precise,
 * PB intervals that are narrower than classical but more honest than naive.
 
 :::
@@ -471,8 +450,8 @@ For each `n` in `{100, 500, 1000, 5000}`:
 * Record confidence intervals,
 * Compute interval widths.
 
-We will store everything in a single results table for now so that we can
-inspect and plot these results in later exercises.
+We will store everything in a single results table and then plot the mean 
+interval width against the number of labeled observations.
 
 ::: {.callout-note collapse="true"}
 
@@ -485,29 +464,29 @@ ns <- c(100, 500, 1000, 5000)
 
 num_trials <- 20
 
-fit_oracle <- glm(Y ~ Z, data = dat, family = binomial())
+fit_oracle <- glm(Y ~ X, data = dat, family = binomial())
 
 run_one <- function(n, t, fit_oracle) {
   
   s <- make_split(dat, n, seed = 1000 + n + t)
 
-  fit_classical <- glm(Y ~ Z, data = filter(s, set_label == "labeled"),
+  fit_classical <- glm(Y ~ X, data = filter(s, set_label == "labeled"),
                      
     family = binomial())
   
-  fit_naive <- glm(I(Yhat > 0.5) ~ Z, data = s, family = binomial())
+  fit_naive <- glm(I(Yhat > 0.5) ~ X, data = s, family = binomial())
 
-  fit_ppi <- ipd(Y - I(Yhat > 0.5) ~ Z, method = "ppi", 
+  fit_ppi <- ipd(Y - I(Yhat > 0.5) ~ X, method = "ppi", 
                  
     model = "logistic", data = s, label = "set_label")
-
-  fit_chen <- ipd(Y - I(Yhat > 0.5) ~ Z, method = "chen", 
-                  
-    model = "logistic", data = s, label = "set_label")     
-    
-  fit_pdc <- ipd(Y - I(Yhat > 0.5) ~ Z, method = "pdc", 
+  
+  fit_pdc <- ipd(Y - I(Yhat > 0.5) ~ X, method = "pdc", 
                   
     model = "logistic", data = s, label = "set_label")
+
+  fit_chen <- ipd(Y - I(Yhat > 0.5) ~ X, method = "chen", 
+                  
+    model = "logistic", data = s, label = "set_label")     
   
   results <- bind_rows(
     
@@ -518,18 +497,18 @@ run_one <- function(n, t, fit_oracle) {
     tidy(fit_naive,     conf.int = TRUE) |> mutate(Method = "Naive"),
     
     tidy(fit_ppi)                        |> mutate(Method = "PPI"),
+    
+    tidy(fit_pdc)                        |> mutate(Method = "PDC"),
 
-    tidy(fit_chen)                       |> mutate(Method = "Chen + Chen"),
-
-    tidy(fit_pdc)                        |> mutate(Method = "PDC")) |>
+    tidy(fit_chen)                       |> mutate(Method = "Chen + Chen")) |>
   
-  filter(term == "Z") |>
+  filter(term == "X") |>
   
   mutate(
     
     Method = factor(Method) |>
       
-      fct_relevel("Oracle", "Classical", "Naive", "PPI", "Chen + Chen", "PDC"),
+      fct_relevel("Oracle", "Naive", "Classical", "PPI", "PDC", "Chen + Chen"),
     
     OR  = exp(estimate),
     
@@ -571,32 +550,9 @@ glimpse(ex5_results)
 
 :::
 
-::: {.callout-tip}
 
-## Notes
 
-This table stores repeated confidence intervals across several labeled sample
-sizes. It lets us compare methods in terms of *statistical efficiency*.
 
-In general, we expect:
-
-* Interval widths to decrease as `n` increases,
-* Classical inference to improve steadily but slowly,
-* Naive intervals to remain artificially tight,
-* PB inference methods to leverage unlabeled data and often achieve meaningful gains.
-
-:::
-
-### Discussion Questions
-
-* Why do some PB inference methods outperform others?
-* Are the methods more variable across repeated trials when `n` is small?
-* What does this suggest for pilot studies?
-
-## Exercise 6: Average CI Width by Sample Size
-
-Now summarize the repeated experiments by plotting the mean interval width
-against the number of labeled observations.
 
 ::: {.callout-note collapse="true"}
 
@@ -661,9 +617,12 @@ ex6_results |>
 
 ## Notes
 
-This figure summarizes efficiency across methods:
+This exercise lets us compare methods in terms of *statistical efficiency*.
+
+In general, we see that:
 
 * The **oracle** sets the best achievable benchmark,
+* **Naive** intervals to remain artificially too small,
 * **Classical** requires many more labels to approach that benchmark,
 * **PB inference methods** can recover a meaningful fraction of that lost efficiency.
 
@@ -764,11 +723,11 @@ run_one_ci <- function(s, method = c("PPI", "Classical")) {
 
   if (method == "PPI") {
     
-    fit <- ipd(Y - Yhat ~ Z, method = "ppi", model = "logistic",
+    fit <- ipd(Y - Yhat ~ X, method = "ppi", model = "logistic",
                
       data = s, label = "set_label", alpha = alpha_pval)
     
-    tt <- tidy(fit) |> filter(term == "Z")
+    tt <- tidy(fit) |> filter(term == "X")
     
     c(LCL = exp(tt$conf.low), UCL = exp(tt$conf.high))
     
@@ -776,9 +735,9 @@ run_one_ci <- function(s, method = c("PPI", "Classical")) {
     
     lab <- s |> filter(set_label == "labeled")
     
-    m <- glm(Y ~ Z, data = lab, family = binomial())
+    m <- glm(Y ~ X, data = lab, family = binomial())
     
-    tt <- tidy(m, conf.int = TRUE) |> filter(term == "Z")
+    tt <- tidy(m, conf.int = TRUE) |> filter(term == "X")
 
     c(LCL = exp(tt$conf.low), UCL = exp(tt$conf.high))
   }
@@ -796,7 +755,7 @@ power_at_n <- function(n_labeled, method = c("PPI", "Classical")) {
     
     if (method == "PPI") {
       
-      as.integer(ci[["LCL.Z"]] > 1)
+      as.integer(ci[["LCL.X"]] > 1)
       
     } else {
       
@@ -898,10 +857,10 @@ trying thresholds of 0.2, 0.4, 0.6, and 0.8.
 thresholds <- seq(0.2, 0.8, 0.2)
 
 naive_by_threshold <- function(thr) {
-  m <- glm(I(Yhat > thr) ~ Z, data = dat, family = binomial())
+  m <- glm(I(Yhat > thr) ~ X, data = dat, family = binomial())
 
   tidy(m, conf.int = TRUE) |>
-    filter(term == "Z") |>
+    filter(term == "X") |>
     transmute(
       threshold = thr,
       OR = exp(estimate),
