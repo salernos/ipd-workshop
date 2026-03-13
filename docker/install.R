@@ -17,6 +17,7 @@ BiocManager::install(c(
 
 install.packages(c(
   "ipd",
+  "MASS",
   "broom",
   "tidyverse",
   "future",

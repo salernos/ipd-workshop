@@ -18,20 +18,18 @@ execute:
   message: false
 ---
 
-# Overview
+## Overview
 
 Welcome to this workshop on *Prediction-Based (PB) Inference*.
 
-In this first module, we use a simple synthetic example to build intuition for
-how PB inference works and why it is needed. We will:
+In this first module, we use a simple synthetic example to build intuition for how PB inference works and why it is needed. We will:
 
 - Introduce the [`ipd`](https://github.com/ipd-tools/ipd) package,
 - Generate synthetic labeled and unlabeled data,
 - Compare naive, classical, and PB estimators, and
 - Inspect results using built-in `tidy()`, `glance()`, and `augment()` methods.
 
-Throughout the workshop, each exercise includes a solution and short notes to
-help connect the results back to the main PB inference ideas.
+Throughout the workshop, each exercise includes a solution and short notes to help connect the results back to the main PB inference ideas.
 
 ::: {.callout-tip}
 
@@ -39,8 +37,7 @@ help connect the results back to the main PB inference ideas.
 
 - Try each **Exercise** on your own first.
 - Expand the **Answer** callout to view one possible solution.
-- Use the **Notes** callouts to interpret the results and connect them to the 
-  main concepts.
+- Use the **Notes** callouts to interpret the results and connect them to the main concepts.
 
 :::
 
@@ -48,8 +45,7 @@ help connect the results back to the main PB inference ideas.
 
 ## Why This Unit Uses Synthetic Data
 
-Unit 00 uses synthetic examples on purpose. The goal is to make the PB inference
-workflow concrete before moving to real applications in later modules.
+Unit 00 uses synthetic examples on purpose. The goal is to make the PB inference workflow concrete before moving to real applications in later modules.
 
 :::
 
@@ -57,16 +53,13 @@ workflow concrete before moving to real applications in later modules.
 
 ## Key Takeaway
 
-Using predicted outcomes can improve efficiency, but treating them as if they
-were the true observed outcomes can bias downstream inference. PB inference 
-methods use a small labeled set to correct that bias while still borrowing 
-information from unlabeled data and predictions.
+Using predicted outcomes can improve efficiency, but treating them as if they were the true observed outcomes can bias downstream inference. PB inference methods use a small labeled set to correct that bias while still borrowing information from unlabeled data and predictions.
 
 :::
 
 In this unit, we will:
 
-1. **Generate** synthetic data with `ipd::simdat()`.
+1. **Generate** synthetic data.
 2. **Fit** simple downstream regression models.
 3. **Apply** `ipd::ipd()` to estimate the association between `Y` and `X1`.
 4. **Compare** naive, classical, and PB estimates.
@@ -74,53 +67,31 @@ In this unit, we will:
 
 ## Installation and Setup
 
-First, make sure you have the `ipd` package and a few supporting packages
-installed:
+First, make sure you have the `ipd` package and a few supporting packages installed:
 
 ```{r setup}
 #| code-fold: show
 # Install these packages if you have not already:
-# install.packages(c("ipd", "broom", "tidyverse", "patchwork"))
+# install.packages(c("ipd", "MASS", "broom", "tidyverse", "patchwork"))
 
 library(ipd)
+library(MASS)
 library(broom)
 library(tidyverse)
 library(patchwork)
 ```
 
-Throughout the workshop, we will use reproducible seeds and
-[`tidyverse`](https://www.tidyverse.org/) conventions.
+Throughout the workshop, we will use reproducible seeds and [`tidyverse`](https://www.tidyverse.org/) conventions.
 
 ## Function References
 
 Here is a brief overview of the main `ipd` functions used in this unit.
 
-### `simdat()`
-
-`simdat()` generates synthetic datasets for several inferential settings.
-
-```{r, eval=FALSE}
-simdat(
-  n,        # Numeric vector of length 3: c(n_train, n_labeled, n_unlabeled)
-  effect,   # Numeric: true effect size for simulation
-  sigma_Y,  # Numeric: residual standard deviation
-  model,    # Character: one of "mean", "quantile", "ols", "logistic", "poisson"
-  ...       # Additional arguments
-)
-```
-
-This function returns a data.frame with columns:
-
-* `X1, X2, ...`: covariates
-* `Y`: true outcome (for training, labeled, and unlabeled subsets)
-* `f`: predictions from the model (for labeled and unlabeled subsets)
-* `set_label`: character indicating "training", "labeled", or "unlabeled".
-
 ### `ipd()`
 
 `ipd()` fits IPD estimators for downstream inference with predicted outcomes.
 
-```{r, eval=FALSE}
+```r
 ipd(
   formula,      # A formula: e.g., Y - f ~ X1 + X2 + ...
   method,       # Character: one of "chen", "pdc", "postpi_analytic", 
@@ -138,13 +109,13 @@ ipd(
 
 Methods currently implemented are:
 
-* `chen`: Chen and Chen Estimator ([Gronsbell et al., 2025](https://arxiv.org/pdf/2411.19908))
+* `chen`: Chen and Chen Estimator ([Gronsbell et al., 2026](https://arxiv.org/pdf/2411.19908))
 * `pdc`: Prediction Decorrelated Inference ([Gan et al., 2024](https://onlinelibrary.wiley.com/doi/10.1111/anzs.12429))
 * `postpi_analytic`: Analytic Post-Prediction Inference ([Wang et al., 2020](https://www.pnas.org/doi/10.1073/pnas.2001238117)).
 * `postpi_boot`: Bootstrap Post-Prediction Inference ([Wang et al., 2020](https://www.pnas.org/doi/10.1073/pnas.2001238117)).
 * `ppi`: Prediction-Powered Inference ([Angelopoulos et al., 2023](https://www.science.org/doi/10.1126/science.adi6000))
 * `ppi_plusplus`: PPI++ (PPI with Data-Driven Weighting; [Angelopoulos et al., 2024](https://arxiv.org/pdf/2311.01453))
-* `ppi_a`: PPI using All Data ([Gronsbell et al., 2025](https://arxiv.org/pdf/2411.19908))
+* `ppi_a`: PPI using All Data ([Gronsbell et al., 2026](https://arxiv.org/pdf/2411.19908))
 * `pspa`: Assumption-Lean and Data-Adaptive Post-Prediction Inference ([Miao et al., 2024](https://www.jmlr.org/papers/volume26/24-0056/24-0056.pdf))
 
 ### Tidy Methods
@@ -157,6 +128,667 @@ Like many model objects in R, `ipd` fits work with familiar helper functions:
 * `augment()`: return the original data with fitted values and residuals.
 
 ## Simulating Data
+
+The `ipd` package provides a function for simulating data based on the approach in [Wang et al. (2020)](https://www.pnas.org/doi/10.1073/pnas.2001238117). We provide more detail about this function at the end of this model. Here, we will be generating synthetic data following [Gronsbell et al. (2026)](https://arxiv.org/pdf/2411.19908) and [Ji et al. (2025)](https://arxiv.org/pdf/2501.09731) to better illustrate the core principles of PB inference in a more straightforward manner. We provide helper functions below to simulate data from a linear regression model.
+
+```{r}
+#--- Function for the l2 Norm
+
+l2_norm <- function(x, squared = FALSE) {
+  
+  y <- sum(x^2)
+  
+  if (!squared) {
+    
+    y <- sqrt(y)
+  }
+  
+  return(y)
+}
+
+#--- Function to Generate from the Unit Sphere S^{d-1}
+
+unit_vec <- function(d) {
+  
+  v <- rnorm(d)
+  
+  return(v / l2_norm(v))
+}
+
+#--- Function to Simulate Data
+
+simple_data_gen <- function(
+    n,                 # Number of Samples
+    p = 2,             # Number of Covariates
+    prop_lab = 0.1,    # Proportion of Labeled Observations
+    total_var = 20,    # Total Variance
+    ratio_var = 1,     # Variance Ratio
+    rho = 0,           # Covariate Correlation
+    sigma_y = 1,       # Outcome Error Variance
+    beta = c(1,1),     # Effect Sizes
+    predset_ind = 1) { # Indices for Covariates Used for Prediction.
+  
+  #- Covariate Covariance Matrix
+  
+  sigma_x <- total_var / (ratio_var + 1)
+  
+  sigma_w <- ratio_var * sigma_x
+  
+  cov_diag <- sqrt(c(rep(sigma_x, p / 2), rep(sigma_w, p / 2))) 
+  
+  cov_matrix <- (1 - rho) * diag(cov_diag^2) + rho * (cov_diag %o% cov_diag)
+  
+  #- Generate Covariates
+  
+  x <- MASS::mvrnorm(n, mu = rep(0, p), Sigma = cov_matrix)
+  
+  colnames(x) <- paste0('x', 1 : p)
+  
+  #- Generate Outcome
+  
+  eps <- rnorm(n, sd = sigma_y) 
+  
+  lin_pred <- x %*% beta 
+  
+  y <- lin_pred + eps
+  
+  #- Inference Data
+  
+  inference_data <- data.frame(y = y, x)
+  
+  #- Generate Predictions
+  
+  pred_covs <- as.matrix(inference_data[, paste0("x", predset_ind)])
+  
+  pred_beta <- c(beta[predset_ind])
+    
+  f <- pred_covs %*% pred_beta
+  
+  #- Analysis Data
+  
+  analysis_data <- data.frame(inference_data, f)
+  
+  samp_ind <- rbinom(n, 1, prop_lab)
+  
+  analysis_data$set_label <- ifelse(samp_ind == 1, "labeled", "unlabeled")
+  
+  return(as_tibble(analysis_data))
+}
+
+```
+
+### Exercise 1: Data Generation
+
+Let us generate a synthetic dataset for a linear model with:
+
+* `n = 10000` samples
+* `p = 10` covariates
+* A `prop_lab = 0.1` proportion of labeled observations
+* A total variance of `total_var = 20`
+* A variance ratio of `ratio_var = 1`
+* No covariate correlation (`rho = 0`)
+* A `sigma_y = 1` outcome error variance
+* Coefficients `beta <- c(unit_vec(p / 2), unit_vec(p / 2))` generated from the unit circle
+* `predset_ind = 1 : 10` indices for covariates used for prediction
+
+The first setting is an 'ideal' setting that mimics when the prediction is derived from a linear model that was estimated on a large, independent dataset with the same distribution of $Y | X$ as the dataset used for conducting inference. Here, we generate predictions based on all $X$'s being available. In this stylized example, we are generating predictions $f = E[Y | X]$ so the naive approach should be unbiased, but still anti-conservative, as we do not fully capture the variability of $Y$.
+
+::: {.callout-note collapse="true"}
+
+## Answer
+
+```{r}
+set.seed(123)
+
+n <- 10000 # Number of Samples
+p <- 10    # Number of Covariates
+
+b1 <- unit_vec(p / 2) # Effect Sizes
+b2 <- unit_vec(p / 2)
+
+dat_ipd <- simple_data_gen(
+    n = n,               # Number of Samples
+    p = p,               # Number of Covariates
+    prop_lab = 0.1,      # Proportion of Labeled Observations
+    total_var = 20,      # Total Variance
+    ratio_var = 1,       # Variance Ratio
+    rho = 0,             # Covariate Correlation
+    sigma_y = 1,         # Outcome Error Variance
+    beta = c(b1, b2),    # Effect Sizes
+    predset_ind = 1:10  # Indices for covariates used for prediction.
+)
+```
+
+```{r}
+# The resulting tibble `dat_ipd` has columns:
+#  - X1, X2, ..., Xp: Simulated covariates 
+#  - Y              : True outcome 
+#  - f              : Predicted outcome 
+#  - set_label      : {"labeled", "unlabeled"}
+
+# Quick look:
+dat_ipd |> 
+  group_by(set_label) |> 
+  summarize(n = n()) 
+```
+
+:::
+
+Let us also inspect the first few rows of each subset:
+
+::: {.callout-note collapse="true"}
+
+## Answer
+
+```{r}
+# Labeled set
+dat_ipd |>
+  filter(set_label == "labeled") |>
+  glimpse()
+
+# Unlabeled set
+dat_ipd |>
+  filter(set_label == "unlabeled") |>
+  glimpse()
+```
+
+:::
+
+::: {.callout-tip}
+
+## Notes
+
+* Rows where `set_label == "labeled"` also have both `Y` and `f`.  In practice, `f` will be generated by your own prediction model. Here, we do so automatically.
+* Rows where `set_label == "unlabeled"` have `Y` for posterity (but in a real‐data scenario, you would not know `Y`). We still generate `Y`, but the PB routines will not use these. The column `f` always contains 'predicted' values.
+
+:::
+
+## Comparison of the True vs Predicted Outcomes
+
+Before modeling, it is helpful to see graphically how the predicted values, 
+$f$, compare to the true outcomes, $Y$. 
+
+### Exercise 2: Plotting the Data
+
+We can visually assess the **bias** and **variance** of our predicted 
+outcomes, $f$, versus the true outcomes, $Y$, in our analytic data by 
+plotting:
+
+1. **Scatterplot** of $Y$ and $f$ vs. $X_1$  
+2. **Density plots** of $Y$ and $f$  
+
+::: {.callout-note collapse="true"}
+
+## Answer
+
+```{r, out.width="100%", dpi=300}
+# Prepare data
+dat_visualize <- dat_ipd |> 
+  select(x1, y, f) |>
+  pivot_longer(y:f, names_to = "Measure", values_to = "Value") |>
+  arrange(Measure)
+
+# Scatter + trend lines
+ggplot(dat_visualize, aes(x = x1, y = Value, color = Measure)) +
+  theme_minimal() +
+  geom_point(alpha = 0.4) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_manual(values = c("steelblue", "gray")) +
+  labs(
+    x     = "X1",
+    y     = "True Y or Predicted f",
+    color = "Measure"
+  ) +
+  theme(legend.position = "bottom") 
+```
+
+```{r, out.width="100%", dpi=300}
+# Density plots
+ggplot(dat_visualize, aes(x = Value, fill = Measure)) +
+  theme_minimal() +
+  geom_density(alpha = 0.4) +
+  scale_fill_manual(values = c("steelblue", "gray")) +
+  labs(
+    x     = "Value",
+    y     = "Density",
+    fill  = "Measure"
+  ) +
+  theme(legend.position = "bottom")
+```
+
+:::
+
+::: {.callout-tip}
+
+## Notes
+
+* In the **scatterplot**, note that the predicted values $f$ (in blue) are distributed similarly to the true $Y$ (in gray).
+* In the **density plot**, you can see that the spread of $f$ is slightly narrower than that of $Y$.
+
+:::
+
+## Some Baselines: Oracle vs Naive vs Classical Inference
+
+Before applying PB inference, let's see what happens if we:
+
+1. Regress the true `Y` on `X1` for all observations (the **oracle** approach). 
+2. Regress the *unlabeled* predicted `f` on `X1` (the **naive** approach).
+3. Regress only the *labeled* true `Y` on `X1` (the **classical** approach).
+
+We will compare these to PB inference‐corrected estimates.
+
+### Exercise 3: Naive vs. Classical Model Fitting
+
+Using the `labeled` and `unlabeled` sets, fit three models:
+
+1. **Oracle OLS** on the *full* data using `lm()` with `y ~ x1`
+2. **Naive OLS** on the *unlabeled* set using `lm()` with `f ~ x1`.
+3. **Classical OLS** on the *labeled* set using `lm()` with `y ~ x1`.
+
+::: {.callout-note collapse="true"}
+
+## Answer
+
+```{r}
+# 1) Oracle: use the true outcomes for the full data (not possible in practice)
+oracle_model <- lm(y ~ x1, data = dat_ipd)
+
+# 2) Naive: treat f as if it were truth (only on unlabeled)
+naive_model <- lm(f ~ x1, data = filter(dat_ipd, set_label == "unlabeled"))
+
+# 3) Classical: regress true Y on X1, only on the labeled set
+classical_model <- lm(y ~ x1, data = filter(dat_ipd, set_label == "labeled"))
+```
+
+:::
+
+Let's also extract the coefficient summaries using the `tidy` method and compare the results of the three approaches:
+
+::: {.callout-note collapse="true"}
+
+## Answer
+
+```{r}
+oracle_df <- tidy(oracle_model) |>
+  mutate(method = "Oracle") |>
+  filter(term == "x1") |>
+  select(method, estimate, std.error) 
+
+naive_df <- tidy(naive_model) |>
+  mutate(method = "Naive") |>
+  filter(term == "x1") |>
+  select(method, estimate, std.error) 
+
+classical_df <- tidy(classical_model) |>
+  mutate(method = "Classical") |>
+  filter(term == "x1") |>
+  select(method, estimate, std.error)
+
+bind_rows(oracle_df, naive_df, classical_df)
+```
+
+:::
+
+::: {.callout-tip}
+
+## Notes
+
+* In this ideal setting, the **naive** coefficient is *unbiased* since the prediction model is correctly specified.
+* The **classical** coefficient is also **unbiased** but has a larger standard error due to the smaller sample size and additional random variation in the outcome.
+* The **oracle** provides the ideal baseline for these data.
+
+:::
+
+## PB Inference with `ipd::ipd()`
+
+The single wrapper function `ipd()` implements multiple PB inference methods (e.g., **Chen & Chen**, **PostPI**, **PPI**, **PPI++**, **PSPA**) for various
+inferential tasks (e.g., **mean** and **quantile** estimation, **ols**, **logistic**, and **Poisson** regression).  
+
+::: {.callout-important}
+
+## Reminder
+
+Basic usage of `ipd()`:
+
+```r
+ipd(
+  formula = Y - f ~ X1,     # The downstream inferential model
+  method  = "pspa",         # The PB inference method to run 
+  model   = "ols",          # The type of inferential model
+  data    = dat_ipd,        # A data.frame with columns:
+                            #   - set_label: {"labeled", "unlabeled"}
+                            #   - Y: true outcomes (for labeled data)
+                            #   - f: predicted outcomes
+                            #   - X covariates (here X1, X2, X3, X4)
+  label   = "set_label"     # Column name indicating "labeled"/"unlabeled"
+)
+```
+
+:::
+
+### Exercise 4: PB Model Fitting via the Chen + Chen Estimator
+
+Let's run one method, `chen`, proposed by [Gronsbell et al. (2026)](https://arxiv.org/pdf/2411.19908). The **Chen + Chen** estimator is a PB method that combines information from:
+
+1. **Labeled data** (where the true outcome, $Y$, and model predictions, $f$, are available), and  
+2. **Unlabeled data** (where only model predictions, $f$, are available).
+
+Rather than treating the predicted outcomes with the same importance as the true outcomes, the method estimates a **data-driven weight**, $\hat{\omega}$, and applies it to the predicted outcome contributions:
+
+$$
+\hat{\beta}_\text{cc} = \hat{\beta}_\text{classical} - \hat{\omega}\cdot (\hat{\gamma}_\text{naive}^l - \hat{\gamma}_\text{naive}^\text{all}),
+$$
+
+where $\hat{\beta}_{\rm classical}$ is the estimate from the **classical** regression, $\hat{\gamma}_{\rm naive}^l$ is the estimate from the **naive** regression on the *labeled* data, $\hat{\gamma}_{\rm naive}^\text{all}$ is the estimate from the **naive** regression on *all* the data, and $\hat{\omega}$ reflects the amount of additional information carried by the predictions. By adaptively weighting the unlabeled information, the **Chen + Chen** estimator achieves greater precision than by using the labeled data alone, without sacrificing validity, even when the predictions are imperfect.  
+
+Let's call the method using the `ipd()` function and collect the estimate for the slope of `X1` in a linear regression (`model = "ols"`):
+
+::: {.callout-note collapse="true"}
+
+## Answer
+
+```{r}
+set.seed(123)
+
+ipd_model <- ipd(
+  formula = y - f ~ x1,
+  data    = dat_ipd,
+  label   = "set_label",
+  method  = "chen",
+  model   = "ols"
+)
+
+ipd_model
+```
+
+:::
+
+The `ipd_model` is an `S4` object with slots for things like the coefficient, se, ci, coefTable, fit, formula, data_l, data_u, method, model, and intercept. We can extract the coefficient table using `ipd`'s `tidy` helper and compare with the naive and classical methods:
+
+::: {.callout-note collapse="true"}
+
+## Answer
+
+```{r}
+# Extract the coefficient estimates
+ipd_df <- tidy(ipd_model) |>
+  mutate(method = "Chen + Chen") |>
+  filter(term == "x1") |>
+  select(method, estimate, std.error)
+
+# Combine with oracle, naive, and classical:
+compare_tab <- bind_rows(oracle_df, naive_df, classical_df, ipd_df)
+compare_tab
+```
+
+:::
+
+### Exercise 5: Visualizing Uncertainty
+
+Let's plot the coefficient estimates and 95% CIs for each of the naive, classical, and PB methods:
+
+::: {.callout-note collapse="true"}
+
+## Answer
+
+```{r, fig.width=6, fig.height=3}
+# Forest plot of estimates and 95% confidence intervals
+compare_tab |>
+  mutate(
+    lower = estimate - 1.96 * std.error,
+    upper = estimate + 1.96 * std.error
+  ) |>
+  ggplot(aes(x = estimate, y = method)) +
+    geom_point(size = 2) +
+    geom_errorbarh(aes(xmin = lower, xmax = upper), height = 0.2) +
+    geom_vline(xintercept = b1[1], linetype = "dashed", color = "red") +
+    labs(
+      title = "Comparison of slope estimates \u00B1 1.96·SE",
+      x = expression(hat(beta)[X1]),
+      y = ""
+    ) +
+    theme_minimal()
+```
+
+:::
+
+::: {.callout-tip}
+
+## Notes
+
+* The dashed red line is the *true* data-generating effect for $X_1$.
+* Here, all the methods are unbiased.
+* The **classical** approach has the widest interval, the **naive** interval is artificially too narrow, but **Chen + Chen** has intervals that are well calibrated.
+
+:::
+
+## Comparison of Results with Imperfect Predictions
+
+### Exercise 6: Imperfect Predictions
+
+Now, let us repeat Exercises 1-5, but with $X_1, \ldots, X_5$ omitted from the training of the prediction function:
+
+`predset_ind = 6 : 10`
+
+We will compare these results with the ideal case in the previous exercises. Here, since the predictions do not include $X_1$, we should not be able to recover the true association between $Y$ and $X_1$.
+
+::: {.callout-note collapse="true"}
+
+## Answer
+
+### Data Generation
+
+```{r}
+set.seed(123)
+
+dat_ipd2 <- simple_data_gen(
+    n = n,               
+    p = p,                
+    prop_lab = 0.1,      
+    total_var = 20,       
+    ratio_var = 1,      
+    rho = 0,             
+    sigma_y = 1,          
+    beta = c(b1, b2),    
+    predset_ind = 6:10   # Omitting X1, ..., X5
+)
+```
+
+### Plotting the Data
+
+```{r, out.width="100%", dpi=300}
+# Prepare data
+dat_visualize2 <- dat_ipd2 |> 
+  select(x1, y, f) |>
+  pivot_longer(y:f, names_to = "Measure", values_to = "Value") |>
+  arrange(Measure)
+
+# Scatter + trend lines
+ggplot(dat_visualize2, aes(x = x1, y = Value, color = Measure)) +
+  theme_minimal() +
+  geom_point(alpha = 0.4) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_manual(values = c("steelblue", "gray")) +
+  labs(
+    x     = "X1",
+    y     = "True Y or Predicted f",
+    color = "Measure"
+  ) +
+  theme(legend.position = "bottom") 
+```
+
+```{r, out.width="100%", dpi=300}
+# Density plots
+ggplot(dat_visualize2, aes(x = Value, fill = Measure)) +
+  theme_minimal() +
+  geom_density(alpha = 0.4) +
+  scale_fill_manual(values = c("steelblue", "gray")) +
+  labs(
+    x     = "Value",
+    y     = "Density",
+    fill  = "Measure"
+  ) +
+  theme(legend.position = "bottom")
+```
+
+### Oracle vs Naive vs Classical Inference
+
+```{r}
+
+# 1) Oracle: use the true outcomes for the full data (not possible in practice)
+oracle_model2 <- lm(y ~ x1, data = dat_ipd2)
+
+# 2) Naive: treat f as if it were truth (only on unlabeled)
+naive_model2 <- lm(f ~ x1, data = filter(dat_ipd2, set_label == "unlabeled"))
+
+# 3) Classical: regress true Y on X1, only on the labeled set
+classical_model2 <- lm(y ~ x1, data = filter(dat_ipd2, set_label == "labeled"))
+```
+
+```{r}
+oracle_df2 <- tidy(oracle_model2) |>
+  mutate(method = "Oracle") |>
+  filter(term == "x1") |>
+  select(method, estimate, std.error) 
+
+naive_df2 <- tidy(naive_model2) |>
+  mutate(method = "Naive") |>
+  filter(term == "x1") |>
+  select(method, estimate, std.error) 
+
+classical_df2 <- tidy(classical_model2) |>
+  mutate(method = "Classical") |>
+  filter(term == "x1") |>
+  select(method, estimate, std.error)
+
+bind_rows(oracle_df2, naive_df2, classical_df2)
+```
+
+### PB Model Fitting via the Chen + Chen Estimator
+
+```{r}
+set.seed(123)
+
+ipd_model2 <- ipd(
+  formula = y - f ~ x1,
+  data    = dat_ipd2,
+  label   = "set_label",
+  method  = "chen",
+  model   = "ols"
+)
+
+ipd_model2
+```
+
+```{r}
+# Extract the coefficient estimates
+ipd_df2 <- tidy(ipd_model2) |>
+  mutate(method = "Chen + Chen") |>
+  filter(term == "x1") |>
+  select(method, estimate, std.error)
+
+# Combine with naive & classical:
+compare_tab2 <- bind_rows(oracle_df2, naive_df2, classical_df2, ipd_df2)
+compare_tab2
+```
+
+### Visualizing Uncertainty
+
+```{r, fig.width=6, fig.height=3}
+# Forest plot of estimates and 95% confidence intervals
+compare_tab2 |>
+  mutate(
+    lower = estimate - 1.96 * std.error,
+    upper = estimate + 1.96 * std.error
+  ) |>
+  ggplot(aes(x = estimate, y = method)) +
+    geom_point(size = 2) +
+    geom_errorbarh(aes(xmin = lower, xmax = upper), height = 0.2) +
+    geom_vline(xintercept = b1[1], linetype = "dashed", color = "red") +
+    labs(
+      title = "Comparison of slope estimates \u00B1 1.96·SE",
+      x = expression(hat(beta)[X1]),
+      y = ""
+    ) +
+    theme_minimal()
+```
+
+:::
+
+::: {.callout-tip}
+
+## Notes
+
+### Plotting the Data
+
+* In the **scatterplot**, note that the predicted values $f$ (in blue) lie more tightly along the fitted trend line than the true $Y$ (in gray), indicating stronger correlation with $X_1$.
+* In the **density plot**, you can see that the spread of $f$ is narrower than that of $Y$, illustrating that the predictive model has reduced variance.
+
+### Naive vs Classical Inference
+
+* The **naive** coefficient is *attenuated*, or *biased* toward zero, since the predictions are imperfect.
+* The **classical** coefficient is unbiased but has a larger standard error due to the smaller sample size.
+
+### PB Model Fitting va the Chen + Chen Estimator
+
+* The dashed red line is the *true* data-generating effect for $X_1$.
+* Compare how far each method's interval is from this line.
+* The **naive** approach severely underestimates both the effect estimate and its standard error, while **Chen + Chen** is unbiased and more efficient than the **classical** approach.
+
+:::
+
+### Exercise 7: Inspecting Results
+
+Use `tidy()`, `glance()`, and `augment()` on `ipd_model`. Compare the 
+coefficient estimate and standard error for `X1` with the naive fit.
+
+::: {.callout-note collapse="true"}
+
+## Answer
+
+```{r}
+tidy(ipd_model)
+glance(ipd_model)
+augment(ipd_model) |> glimpse()
+
+# Compare with naive
+broom::tidy(naive_model)
+```
+
+:::
+
+## Summary and Key Takeaways
+
+1. **Naive** regression on predicted outcomes can be biased and anti-conservative.
+2. **Classical** regression on the labeled data alone is unbiased but inefficient when the labeled set is small.
+3. **PB methods** strike a balance: they are unbiased, but potentially more efficient than the classical approach.
+4. Even with 'simple' linear prediction models, PB corrections can improve inference on downstream regression coefficients.
+
+## Further Exploration
+
+* Try other methods such as **PPI++** (`"ppi_plusplus"`). How do the results compare?
+* Repeat the analysis for a **logistic** model by setting `model = "logistic"` in both `simdat()` and `ipd()`.
+
+## Simulating Data with `ipd::simdat()`
+
+`simdat()` generates synthetic datasets for several inferential settings.
+
+```r
+simdat(
+  n,        # Numeric vector of length 3: c(n_train, n_labeled, n_unlabeled)
+  effect,   # Numeric: true effect size for simulation
+  sigma_Y,  # Numeric: residual standard deviation
+  model,    # Character: one of "mean", "quantile", "ols", "logistic", "poisson"
+  ...       # Additional arguments
+)
+```
+
+This function returns a data.frame with columns:
+
+* `X1, X2, ...`: covariates
+* `Y`: true outcome (for training, labeled, and unlabeled subsets)
+* `f`: predictions from the model (for labeled and unlabeled subsets)
+* `set_label`: character indicating "training", "labeled", or "unlabeled".
 
 The `ipd::simdat()` function makes it easy to generate:
 
@@ -173,9 +805,9 @@ model (`"ols"`). We can also optionally shift and scale the predictions (via
 the `shift` and `scale` arguments) to control how the predicted outcomes relate 
 to their true underlying counterparts.
 
-### Exercise 1: Data Generation
+### Extra Activity: Generating Data with `simdat()`
 
-Let us generate a synthetic dataset for a linear model with:
+Try generating data with the `simdat()` function. Let us generate a synthetic dataset for a linear model with:
 
 * 5,000 training observations
 * 500 labeled observations
@@ -255,340 +887,6 @@ dat |>
 * Rows where `set_label == "unlabeled"` have `Y` for posterity (but in a real‐data scenario, you would not know `Y`); `simdat` still generates `Y`, but the PB routines will not use these. The column `f` always contains 'predicted' values.
 
 :::
-
-## Creating 'Labeled' and 'Unlabeled' Datasets
-
-### Exercise 2: Splitting the Data
-
-We now split the data into two subsets:
-
-* **labeled**: those rows where we retain the true `Y` (to be used for final inference alongside their predictions).
-* **unlabeled**: those rows where we **hide** the true `Y` (we pretend we do not observe them; `ipd` will still require the `f` + covariates).
-
-::: {.callout-note collapse="true"}
-
-## Answer
-
-```{r}
-dat_ipd <- dat |>
-  filter(set_label != "training") |>
-  # Keep only the columns needed for downstream PB inference
-  select(set_label, Y, f, X1, X2, X3, X4) 
-
-# Show counts:
-dat_ipd |> 
-  group_by(set_label) |> 
-  summarize(n = n())
-```
-
-:::
-
-::: {.callout-tip}
-
-## Notes
-
-* After this step, `dat_ipd` has two groups:
-* `labeled` (500 rows where we observe both `Y` and `f`),
-* `unlabeled` (1500 rows where we only 'observe' `f`).
-
-:::
-
-## Comparison of the True vs Predicted Outcomes
-
-Before modeling, it is helpful to see graphically how the predicted values, 
-$f$, compare to the true outcomes, $Y$. 
-
-### Exercise 3: Plotting the Data
-
-We can visually assess the **bias** and **variance** of our predicted 
-outcomes, $f$, versus the true outcomes, $Y$, in our analytic data by 
-plotting:
-
-1. **Scatterplot** of $Y$ and $f$ vs. $X_1$  
-2. **Density plots** of $Y$ and $f$  
-
-::: {.callout-note collapse="true"}
-
-## Answer
-
-```{r, out.width="100%", dpi=300}
-# Prepare data
-dat_visualize <- dat_ipd |> 
-  select(X1, Y, f) |>
-  pivot_longer(Y:f, names_to = "Measure", values_to = "Value") |>
-  arrange(Measure)
-
-# Scatter + trend lines
-ggplot(dat_visualize, aes(x = X1, y = Value, color = Measure)) +
-  theme_minimal() +
-  geom_point(alpha = 0.4) +
-  geom_smooth(method = "lm", se = FALSE) +
-  scale_color_manual(values = c("steelblue", "gray")) +
-  labs(
-    x     = "X1",
-    y     = "True Y or Predicted f",
-    color = "Measure"
-  ) +
-  theme(legend.position = "bottom") 
-```
-
-```{r, out.width="100%", dpi=300}
-# Density plots
-ggplot(dat_visualize, aes(x = Value, fill = Measure)) +
-  theme_minimal() +
-  geom_density(alpha = 0.4) +
-  scale_fill_manual(values = c("steelblue", "gray")) +
-  labs(
-    x     = "Value",
-    y     = "Density",
-    fill  = "Measure"
-  ) +
-  theme(legend.position = "bottom")
-```
-
-:::
-
-::: {.callout-tip}
-
-## Notes
-
-* In the **scatterplot**, note that the predicted values $f$ (in blue) lie more tightly along the fitted trend line than the true $Y$ (in gray), indicating stronger correlation with $X_1$.
-* In the **density plot**, you can see that the spread of $f$ is narrower than that of $Y$, illustrating that the predictive model has reduced variance (often due to "regression to the mean").
-
-:::
-
-## Some Baselines: Naive vs Classical Inference
-
-Before applying PB inference, let's see what happens if we:
-
-1. Regress the *unlabeled* predicted `f` on `X1` (the **naive** approach).
-2. Regress only the *labeled* true `Y` on `X1` (the **classical** approach).
-
-We will compare these to PB inference‐corrected estimates.
-
-### Exercise 4: Naive vs. Classical Model Fitting
-
-Using the `labeled` and `unlabeled` sets, fit two models:
-
-1. **Naive OLS** on the *unlabeled* set using `lm()` with `f ~ X1`.
-2. **Classical OLS** on the *labeled* set using `lm()` with `Y ~ X1`.
-
-::: {.callout-note collapse="true"}
-
-## Answer
-
-```{r}
-# 1) Naive: treat f as if it were truth (only on unlabeled)
-naive_model <- lm(f ~ X1, data = filter(dat_ipd, set_label == "unlabeled"))
-
-# 2) Classical: regress true Y on X1, only on the labeled set
-classical_model <- lm(Y ~ X1, data = filter(dat_ipd, set_label == "labeled"))
-```
-
-:::
-
-Let's also extract the coefficient summaries using the `tidy` method and compare the 
-results of the two approaches:
-
-::: {.callout-note collapse="true"}
-
-## Answer
-
-```{r}
-naive_df <- tidy(naive_model) |>
-  mutate(method = "Naive") |>
-  filter(term == "X1") |>
-  select(method, estimate, std.error) 
-
-classical_df <- tidy(classical_model) |>
-  mutate(method = "Classical") |>
-  filter(term == "X1") |>
-  select(method, estimate, std.error)
-
-bind_rows(naive_df, classical_df)
-```
-
-:::
-
-::: {.callout-tip}
-
-## Notes
-
-* The **naive** coefficient is *attenuated*, or *biased* toward zero, since the predictions are imperfect.
-* The **classical** coefficient is unbiased but has a larger standard error due to the smaller sample size.
-
-:::
-
-## PB Inference with `ipd::ipd()`
-
-The single wrapper function `ipd()` implements multiple PB inference methods 
-(e.g., **Chen & Chen**, **PostPI**, **PPI**, **PPI++**, **PSPA**) for various
-inferential tasks (e.g., **mean** and **quantile** estimation, **ols**, 
-**logistic**, and **Poisson** regression).  
-
-::: {.callout-important}
-
-## Reminder
-
-Basic usage of `ipd()`:
-
-```{r, eval=FALSE} 
-ipd(
-  formula = Y - f ~ X1,     # The downstream inferential model
-  method  = "pspa",         # The PB inference method to run 
-  model   = "ols",          # The type of inferential model
-  data    = dat_ipd,        # A data.frame with columns:
-                            #   - set_label: {"labeled", "unlabeled"}
-                            #   - Y: true outcomes (for labeled data)
-                            #   - f: predicted outcomes
-                            #   - X covariates (here X1, X2, X3, X4)
-  label   = "set_label"     # Column name indicating "labeled"/"unlabeled"
-)
-```
-
-:::
-
-### Exercise 5: PB Model Fitting via the Chen + Chen Estimator
-
-Let's run one method, `chen`, proposed by 
-[Gronsbell et al., 2025](https://arxiv.org/pdf/2411.19908). The **Chen + Chen** 
-estimator is a PB method that combines information from:
-
-1. **Labeled data** (where the true outcome, $Y$, and model predictions, $f$, are available), and  
-2. **Unlabeled data** (where only model predictions, $f$, are available).
-
-Rather than treating the predicted outcomes with the same importance as the 
-true outcomes, the method estimates a **data-driven weight**, $\hat{\omega}$, 
-and applies it to the predicted outcome contributions:
-
-$$
-\hat{\beta}_\text{cc} = \hat{\beta}_\text{classical} - \hat{\omega}\cdot (\hat{\gamma}_\text{naive}^l - \hat{\gamma}_\text{naive}^\text{all}),
-$$
-
-where $\hat{\beta}_{\rm classical}$ is the estimate from the **classical** 
-regression, $\hat{\gamma}_{\rm naive}^l$ is the estimate from the **naive**
-regression on the *labeled* data, $\hat{\gamma}_{\rm naive}^\text{all}$ is the 
-estimate from the **naive** regression on *all* the data, and $\hat{\omega}$ 
-reflects the amount of additional information carried by the predictions. By 
-adaptively weighting the unlabeled information, the **Chen + Chen** estimator 
-achieves greater precision than by using the labeled data alone, without 
-sacrificing validity, even when the predictions are imperfect.  
-
-Let's call the method using the `ipd()` function and collect the estimate for 
-the slope of `X1` in a linear regression (`model = "ols"`):
-
-::: {.callout-note collapse="true"}
-
-## Answer
-
-```{r}
-set.seed(123)
-ipd_model <- ipd(
-  formula = Y - f ~ X1,
-  data    = dat_ipd,
-  label   = "set_label",
-  method  = "chen",
-  model   = "ols"
-)
-
-ipd_model
-```
-
-:::
-
-The `ipd_model` is an `S4` object with slots for things like the coefficient, 
-se, ci, coefTable, fit, formula, data_l, data_u, method, model, and intercept. 
-We can extract the coefficient table using `ipd`'s `tidy` helper and compare 
-with the naive and classical methods:
-
-::: {.callout-note collapse="true"}
-
-## Answer
-
-```{r}
-# Extract the coefficient estimates
-ipd_df <- tidy(ipd_model) |>
-  mutate(method = "Chen + Chen") |>
-  filter(term == "X1") |>
-  select(method, estimate, std.error)
-
-# Combine with naive & classical:
-compare_tab <- bind_rows(naive_df, classical_df, ipd_df)
-compare_tab
-```
-
-:::
-
-### Exercise 7: Visualizing Uncertainty
-
-Let's plot the coefficient estimates and 95% CIs for each of the naive, classical, and PB methods:
-
-::: {.callout-note collapse="true"}
-
-## Answer
-
-```{r, fig.width=6, fig.height=3}
-# Forest plot of estimates and 95% confidence intervals
-compare_tab |>
-  mutate(
-    lower = estimate - 1.96 * std.error,
-    upper = estimate + 1.96 * std.error
-  ) |>
-  ggplot(aes(x = estimate, y = method)) +
-    geom_point(size = 2) +
-    geom_errorbarh(aes(xmin = lower, xmax = upper), height = 0.2) +
-    geom_vline(xintercept = 1.5, linetype = "dashed", color = "red") +
-    labs(
-      title = "Comparison of slope estimates \u00B1 1.96·SE",
-      x = expression(hat(beta)[X1]),
-      y = ""
-    ) +
-    theme_minimal()
-```
-
-:::
-
-::: {.callout-tip}
-
-## Notes
-
-* The dashed red line at **1.5** is the *true* data-generating effect for $X_1$.
-* Compare how far each method's interval is from 1.5, and whether 1.5 lies inside each interval.
-* 'Naive' often severely underestimates (biased); 'Classical' is unbiased but wide; PB methods cluster around 1.5 with better coverage than 'naive,' often similar to classical but sometimes narrower.
-
-:::
-
-### Exercise 8: Inspecting Results
-
-Use `tidy()`, `glance()`, and `augment()` on `ipd_model`. Compare the 
-coefficient estimate and standard error for `X1` with the naive fit.
-
-::: {.callout-note collapse="true"}
-
-## Answer
-
-```{r}
-tidy(ipd_model)
-glance(ipd_model)
-augment(ipd_model) |> glimpse()
-
-# Compare with naive
-broom::tidy(naive_model)
-```
-
-:::
-
-## Summary and Key Takeaways
-
-1. **Naive** regression on predicted outcomes is biased (point estimates are pulled toward zero and SEs are artificially small).
-2. **Classical** regression on the labeled data alone is unbiased but inefficient when the labeled set is small.
-3. PB methods (Chen & Chen, PPI, PPI++, PostPI, PSPA) strike a balance: they use predictions to effectively enlarge sample size but adjust for prediction error to avoid bias.
-4. Even with 'simple' linear prediction models, PB corrections can drastically improve inference on downstream regression coefficients.
-
-## Further Exploration
-
-* Try other methods such as **PPI++** (`"ppi_plusplus"`). How do the results compare?
-* Repeat the analysis for a **logistic** model by setting `model = "logistic"` in both `simdat()` and `ipd()`.
 
 ## Optional: Generating Your Own Predictions
 
