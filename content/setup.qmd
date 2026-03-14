@@ -47,13 +47,13 @@ Install Docker Desktop:
 Then run:
 
 ```sh
-docker run -e PASSWORD=<choose_a_password_for_rstudio> -p 8787:8787 ghcr.io/salernos/ipd-workshop:latest
+docker run -e PASSWORD=<your_chosen_password> -p 8787:8787 ghcr.io/salernos/ipd-workshop:latest
 ```
 
 Open:
 
 - `http://localhost:8787/`
-- Login: username `rstudio`, password = what you set above
+- Login: username = `rstudio`, password = `<your_chosen_password>`
 
 ### Option B: Local R + RStudio
 
@@ -131,9 +131,11 @@ If this runs without errors, you are ready.
 
 ## Data
 
-We will be providing datasets for the modules that use real data. For Option B, please download this [data](https://github.com/salernos/ipd-workshop/tree/main/content/data) folder into your local working directory (for Option A, these data will already be available in the docker image).
+We will be providing datasets for the modules that use real data. For Option B, please download the data folder from either  [GitHub](https://github.com/salernos/ipd-workshop/tree/main/content/data) or [Google Drive](https://drive.google.com/drive/folders/1ubmvB43a7zYgwrZ93-BSAjfbDOaEuH9r?usp=sharing) into your local working directory (for Option A, these data will already be available in the docker image).
 
-**Link to Data Folder**: [https://github.com/salernos/ipd-workshop/tree/main/content/data](https://github.com/salernos/ipd-workshop/tree/main/content/data)
+**Link to Data Folder on GitHub**: [https://github.com/salernos/ipd-workshop/tree/main/content/data](https://github.com/salernos/ipd-workshop/tree/main/content/data)
+
+**Link to Data Folder on Google Drive**: [https://drive.google.com/drive/folders/1ubmvB43a7zYgwrZ93-BSAjfbDOaEuH9r?usp=sharing](https://drive.google.com/drive/folders/1ubmvB43a7zYgwrZ93-BSAjfbDOaEuH9r?usp=sharing)
 
 ## Links You'll Need During the Workshop
 

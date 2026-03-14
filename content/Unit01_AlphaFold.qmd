@@ -715,7 +715,7 @@ alpha_pval <- 0.05
 
 target_power <- 0.80
 
-n_experiments <- 2
+n_experiments <- 50
 
 run_one_ci <- function(s, method = c("PPI", "Classical")) {
   
@@ -778,7 +778,7 @@ power_methods <- c("PPI", "Classical")
 
 power_tbl <- expand_grid(n = n_grid, Method = power_methods) |>
   
-  mutate(Power = furrr::future_map_dbl(
+  mutate(Power = furrr::future_map2_dbl(
     
     n, Method, \(n, Method) power_at_n(n_labeled = n, method = Method))) |>
   

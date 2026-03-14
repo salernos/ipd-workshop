@@ -316,7 +316,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#exercise-2-plotting-the-data" id="toc-exercise-2-plotting-the-data" class="nav-link" data-scroll-target="#exercise-2-plotting-the-data">Exercise 2: Plotting the Data</a></li>
   </ul></li>
-  <li><a href="#some-baselines-naive-vs-classical-inference" id="toc-some-baselines-naive-vs-classical-inference" class="nav-link" data-scroll-target="#some-baselines-naive-vs-classical-inference">Some Baselines: Naive vs Classical Inference</a>
+  <li><a href="#some-baselines-oracle-vs-naive-vs-classical-inference" id="toc-some-baselines-oracle-vs-naive-vs-classical-inference" class="nav-link" data-scroll-target="#some-baselines-oracle-vs-naive-vs-classical-inference">Some Baselines: Oracle vs Naive vs Classical Inference</a>
   <ul class="collapse">
   <li><a href="#exercise-3-naive-vs.-classical-model-fitting" id="toc-exercise-3-naive-vs.-classical-model-fitting" class="nav-link" data-scroll-target="#exercise-3-naive-vs.-classical-model-fitting">Exercise 3: Naive vs.&nbsp;Classical Model Fitting</a></li>
   </ul></li>
@@ -441,12 +441,13 @@ Key Takeaway
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install these packages if you have not already:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("ipd", "broom", "tidyverse", "patchwork"))</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("ipd", "MASS", "broom", "tidyverse", "patchwork"))</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ipd)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Throughout the workshop, we will use reproducible seeds and <a href="https://www.tidyverse.org/"><code>tidyverse</code></a> conventions.</p>
@@ -585,13 +586,13 @@ Key Takeaway
 <h3 class="anchored" data-anchor-id="exercise-1-data-generation">Exercise 1: Data Generation</h3>
 <p>Let us generate a synthetic dataset for a linear model with:</p>
 <ul>
-<li><code>n = 10000</code> samples</li>
+<li><code>n = 25000</code> samples</li>
 <li><code>p = 10</code> covariates</li>
 <li>A <code>prop_lab = 0.1</code> proportion of labeled observations</li>
 <li>A total variance of <code>total_var = 20</code></li>
 <li>A variance ratio of <code>ratio_var = 1</code></li>
 <li>No covariate correlation (<code>rho = 0</code>)</li>
-<li>A <code>sigma_y = 1</code> outcome error variance</li>
+<li>A <code>sigma_y = 5</code> outcome error variance</li>
 <li>Coefficients <code>beta &lt;- c(unit_vec(p / 2), unit_vec(p / 2))</code> generated from the unit circle</li>
 <li><code>predset_ind = 1 : 10</code> indices for covariates used for prediction</li>
 </ul>
@@ -611,7 +612,7 @@ Answer
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10000</span> <span class="co"># Number of Samples</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">25000</span> <span class="co"># Number of Samples</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">10</span>    <span class="co"># Number of Covariates</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> <span class="fu">unit_vec</span>(p <span class="sc">/</span> <span class="dv">2</span>) <span class="co"># Effect Sizes</span></span>
@@ -624,7 +625,7 @@ Answer
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_var =</span> <span class="dv">20</span>,      <span class="co"># Total Variance</span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">ratio_var =</span> <span class="dv">1</span>,       <span class="co"># Variance Ratio</span></span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">rho =</span> <span class="dv">0</span>,             <span class="co"># Covariate Correlation</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">sigma_y =</span> <span class="dv">1</span>,         <span class="co"># Outcome Error Variance</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">sigma_y =</span> <span class="dv">5</span>,         <span class="co"># Outcome Error Variance</span></span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> <span class="fu">c</span>(b1, b2),    <span class="co"># Effect Sizes</span></span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">predset_ind =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>  <span class="co"># Indices for covariates used for prediction.</span></span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -644,8 +645,8 @@ Answer
 <pre><code># A tibble: 2 × 2
   set_label     n
   &lt;chr&gt;     &lt;int&gt;
-1 labeled     962
-2 unlabeled  9038</code></pre>
+1 labeled    2551
+2 unlabeled 22449</code></pre>
 </div>
 </div>
 </div>
@@ -670,20 +671,20 @@ Answer
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set_label <span class="sc">==</span> <span class="st">"labeled"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 962
+<pre><code>Rows: 2,551
 Columns: 13
-$ y         &lt;dbl&gt; 2.43441468, -3.19085784, -2.91086733, 2.24334415, 7.81492539…
-$ x1        &lt;dbl&gt; 2.7448375, -1.5586804, 2.2444812, -3.8073641, -3.7081448, 2.…
-$ x2        &lt;dbl&gt; 2.14016112, -2.40991383, 0.91855769, 2.38990206, -0.55121852…
-$ x3        &lt;dbl&gt; 3.9892296, 0.5046516, -2.9964771, 0.8106423, 6.9210193, 1.66…
-$ x4        &lt;dbl&gt; -4.3709369, -3.6343110, -1.3946894, -1.9266295, -0.5750427, …
-$ x5        &lt;dbl&gt; -0.07013655, 0.11663671, -0.42079168, 0.54566363, 1.42142539…
-$ x6        &lt;dbl&gt; -0.3342676, 1.6985634, 0.3796862, 3.0382339, 0.2213554, 1.09…
-$ x7        &lt;dbl&gt; 1.9638519, -5.8278148, 0.6616824, 4.1765727, -1.2593685, 0.4…
-$ x8        &lt;dbl&gt; -1.6844927, 2.6160181, -1.9640996, 0.8013571, 1.7178589, 2.8…
-$ x9        &lt;dbl&gt; -1.6361913, 4.1827714, -1.0676740, 4.6623488, -2.0304274, 3.…
-$ x10       &lt;dbl&gt; 1.7516414, 3.8199112, 0.3916615, -1.0536943, -1.5527769, 3.2…
-$ f         &lt;dbl&gt; 3.50985713, -2.11218616, -2.03111520, 3.11239304, 7.70140194…
+$ y         &lt;dbl&gt; -10.6651305, 7.0229562, 1.8466360, 5.6049078, 4.4638744, -6.…
+$ x1        &lt;dbl&gt; 2.8081938, 1.4447090, 1.1134905, 1.2321898, -0.2950160, 4.69…
+$ x2        &lt;dbl&gt; -2.1727482, 1.1195759, 0.1438820, 4.8518833, -1.0137343, 4.4…
+$ x3        &lt;dbl&gt; -7.07650307, 0.77112369, -0.01939504, -0.66786699, -4.538479…
+$ x4        &lt;dbl&gt; 2.1733859, 3.8373017, 0.3445341, 1.6177814, -1.8449544, -3.7…
+$ x5        &lt;dbl&gt; -0.5130663, 2.9121691, 5.2980682, 1.0774526, -1.0392365, -0.…
+$ x6        &lt;dbl&gt; -4.32514921, 2.60046203, -0.06035815, -0.23868960, 6.9521900…
+$ x7        &lt;dbl&gt; -0.75585286, 3.65797447, 5.16160001, 6.18270859, -4.01256688…
+$ x8        &lt;dbl&gt; -3.31953869, 0.07335939, -2.50340399, -4.51835316, -0.851934…
+$ x9        &lt;dbl&gt; -1.26218897, -3.11836916, 2.31364284, -0.54576984, -1.158902…
+$ x10       &lt;dbl&gt; -1.7577240, -3.5991050, -1.2031549, -1.5884862, 0.9598418, -…
+$ f         &lt;dbl&gt; -7.981037332, 4.672805866, 1.897680530, 2.421068035, 0.81227…
 $ set_label &lt;chr&gt; "labeled", "labeled", "labeled", "labeled", "labeled", "labe…</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Unlabeled set</span></span>
@@ -691,20 +692,20 @@ $ set_label &lt;chr&gt; "labeled", "labeled", "labeled", "labeled", "labeled", "
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set_label <span class="sc">==</span> <span class="st">"unlabeled"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 9,038
+<pre><code>Rows: 22,449
 Columns: 13
-$ y         &lt;dbl&gt; -4.6755006, -8.1306982, -1.6800958, 4.7052648, 5.2352000, -6…
-$ x1        &lt;dbl&gt; 3.1156622, 3.4092186, -3.7053850, -5.4587363, -0.3054986, 5.…
-$ x2        &lt;dbl&gt; 2.2333421, -1.4462329, 7.7798358, 1.0192385, -6.2195807, 2.2…
-$ x3        &lt;dbl&gt; -0.32272958, -3.60638788, 1.43768821, -3.96472696, 4.6421695…
-$ x4        &lt;dbl&gt; -0.6193602, -1.1394045, -3.6401884, 0.9548339, 2.8797969, 7.…
-$ x5        &lt;dbl&gt; -5.64360288, -0.41344329, -1.16952884, -0.57129676, -3.31953…
-$ x6        &lt;dbl&gt; 0.2496871, -1.7823947, -4.1443225, 3.3248286, 2.3347126, 2.3…
-$ x7        &lt;dbl&gt; -2.03970198, 1.29414528, -3.28184795, 0.75439796, 3.84544882…
-$ x8        &lt;dbl&gt; 2.3373316, 3.2796152, -3.5851040, -3.8115243, 5.2769108, 4.8…
-$ x9        &lt;dbl&gt; -0.87159988, -0.09589788, 3.44481459, -3.17942277, -5.162532…
-$ x10       &lt;dbl&gt; 3.8708865, 1.1378312, 1.2673506, 0.3500095, -1.7577240, 5.65…
-$ f         &lt;dbl&gt; -4.0796363, -7.3951707, -1.7500465, 3.5361634, 6.6029322, -6…
+$ y         &lt;dbl&gt; 0.520872, -7.907675, -6.070025, 6.041134, -3.091775, 5.50057…
+$ x1        &lt;dbl&gt; -3.7409669, 3.7360163, -3.2863856, 3.2313674, 3.7157033, 0.1…
+$ x2        &lt;dbl&gt; 0.3358049, 3.8872286, -0.2270680, 0.9662234, 1.0364182, -2.6…
+$ x3        &lt;dbl&gt; -3.7769611, 0.9883840, -4.4891339, 5.7711764, 0.6166084, 4.0…
+$ x4        &lt;dbl&gt; 4.3382493, -4.2897707, 2.5735992, 2.2532995, -5.4164657, -4.…
+$ x5        &lt;dbl&gt; -6.12151716, 1.01182690, -1.32007492, 1.62906763, -1.1307161…
+$ x6        &lt;dbl&gt; -1.88428832, -2.32594242, 0.22120367, 3.69702327, -0.4563829…
+$ x7        &lt;dbl&gt; -0.8790863, 0.1693632, 0.2598034, 1.8054718, 1.1521277, -0.1…
+$ x8        &lt;dbl&gt; -5.64360288, -0.41344329, -1.16952884, -0.57129676, 1.196338…
+$ x9        &lt;dbl&gt; 0.8406827, 2.6579939, -3.1565336, 4.9834037, 1.5231282, -1.4…
+$ x10       &lt;dbl&gt; 3.8708865, 1.1378312, 1.2673506, 0.3500095, 5.6507155, 1.574…
+$ f         &lt;dbl&gt; -2.0778359, -3.4210568, -1.4953638, 6.2205242, -3.4129538, 6…
 $ set_label &lt;chr&gt; "unlabeled", "unlabeled", "unlabeled", "unlabeled", "unlabel…</code></pre>
 </div>
 </div>
@@ -757,7 +758,7 @@ Answer
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>dat_visualize <span class="ot">&lt;-</span> dat_ipd <span class="sc">|&gt;</span> </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(x1, y, f) <span class="sc">|&gt;</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(y<span class="sc">:</span>f, <span class="at">names_to =</span> <span class="st">"Measure"</span>, <span class="at">values_to =</span> <span class="st">"Value"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Measure)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Measure))</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter + trend lines</span></span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_visualize, <span class="fu">aes</span>(<span class="at">x =</span> x1, <span class="at">y =</span> Value, <span class="at">color =</span> Measure)) <span class="sc">+</span></span>
@@ -820,20 +821,22 @@ Notes
 </div>
 </section>
 </section>
-<section id="some-baselines-naive-vs-classical-inference" class="level2">
-<h2 class="anchored" data-anchor-id="some-baselines-naive-vs-classical-inference">Some Baselines: Naive vs Classical Inference</h2>
+<section id="some-baselines-oracle-vs-naive-vs-classical-inference" class="level2">
+<h2 class="anchored" data-anchor-id="some-baselines-oracle-vs-naive-vs-classical-inference">Some Baselines: Oracle vs Naive vs Classical Inference</h2>
 <p>Before applying PB inference, let’s see what happens if we:</p>
 <ol type="1">
+<li>Regress the true <code>Y</code> on <code>X1</code> for all observations (the <strong>oracle</strong> approach).</li>
 <li>Regress the <em>unlabeled</em> predicted <code>f</code> on <code>X1</code> (the <strong>naive</strong> approach).</li>
 <li>Regress only the <em>labeled</em> true <code>Y</code> on <code>X1</code> (the <strong>classical</strong> approach).</li>
 </ol>
 <p>We will compare these to PB inference‐corrected estimates.</p>
 <section id="exercise-3-naive-vs.-classical-model-fitting" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-3-naive-vs.-classical-model-fitting">Exercise 3: Naive vs.&nbsp;Classical Model Fitting</h3>
-<p>Using the <code>labeled</code> and <code>unlabeled</code> sets, fit two models:</p>
+<p>Using the <code>labeled</code> and <code>unlabeled</code> sets, fit three models:</p>
 <ol type="1">
-<li><strong>Naive OLS</strong> on the <em>unlabeled</em> set using <code>lm()</code> with <code>f ~ X1</code>.</li>
-<li><strong>Classical OLS</strong> on the <em>labeled</em> set using <code>lm()</code> with <code>Y ~ X1</code>.</li>
+<li><strong>Oracle OLS</strong> on the <em>full</em> data using <code>lm()</code> with <code>y ~ x1</code></li>
+<li><strong>Naive OLS</strong> on the <em>unlabeled</em> set using <code>lm()</code> with <code>f ~ x1</code>.</li>
+<li><strong>Classical OLS</strong> on the <em>labeled</em> set using <code>lm()</code> with <code>y ~ x1</code>.</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
@@ -848,16 +851,19 @@ Answer
 <div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Naive: treat f as if it were truth (only on unlabeled)</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>naive_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(f <span class="sc">~</span> x1, <span class="at">data =</span> <span class="fu">filter</span>(dat_ipd, set_label <span class="sc">==</span> <span class="st">"unlabeled"</span>))</span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Oracle: use the true outcomes for the full data (not possible in practice)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>oracle_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1, <span class="at">data =</span> dat_ipd)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Classical: regress true Y on X1, only on the labeled set</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>classical_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1, <span class="at">data =</span> <span class="fu">filter</span>(dat_ipd, set_label <span class="sc">==</span> <span class="st">"labeled"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Naive: treat f as if it were truth (only on unlabeled)</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>naive_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(f <span class="sc">~</span> x1, <span class="at">data =</span> <span class="fu">filter</span>(dat_ipd, set_label <span class="sc">==</span> <span class="st">"unlabeled"</span>))</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Classical: regress true Y on X1, only on the labeled set</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>classical_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1, <span class="at">data =</span> <span class="fu">filter</span>(dat_ipd, set_label <span class="sc">==</span> <span class="st">"labeled"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
-<p>Let’s also extract the coefficient summaries using the <code>tidy</code> method and compare the results of the two approaches:</p>
+<p>Let’s also extract the coefficient summaries using the <code>tidy</code> method and compare the results of the three approaches:</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -871,23 +877,29 @@ Answer
 <div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>naive_df <span class="ot">&lt;-</span> <span class="fu">tidy</span>(naive_model) <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Naive"</span>) <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>oracle_df <span class="ot">&lt;-</span> <span class="fu">tidy</span>(oracle_model) <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Oracle"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"x1"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(method, estimate, std.error) </span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>classical_df <span class="ot">&lt;-</span> <span class="fu">tidy</span>(classical_model) <span class="sc">|&gt;</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Classical"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>naive_df <span class="ot">&lt;-</span> <span class="fu">tidy</span>(naive_model) <span class="sc">|&gt;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Naive"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"x1"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(method, estimate, std.error)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(method, estimate, std.error) </span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(naive_df, classical_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>classical_df <span class="ot">&lt;-</span> <span class="fu">tidy</span>(classical_model) <span class="sc">|&gt;</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Classical"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"x1"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(method, estimate, std.error)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(oracle_df, naive_df, classical_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 3
+<pre><code># A tibble: 3 × 3
   method    estimate std.error
   &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;
-1 Naive       -0.350    0.0147
-2 Classical   -0.298    0.0455</code></pre>
+1 Oracle      -0.341   0.0132 
+2 Naive       -0.340   0.00908
+3 Classical   -0.356   0.0411 </code></pre>
 </div>
 </div>
 </div>
@@ -906,6 +918,7 @@ Notes
 <ul>
 <li>In this ideal setting, the <strong>naive</strong> coefficient is <em>unbiased</em> since the prediction model is correctly specified.</li>
 <li>The <strong>classical</strong> coefficient is also <strong>unbiased</strong> but has a larger standard error due to the smaller sample size and additional random variation in the outcome.</li>
+<li>The <strong>oracle</strong> provides the ideal baseline for these data.</li>
 </ul>
 </div>
 </div>
@@ -984,8 +997,8 @@ Answer
 
 Coefficients:
              Estimate Std. Error  z value Pr(&gt;|z|)    
-(Intercept)  0.054705   0.052669   1.0386    0.299    
-x1          -0.351322   0.017032 -20.6277   &lt;2e-16 ***
+(Intercept) -0.224224   0.104333  -2.1491  0.03162 *  
+x1          -0.330246   0.032247 -10.2412  &lt; 2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -1013,16 +1026,17 @@ Answer
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"x1"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(method, estimate, std.error)</span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine with naive &amp; classical:</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>compare_tab <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(naive_df, classical_df, ipd_df)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine with oracle, naive, and classical:</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>compare_tab <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(oracle_df, naive_df, classical_df, ipd_df)</span>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>compare_tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 3
+<pre><code># A tibble: 4 × 3
   method      estimate std.error
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;
-1 Naive         -0.350    0.0147
-2 Classical     -0.298    0.0455
-3 Chen + Chen   -0.351    0.0170</code></pre>
+1 Oracle        -0.341   0.0132 
+2 Naive         -0.340   0.00908
+3 Classical     -0.356   0.0411 
+4 Chen + Chen   -0.330   0.0322 </code></pre>
 </div>
 </div>
 </div>
@@ -1178,33 +1192,42 @@ Answer
 </div>
 </div>
 </section>
-<section id="naive-vs-classical-inference" class="level3">
-<h3 class="anchored" data-anchor-id="naive-vs-classical-inference">Naive vs Classical Inference</h3>
+<section id="oracle-vs-naive-vs-classical-inference" class="level3">
+<h3 class="anchored" data-anchor-id="oracle-vs-naive-vs-classical-inference">Oracle vs Naive vs Classical Inference</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Naive: treat f as if it were truth (only on unlabeled)</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>naive_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(f <span class="sc">~</span> x1, <span class="at">data =</span> <span class="fu">filter</span>(dat_ipd2, set_label <span class="sc">==</span> <span class="st">"unlabeled"</span>))</span>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Oracle: use the true outcomes for the full data (not possible in practice)</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>oracle_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1, <span class="at">data =</span> dat_ipd2)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Classical: regress true Y on X1, only on the labeled set</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>classical_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1, <span class="at">data =</span> <span class="fu">filter</span>(dat_ipd2, set_label <span class="sc">==</span> <span class="st">"labeled"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Naive: treat f as if it were truth (only on unlabeled)</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>naive_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(f <span class="sc">~</span> x1, <span class="at">data =</span> <span class="fu">filter</span>(dat_ipd2, set_label <span class="sc">==</span> <span class="st">"unlabeled"</span>))</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Classical: regress true Y on X1, only on the labeled set</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>classical_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1, <span class="at">data =</span> <span class="fu">filter</span>(dat_ipd2, set_label <span class="sc">==</span> <span class="st">"labeled"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>naive_df2 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(naive_model2) <span class="sc">|&gt;</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Naive"</span>) <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>oracle_df2 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(oracle_model2) <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Oracle"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"x1"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(method, estimate, std.error) </span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>classical_df2 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(classical_model2) <span class="sc">|&gt;</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Classical"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>naive_df2 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(naive_model2) <span class="sc">|&gt;</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Naive"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"x1"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(method, estimate, std.error)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(method, estimate, std.error) </span>
 <span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(naive_df2, classical_df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>classical_df2 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(classical_model2) <span class="sc">|&gt;</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Classical"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"x1"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(method, estimate, std.error)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(oracle_df2, naive_df2, classical_df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 3
+<pre><code># A tibble: 3 × 3
   method    estimate std.error
   &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;
-1 Naive     -0.00955    0.0107
-2 Classical -0.377      0.0467</code></pre>
+1 Oracle    -0.343     0.00882
+2 Naive     -0.00775   0.00664
+3 Classical -0.371     0.0272 </code></pre>
 </div>
 </div>
 </section>
@@ -1229,9 +1252,9 @@ Answer
   Formula:  y - f ~ x1 
 
 Coefficients:
-              Estimate Std. Error  z value Pr(&gt;|z|)    
-(Intercept) -0.0029445  0.1036596  -0.0284   0.9773    
-x1          -0.3865885  0.0343809 -11.2443   &lt;2e-16 ***
+             Estimate Std. Error  z value Pr(&gt;|z|)    
+(Intercept)  0.096086   0.065442   1.4683    0.142    
+x1          -0.370577   0.020917 -17.7163   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -1244,15 +1267,16 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(method, estimate, std.error)</span>
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine with naive &amp; classical:</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>compare_tab2 <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(naive_df2, classical_df2, ipd_df2)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>compare_tab2 <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(oracle_df2, naive_df2, classical_df2, ipd_df2)</span>
 <span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>compare_tab2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 3
+<pre><code># A tibble: 4 × 3
   method      estimate std.error
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;
-1 Naive       -0.00955    0.0107
-2 Classical   -0.377      0.0467
-3 Chen + Chen -0.387      0.0344</code></pre>
+1 Oracle      -0.343     0.00882
+2 Naive       -0.00775   0.00664
+3 Classical   -0.371     0.0272 
+4 Chen + Chen -0.371     0.0209 </code></pre>
 </div>
 </div>
 </section>
@@ -1304,8 +1328,8 @@ Notes
 <li>In the <strong>density plot</strong>, you can see that the spread of <span class="math inline">\(f\)</span> is narrower than that of <span class="math inline">\(Y\)</span>, illustrating that the predictive model has reduced variance.</li>
 </ul>
 </section>
-<section id="naive-vs-classical-inference-1" class="level3">
-<h3 class="anchored" data-anchor-id="naive-vs-classical-inference-1">Naive vs Classical Inference</h3>
+<section id="naive-vs-classical-inference" class="level3">
+<h3 class="anchored" data-anchor-id="naive-vs-classical-inference">Naive vs Classical Inference</h3>
 <ul>
 <li>The <strong>naive</strong> coefficient is <em>attenuated</em>, or <em>biased</em> toward zero, since the predictions are imperfect.</li>
 <li>The <strong>classical</strong> coefficient is unbiased but has a larger standard error due to the smaller sample size.</li>
@@ -1317,6 +1341,7 @@ Notes
 <li>The dashed red line is the <em>true</em> data-generating effect for <span class="math inline">\(X_1\)</span>.</li>
 <li>Compare how far each method’s interval is from this line.</li>
 <li>The <strong>naive</strong> approach severely underestimates both the effect estimate and its standard error, while <strong>Chen + Chen</strong> is unbiased and more efficient than the <strong>classical</strong> approach.</li>
+<li>The efficiency gain is not as high compared to the perfect prediction scenario since the residual correlation between <span class="math inline">\(y\)</span> and <span class="math inline">\(f\)</span> is smaller</li>
 </ul>
 </section>
 </div>
@@ -1343,35 +1368,35 @@ Answer
 <pre><code># A tibble: 2 × 5
   term        estimate std.error conf.low conf.high
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-1 (Intercept)   0.0547    0.0527  -0.0485     0.158
-2 x1           -0.351     0.0170  -0.385     -0.318</code></pre>
+1 (Intercept)   -0.224    0.104    -0.429   -0.0197
+2 x1            -0.330    0.0322   -0.393   -0.267 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(ipd_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
   method model intercept nobs_labeled nobs_unlabeled call      
   &lt;chr&gt;  &lt;chr&gt; &lt;lgl&gt;            &lt;int&gt;          &lt;int&gt; &lt;chr&gt;     
-1 chen   ols   TRUE               962           9038 y - f ~ x1</code></pre>
+1 chen   ols   TRUE              2551          22449 y - f ~ x1</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(ipd_model) <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 9,038
+<pre><code>Rows: 22,449
 Columns: 15
-$ y         &lt;dbl&gt; -4.6755006, -8.1306982, -1.6800958, 4.7052648, 5.2352000, -6…
-$ x1        &lt;dbl&gt; 3.1156622, 3.4092186, -3.7053850, -5.4587363, -0.3054986, 5.…
-$ x2        &lt;dbl&gt; 2.2333421, -1.4462329, 7.7798358, 1.0192385, -6.2195807, 2.2…
-$ x3        &lt;dbl&gt; -0.32272958, -3.60638788, 1.43768821, -3.96472696, 4.6421695…
-$ x4        &lt;dbl&gt; -0.6193602, -1.1394045, -3.6401884, 0.9548339, 2.8797969, 7.…
-$ x5        &lt;dbl&gt; -5.64360288, -0.41344329, -1.16952884, -0.57129676, -3.31953…
-$ x6        &lt;dbl&gt; 0.2496871, -1.7823947, -4.1443225, 3.3248286, 2.3347126, 2.3…
-$ x7        &lt;dbl&gt; -2.03970198, 1.29414528, -3.28184795, 0.75439796, 3.84544882…
-$ x8        &lt;dbl&gt; 2.3373316, 3.2796152, -3.5851040, -3.8115243, 5.2769108, 4.8…
-$ x9        &lt;dbl&gt; -0.87159988, -0.09589788, 3.44481459, -3.17942277, -5.162532…
-$ x10       &lt;dbl&gt; 3.8708865, 1.1378312, 1.2673506, 0.3500095, -1.7577240, 5.65…
-$ f         &lt;dbl&gt; -4.0796363, -7.3951707, -1.7500465, 3.5361634, 6.6029322, -6…
+$ y         &lt;dbl&gt; 0.520872, -7.907675, -6.070025, 6.041134, -3.091775, 5.50057…
+$ x1        &lt;dbl&gt; -3.7409669, 3.7360163, -3.2863856, 3.2313674, 3.7157033, 0.1…
+$ x2        &lt;dbl&gt; 0.3358049, 3.8872286, -0.2270680, 0.9662234, 1.0364182, -2.6…
+$ x3        &lt;dbl&gt; -3.7769611, 0.9883840, -4.4891339, 5.7711764, 0.6166084, 4.0…
+$ x4        &lt;dbl&gt; 4.3382493, -4.2897707, 2.5735992, 2.2532995, -5.4164657, -4.…
+$ x5        &lt;dbl&gt; -6.12151716, 1.01182690, -1.32007492, 1.62906763, -1.1307161…
+$ x6        &lt;dbl&gt; -1.88428832, -2.32594242, 0.22120367, 3.69702327, -0.4563829…
+$ x7        &lt;dbl&gt; -0.8790863, 0.1693632, 0.2598034, 1.8054718, 1.1521277, -0.1…
+$ x8        &lt;dbl&gt; -5.64360288, -0.41344329, -1.16952884, -0.57129676, 1.196338…
+$ x9        &lt;dbl&gt; 0.8406827, 2.6579939, -3.1565336, 4.9834037, 1.5231282, -1.4…
+$ x10       &lt;dbl&gt; 3.8708865, 1.1378312, 1.2673506, 0.3500095, 5.6507155, 1.574…
+$ f         &lt;dbl&gt; -2.0778359, -3.4210568, -1.4953638, 6.2205242, -3.4129538, 6…
 $ set_label &lt;chr&gt; "unlabeled", "unlabeled", "unlabeled", "unlabeled", "unlabel…
-$ .fitted   &lt;dbl&gt; -1.03989481, -1.14302753, 1.35648722, 1.97247763, 0.16203328…
-$ .resid    &lt;dbl&gt; -3.6356058, -6.9876707, -3.0365830, 2.7327872, 5.0731667, -4…</code></pre>
+$ .fitted   &lt;dbl&gt; 1.01121686, -1.45803011, 0.86109300, -1.29137161, -1.4513217…
+$ .resid    &lt;dbl&gt; -0.4903448, -6.4496451, -6.9311184, 7.3325060, -1.6404531, 5…</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare with naive</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(naive_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1379,8 +1404,8 @@ $ .resid    &lt;dbl&gt; -3.6356058, -6.9876707, -3.0365830, 2.7327872, 5.0731667
 <pre><code># A tibble: 2 × 5
   term        estimate std.error statistic   p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 (Intercept)   0.0900    0.0459      1.96 5.01e-  2
-2 x1           -0.350     0.0147    -23.8  1.42e-121</code></pre>
+1 (Intercept)   0.0215   0.0288      0.745 4.56e-  1
+2 x1           -0.340    0.00908   -37.4   1.06e-297</code></pre>
 </div>
 </div>
 </div>

@@ -221,13 +221,13 @@ simple_data_gen <- function(
 
 Let us generate a synthetic dataset for a linear model with:
 
-* `n = 10000` samples
+* `n = 25000` samples
 * `p = 10` covariates
 * A `prop_lab = 0.1` proportion of labeled observations
 * A total variance of `total_var = 20`
 * A variance ratio of `ratio_var = 1`
 * No covariate correlation (`rho = 0`)
-* A `sigma_y = 1` outcome error variance
+* A `sigma_y = 5` outcome error variance
 * Coefficients `beta <- c(unit_vec(p / 2), unit_vec(p / 2))` generated from the unit circle
 * `predset_ind = 1 : 10` indices for covariates used for prediction
 
@@ -240,7 +240,7 @@ The first setting is an 'ideal' setting that mimics when the prediction is deriv
 ```{r}
 set.seed(123)
 
-n <- 10000 # Number of Samples
+n <- 25000 # Number of Samples
 p <- 10    # Number of Covariates
 
 b1 <- unit_vec(p / 2) # Effect Sizes
@@ -253,7 +253,7 @@ dat_ipd <- simple_data_gen(
     total_var = 20,      # Total Variance
     ratio_var = 1,       # Variance Ratio
     rho = 0,             # Covariate Correlation
-    sigma_y = 1,         # Outcome Error Variance
+    sigma_y = 5,         # Outcome Error Variance
     beta = c(b1, b2),    # Effect Sizes
     predset_ind = 1:10  # Indices for covariates used for prediction.
 )
@@ -326,7 +326,7 @@ plotting:
 dat_visualize <- dat_ipd |> 
   select(x1, y, f) |>
   pivot_longer(y:f, names_to = "Measure", values_to = "Value") |>
-  arrange(Measure)
+  arrange(desc(Measure))
 
 # Scatter + trend lines
 ggplot(dat_visualize, aes(x = x1, y = Value, color = Measure)) +
@@ -734,6 +734,7 @@ compare_tab2 |>
 * The dashed red line is the *true* data-generating effect for $X_1$.
 * Compare how far each method's interval is from this line.
 * The **naive** approach severely underestimates both the effect estimate and its standard error, while **Chen + Chen** is unbiased and more efficient than the **classical** approach.
+* The efficiency gain is not as high compared to the perfect prediction scenario since the residual correlation between $y$ and $f$ is smaller
 
 :::
 

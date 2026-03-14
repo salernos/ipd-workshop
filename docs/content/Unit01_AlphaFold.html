@@ -1171,7 +1171,7 @@ Answer
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>target_power <span class="ot">&lt;-</span> <span class="fl">0.80</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>n_experiments <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>n_experiments <span class="ot">&lt;-</span> <span class="dv">50</span></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>run_one_ci <span class="ot">&lt;-</span> <span class="cf">function</span>(s, <span class="at">method =</span> <span class="fu">c</span>(<span class="st">"PPI"</span>, <span class="st">"Classical"</span>)) {</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  </span>
@@ -1234,7 +1234,7 @@ Answer
 <span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a>power_tbl <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(<span class="at">n =</span> n_grid, <span class="at">Method =</span> power_methods) <span class="sc">|&gt;</span></span>
 <span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Power =</span> furrr<span class="sc">::</span><span class="fu">future_map_dbl</span>(</span>
+<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Power =</span> furrr<span class="sc">::</span><span class="fu">future_map2_dbl</span>(</span>
 <span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a>    n, Method, \(n, Method) <span class="fu">power_at_n</span>(<span class="at">n_labeled =</span> n, <span class="at">method =</span> Method))) <span class="sc">|&gt;</span></span>
 <span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a>  </span>

@@ -80,10 +80,11 @@ The companion website for this workshop is available at:
 To use the workshop image:
 
 ```sh
-docker run -e PASSWORD=<choose_a_password_for_rstudio> -p 8787:8787 ghcr.io/salernos/ipd-workshop:latest
+docker run -e PASSWORD=<your_chosen_password> -p 8787:8787 ghcr.io/salernos/ipd-workshop:latest
 ```
 
-Once running, navigate to `http://localhost:8787/` and then log in with `rstudio`:`yourchosenpassword`. 
+Once running, open `http://localhost:8787/` and login with username = `rstudio`, password = `<your_chosen_password>`
+
 
 Then [begin](content/Unit00_GettingStarted.qmd)!
 :::
