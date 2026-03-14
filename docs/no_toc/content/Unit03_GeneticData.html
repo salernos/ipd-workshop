@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Study BCR-ABL prediction from gene-expression profiles and evaluate how IPD methods calibrate downstream inference in genomics.">
+<meta name="description" content="Study BCR-ABL prediction from gene-expression profiles and evaluate how PB inference methods calibrate downstream inference in genomics.">
 
-<title>BCR-ABL Fusion – IPD Workshop</title>
+<title>BCR-ABL Fusion – Prediction-Based Inference: Methods &amp; Applications</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -112,10 +112,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="BCR-ABL Fusion – IPD Workshop">
-<meta property="og:description" content="Study BCR-ABL prediction from gene-expression profiles and evaluate how IPD methods calibrate downstream inference in genomics.">
+<meta property="og:title" content="BCR-ABL Fusion – Prediction-Based Inference: Methods &amp; Applications">
+<meta property="og:description" content="Study BCR-ABL prediction from gene-expression profiles and evaluate how PB inference methods calibrate downstream inference in genomics.">
 <meta property="og:image" content="https://salernos.github.io/ipd-workshop/content/images/genetics_cover.png">
-<meta property="og:site_name" content="IPD Workshop">
+<meta property="og:site_name" content="Prediction-Based Inference: Methods &amp; Applications">
 <meta property="og:image:height" content="1024">
 <meta property="og:image:width" content="1536">
 </head>
@@ -306,7 +306,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#random-forest-randomforesti" id="toc-random-forest-randomforesti" class="nav-link" data-scroll-target="#random-forest-randomforesti">Random Forest (<code>randomForestI</code>)</a></li>
   </ul></li>
   <li><a href="#predictions-on-all-test-and-golub" id="toc-predictions-on-all-test-and-golub" class="nav-link" data-scroll-target="#predictions-on-all-test-and-golub">Predictions on ALL Test and Golub</a></li>
-  <li><a href="#ipd-inference-on-sex-effect" id="toc-ipd-inference-on-sex-effect" class="nav-link" data-scroll-target="#ipd-inference-on-sex-effect">IPD Inference on Sex Effect</a></li>
+  <li><a href="#pb-inference-on-sex-effect" id="toc-pb-inference-on-sex-effect" class="nav-link" data-scroll-target="#pb-inference-on-sex-effect">PB Inference on Sex Effect</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/salernos/ipd-workshop/edit/main/content/Unit03_GeneticData.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/salernos/ipd-workshop/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -322,7 +322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div>
   <div class="description">
-    <p>Study BCR-ABL prediction from gene-expression profiles and evaluate how IPD methods calibrate downstream inference in genomics.</p>
+    <p>Study BCR-ABL prediction from gene-expression profiles and evaluate how PB inference methods calibrate downstream inference in genomics.</p>
   </div>
 </div>
 
@@ -357,14 +357,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Predict</strong> therapeutic response and stratify risk using expression-derived scores.</li>
 </ol>
 <p>However, in many retrospective or multi-center cohorts, only a subset of patients undergo gold-standard fusion testing (e.g., RT-PCR for BCR-ABL1), leaving the majority “unlabeled.” A common workaround is to train a gene expression classifier on the small labeled subset and apply it to the larger unlabeled cohort. Yet, naive downstream analyses, treating predicted labels as ground truth, can yield biased effect estimates and understate uncertainty.</p>
-<p><a href="https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267"><strong>Inference with Predicted Data (IPD)</strong></a> offers a principled remedy: it combines a small labeled set with the predicted labels (e.g., with true fusion status) with a larger unlabeled set, adjusting both bias and variance. In this module, we will:</p>
+<p>Prediction-based (PB) inference methods offer a principled remedy: combine a small labeled set with the predicted labels (e.g., with true fusion status) with a larger unlabeled set, adjusting both bias and variance. In this module, we will:</p>
 <ol type="1">
 <li><strong>Describe</strong> the <a href="https://www.bioconductor.org/packages/release/data/experiment/html/ALL.html"><code>ALL</code></a> and <a href="https://www.bioconductor.org/packages/release/data/experiment/manuals/golubEsets/man/golubEsets.pdf"><code>Golub</code></a> Bioconductor datasets.</li>
 <li><strong>Subset</strong> the <code>ALL</code> data to B-cell ALL and filter to the top 500 variable probes.</li>
 <li><strong>Harmonize</strong> probes across platforms via gene symbols.</li>
 <li><strong>Split</strong> the <code>ALL</code> data and train three classifiers for BCR-ABL1 fusion status.</li>
 <li><strong>Predict</strong> on the holdout <code>ALL</code> and <code>Golub</code> B-cell ALL data using the <code>ALL</code>-trained classifier.</li>
-<li><strong>Apply</strong> IPD to estimate the association between fusion status and patient sex assigned at birth.</li>
+<li><strong>Apply</strong> PB inference to estimate the association between fusion status and patient sex assigned at birth.</li>
 </ol>
 <p>By the end, you will understand how to leverage expression-based predictions while maintaining valid inference on genetic subtypes in cohorts with partially missing gold-standard labels.</p>
 <blockquote class="blockquote">
@@ -379,14 +379,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://www.bioconductor.org/packages/release/data/experiment/html/ALL.html"><strong>ALL</strong></a> (<code>ALL</code> package): 128 samples of acute lymphoblastic leukemia (both B- and T-cell), profiled on the Affymetrix HGU95Av2 microarray. Phenotype data include <code>BT</code> (immunophenotype), <code>mol.biol</code> (molecular subtype including BCR-ABL1 or NEG), age, and sex.</li>
 <li><a href="https://www.bioconductor.org/packages/release/data/experiment/manuals/golubEsets/man/golubEsets.pdf"><strong>Golub_Merge</strong></a> (<code>golubEsets</code> package): 72 samples of leukemias (ALL vs.&nbsp;AML), profiled on Affymetrix HGU6800. Phenotype data include <code>ALL.AML</code>, <code>T.B.cell</code> (lineage), age, and sex.</li>
 </ul>
-<p>We will train our classifiers on a subset of the <code>ALL</code> data, test the model on the holdout <code>ALL</code> data, and perform IPD on the holdout <code>ALL</code> and <code>Golub</code> data.</p>
+<p>We will train our classifiers on a subset of the <code>ALL</code> data, test the model on the holdout <code>ALL</code> data, and perform PB inference on the holdout <code>ALL</code> and <code>Golub</code> data.</p>
 </section>
 <section id="phenotype-reduction-and-feature-filtering" class="level2">
 <h2 class="anchored" data-anchor-id="phenotype-reduction-and-feature-filtering">Phenotype Reduction and Feature Filtering</h2>
 <p>We first narrow to B-cell ALL samples and reduce dimensionality by keeping the 500 most variable probes.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the ALL data</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ALL)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -410,7 +408,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Confirm dimensions: 500 probes x n samples</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(<span class="fu">exprs</span>(dat_filt))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 500  79</code></pre>
 </div>
@@ -428,8 +425,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="cross-platform-probe-harmonization">Cross-Platform Probe Harmonization</h2>
 <p>To predict on the <code>Golub</code> data, which uses a different array, we map probes from each platform to gene symbols, then intersect to find a common gene set.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the Golub data</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Golub_Merge)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -482,15 +477,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Confirm feature dimensions</span></span>
 <span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(dat_train)    <span class="co"># features x ALL samples</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Features  Samples 
      354       79 </code></pre>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(golub_bALL)   <span class="co"># features x Golub B-cell ALL samples</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Features  Samples 
      354       38 </code></pre>
@@ -504,13 +495,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h2>
 <p>With our filtered training set (<code>dat_train</code>), we explore patterns using a heatmap and principal component analysis (PCA).</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set subtype colors for visualization</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>fcol <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(dat_train<span class="sc">$</span>mol.biol <span class="sc">==</span> <span class="st">"NEG"</span>, <span class="st">"gray"</span>, <span class="st">"steelblue"</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(<span class="fu">exprs</span>(dat_train), <span class="at">ColSideColors =</span> fcol)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -520,14 +508,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA on samples</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>PCg <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">t</span>(<span class="fu">exprs</span>(dat_train)))</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Scree plot</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(PCg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -537,11 +522,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatterplots of PCs</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(PCg<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">col =</span> fcol, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -551,11 +533,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Biplot of PC1 vs PC2</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(PCg) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -578,15 +557,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="traintest-split-and-classifier-training">Train/Test Split and Classifier Training</h2>
 <p>We split <code>dat_train</code> (ALL) into 60% training and 40% holdout, then train three ML models.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2025</span>)                <span class="co"># for reproducibility</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>n_all <span class="ot">&lt;-</span> <span class="fu">ncol</span>(dat_train)      <span class="co"># number of ALL samples</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>train_idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(n_all, <span class="at">size =</span> <span class="fu">floor</span>(<span class="fl">0.6</span> <span class="sc">*</span> n_all))</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Training and holdout ExpressionSets</span></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>train_eset <span class="ot">&lt;-</span> dat_train[, train_idx]</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>test_eset  <span class="ot">&lt;-</span> dat_train[, <span class="sc">-</span>train_idx]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>In this section, we compare three supervised learning methods using the <a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/MLInterfaces/inst/doc/MLprac2_2.html"><code>MLInterfaces</code></a> framework:</p>
 <ul>
@@ -600,8 +576,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="diagonal-linear-discriminant-analysis-dldai">Diagonal Linear Discriminant Analysis (<code>dldaI</code>)</h3>
 <p>Diagonal LDA assumes each feature is conditionally independent (covariance matrix is diagonal), which can improve stability in high-dimensional, low-sample settings. We use the <code>dldaI</code> interface to fit and evaluate this classifier.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train Diagonal LDA on probes 1:40</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>dlda_mod <span class="ot">&lt;-</span> <span class="fu">MLearn</span>(</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  mol.biol <span class="sc">~</span> ., <span class="co"># mol.biol ~ . specifies BCR/ABL1 fusion status as the outcome</span></span>
@@ -609,15 +583,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  dldaI,        <span class="co"># dldaI is the diagonal LDA interface</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span><span class="sc">:</span><span class="dv">40</span>          <span class="co"># 1:40 selects the first 40 probes</span></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "mol.biol"</code></pre>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print a summary of the fitted model</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>dlda_mod</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLInterfaces classification output container
 The call was:
@@ -628,24 +598,18 @@ Predicted outcome distribution for test set:
 BCR/ABL     NEG 
       3       4 </code></pre>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the confusion matrix (true vs predicted)</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>cm_dlda <span class="ot">&lt;-</span> <span class="fu">confuMat</span>(dlda_mod)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>cm_dlda</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>         predicted
 given     BCR/ABL NEG
   BCR/ABL       3   1
   NEG           0   3</code></pre>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Accuracy of Diagonal LDA</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>acc_dlda <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(cm_dlda)) <span class="sc">/</span> <span class="fu">sum</span>(cm_dlda)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Accuracy:"</span>, <span class="fu">sprintf</span>(<span class="st">"%.2f%%"</span>, acc_dlda <span class="sc">*</span> <span class="dv">100</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy: 85.71%</code></pre>
 </div>
@@ -660,8 +624,6 @@ given     BCR/ABL NEG
 <li><p><code>MaxNWts = 2000</code>: maximum allowed number of weights</p></li>
 </ul>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Neural Network (nnetI)</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>nn_mod <span class="ot">&lt;-</span> <span class="fu">MLearn</span>(</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  mol.biol <span class="sc">~</span> ., </span>
@@ -672,7 +634,6 @@ given     BCR/ABL NEG
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">decay=</span><span class="fl">0.01</span>, </span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">MaxNWts=</span><span class="dv">2000</span></span>
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "mol.biol"
 # weights:  1781
@@ -690,11 +651,8 @@ iter 100 value 0.610470
 final  value 0.610470 
 stopped after 100 iterations</code></pre>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show model summary</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>nn_mod</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLInterfaces classification output container
 The call was:
@@ -707,24 +665,18 @@ BCR/ABL     NEG
 Summary of scores on test set (use testScores() method for details):
 [1] 0.2948988</code></pre>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Confusion matrix for Neural Net</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>cm_nn <span class="ot">&lt;-</span> <span class="fu">confuMat</span>(nn_mod)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>cm_nn</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>         predicted
 given     BCR/ABL NEG
   BCR/ABL       4   0
   NEG           1   2</code></pre>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Accuracy of Neural Net</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>acc_nn <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(cm_nn)) <span class="sc">/</span> <span class="fu">sum</span>(cm_nn)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Accuracy:"</span>, <span class="fu">sprintf</span>(<span class="st">"%.2f%%"</span>, acc_nn <span class="sc">*</span> <span class="dv">100</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy: 85.71%</code></pre>
 </div>
@@ -734,8 +686,6 @@ given     BCR/ABL NEG
 <h3 class="anchored" data-anchor-id="random-forest-randomforesti">Random Forest (<code>randomForestI</code>)</h3>
 <p>Random forests build an ensemble of decision trees on bootstrapped samples and random feature subsets, offering robust performance with little tuning. We use the <code>randomForestI</code> to fit a random forest model:</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Random Forest (randomForestI)</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>rf_mod <span class="ot">&lt;-</span> <span class="fu">MLearn</span>(</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  mol.biol <span class="sc">~</span> ., </span>
@@ -743,15 +693,11 @@ given     BCR/ABL NEG
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  randomForestI, </span>
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span><span class="sc">:</span><span class="dv">40</span></span>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "mol.biol"</code></pre>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show model summary</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>rf_mod</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLInterfaces classification output container
 The call was:
@@ -765,30 +711,24 @@ Summary of scores on test set (use testScores() method for details):
 BCR/ABL     NEG 
   0.524   0.476 </code></pre>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Confusion matrix</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>cm_rf <span class="ot">&lt;-</span> <span class="fu">confuMat</span>(rf_mod)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>cm_rf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>         predicted
 given     BCR/ABL NEG
   BCR/ABL       4   0
   NEG           0   3</code></pre>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Accuracy of Random Forest</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>acc_rf <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(cm_rf)) <span class="sc">/</span> <span class="fu">sum</span>(cm_rf)</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Accuracy:"</span>, <span class="fu">sprintf</span>(<span class="st">"%.2f%%"</span>, acc_rf <span class="sc">*</span> <span class="dv">100</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy: 100.00%</code></pre>
 </div>
 </div>
 <blockquote class="blockquote">
-<p><strong>Interpretation:</strong> Only the Random Forest achieves perfect separation in the validation samples. This highlights the challenge of discriminating BCR-ABL1 status based solely on the top variable probes and underscores why downstream IPD corrections (for regression inference) remain valuable.</p>
+<p><strong>Interpretation:</strong> Only the Random Forest achieves perfect separation in the validation samples. This highlights the challenge of discriminating BCR-ABL1 status based solely on the top variable probes and underscores why downstream PB inference corrections (for regression inference) remain valuable.</p>
 </blockquote>
 </section>
 </section>
@@ -796,8 +736,6 @@ given     BCR/ABL NEG
 <h2 class="anchored" data-anchor-id="predictions-on-all-test-and-golub">Predictions on ALL Test and Golub</h2>
 <p>After fitting our classifiers on the <strong>training</strong> subset of ALL, we now generate predictions on both the <strong>ALL holdout test</strong> and the <strong>Golub B-cell ALL</strong> datasets.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict BCR-ABL1 status on ALL test holdout using random forest</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>all_pred <span class="ot">&lt;-</span> MLInterfaces<span class="sc">::</span><span class="fu">predict.classifierOutput</span>(rf_mod, test_eset)</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -807,7 +745,6 @@ given     BCR/ABL NEG
 <span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Predicted=</span> all_pred<span class="sc">$</span>testPredictions</span>
 <span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>conf_mat_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>         Predicted
 Truth     BCR/ABL NEG
@@ -816,14 +753,11 @@ Truth     BCR/ABL NEG
 </div>
 </div>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict BCR-ABL1 status on Golub B-cell ALL</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>golub_pred <span class="ot">&lt;-</span> MLInterfaces<span class="sc">::</span><span class="fu">predict.classifierOutput</span>(rf_mod, golub_bALL)</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize prediction counts (no ground truth in Golub)</span></span>
 <span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(golub_pred<span class="sc">$</span>testPredictions)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 BCR/ABL     NEG 
@@ -831,15 +765,13 @@ BCR/ABL     NEG
 </div>
 </div>
 <blockquote class="blockquote">
-<p><strong>Note:</strong> We retain <strong>true</strong> labels in the ALL test set for later IPD; Golub remains <strong>unlabeled</strong>.</p>
+<p><strong>Note:</strong> We retain <strong>true</strong> labels in the ALL test set for later PB inference; Golub remains <strong>unlabeled</strong>.</p>
 </blockquote>
 </section>
-<section id="ipd-inference-on-sex-effect" class="level2">
-<h2 class="anchored" data-anchor-id="ipd-inference-on-sex-effect">IPD Inference on Sex Effect</h2>
-<p>We will now use <strong>Inference with Predicted Data (IPD)</strong> to estimate the log-odds effect of <strong>sex</strong> (male vs female) on true BCR-ABL1 status, combining the holdout ALL data with true and predict fusion status (i.e., our labeled data) and the Golub data with the predicted fusion status (i.e., our unlabeled data)</p>
+<section id="pb-inference-on-sex-effect" class="level2">
+<h2 class="anchored" data-anchor-id="pb-inference-on-sex-effect">PB Inference on Sex Effect</h2>
+<p>We will now use <strong>PB Inference</strong> to estimate the log-odds effect of <strong>sex</strong> (male vs female) on true BCR-ABL1 status, combining the holdout ALL data with true and predict fusion status (i.e., our labeled data) and the Golub data with the predicted fusion status (i.e., our unlabeled data)</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build labeled (ALL test) data frame</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>df_test <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample =</span> <span class="fu">colnames</span>(test_eset),</span>
@@ -858,13 +790,10 @@ BCR/ABL     NEG
 <span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">sex    =</span> <span class="fu">factor</span>(<span class="fu">pData</span>(golub_bALL)<span class="sc">$</span>Gender, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"F"</span>,<span class="st">"M"</span>))</span>
 <span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine for IPD</span></span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine for PB Inference</span></span>
 <span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>ipd_df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(df_test, df_golub) <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(sex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Classical regression</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>class_fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(true <span class="sc">~</span> sex, <span class="st">"binomial"</span>, df_test)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>class_df  <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(class_fit) <span class="sc">|&gt;</span></span>
@@ -875,7 +804,7 @@ BCR/ABL     NEG
 <span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>naive_df  <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(naive_fit) <span class="sc">|&gt;</span></span>
 <span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Naive"</span>)</span>
 <span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co"># IPD logistic regression</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co"># PB logistic regression</span></span>
 <span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>ipd_fit <span class="ot">&lt;-</span> <span class="fu">ipd</span>(</span>
 <span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula   =</span> true <span class="sc">-</span> pred <span class="sc">~</span> sex,</span>
 <span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">method    =</span> <span class="st">"pspa"</span>,</span>
@@ -884,7 +813,7 @@ BCR/ABL     NEG
 <span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">label     =</span> <span class="st">"set"</span>,</span>
 <span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>ipd_df  <span class="ot">&lt;-</span> <span class="fu">tidy</span>(ipd_fit) <span class="sc">|&gt;</span></span>
-<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"IPD"</span>)</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"PSPA"</span>)</span>
 <span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize coefficients</span></span>
 <span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(class_df, naive_df, ipd_df) <span class="sc">|&gt;</span></span>
@@ -908,7 +837,6 @@ BCR/ABL     NEG
 <span id="cb41-41"><a href="#cb41-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Model Type"</span></span>
 <span id="cb41-42"><a href="#cb41-42" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb41-43"><a href="#cb41-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -918,7 +846,7 @@ BCR/ABL     NEG
 </div>
 </div>
 <blockquote class="blockquote">
-<p><strong>Insight:</strong> By treating the ALL test set as labeled and Golub as unlabeled, IPD combines information across cohorts to correct bias and improve precision when estimating the association between BCR-ABL1 status and patient sex.</p>
+<p><strong>Insight:</strong> By treating the ALL test set as labeled and Golub as unlabeled, PB inference combines information across cohorts to correct bias and improve precision when estimating the association between BCR-ABL1 status and patient sex.</p>
 </blockquote>
 <hr>
 <p><em>This is the end of the module. We hope this was informative! For question/concerns/suggestions, please reach out to ssalerno@fredhutch.org</em></p>

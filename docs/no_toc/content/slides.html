@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Overview – IPD Workshop</title>
+<title>Overview – Prediction-Based Inference: Methods &amp; Applications</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,43 +74,11 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Overview – IPD Workshop">
+<meta property="og:title" content="Overview – Prediction-Based Inference: Methods &amp; Applications">
 <meta property="og:description" content="Promises and pitfalls of using predicted data for downstream inference">
-<meta property="og:image" content="https://salernos.github.io/ipd-workshop/content/images/ipd_overview.png">
-<meta property="og:site_name" content="IPD Workshop">
-<meta property="og:image:height" content="502">
-<meta property="og:image:width" content="1061">
+<meta property="og:site_name" content="Prediction-Based Inference: Methods &amp; Applications">
 </head>
 
 <body class="quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -328,66 +296,116 @@ Update this PDF path after adding Jesse's slide deck to:
 <p>Modern biomedical analyses increasingly rely on machine learning predictions as inputs to downstream statistical models. This can expand scope and improve feasibility, but treating predictions as if they were observed data can bias effect estimates and understate uncertainty.</p>
 </div>
 </div>
-</section>
-<section id="setup" class="level2">
-<h2 class="anchored" data-anchor-id="setup">Setup</h2>
-<p>When an outcome, <span class="math inline">\(Y\)</span>, is costly or difficult to measure, it can be tempting to replace missing values with predictions, <span class="math inline">\(f(\boldsymbol{X})\)</span>, from a machine learning model (e.g., a random forest or neural network) built on easier-to-measure features, <span class="math inline">\(\boldsymbol{X}\)</span>. However, using <span class="math inline">\(f\)</span> as if it were the true outcome in downstream analyses, e.g., in estimating a regression coefficient, <span class="math inline">\(\beta\)</span>, for the association between <span class="math inline">\(Y\)</span> and <span class="math inline">\(\boldsymbol{X}\)</span>, leads to biased point estimates and underestimated uncertainty. Methods for <a href="https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267">Inference with Predicted Data (IPD)</a> address this by leveraging a small subset of “labeled” data with true <span class="math inline">\(Y\)</span> values to calibrate inference in a larger “unlabeled” dataset.</p>
-<div class="hero-grid">
-<div class="hero-diagram">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/ipd_overview.png" class="img-fluid figure-img"></p>
-<figcaption><em>Overview of setup for common ‘inference with predicted data’ problems</em></figcaption>
-</figure>
-</div>
-</div>
-<section id="the-ipd-framework" class="level2 goals-card">
-<h2 class="anchored" data-anchor-id="the-ipd-framework">The IPD Framework</h2>
-<p>Consider data arising from three sets of observations:</p>
-<ul>
-<li><strong>Training Set</strong>: <span class="math inline">\(\{(X_j, Y_j)\}_{j=1}^{n_t}\)</span>, used to fit a predictive model, <span class="math inline">\(f(\cdot)\)</span>.</li>
-<li><strong>Labeled Set</strong>: <span class="math inline">\(\{(X_i, Y_i)\}_{i=1}^{n_l}\)</span>, smaller sample with true outcomes measured.</li>
-<li><strong>Unlabeled Set</strong>: <span class="math inline">\(\{(X_i)\}_{i=n_l +1}^{n_l + n_u}\)</span>, only features available.</li>
-</ul>
-<p>After fitting <span class="math inline">\(f\)</span> on the training set, we apply it to the labeled and unlabeled sets to obtain predictions <span class="math inline">\(f_i = f(X_i)\)</span></p>
-</section>
-</div>
-<p>Especially for ‘good’ predictions, it is tempting to treat <span class="math inline">\(f_i\)</span> as surrogate outcomes and use them to estimate quantities such as regression parameters, <span class="math inline">\(\beta\)</span>. However, as we will see, this leads to <em>invalid inference</em>. By combining the predicted <span class="math inline">\(f_i\)</span> with the observed <span class="math inline">\(Y_i\)</span> in the labeled set, we can calibrate our estimates and standard errors to achieve <em>valid inference</em>.</p>
-</section>
-<section id="key-formulas" class="level2">
-<h2 class="anchored" data-anchor-id="key-formulas">Key Formulas</h2>
-<p>Consider a simple linear regression model for the association between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>. We discuss the following potential estimators, which we will later implement using simulated data.</p>
-<section id="naive-estimator" class="level3">
-<h3 class="anchored" data-anchor-id="naive-estimator">Naive Estimator</h3>
-<p>Using only the <em>unlabeled</em> predictions, the <strong>naive</strong> OLS estimator solves</p>
-<p><span class="math display">\[
+<!--- Commenting this out for ENAR 2026 tutorial
+
+## Setup 
+
+When an outcome, $Y$, is costly or difficult to measure, it can be tempting to 
+replace missing values with predictions, $f(\boldsymbol{X})$, from a 
+machine learning model (e.g., a random forest or neural network) built on 
+easier-to-measure features, $\boldsymbol{X}$. However, using $f$ as if 
+it were the true outcome in downstream analyses, e.g., in estimating a 
+regression coefficient, $\beta$, for the association between $Y$ and 
+$\boldsymbol{X}$, leads to biased point estimates and underestimated 
+uncertainty. Methods for Prediction-Based (PB) Inference address this by 
+leveraging a small subset of "labeled" data with true $Y$ values to calibrate 
+inference in a larger "unlabeled" dataset. 
+
+::: {.hero-grid}
+
+::: {.hero-diagram}
+![*Overview of setup for common 'prediction-based inference' problems*](images/ipd_overview.png)
+:::
+
+::: {.goals-card}
+## The Prediction-Based (PB) Inference Framework
+
+Consider data arising from three sets of observations:
+
+* **Training Set**: $\{(X_j, Y_j)\}_{j=1}^{n_t}$, used to fit a predictive model, $f(\cdot)$.
+* **Labeled Set**: $\{(X_i, Y_i)\}_{i=1}^{n_l}$, smaller sample with true outcomes measured.
+* **Unlabeled Set**: $\{(X_i)\}_{i=n_l +1}^{n_l + n_u}$, only features available.
+
+After fitting $f$ on the training set, we apply it to the labeled and unlabeled sets to obtain predictions $f_i = f(X_i)$
+:::
+
+:::
+
+Especially for 'good' predictions, it is tempting to treat $f_i$ as surrogate 
+outcomes and use them to estimate quantities such as regression parameters, 
+$\beta$.  However, as we will see, this leads to *invalid inference*. By 
+combining the predicted $f_i$ with the observed $Y_i$ in the labeled set, 
+we can calibrate our estimates and standard errors to achieve *valid inference*.
+
+## Key Formulas
+
+Consider a simple linear regression model for the association between $Y$ and 
+$X$. We discuss the following potential estimators, which we will later 
+implement using simulated data.
+
+### Naive Estimator
+
+Using only the *unlabeled* predictions, the **naive** OLS estimator solves
+
+$$
 \hat\gamma_{\text{naive}} = \arg\min_\gamma \sum_{i\in U} (f_i - X_i'\gamma)^2.
-\]</span></p>
-<p>We are careful to write the coefficients for this model as <span class="math inline">\(\gamma\)</span>, because they bear no necessary correspondence with <span class="math inline">\(\beta\)</span>, except under the extremely restrictive scenario when <span class="math inline">\(f\)</span> perfectly captures the true regression function.</p>
-</section>
-<section id="classical-estimator" class="level3">
-<h3 class="anchored" data-anchor-id="classical-estimator">Classical Estimator</h3>
-<p>Instead, a valid approach would be to use only the <em>labeled</em> data. This <strong>classical</strong> estimator solves</p>
-<p><span class="math display">\[
+$$
+
+We are careful to write the coefficients for this model as $\gamma$, because 
+they bear no necessary correspondence with $\beta$, except under the extremely 
+restrictive scenario when $f$ perfectly captures the true regression function.
+
+### Classical Estimator
+
+Instead, a valid approach would be to use only the *labeled* data. This 
+**classical** estimator solves
+
+$$
 \hat\beta_{\text{classical}} = \arg\min_\beta \sum_{i\in L} (Y_i - X_i'\beta)^2.
-\]</span> While this approach is valid, it has limited precision because <span class="math inline">\(n_l\)</span> is small in practice and we do not utilize any potential information from the (often much larger) <strong>unlabeled</strong> data.</p>
-</section>
-<section id="ipd-estimators" class="level3">
-<h3 class="anchored" data-anchor-id="ipd-estimators">IPD Estimators</h3>
-<p>Many estimators tailored to inference with predicted data share a similar form, as given in <a href="https://arxiv.org/pdf/2501.09731">Ji et al.&nbsp;(2025)</a>:</p>
-<p><span class="math display">\[
-\widehat\beta_\text{ipd} = \arg\min_\beta \frac{1}{n_l}\sum_{i=1}^{n_l} \ell(X_i, Y_i) - \left[\frac{1}{n_l}\sum_{i=1}^{n_l} g(X_i, f_i) - \frac{1}{n_l+n_u}\sum_{i=n_l+1}^{n_l+n_u} g(X_i, f_i)\right],
-\]</span></p>
-<p>for some loss function, <span class="math inline">\(\ell(\cdot)\)</span>, such as the squared error loss for linear regression, and some <span class="math inline">\(g(\cdot)\)</span>, which they call the ‘imputed loss’. Here, the first term is exactly the <strong>classical</strong> estimator, which anchors these methods on a valid model, and the second term in the square brackets ‘augments’ the estimator with additional information from the predictions. This allows us to have an estimator that is provably unbiased and asymptotically at least as efficient as the <strong>classical</strong> estimator, which only uses a fraction of the data.</p>
-<p>The <a href="https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267">Inference with Predicted Data (IPD)</a> package implements several recent methods for IPD, such as <strong>Chen &amp; Chen</strong> method of <a href="https://arxiv.org/pdf/2411.19908">Gronsbell et al.</a>, the Prediction-Powered Inference (<strong>PPI</strong>) and <strong>PPI++</strong> methods of <a href="https://www.science.org/doi/10.1126/science.adi6000">Angelopoulos et al.&nbsp;(a)</a> and <a href="https://arxiv.org/pdf/2311.01453">Angelopoulos et al.&nbsp;(a)</a>, the Post-Prediction Inference (<strong>PostPI</strong>) method of <a href="https://www.pnas.org/doi/10.1073/pnas.2001238117">Wang et al.</a>, and the Post-Prediction Adaptive Inference (<strong>PSPA</strong>) method of <a href="https://arxiv.org/abs/2311.14220">Miao et al.</a> to conduct valid, efficient inference, even when a large proportion of outcomes are predicted.</p>
-</section>
+$$
+While this approach is valid, it has limited precision because $n_l$ is small 
+in practice and we do not utilize any potential information from the (often
+much larger) **unlabeled** data.
+
+### PB Estimators
+
+Many estimators tailored to PB inference share a similar form, as given in 
+[Ji et al. (2025)](https://arxiv.org/pdf/2501.09731):
+
+$$
+\widehat\beta_\text{pb} = \arg\min_\beta \frac{1}{n_l}\sum_{i=1}^{n_l} \ell(X_i, Y_i) - \left[\frac{1}{n_l}\sum_{i=1}^{n_l} g(X_i, f_i) - \frac{1}{n_l+n_u}\sum_{i=n_l+1}^{n_l+n_u} g(X_i, f_i)\right],
+$$
+
+for some loss function, $\ell(\cdot)$, such as the squared error loss for 
+linear regression, and some $g(\cdot)$, which they call the 'imputed loss'. 
+Here, the first term is exactly the **classical** estimator, which anchors 
+these methods on a valid model, and the second term in the square brackets 
+'augments' the estimator with additional information from the predictions. 
+This allows us to have an estimator that is provably unbiased and 
+asymptotically at least as efficient as the **classical** estimator, which 
+only uses a fraction of the data.
+
+The 
+[`ipd` (inference with predicted data)](https://academic.oup.com/bioinformatics/article/41/2/btaf055/7997267) 
+package implements several recent methods for PB inference, such as the 
+**Chen & Chen** method of
+[Gronsbell et al.](https://arxiv.org/pdf/2411.19908), 
+the Prediction-Powered Inference (**PPI**) and **PPI++** methods of 
+[Angelopoulos et al. (a)](https://www.science.org/doi/10.1126/science.adi6000) 
+and 
+[Angelopoulos et al. (a)](https://arxiv.org/pdf/2311.01453), the 
+Post-Prediction Inference (**PostPI**) method of 
+[Wang et al.](https://www.pnas.org/doi/10.1073/pnas.2001238117), and the 
+Post-Prediction Adaptive Inference (**PSPA**) method of 
+[Miao et al.](https://arxiv.org/abs/2311.14220) 
+to conduct valid, efficient inference, even when a large proportion of outcomes 
+are predicted. 
+
+--->
 </section>
 <section id="slides-pdf" class="level2">
 <h2 class="anchored" data-anchor-id="slides-pdf">Slides (PDF)</h2>
-<div style="border: 1px solid #d9dee6; border-radius: 10px; overflow: hidden; margin-bottom: 1rem;">
-<p><iframe src="content/slides/slides.pdf" title="Background and Motivation Slides" width="100%" height="900" style="border: 0;"> </iframe></p>
-</div>
-<p><a href="content/slides/slides.pdf" target="_blank">Open slides in a new tab</a></p>
+<p><a href="https://drive.google.com/file/d/1DKoO2WCWBLNxm0Vk5thmMwtLSHCB7rjo/view?usp=sharing">Click here to follow along with the overview presentation</a></p>
 
 
 </section>
