@@ -51,6 +51,8 @@ In practice this means preserving:
 
 :::
 
+For additional references, please find this living spreadsheet [here](https://docs.google.com/spreadsheets/d/17IRK0DBEZz9sa_k_zY-RNFbNXKpaBsDBQk09A5-Hh0c/edit?usp=sharing).
+
 # Data Sources Used in this Workshop
 
 ## Where Each Dataset Appears
