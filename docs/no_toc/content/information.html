@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Reference table for IPD methods used in the workshop plus additional resources for continued learning.">
+<meta name="description" content="Reference table for prediction-based inference methods used in the workshop plus additional resources for continued learning.">
 
-<title>Additional Information – IPD Workshop</title>
+<title>Additional Information – Prediction-Based Inference: Methods &amp; Applications</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -77,9 +77,9 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Additional Information – IPD Workshop">
-<meta property="og:description" content="Reference table for IPD methods used in the workshop plus additional resources for continued learning.">
-<meta property="og:site_name" content="IPD Workshop">
+<meta property="og:title" content="Additional Information – Prediction-Based Inference: Methods &amp; Applications">
+<meta property="og:description" content="Reference table for prediction-based inference methods used in the workshop plus additional resources for continued learning.">
+<meta property="og:site_name" content="Prediction-Based Inference: Methods &amp; Applications">
 </head>
 
 <body class="quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -295,7 +295,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    Reference table for IPD methods used in the workshop plus additional resources for continued learning.
+    Reference table for prediction-based inference methods used in the workshop plus additional resources for continued learning.
   </div>
 </div>
 
@@ -320,8 +320,8 @@ ul.task-list li input[type="checkbox"] {
 </blockquote>
 <p>Each approach reviewed here combines information from:</p>
 <ul>
-<li><strong>Labeled Data</strong>: Where the true outcome is observed, and</li>
-<li><strong>Unlabeled data</strong>: Where only predictions are available.</li>
+<li><strong>Labeled Data</strong>: Where the true outcomes, predicted outcomes, and covariates are observed, and</li>
+<li><strong>Unlabeled data</strong>: Where only predicted outcomes and covariates are available.</li>
 </ul>
 <p>The table below summarizes the main methods implemented in the <code>ipd</code> package.</p>
 <table class="caption-top table">
@@ -403,7 +403,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Unbiased or approximately unbiased effect estimates</li>
 <li>Properly calibrated confidence intervals</li>
-<li>Improved statistical power when predictions are informative</li>
+<li>Improved efficiency/statistical power when predictions are informative</li>
 </ul>
 </div>
 </div>
@@ -436,21 +436,21 @@ ul.task-list li input[type="checkbox"] {
 <td><a href="Unit01_Alphafold.qmd">Proteomics with AlphaFold</a></td>
 <td>AlphaFold / PTM</td>
 <td>Proteomics and Structural Biology</td>
-<td>Study the association between PTMs and disorder when disorder is predicted at scale</td>
+<td>Studies the association between PTMs and disorder when disorder is predicted at scale with novel AI methods</td>
 </tr>
 <tr class="odd">
 <td>Unit 02</td>
 <td><a href="../content/Unit02_MeasuringAdiposity.html">Measuring Adiposity</a></td>
 <td>NHANES</td>
 <td>Public Health and Epidemiology</td>
-<td>BMI and waist circumference as proxies for DXA-based adiposity</td>
+<td>Introduces a non-AI/ML example of BMI as a surrogate for adiposity and highlights data structure considerations</td>
 </tr>
 <tr class="even">
 <td>Unit 03</td>
 <td><a href="../content/Unit03_GeneticData.html">BCR-ABL Fusion</a></td>
 <td>ALL / Golub</td>
 <td>Genomics and Molecular Classification</td>
-<td>Predict BCR-ABL1 fusion status from gene expression and correct downstream inference</td>
+<td>Provides a gene expression example, using data and methods from <a href="https://www.bioconductor.org/">Bioconductor</a></td>
 </tr>
 <tr class="odd">
 <td>Unit 04</td>
@@ -476,7 +476,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Bias-variance tradeoffs,</li>
 <li>Confidence interval behavior,</li>
 <li>Efficiency gains, and</li>
-<li>The conditions under which IPD methods are most useful.</li>
+<li>The conditions under which PB inference methods are most useful.</li>
 </ul>
 </section>
 <section id="alphafold" class="level2">
@@ -499,13 +499,13 @@ ul.task-list li input[type="checkbox"] {
 <li><code>acetylated</code></li>
 </ul></li>
 </ul>
-<p>The inferential target is the association between PTM status and disorder, typically summarized through an odds ratio from logistic regression. This is an especially clean IPD example because it has the exact structure the methods are designed for:</p>
+<p>The inferential target is the association between PTM status and disorder, typically summarized through an odds ratio from logistic regression. This is an especially clean PB inference example because it has the exact structure the methods are designed for:</p>
 <ul>
 <li>A limited set of residues with trusted disorder labels,</li>
 <li>A much larger set with model-based disorder predictions, and</li>
 <li>A downstream scientific question about association rather than prediction alone.</li>
 </ul>
-<p>The module uses the complete dataset to simulate partial labeling, so participants can see how classical, naive, and IPD methods behave as the number of labeled residues changes.</p>
+<p>The module uses the complete dataset to simulate partial labeling, so participants can see how classical, naive, and PB inference methods behave as the number of labeled residues changes.</p>
 </section>
 <section id="nhanes" class="level2">
 <h2 class="anchored" data-anchor-id="nhanes">NHANES</h2>
@@ -520,13 +520,13 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>BMI</strong></li>
 <li><strong>Waist circumference</strong></li>
 </ul>
-<p>This is a particularly useful teaching example because BMI is often treated as if it were the ‘real’ outcome, when in practice it is better viewed as a <strong>proxy or crude prediction</strong> of underlying adiposity. From the IPD perspective, that is exactly the setting we care about.</p>
+<p>This is a particularly useful teaching example because BMI is often treated as if it were the ‘real’ outcome, when in practice it is better viewed as a <strong>proxy or crude prediction</strong> of underlying adiposity. From the PB inference perspective, that is exactly the setting we care about.</p>
 <p>In this module, the data are organized into a realistic labeled/unlabeled split:</p>
 <ul>
 <li>The <strong>2017–2018 NHANES wave</strong> serves as the <strong>labeled dataset</strong>, because it includes DXA-based percent body fat,</li>
 <li>The <strong>August 2021–August 2023 wave</strong> serves as the <strong>unlabeled dataset</strong>, because DXA was no longer collected after the pandemic disruption.</li>
 </ul>
-<p>This setup allows the workshop to show how IPD can be used to estimate associations with true adiposity when:</p>
+<p>This setup allows the workshop to show how PB inference can be used to estimate associations with true adiposity when:</p>
 <ul>
 <li>The biologically meaningful outcome is only available in an older cohort, and</li>
 <li>The newer cohort contains only cheaper anthropometric proxies.</li>
@@ -556,7 +556,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Measurements on a different Affymetrix platform</li>
 <li>Phenotype annotations including lineage and sex</li>
 </ul>
-<p>In the workshop, this second dataset serves as an <strong>unlabeled cohort</strong>. A classifier trained on the labeled <code>ALL</code> data is transferred to the Golub samples, and IPD is then used to estimate downstream associations while correcting for the fact that the subtype labels are predicted rather than directly observed.</p>
+<p>In the workshop, this second dataset serves as an <strong>unlabeled cohort</strong>. A classifier trained on the labeled <code>ALL</code> data is transferred to the Golub samples, and PB inference is then used to estimate downstream associations while correcting for the fact that the subtype labels are predicted rather than directly observed.</p>
 <p>This mirrors a real translational genomics workflow in that only a subset of patients may receive gold-standard molecular testing, while a larger cohort has rich molecular features but incomplete labeling.</p>
 </section>
 </section>
@@ -564,7 +564,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="the-rashomon-quartet">The Rashomon Quartet</h2>
 <p>The workshop also uses the <strong>Rashomon Quartet</strong> as a conceptual example about the gap between predictive performance and scientific interpretation.</p>
 <p>The Rashomon effect describes settings where many different models fit the data similarly well, yet support different interpretations or downstream decisions.</p>
-<p>This example pairs naturally with IPD because it reinforces a central lesson of the workshop:</p>
+<p>This example pairs naturally with PB inference because it reinforces a central lesson of the workshop:</p>
 <blockquote class="blockquote">
 <p>Strong predictive performance does not automatically imply valid inference.</p>
 </blockquote>
@@ -605,7 +605,7 @@ ul.task-list li input[type="checkbox"] {
 <ol type="1">
 <li><p><strong>Change the labeled/unlabeled split</strong> Re-run a simulation or applied example with different numbers of labeled observations and compare how the methods behave.</p></li>
 <li><p><strong>Swap the predictive model or proxy</strong> Replace one prediction rule with another and examine how the naive and corrected estimates change.</p></li>
-<li><p><strong>Compare several IPD methods on the same task</strong> For example, try <code>pspa</code>, <code>ppi_plusplus</code>, and a <code>postpi</code> method on the same problem and compare interval width, stability, and bias.</p></li>
+<li><p><strong>Compare several PB inference methods on the same task</strong> For example, try <code>pspa</code>, <code>ppi_plusplus</code>, and a <code>postpi</code> method on the same problem and compare interval width, stability, and bias.</p></li>
 <li><p><strong>Deliberately worsen prediction quality</strong> Add noise, reduce features, or use a weaker model and study how sensitive downstream inference is to lower-quality predictions.</p></li>
 <li><p><strong>Think carefully about the scientific target</strong> In many applications, the hardest question is not how to fit the model, but what quantity is actually the scientific outcome of interest and how well the observed proxy represents it.</p></li>
 </ol>

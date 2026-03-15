@@ -8,7 +8,7 @@
 
 <meta name="description" content="Quick checklist for software setup and package installation.">
 
-<title>Setup &amp; Prerequisites – IPD Workshop</title>
+<title>Setup &amp; Prerequisites – Prediction-Based Inference: Methods &amp; Applications</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -112,9 +112,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Setup &amp; Prerequisites – IPD Workshop">
+<meta property="og:title" content="Setup &amp; Prerequisites – Prediction-Based Inference: Methods &amp; Applications">
 <meta property="og:description" content="Quick checklist for software setup and package installation.">
-<meta property="og:site_name" content="IPD Workshop">
+<meta property="og:site_name" content="Prediction-Based Inference: Methods &amp; Applications">
 </head>
 
 <body class="fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -353,11 +353,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://www.docker.com/products/docker-desktop/">Docker Desktop (Windows/Mac/Linux)</a></li>
 </ul>
 <p>Then run:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-e</span> PASSWORD=<span class="op">&lt;</span>choose_a_password_for_rstudio<span class="op">&gt;</span> -p 8787:8787 ghcr.io/salernos/ipd-workshop:latest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-e</span> PASSWORD=<span class="op">&lt;</span>your_chosen_password<span class="op">&gt;</span> -p 8787:8787 ghcr.io/salernos/ipd-workshop:latest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Open:</p>
 <ul>
 <li><code>http://localhost:8787/</code></li>
-<li>Login: username <code>rstudio</code>, password = what you set above</li>
+<li>Login: username = <code>rstudio</code>, password = <code>&lt;your_chosen_password&gt;</code></li>
 </ul>
 </section>
 <section id="option-b-local-r-rstudio" class="level3">
@@ -376,12 +376,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="core-packages-required-for-option-b" class="level3">
 <h3 class="anchored" data-anchor-id="core-packages-required-for-option-b">Core packages (required for Option B)</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ipd"</span>, <span class="st">"broom"</span>, <span class="st">"tidyverse"</span>, <span class="st">"future"</span>, <span class="st">"furrr"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ipd"</span>, <span class="st">"MASS"</span>, <span class="st">"broom"</span>, <span class="st">"tidyverse"</span>, <span class="st">"future"</span>, <span class="st">"furrr"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="supplemental-packages-optional-used-outside-units-00-and-01" class="level3">
 <h3 class="anchored" data-anchor-id="supplemental-packages-optional-used-outside-units-00-and-01">Supplemental packages (optional, used outside Units 00 and 01)</h3>
-<p>Install these only if you want to explore modules outside Unit 00 and Unit 01.</p>
+<p>During the workshop, we will only cover Unit 00 and Unit 01. You can install the following only if you want to explore modules outside Unit 00 and Unit 01.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CRAN packages for optional supplemental units</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"patchwork"</span>, <span class="st">"scales"</span>, <span class="st">"janitor"</span>, <span class="st">"GGally"</span>, <span class="st">"randomForest"</span>,</span>
@@ -402,13 +402,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="second-setup-test">60-Second Setup Test</h2>
 <p>Run this in R/RStudio (for Option B, this confirms local setup is complete):</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ipd)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(future)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furrr)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(future)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furrr)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Optional check (if one fails, install that package and rerun this chunk):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>required <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ipd"</span>, <span class="st">"broom"</span>, <span class="st">"tidyverse"</span>, <span class="st">"future"</span>, <span class="st">"furrr"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>required <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ipd"</span>, <span class="st">"MASS"</span>, <span class="st">"broom"</span>, <span class="st">"tidyverse"</span>, <span class="st">"future"</span>, <span class="st">"furrr"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>missing <span class="ot">&lt;-</span> required[<span class="sc">!</span><span class="fu">vapply</span>(required, requireNamespace, <span class="fu">logical</span>(<span class="dv">1</span>), <span class="at">quietly =</span> <span class="cn">TRUE</span>)]</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -418,6 +419,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>(<span class="fu">sprintf</span>(<span class="st">"Missing required packages: %s"</span>, <span class="fu">paste</span>(missing, <span class="at">collapse =</span> <span class="st">", "</span>)))</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If this runs without errors, you are ready.</p>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>We will be providing datasets for the modules that use real data. For Option B, please download the data folder from either <a href="https://github.com/salernos/ipd-workshop/tree/main/content/data">GitHub</a> or <a href="https://drive.google.com/drive/folders/1ubmvB43a7zYgwrZ93-BSAjfbDOaEuH9r?usp=sharing">Google Drive</a> into your local working directory (for Option A, these data will already be available in the docker image).</p>
+<p><strong>Link to Data Folder on GitHub</strong>: <a href="https://github.com/salernos/ipd-workshop/tree/main/content/data">https://github.com/salernos/ipd-workshop/tree/main/content/data</a></p>
+<p><strong>Link to Data Folder on Google Drive</strong>: <a href="https://drive.google.com/drive/folders/1ubmvB43a7zYgwrZ93-BSAjfbDOaEuH9r?usp=sharing">https://drive.google.com/drive/folders/1ubmvB43a7zYgwrZ93-BSAjfbDOaEuH9r?usp=sharing</a></p>
 </section>
 <section id="links-youll-need-during-the-workshop" class="level2">
 <h2 class="anchored" data-anchor-id="links-youll-need-during-the-workshop">Links You’ll Need During the Workshop</h2>

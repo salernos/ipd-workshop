@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Compare BMI and DXA-based adiposity measures and use IPD corrections to improve regression inference under predicted outcomes.">
+<meta name="description" content="Compare BMI and DXA-based adiposity measures and use PB corrections to improve regression inference under predicted outcomes.">
 
-<title>Measuring Adiposity – IPD Workshop</title>
+<title>Measuring Adiposity – Prediction-Based Inference: Methods &amp; Applications</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -112,10 +112,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Measuring Adiposity – IPD Workshop">
-<meta property="og:description" content="Compare BMI and DXA-based adiposity measures and use IPD corrections to improve regression inference under predicted outcomes.">
+<meta property="og:title" content="Measuring Adiposity – Prediction-Based Inference: Methods &amp; Applications">
+<meta property="og:description" content="Compare BMI and DXA-based adiposity measures and use PB corrections to improve regression inference under predicted outcomes.">
 <meta property="og:image" content="https://salernos.github.io/ipd-workshop/content/images/adiposity_cover.png">
-<meta property="og:site_name" content="IPD Workshop">
+<meta property="og:site_name" content="Prediction-Based Inference: Methods &amp; Applications">
 <meta property="og:image:height" content="1024">
 <meta property="og:image:width" content="1536">
 </head>
@@ -314,12 +314,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#exercise-7-additional-stratified-comparisons-by-measure" id="toc-exercise-7-additional-stratified-comparisons-by-measure" class="nav-link" data-scroll-target="#exercise-7-additional-stratified-comparisons-by-measure">Exercise 7: Additional Stratified Comparisons by Measure</a></li>
   <li><a href="#discussion-questions-3" id="toc-discussion-questions-3" class="nav-link" data-scroll-target="#discussion-questions-3">Discussion Questions</a></li>
   </ul></li>
-  <li><a href="#demographic-associations-naive-vs-classical-vs-ipd" id="toc-demographic-associations-naive-vs-classical-vs-ipd" class="nav-link" data-scroll-target="#demographic-associations-naive-vs-classical-vs-ipd">Demographic Associations: Naive vs Classical vs IPD</a>
+  <li><a href="#demographic-associations-naive-vs-classical-vs-pb-inference-methods" id="toc-demographic-associations-naive-vs-classical-vs-pb-inference-methods" class="nav-link" data-scroll-target="#demographic-associations-naive-vs-classical-vs-pb-inference-methods">Demographic Associations: Naive vs Classical vs PB Inference Methods</a>
   <ul class="collapse">
-  <li><a href="#exercise-8-naive-vs-classical-vs-ipd-inference" id="toc-exercise-8-naive-vs-classical-vs-ipd-inference" class="nav-link" data-scroll-target="#exercise-8-naive-vs-classical-vs-ipd-inference">Exercise 8: Naive vs Classical vs IPD Inference</a></li>
+  <li><a href="#exercise-8-naive-vs-classical-vs-pb-inference" id="toc-exercise-8-naive-vs-classical-vs-pb-inference" class="nav-link" data-scroll-target="#exercise-8-naive-vs-classical-vs-pb-inference">Exercise 8: Naive vs Classical vs PB Inference</a></li>
   <li><a href="#discussion-questions-4" id="toc-discussion-questions-4" class="nav-link" data-scroll-target="#discussion-questions-4">Discussion Questions</a></li>
   <li><a href="#discussion-questions-5" id="toc-discussion-questions-5" class="nav-link" data-scroll-target="#discussion-questions-5">Discussion Questions</a></li>
-  <li><a href="#exercise-10-run-ipd-and-compare-against-naiveclassical" id="toc-exercise-10-run-ipd-and-compare-against-naiveclassical" class="nav-link" data-scroll-target="#exercise-10-run-ipd-and-compare-against-naiveclassical">Exercise 10: Run IPD and Compare Against Naive/Classical</a></li>
+  <li><a href="#exercise-10-run-pb-inference-and-compare-against-naiveclassical" id="toc-exercise-10-run-pb-inference-and-compare-against-naiveclassical" class="nav-link" data-scroll-target="#exercise-10-run-pb-inference-and-compare-against-naiveclassical">Exercise 10: Run PB Inference and Compare Against Naive/Classical</a></li>
   <li><a href="#discussion-questions-6" id="toc-discussion-questions-6" class="nav-link" data-scroll-target="#discussion-questions-6">Discussion Questions</a></li>
   </ul></li>
   <li><a href="#summary-and-key-takeaways" id="toc-summary-and-key-takeaways" class="nav-link" data-scroll-target="#summary-and-key-takeaways">Summary and Key Takeaways</a></li>
@@ -339,7 +339,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div>
   <div class="description">
-    <p>Compare BMI and DXA-based adiposity measures and use IPD corrections to improve regression inference under predicted outcomes.</p>
+    <p>Compare BMI and DXA-based adiposity measures and use PB corrections to improve regression inference under predicted outcomes.</p>
   </div>
 </div>
 
@@ -371,7 +371,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><br></p>
 <p>Waist circumference (WC) is another simple measure of central adiposity that may better reflect visceral fat, a key driver of metabolic risk. Standard WC cut-points (e.g., ≥ 102 cm in men, ≥ 88 cm in women) identify individuals at increased cardiometabolic risk, even when their BMI is in the normal or overweight range. Yet WC also does not directly quantify total body fat and is influenced by body build, posture, and measurement error.</p>
 <p>Dual-energy X-ray absorptiometry (DXA) provides a more accurate “gold-standard” measure of body composition by directly quantifying total and regional fat and lean mass. DXA-derived percent fat thresholds (e.g., &gt; 30% in men, &gt; 42% in women) have been validated against metabolic outcomes. Comparing BMI-based obesity (BMI ≥ 30 kg/m²) and WC-based obesity (WC ≥ 102 cm men, ≥ 88 cm women) with DXA-defined obesity reveals where and how often these common anthropometric proxies misclassify true adiposity.</p>
-<p>It is worth noting that BMI is often defended as a valid measure for population-level inference, under the assumption that individual-level misclassification errors are harmless when estimating group-level trends. This justification appears frequently in epidemiology, where BMI is treated as a convenient stand-in for adiposity in regression models. But this reasoning masks a deeper issue central to the IPD framework: BMI is itself a prediction model, a crude one, but a model nonetheless. It encodes a deterministic function (weight divided by height squared) to approximate an unobserved latent quantity (body fat), and like any prediction model, it introduces systematic biases that may not vanish with aggregation. IPD adopts a prediction-agnostic perspective: whether the surrogate is a simple index like BMI or a high-dimensional neural network, the challenge is the same: how to draw valid statistical inference when the outcome is a model-based proxy. By treating BMI as a prediction rather than a ground truth, we clarify the role of uncertainty, calibration, and correction, and demonstrate how IPD methods can help recover valid estimates even when only such surrogates are available.</p>
+<p>It is worth noting that BMI is often defended as a valid measure for population-level inference, under the assumption that individual-level misclassification errors are harmless when estimating group-level trends. This justification appears frequently in epidemiology, where BMI is treated as a convenient stand-in for adiposity in regression models. But this reasoning masks a deeper issue central to the prediction-based (PB) inference framework: BMI is itself a prediction model, a crude one, but a model nonetheless. It encodes a deterministic function (weight divided by height squared) to approximate an unobserved latent quantity (body fat), and like any prediction model, it introduces systematic biases that may not vanish with aggregation. PB inference adopts a prediction-agnostic perspective: whether the surrogate is a simple index like BMI or a high-dimensional neural network, the challenge is the same: how to draw valid statistical inference when the outcome is a model-based proxy. By treating BMI as a prediction rather than a ground truth, we clarify the role of uncertainty, calibration, and correction, and demonstrate how PB methods can help recover valid estimates even when only such surrogates are available.</p>
 <p>In this module, we will use data from the <a href="https://www.cdc.gov/nchs/nhanes/index.html">National Health and Nutrition Examination Survey (NHANES)</a> to:</p>
 <ol type="1">
 <li><strong>Load</strong> BMI, WC, and DXA-based measures of adiposity and their associated features</li>
@@ -385,7 +385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Calibrate</strong> both BMI and WC-based obesity measures to DXA using the <code>ipd</code> package</li>
 <li><strong>Discuss</strong> implications for research and practice</li>
 </ol>
-<p>By the end, we may have a better understanding of the strengths and limitations of BMI and WC as proxies for adiposity, know how to assess their sensitivity and specificity versus DXA, and be equipped to correct for measurement error using IPD when only BMI/WC are available.</p>
+<p>By the end, we may have a better understanding of the strengths and limitations of BMI and WC as proxies for adiposity, know how to assess their sensitivity and specificity versus DXA, and be equipped to correct for measurement error using PB methods when only BMI/WC are available.</p>
 </section>
 <section id="nhanes" class="level3">
 <h3 class="anchored" data-anchor-id="nhanes">NHANES</h3>
@@ -400,14 +400,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>Use the <strong>2017-2018</strong> wave as our <em>labeled</em> data (which includes <code>DXDTOPF</code>).<br>
 </li>
-<li>Use <strong>IPD</strong> to correct our inference when estimating associations between % body fat and other covariates in the absence of direct DXA measurements in the <em>unlabeled</em> <strong>August 2021 - August 2023</strong> wave.</li>
+<li>Use <strong>PB</strong> inference to correct our inference when estimating associations between % body fat and other covariates in the absence of direct DXA measurements in the <em>unlabeled</em> <strong>August 2021 - August 2023</strong> wave.</li>
 </ol>
 <p>This approach lets us leverage historic DXA data to predict adiposity in more recent participants, enabling unbiased inference across pre- and post-pandemic cohorts.</p>
 </section>
 </section>
 <section id="data-preparation-and-exploration" class="level2">
 <h2 class="anchored" data-anchor-id="data-preparation-and-exploration">Data Preparation and Exploration</h2>
-<p>We will now load a pre-compiled NHANES dataset, explore key variables (BMI, waist circumference, DXA % body fat) by cohort, and define obesity categories for later misclassification analyses and IPD.</p>
+<p>We will now load a pre-compiled NHANES dataset, explore key variables (BMI, waist circumference, DXA % body fat) by cohort, and define obesity categories for later misclassification analyses and PB inference.</p>
 <section id="loading-the-pre-compiled-nhanes-data" class="level3">
 <h3 class="anchored" data-anchor-id="loading-the-pre-compiled-nhanes-data">Loading the Pre-Compiled NHANES Data</h3>
 <p>For convenience, we prepared and saved a data file, <code>data/NHANES.rda</code>, which contains a tibble, <strong>NHANES</strong>, with the following columns:</p>
@@ -446,8 +446,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install these packages if you have not already:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("ipd", "broom", "scales", "tidyverse"))</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -455,7 +453,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)      <span class="co"># Convert model objects (lm, glm, ipd) into tidy data.frames</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)     <span class="co"># Formatting scales and labels for ggplot2</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)  <span class="co"># Meta‐package for data manipulation and visualization</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 </div>
 </div>
@@ -490,14 +487,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/NHANES.RData"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect its structure</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(NHANES)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 11,782
 Columns: 11
@@ -549,12 +543,9 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>NHANES <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Cohort) <span class="sc">|&gt;</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pct =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>     Cohort    n      pct
 1 2017-2018 3617 30.69937
@@ -564,14 +555,11 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <section id="dxa-missingness" class="level4">
 <h4 class="anchored" data-anchor-id="dxa-missingness">DXA Missingness</h4>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>NHANES <span class="sc">|&gt;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cohort) <span class="sc">|&gt;</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">total       =</span> <span class="fu">n</span>(),</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_missing =</span> <span class="fu">mean</span>(<span class="fu">is.na</span>(DXDTOPF)) <span class="sc">*</span> <span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   Cohort    total pct_missing
@@ -606,7 +594,7 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <section id="discussion-questions" class="level3">
 <h3 class="anchored" data-anchor-id="discussion-questions">Discussion Questions</h3>
 <ul>
-<li>Why is this a natural labeled/unlabeled split for IPD?</li>
+<li>Why is this a natural labeled/unlabeled split for PB inference?</li>
 <li>What inferential bias would appear if we ignored the structured missingness?</li>
 </ul>
 </section>
@@ -627,8 +615,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>NHANES <span class="sc">|&gt;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cohort) <span class="sc">|&gt;</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
@@ -642,7 +628,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>Cohort)<span class="sc">|&gt;</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(name, <span class="fu">c</span>(<span class="st">"Metric"</span>, <span class="st">"Statistic"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Statistic, <span class="at">values_from =</span> value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 4
   Cohort    Metric  mean    sd
@@ -658,8 +643,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <section id="distributions-of-continuous-measures-of-adiposity" class="level4">
 <h4 class="anchored" data-anchor-id="distributions-of-continuous-measures-of-adiposity">Distributions of Continuous Measures of Adiposity</h4>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>NHANES <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(BMXBMI, BMXWAIST, DXDTOPF)) <span class="sc">|&gt;</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">fill =</span> Cohort)) <span class="sc">+</span></span>
@@ -671,7 +654,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">"BMI (kg/m2), WC (cm), or % Fat"</span>, </span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -685,8 +667,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <h4 class="anchored" data-anchor-id="dxa-vs-anthropometry-in-2017-2018">DXA vs Anthropometry in 2017-2018</h4>
 <p>Only the 2017-2018 cohort has <code>DXDTOPF</code>, so we examine how BMI and WC relate to true % body fat among the study participants in this wave:</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>NHANES <span class="sc">|&gt;</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cohort <span class="sc">==</span> <span class="st">"2017-2018"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(BMXBMI, BMXWAIST)) <span class="sc">|&gt;</span></span>
@@ -698,7 +678,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">"DXA % Body Fat vs BMI and WC (2017-2018)"</span>,</span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">"BMI (kg/m2) or WC (cm)"</span>, <span class="at">y =</span> <span class="st">"DXDTOPF (%)"</span>) <span class="sc">+</span></span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -709,8 +688,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 </div>
 <p>Let’s also compare these measures by Sex. We can also add reference lines to see where the measure-specific obesity cut-offs would be:</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cutoffs <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"BMXBMI"</span>, <span class="st">"BMXBMI"</span>, <span class="st">"BMXWAIST"</span>, <span class="st">"BMXWAIST"</span>),</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Sex  =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span>),</span>
@@ -735,7 +712,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">"DXA % Body Fat vs BMI and WC (2017-2018)"</span>,</span>
 <span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">"BMI (kg/m2) or WC (cm)"</span>, <span class="at">y =</span> <span class="st">"DXDTOPF (%)"</span>) <span class="sc">+</span></span>
 <span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -795,8 +771,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>NHANES <span class="ot">&lt;-</span> NHANES <span class="sc">|&gt;</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">obese_BMI =</span> BMXBMI <span class="sc">&gt;=</span> <span class="dv">30</span>,</span>
@@ -810,7 +784,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>      Sex <span class="sc">==</span> <span class="st">"Female"</span> <span class="sc">&amp;</span> DXDTOPF <span class="sc">&gt;</span> <span class="dv">42</span> <span class="sc">~</span> <span class="cn">TRUE</span>,</span>
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">.default                       =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 </div>
 </div>
@@ -845,14 +818,11 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Overall</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>NHANES <span class="sc">|&gt;</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cohort <span class="sc">==</span> <span class="st">"2017-2018"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(obese_DXA, obese_BMI) <span class="sc">|&gt;</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f%%"</span>, <span class="dv">100</span> <span class="sc">*</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  obese_DXA obese_BMI    n percent
 1     FALSE     FALSE 2180   60.3%
@@ -860,8 +830,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 3      TRUE     FALSE  415   11.5%
 4      TRUE      TRUE  715   19.8%</code></pre>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># By Sex</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>NHANES <span class="sc">|&gt;</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cohort <span class="sc">==</span> <span class="st">"2017-2018"</span>) <span class="sc">|&gt;</span></span>
@@ -869,7 +837,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">|&gt;</span></span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f%%"</span>, <span class="dv">100</span> <span class="sc">*</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))) <span class="sc">|&gt;</span></span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 5
   Sex    obese_DXA obese_BMI     n percent
@@ -886,14 +853,11 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 </div>
 <p>And WC-defined vs DXA-defined:</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Overall</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>NHANES <span class="sc">|&gt;</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cohort <span class="sc">==</span> <span class="st">"2017-2018"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(obese_DXA, obese_WC) <span class="sc">|&gt;</span></span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f%%"</span>, <span class="dv">100</span> <span class="sc">*</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  obese_DXA obese_WC    n percent
 1     FALSE    FALSE 1959   54.2%
@@ -901,8 +865,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 3      TRUE    FALSE  319    8.8%
 4      TRUE     TRUE  811   22.4%</code></pre>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># By Sex</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>NHANES <span class="sc">|&gt;</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cohort <span class="sc">==</span> <span class="st">"2017-2018"</span>) <span class="sc">|&gt;</span></span>
@@ -910,7 +872,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">|&gt;</span></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f%%"</span>, <span class="dv">100</span> <span class="sc">*</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))) <span class="sc">|&gt;</span></span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 5
   Sex    obese_DXA obese_WC     n percent
@@ -969,8 +930,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assume NHANES is already loaded and has Cohort, Age, Sex, Race, </span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and the three obesity variables</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>nhanes_long <span class="ot">&lt;-</span> NHANES <span class="sc">|&gt;</span></span>
@@ -988,13 +947,10 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
 <span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Obese))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <section id="by-age-group" class="level4">
 <h4 class="anchored" data-anchor-id="by-age-group">By Age Group</h4>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>prop_age <span class="ot">&lt;-</span> nhanes_long <span class="sc">|&gt;</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cohort, Age, Measure, Obese) <span class="sc">|&gt;</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
@@ -1014,7 +970,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Obesity Classification by Age, Cohort, and Measure"</span></span>
 <span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1027,8 +982,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <section id="by-sex" class="level4">
 <h4 class="anchored" data-anchor-id="by-sex">By Sex</h4>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>prop_sex <span class="ot">&lt;-</span> nhanes_long <span class="sc">|&gt;</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cohort, Sex, Measure, Obese) <span class="sc">|&gt;</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
@@ -1048,7 +1001,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Obesity Classification by Sex, Cohort, and Measure"</span></span>
 <span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1061,8 +1013,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <section id="by-raceethnicity" class="level4">
 <h4 class="anchored" data-anchor-id="by-raceethnicity">By Race/Ethnicity</h4>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>prop_race <span class="ot">&lt;-</span> nhanes_long <span class="sc">|&gt;</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cohort, Race, Measure, Obese) <span class="sc">|&gt;</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
@@ -1083,7 +1033,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1119,20 +1068,20 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <li><strong>Race/Ethnicity</strong>: Differences in body composition and fat distribution mean that a single BMI cut-point may not correspond to the same adiposity level across groups.</li>
 </ul>
 <p><strong>Implications</strong>: Reliance on BMI alone can bias epidemiologic associations with true adiposity-driven outcomes (e.g., diabetes, cardiovascular disease). When DXA or other body-composition measures are impractical, consider calibration equations or subgroup-specific BMI thresholds.</p>
-<p><strong>Next:</strong> we will split the combined NHANES data into <strong>labeled</strong> (2017-2018 with <code>DXDTOPF</code>) and <strong>unlabeled</strong> (2021-2023 without DXA), and then proceed with IPD using BMI or WC as our proxy.</p>
+<p><strong>Next:</strong> we will split the combined NHANES data into <strong>labeled</strong> (2017-2018 with <code>DXDTOPF</code>) and <strong>unlabeled</strong> (2021-2023 without DXA), and then proceed with PB inference using BMI or WC as our proxy.</p>
 </section>
 </section>
-<section id="demographic-associations-naive-vs-classical-vs-ipd" class="level2">
-<h2 class="anchored" data-anchor-id="demographic-associations-naive-vs-classical-vs-ipd">Demographic Associations: Naive vs Classical vs IPD</h2>
-<section id="exercise-8-naive-vs-classical-vs-ipd-inference" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-8-naive-vs-classical-vs-ipd-inference">Exercise 8: Naive vs Classical vs IPD Inference</h3>
+<section id="demographic-associations-naive-vs-classical-vs-pb-inference-methods" class="level2">
+<h2 class="anchored" data-anchor-id="demographic-associations-naive-vs-classical-vs-pb-inference-methods">Demographic Associations: Naive vs Classical vs PB Inference Methods</h2>
+<section id="exercise-8-naive-vs-classical-vs-pb-inference" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-8-naive-vs-classical-vs-pb-inference">Exercise 8: Naive vs Classical vs PB Inference</h3>
 <p>We are interested in studying the <em>association</em> between <em>true percent body fat</em> (DXA % fat) and risk factors such as age, sex, and race. We model the <em>binary</em> obesity outcome (DXA-defined “true” vs BMI/WC “proxy”) as a function of <em>Age</em>, <em>Sex</em>, and <em>Race</em> using logistic regression:</p>
 <ul>
 <li><strong>Naive:</strong> proxy-only model on <em>unlabeled</em> data (2021-2023)<br>
 </li>
 <li><strong>Classical:</strong> true-only model on <em>labeled</em> data (2017-2018)<br>
 </li>
-<li><strong>IPD:</strong> combine both while correcting for proxy error</li>
+<li><strong>PB Inference:</strong> combine both while correcting for proxy error</li>
 </ul>
 <section id="exercise-8a-setup-labeled-vs-unlabeled-data" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-8a-setup-labeled-vs-unlabeled-data">Exercise 8a: Setup Labeled vs Unlabeled Data</h4>
@@ -1149,18 +1098,15 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split NHANES into labeled (DXA available) vs unlabeled</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>labeled   <span class="ot">&lt;-</span> NHANES <span class="sc">|&gt;</span> <span class="fu">filter</span>(Cohort <span class="sc">==</span> <span class="st">"2017-2018"</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>unlabeled <span class="ot">&lt;-</span> NHANES <span class="sc">|&gt;</span> <span class="fu">filter</span>(Cohort <span class="sc">==</span> <span class="st">"2021-2023"</span>)</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Stack for IPD</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Stack for PB Inference</span></span>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  labeled   <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">set_label =</span> <span class="st">"labeled"</span>),</span>
 <span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  unlabeled <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">set_label =</span> <span class="st">"unlabeled"</span>)</span>
 <span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 </div>
 </div>
@@ -1175,7 +1121,7 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This split defines the labeled and unlabeled sets used by IPD.</p>
+<p>This split defines the labeled and unlabeled sets used by PB methods.</p>
 </div>
 </div>
 </section>
@@ -1201,8 +1147,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Naive on unlabeled using BMI</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>naive_bmi_fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(obese_BMI <span class="sc">~</span> Age <span class="sc">+</span> Sex <span class="sc">+</span> Race, </span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> binomial, <span class="at">data =</span> unlabeled)</span>
@@ -1214,7 +1158,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> binomial, <span class="at">data =</span> unlabeled)</span>
 <span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>naive_wc_df  <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(naive_wc_fit) <span class="sc">|&gt;</span></span>
 <span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"Naive (WC)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <blockquote class="blockquote">
 <p><strong>Interpretation:</strong></p>
@@ -1224,8 +1167,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 </blockquote>
 <p>For the classical approach, we fit the true model on the <strong>labeled</strong> subset (with actual DXA % fat). That is:</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Classical on labeled using DXA</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>class_fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(obese_DXA <span class="sc">~</span> Age <span class="sc">+</span> Sex <span class="sc">+</span> Race,</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> binomial, <span class="at">data =</span> labeled)</span>
@@ -1267,7 +1208,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Model Type"</span></span>
 <span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1304,9 +1244,9 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <li>Which coefficients are most sensitive to proxy choice?</li>
 <li>Do BMI and WC induce similar bias patterns?</li>
 </ul>
-<section id="exercise-9-ipd-corrections" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-9-ipd-corrections">Exercise 9: IPD Corrections</h4>
-<p>We now apply <strong>IPD</strong> to leverage all participants (labeled + unlabeled) while adjusting for prediction error. We run two IPD analyses, one using <code>BMI</code> as our ‘<code>f</code>’ and one using <code>WC</code>.</p>
+<section id="exercise-9-pb-inference-corrections" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-9-pb-inference-corrections">Exercise 9: PB Inference Corrections</h4>
+<p>We now apply <strong>PB inference</strong> to leverage all participants (labeled + unlabeled) while adjusting for prediction error. We run two IPD analyses, one using <code>BMI</code> as our ‘<code>f</code>’ and one using <code>WC</code>.</p>
 <blockquote class="blockquote">
 <p><strong>A note on two calling styles:</strong></p>
 <p>We can either provide a single, <em>combined</em> dataset to the <code>data</code> argument and the name of the column that gives the set labels in <code>label</code>:</p>
@@ -1314,7 +1254,7 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <p><strong>or</strong> we can provide the <em>labeled</em> set to <code>data</code> and the <em>unlabeled</em> set to <code>unlabeled_data</code> separately:</p>
 <p>ipd_bmi_2 &lt;- ipd( formula = obese_DXA - obese_BMI ~ Age + Sex + Race, data = labeled, unlabeled_data = unlabeled, model = “logistic”, method = “pspa” )</p>
 </blockquote>
-<p>Now we can try to run the IPD model:</p>
+<p>Now we can try to run the PB model:</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1328,8 +1268,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: This code chunk results in an error, but we have an informative warning</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We can try running it and see!</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1348,7 +1286,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     data    = labeled,</span></span>
 <span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     unlabeled_data = unlabeled</span></span>
 <span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 </div>
 </div>
@@ -1363,7 +1300,7 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The warning is expected: labeled and unlabeled datasets must share factor levels for IPD model fitting.</p>
+<p>The warning is expected: labeled and unlabeled datasets must share factor levels for PB model fitting.</p>
 </div>
 </div>
 </section>
@@ -1371,10 +1308,10 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <section id="discussion-questions-5" class="level3">
 <h3 class="anchored" data-anchor-id="discussion-questions-5">Discussion Questions</h3>
 <ul>
-<li>Why do mismatched factor levels break IPD fitting?</li>
+<li>Why do mismatched factor levels break PB inference fitting?</li>
 <li>What preprocessing checks should you run before modeling?</li>
 </ul>
-<p>We can see that the <em>labeled</em> subset does <em>not</em> include any <code>"60+"</code> observations, but IPD expects the same factor levels in both sets in order to fit the model using all the data. To fix this, let us refactor both the <em>labeled</em> and <em>unlabeled</em> data so they have consistent age categories:</p>
+<p>We can see that the <em>labeled</em> subset does <em>not</em> include any <code>"60+"</code> observations, but <code>ipd</code> expects the same factor levels in both sets in order to fit the model using all the data. To fix this, let us refactor both the <em>labeled</em> and <em>unlabeled</em> data so they have consistent age categories:</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1388,8 +1325,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode age</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>NHANES2 <span class="ot">&lt;-</span> NHANES <span class="sc">|&gt;</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Age_recode =</span> <span class="fu">fct_collapse</span>(Age, <span class="st">`</span><span class="at">40+</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"40-59"</span>, <span class="st">"60+"</span>)))</span>
@@ -1401,19 +1336,18 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>unlabeled2 <span class="ot">&lt;-</span> NHANES2 <span class="sc">|&gt;</span> <span class="fu">filter</span>(Cohort <span class="sc">==</span> <span class="st">"2021-2023"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(obese_DXA, obese_BMI, obese_WC, Age_recode, Sex, Race)</span>
 <span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Stack for IPD</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Stack for PB Inference</span></span>
 <span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>combined2 <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
 <span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  labeled2   <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">set_label =</span> <span class="st">"labeled"</span>),</span>
 <span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  unlabeled2 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">set_label =</span> <span class="st">"unlabeled"</span>)</span>
 <span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="exercise-10-run-ipd-and-compare-against-naiveclassical" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-10-run-ipd-and-compare-against-naiveclassical">Exercise 10: Run IPD and Compare Against Naive/Classical</h3>
+<section id="exercise-10-run-pb-inference-and-compare-against-naiveclassical" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-10-run-pb-inference-and-compare-against-naiveclassical">Exercise 10: Run PB Inference and Compare Against Naive/Classical</h3>
 <p>Now let us rerun <code>ipd::ipd()</code> and compare our results to the <strong>Naive</strong> and <strong>Classical</strong> models:</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
@@ -1428,8 +1362,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: This code chunk now runs without error!</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>ipd_bmi_fit <span class="ot">&lt;-</span> <span class="fu">ipd</span>(</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">formula =</span> obese_DXA <span class="sc">-</span> obese_BMI <span class="sc">~</span> Age_recode <span class="sc">+</span> Sex <span class="sc">+</span> Race,</span>
@@ -1449,15 +1381,12 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Collect results using the tidy() method</span></span>
 <span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>ipd_bmi_df <span class="ot">&lt;-</span> <span class="fu">tidy</span>(ipd_bmi_fit) <span class="sc">|&gt;</span></span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"IPD (BMI)"</span>)</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"PSPA (BMI)"</span>)</span>
 <span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>ipd_wc_df  <span class="ot">&lt;-</span> <span class="fu">tidy</span>(ipd_wc_fit) <span class="sc">|&gt;</span></span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"IPD (WC)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"PSPA (WC)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rerun previous models</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Naive on unlabeled using BMI</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>naive_bmi_fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(obese_BMI <span class="sc">~</span> Age_recode <span class="sc">+</span> Sex <span class="sc">+</span> Race, </span>
@@ -1492,7 +1421,7 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a>      <span class="st">"RaceOther Race - Including Multi-Racial"</span> <span class="ot">=</span> <span class="st">"Other Race - Including Multi-Racial (vs Non-Hispanic White)"</span></span>
 <span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a>    ),</span>
 <span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="fu">factor</span>(method, </span>
-<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"IPD (BMI)"</span>, <span class="st">"IPD (WC)"</span>, </span>
+<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"PSPA (BMI)"</span>, <span class="st">"PSPA (WC)"</span>, </span>
 <span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"Classical (DXA)"</span>, <span class="st">"Naive (BMI)"</span>, <span class="st">"Naive (WC)"</span>))</span>
 <span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb32-38"><a href="#cb32-38" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -1511,8 +1440,8 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb32-51"><a href="#cb32-51" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Classical (DXA)"</span> <span class="ot">=</span> <span class="st">"#1B365D"</span>, </span>
 <span id="cb32-52"><a href="#cb32-52" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Naive (BMI)"</span>     <span class="ot">=</span> <span class="st">"#00C1D5"</span>, </span>
 <span id="cb32-53"><a href="#cb32-53" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Naive (WC)"</span>      <span class="ot">=</span> <span class="st">"#AA4AC4"</span>,</span>
-<span id="cb32-54"><a href="#cb32-54" aria-hidden="true" tabindex="-1"></a>      <span class="st">"IPD (BMI)"</span>       <span class="ot">=</span> <span class="st">"#00C1D5"</span>,</span>
-<span id="cb32-55"><a href="#cb32-55" aria-hidden="true" tabindex="-1"></a>      <span class="st">"IPD (WC)"</span>        <span class="ot">=</span> <span class="st">"#AA4AC4"</span></span>
+<span id="cb32-54"><a href="#cb32-54" aria-hidden="true" tabindex="-1"></a>      <span class="st">"PSPA (BMI)"</span>       <span class="ot">=</span> <span class="st">"#00C1D5"</span>,</span>
+<span id="cb32-55"><a href="#cb32-55" aria-hidden="true" tabindex="-1"></a>      <span class="st">"PSPA (WC)"</span>        <span class="ot">=</span> <span class="st">"#AA4AC4"</span></span>
 <span id="cb32-56"><a href="#cb32-56" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb32-57"><a href="#cb32-57" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb32-58"><a href="#cb32-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(</span>
@@ -1520,8 +1449,8 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb32-60"><a href="#cb32-60" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Classical (DXA)"</span> <span class="ot">=</span> <span class="st">"#1B365D"</span>, </span>
 <span id="cb32-61"><a href="#cb32-61" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Naive (BMI)"</span>     <span class="ot">=</span> <span class="st">"#00C1D5"</span>, </span>
 <span id="cb32-62"><a href="#cb32-62" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Naive (WC)"</span>      <span class="ot">=</span> <span class="st">"#AA4AC4"</span>,</span>
-<span id="cb32-63"><a href="#cb32-63" aria-hidden="true" tabindex="-1"></a>      <span class="st">"IPD (BMI)"</span>       <span class="ot">=</span> <span class="st">"#00C1D5"</span>,</span>
-<span id="cb32-64"><a href="#cb32-64" aria-hidden="true" tabindex="-1"></a>      <span class="st">"IPD (WC)"</span>        <span class="ot">=</span> <span class="st">"#AA4AC4"</span></span>
+<span id="cb32-63"><a href="#cb32-63" aria-hidden="true" tabindex="-1"></a>      <span class="st">"PSPA (BMI)"</span>       <span class="ot">=</span> <span class="st">"#00C1D5"</span>,</span>
+<span id="cb32-64"><a href="#cb32-64" aria-hidden="true" tabindex="-1"></a>      <span class="st">"PSPA (WC)"</span>        <span class="ot">=</span> <span class="st">"#AA4AC4"</span></span>
 <span id="cb32-65"><a href="#cb32-65" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb32-66"><a href="#cb32-66" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb32-67"><a href="#cb32-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(</span>
@@ -1529,8 +1458,8 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb32-69"><a href="#cb32-69" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Classical (DXA)"</span> <span class="ot">=</span> <span class="dv">16</span>, </span>
 <span id="cb32-70"><a href="#cb32-70" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Naive (BMI)"</span>     <span class="ot">=</span> <span class="dv">16</span>, </span>
 <span id="cb32-71"><a href="#cb32-71" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Naive (WC)"</span>      <span class="ot">=</span> <span class="dv">16</span>,</span>
-<span id="cb32-72"><a href="#cb32-72" aria-hidden="true" tabindex="-1"></a>      <span class="st">"IPD (BMI)"</span>       <span class="ot">=</span> <span class="dv">17</span>,</span>
-<span id="cb32-73"><a href="#cb32-73" aria-hidden="true" tabindex="-1"></a>      <span class="st">"IPD (WC)"</span>        <span class="ot">=</span> <span class="dv">17</span></span>
+<span id="cb32-72"><a href="#cb32-72" aria-hidden="true" tabindex="-1"></a>      <span class="st">"PSPA (BMI)"</span>       <span class="ot">=</span> <span class="dv">17</span>,</span>
+<span id="cb32-73"><a href="#cb32-73" aria-hidden="true" tabindex="-1"></a>      <span class="st">"PSPA (WC)"</span>        <span class="ot">=</span> <span class="dv">17</span></span>
 <span id="cb32-74"><a href="#cb32-74" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb32-75"><a href="#cb32-75" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb32-76"><a href="#cb32-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
@@ -1540,7 +1469,6 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <span id="cb32-80"><a href="#cb32-80" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Model Type"</span>, <span class="at">fill =</span> <span class="st">"Model Type"</span>, <span class="at">shape =</span> <span class="st">"Model Type"</span></span>
 <span id="cb32-81"><a href="#cb32-81" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb32-82"><a href="#cb32-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1562,15 +1490,15 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>IPD combines both cohorts to correct proxy-induced bias while leveraging unlabeled sample size for efficiency.</p>
+<p>PB inference combines both cohorts to correct proxy-induced bias while leveraging unlabeled sample size for efficiency.</p>
 </div>
 </div>
 </section>
 <section id="discussion-questions-6" class="level3">
 <h3 class="anchored" data-anchor-id="discussion-questions-6">Discussion Questions</h3>
 <ul>
-<li>Which covariates move closest to classical after IPD correction?</li>
-<li>Do IPD(BMI) and IPD(WC) differ meaningfully in uncertainty?</li>
+<li>Which covariates move closest to classical after PB inference correction?</li>
+<li>Do PSPA (BMI) and PSPA (WC) differ meaningfully in uncertainty?</li>
 </ul>
 </section>
 </section>
@@ -1580,7 +1508,7 @@ $ WTMEC4YR  &lt;dbl&gt; 4361.720, 3532.305, 6195.460, 15168.327, 7739.791, 30058
 <li><strong>BMI</strong> and <strong>WC</strong> are imperfect proxies for DXA-based % body fat.</li>
 <li><strong>Naive</strong> regression on BMI or WC leads to biased estimates for associations between obesity and risk factors such as age, sex, and race.</li>
 <li><strong>Classical</strong> regression on true DXA-based % fat is unbiased but costly.</li>
-<li><strong>IPD</strong> allows you to leverage a <em>large cohort with only BMI + covariates</em>, correct for prediction error, and recover unbiased estimates with more precision than the <strong>Classical</strong> approach.</li>
+<li><strong>PB inference</strong> allows you to leverage a <em>large cohort with only BMI + covariates</em>, correct for prediction error, and recover unbiased estimates with more precision than the <strong>Classical</strong> approach.</li>
 <li>Understanding how different <em>proxies</em> like BMI and WC affect <strong>population-level inference</strong> is important for epidemiologic and clinical studies.</li>
 </ul>
 </section>
