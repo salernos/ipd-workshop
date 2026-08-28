@@ -1,5 +1,172 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Prediction-Based Inference: Methods & Applications",
+    "section": "",
+    "text": "Source: https://arxiv.org/pdf/2411.19908\n\n\n\n\n\nLearning Goals:\n\nUnderstand limitations in using predicted data for inference.\nLearn about methods that correct for bias and recover valid uncertainty estimates.\nGain practical skills using the ipd R package.\n\nLearning Objectives:\n\nExplore data with AI/ML-predicted outcomes and diagnose bias/variance in predictions.\nApply ipd::ipd() to continuous and binary outcomes.\nInterpret prediction-based (PB) inference outputs and visualize model results.\n\n\n\n\n\n\n\n\nActivity\nTime\n\n\n\n\nOverview\n45 m\n\n\nShort Break and Q&A\n15 m\n\n\nUnit 00: Getting Started\n25 m\n\n\nUnit 01: AlphaFold\n25 m\n\n\nWrap-Up and Q&A\n10 m\n\n\n\n\n\n\nThe companion website for this workshop is available at:\nhttps://salernos.github.io/ipd-workshop\nTo use the workshop image:\ndocker run -e PASSWORD=&lt;your_chosen_password&gt; -p 8787:8787 ghcr.io/salernos/ipd-workshop:latest\nOnce running, open http://localhost:8787/ and login with username = rstudio, password = &lt;your_chosen_password&gt;\nThen begin!\n\n\n\nIn this workshop, we explore the consequences of conducting inference on predicted data across several applications and present a suite of prediction-based (PB) inference methods that adjust for prediction-related uncertainty to improve inference validity and efficiency. We also introduce ipd, a user-friendly R package that implements the PB inference methods through a unified interface. The package supports modular integration into existing workflows and includes tidy methods for model inspection and diagnostics.\n\n\n\nThis workshop covers two modules, each illustrated with the ipd package:1\n\n\n\n\n\n\n\n\n\n\n\nPrediction-Based Inference: Methods & Applications\n\n\nBuild intuition for prediction-based inference by simulating data and comparing different methods.\n\n\n\n\n\n\n\n\n\n\n\n\n\nProtein Disorder and PTMs\n\n\nApply PB methods in a proteomics setting to estimate associations when key outcomes are model-predicted rather than directly measured.\n\n\n\n\n\nNo matching items\n\n\n\n\nWe have also included some supplemental modules for you to explore on your own:\n\n\n\n\n\n\n\n\n\n\n\nBMI vs. DXA\n\n\nCompare BMI and DXA-based adiposity measures and use PB corrections to improve regression inference under predicted outcomes.\n\n\n\n\n\n\n\n\n\n\n\n\n\nin B-Cell Leukemia\n\n\nStudy BCR-ABL prediction from gene-expression profiles and evaluate how PB inference methods calibrate downstream inference in genomics.\n\n\n\n\n\n\n\n\n\n\n\n\n\ni.e., Performance is not Enough\n\n\nExamine how equally predictive models can yield different scientific conclusions and compare naive, classical, and PB inference.\n\n\n\n\n\nNo matching items\n\n\n\n\nThis workshop uses a blended format of instruction and hands-on coding exercises. Participants should:\n\nFollow along in the virtual RStudio environment (see below).\nAttempt to complete brief exercises or run the solution code snippets in real time.\nEngage in Q&A at module boundaries to troubleshoot and discuss concepts.\n\n\n\n\n\nA computer with internet access.\nFamiliarity with base R and tidyverse syntax (e.g., dplyr, broom).\nBasic understanding of predictive (e.g., randomForest) and regression modeling (e.g., lm, glm).\nOptional: Exposure to Bioconductor’s ExpressionSet, AnnotationDbi, and MLInterfaces is helpful for one of the supplemental modules.\n\n\n\n\nPresenters: Jesse Gronsbell ✉︎, Jianhui Gao ✉︎, Stephen Salerno ✉︎\nAll Contributors (Alphabetical Order): Awan Afiaz ✉︎, David Cheng ✉︎, Jianhui Gao ✉︎, Jesse Gronsbell ✉︎, Kentaro Hoffman ✉︎, Jeff Leek ✉︎, Qiongshi Lu ✉︎, Tyler McCormick ✉︎, Jiacheng Miao ✉︎, Anna Neufeld ✉︎, Stephen Salerno ✉︎",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#quick-start",
+    "href": "index.html#quick-start",
+    "title": "Prediction-Based Inference: Methods & Applications",
+    "section": "",
+    "text": "The companion website for this workshop is available at:\nhttps://salernos.github.io/ipd-workshop\nTo use the workshop image:\ndocker run -e PASSWORD=&lt;your_chosen_password&gt; -p 8787:8787 ghcr.io/salernos/ipd-workshop:latest\nOnce running, open http://localhost:8787/ and login with username = rstudio, password = &lt;your_chosen_password&gt;\nThen begin!",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#workshop-overview",
+    "href": "index.html#workshop-overview",
+    "title": "Prediction-Based Inference: Methods & Applications",
+    "section": "",
+    "text": "In this workshop, we explore the consequences of conducting inference on predicted data across several applications and present a suite of prediction-based (PB) inference methods that adjust for prediction-related uncertainty to improve inference validity and efficiency. We also introduce ipd, a user-friendly R package that implements the PB inference methods through a unified interface. The package supports modular integration into existing workflows and includes tidy methods for model inspection and diagnostics.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#modules",
+    "href": "index.html#modules",
+    "title": "Prediction-Based Inference: Methods & Applications",
+    "section": "",
+    "text": "This workshop covers two modules, each illustrated with the ipd package:1\n\n\n\n\n\n\n\n\n\n\n\nPrediction-Based Inference: Methods & Applications\n\n\nBuild intuition for prediction-based inference by simulating data and comparing different methods.\n\n\n\n\n\n\n\n\n\n\n\n\n\nProtein Disorder and PTMs\n\n\nApply PB methods in a proteomics setting to estimate associations when key outcomes are model-predicted rather than directly measured.\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#supplemental-modules",
+    "href": "index.html#supplemental-modules",
+    "title": "Prediction-Based Inference: Methods & Applications",
+    "section": "",
+    "text": "We have also included some supplemental modules for you to explore on your own:\n\n\n\n\n\n\n\n\n\n\n\nBMI vs. DXA\n\n\nCompare BMI and DXA-based adiposity measures and use PB corrections to improve regression inference under predicted outcomes.\n\n\n\n\n\n\n\n\n\n\n\n\n\nin B-Cell Leukemia\n\n\nStudy BCR-ABL prediction from gene-expression profiles and evaluate how PB inference methods calibrate downstream inference in genomics.\n\n\n\n\n\n\n\n\n\n\n\n\n\ni.e., Performance is not Enough\n\n\nExamine how equally predictive models can yield different scientific conclusions and compare naive, classical, and PB inference.\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#participation",
+    "href": "index.html#participation",
+    "title": "Prediction-Based Inference: Methods & Applications",
+    "section": "",
+    "text": "This workshop uses a blended format of instruction and hands-on coding exercises. Participants should:\n\nFollow along in the virtual RStudio environment (see below).\nAttempt to complete brief exercises or run the solution code snippets in real time.\nEngage in Q&A at module boundaries to troubleshoot and discuss concepts.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#prerequisites",
+    "href": "index.html#prerequisites",
+    "title": "Prediction-Based Inference: Methods & Applications",
+    "section": "",
+    "text": "A computer with internet access.\nFamiliarity with base R and tidyverse syntax (e.g., dplyr, broom).\nBasic understanding of predictive (e.g., randomForest) and regression modeling (e.g., lm, glm).\nOptional: Exposure to Bioconductor’s ExpressionSet, AnnotationDbi, and MLInterfaces is helpful for one of the supplemental modules.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#contributors",
+    "href": "index.html#contributors",
+    "title": "Prediction-Based Inference: Methods & Applications",
+    "section": "",
+    "text": "Presenters: Jesse Gronsbell ✉︎, Jianhui Gao ✉︎, Stephen Salerno ✉︎\nAll Contributors (Alphabetical Order): Awan Afiaz ✉︎, David Cheng ✉︎, Jianhui Gao ✉︎, Jesse Gronsbell ✉︎, Kentaro Hoffman ✉︎, Jeff Leek ✉︎, Qiongshi Lu ✉︎, Tyler McCormick ✉︎, Jiacheng Miao ✉︎, Anna Neufeld ✉︎, Stephen Salerno ✉︎",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#footnotes",
+    "href": "index.html#footnotes",
+    "title": "Prediction-Based Inference: Methods & Applications",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nModule card cover images were generated by GPT-5.2.↩︎",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "content/Unit01_AlphaFold.html",
+    "href": "content/Unit01_AlphaFold.html",
+    "title": "Proteomics with AlphaFold",
+    "section": "",
+    "text": "https://www.nature.com/articles/s41586-021-03819-2",
+    "crumbs": [
+      "Modules",
+      "Proteomics with AlphaFold"
+    ]
+  },
+  {
+    "objectID": "content/Unit01_AlphaFold.html#background",
+    "href": "content/Unit01_AlphaFold.html#background",
+    "title": "Proteomics with AlphaFold",
+    "section": "Background",
+    "text": "Background\nModern protein biology increasingly relies on machine learning predictions. AlphaFold, developed by Google DeepMind, predicts a protein’s 3D structure from its amino acid sequence with remarkably high accuracy. These predictions have transformed structural biology by providing proteome-scale annotations that would be impossible to obtain experimentally at the same scale.\nAt the same time, many downstream biological questions remain fundamentally inferential rather than predictive. For example, we may want to ask whether post-translational modifications (PTMs) occur more often in intrinsically disordered regions (IDRs), or whether certain PTMs are associated with different structural environments. In settings like this, model predictions are useful, but they are not the same thing as directly observed truth.\nThis module uses the ipd package to study that problem. We will combine AlphaFold-derived predictions with a limited amount of ground truth and ask how different inferential strategies behave.\nBy the end of this module, you will be able to:\n\nConstruct labeled and unlabeled splits from biological data,\nEstimate PTM–disorder associations using logistic regression,\nCompare naive, classical, and prediction-based (PB) inference,\nQuantify efficiency gains from unlabeled data, and\nStudy how many labeled observations may be needed for adequate power.",
+    "crumbs": [
+      "Modules",
+      "Proteomics with AlphaFold"
+    ]
+  },
+  {
+    "objectID": "content/Unit01_AlphaFold.html#biological-motivation",
+    "href": "content/Unit01_AlphaFold.html#biological-motivation",
+    "title": "Proteomics with AlphaFold",
+    "section": "Biological Motivation",
+    "text": "Biological Motivation\nAlphaFold predictions can be post-processed to identify intrinsically disordered regions (IDRs), that is, stretches of a protein that do not adopt a stable folded structure.\nIDRs are central to signaling and regulation. They are flexible, accessible, and often enriched for short linear motifs. Many post-translational modifications, especially phosphorylation, ubiquitination, and acetylation, are hypothesized to occur preferentially in disordered regions, consistent with the idea that structural disorder supports rapid and dynamic regulation.\nIn this workshop, each amino acid residue has:\n\nY: A binary ‘gold-standard’ disorder label,\nYhat: A predicted probability of disorder derived from AlphaFold-based processing,\nPTM indicators:\n\nphosphorylated\nubiquitinated\nacetylated\n\n\nOur scientific question is:\n\nAre residues with a given PTM more likely to lie in intrinsically disordered regions?",
+    "crumbs": [
+      "Modules",
+      "Proteomics with AlphaFold"
+    ]
+  },
+  {
+    "objectID": "content/Unit01_AlphaFold.html#statistical-framing",
+    "href": "content/Unit01_AlphaFold.html#statistical-framing",
+    "title": "Proteomics with AlphaFold",
+    "section": "Statistical Framing",
+    "text": "Statistical Framing\nFor a chosen PTM, X:\n\nX = 1 if the residue carries that PTM,\nY = 1 if the residue lies in an IDR.\n\nWe summarize the association using an odds ratio from logistic regression:\n\\[\n\\text{OR} = \\frac{\\text{Odds}(Y = 1 \\mid X = 1)}{\\text{Odds}(Y = 1 \\mid X = 0)}.\n\\]\nIn practice, however, we may only observe Y on a labeled subset, while Yhat is available for all residues.",
+    "crumbs": [
+      "Modules",
+      "Proteomics with AlphaFold"
+    ]
+  },
+  {
+    "objectID": "content/Unit01_AlphaFold.html#take-home-messages",
+    "href": "content/Unit01_AlphaFold.html#take-home-messages",
+    "title": "Proteomics with AlphaFold",
+    "section": "Take-Home Messages",
+    "text": "Take-Home Messages\n\nAlphaFold enables proteome-scale structural annotation, but prediction is not the same as inference.\nPTM–disorder questions are naturally framed as association problems, making them a good setting for PB inference.\nWhen only a subset of residues has trusted labels, PB inference can improve on classical inference without treating predictions as real data.\nThe value of unlabeled data depends on the quality and calibration of the predictive model.",
+    "crumbs": [
+      "Modules",
+      "Proteomics with AlphaFold"
+    ]
+  },
+  {
+    "objectID": "content/Unit01_AlphaFold.html#closing-note",
+    "href": "content/Unit01_AlphaFold.html#closing-note",
+    "title": "Proteomics with AlphaFold",
+    "section": "Closing Note",
+    "text": "Closing Note\nA central lesson of this module is that large-scale biological prediction does not eliminate the need for statistics. AlphaFold and related systems make it possible to ask questions at a proteome-wide scale, but downstream scientific conclusions still depend on how we handle uncertainty, labeling limitations, and prediction error.\nPB inference methods provide principled ways to bridge that gap.\n\nThis is the end of the module. We hope this was informative. For questions, comments, or suggestions, please reach out to Stephen Salerno (ssalerno@fredhutch.org.\nThe exercises below are optional extensions for self-guided exploration.",
+    "crumbs": [
+      "Modules",
+      "Proteomics with AlphaFold"
+    ]
+  },
+  {
+    "objectID": "content/Unit01_AlphaFold.html#suggested-extensions",
+    "href": "content/Unit01_AlphaFold.html#suggested-extensions",
+    "title": "Proteomics with AlphaFold",
+    "section": "Suggested Extensions",
+    "text": "Suggested Extensions\nIf you continue this work, possible extensions include:\n\nAccounting for protein-level clustering,\nAdding biological covariates such as amino acid type or sequence position,\nComparing additional PB inference methods,\nPerturbing Yhat to study robustness to miscalibration,\nApplying the same workflow to a different ML-derived phenotype.",
+    "crumbs": [
+      "Modules",
+      "Proteomics with AlphaFold"
+    ]
+  },
+  {
     "objectID": "content/Unit02_MeasuringAdiposity.html",
     "href": "content/Unit02_MeasuringAdiposity.html",
     "title": "Measuring Adiposity",
@@ -66,90 +233,246 @@
     ]
   },
   {
-    "objectID": "content/slides.html",
-    "href": "content/slides.html",
-    "title": "Overview",
+    "objectID": "content/setup.html",
+    "href": "content/setup.html",
+    "title": "Setup & Prerequisites",
     "section": "",
-    "text": "Artificial intelligence and machine learning (AI/ML) have become essential tools in biomedical research, enabling large-scale analyses across diverse domains such as genomics, structural biology, and electronic health records-based research. Increasingly, researchers rely on model-generated predictions, rather than directly measured variables, as inputs for downstream statistical analyses. For example, predicted gene expression values or polygenic risk scores are often used in place of experimental assays, allowing researchers to expand cohort sizes and explore hypotheses when traditional data collection is infeasible, costly, or time-consuming.\nWhile this practice of “using predictions as data” holds promise for accelerating scientific discovery, it presents significant challenges for statistical inference. When predicted values are used in place of true variables, the resulting estimates of association can be biased and misleading if uncertainty in the prediction step is not properly accounted for.\n\n\n\n\n\n\nImportantKey Takeaway\n\n\n\nModern biomedical analyses increasingly rely on machine learning predictions as inputs to downstream statistical models. This can expand scope and improve feasibility, but treating predictions as if they were observed data can bias effect estimates and understate uncertainty.",
+    "text": "Welcome, and thanks for joining the workshop, Prediction-Based Inference: Methods & Applications!\nThis page is a quick checklist to help you get set up before the session. If you’d like to follow along interactively during the workshop, these steps will make sure everything runs smoothly.",
     "crumbs": [
-      "Overview"
+      "Resources",
+      "Setup & Prerequisites"
     ]
   },
   {
-    "objectID": "content/slides.html#background-and-motivation",
-    "href": "content/slides.html#background-and-motivation",
-    "title": "Overview",
-    "section": "",
-    "text": "Artificial intelligence and machine learning (AI/ML) have become essential tools in biomedical research, enabling large-scale analyses across diverse domains such as genomics, structural biology, and electronic health records-based research. Increasingly, researchers rely on model-generated predictions, rather than directly measured variables, as inputs for downstream statistical analyses. For example, predicted gene expression values or polygenic risk scores are often used in place of experimental assays, allowing researchers to expand cohort sizes and explore hypotheses when traditional data collection is infeasible, costly, or time-consuming.\nWhile this practice of “using predictions as data” holds promise for accelerating scientific discovery, it presents significant challenges for statistical inference. When predicted values are used in place of true variables, the resulting estimates of association can be biased and misleading if uncertainty in the prediction step is not properly accounted for.\n\n\n\n\n\n\nImportantKey Takeaway\n\n\n\nModern biomedical analyses increasingly rely on machine learning predictions as inputs to downstream statistical models. This can expand scope and improve feasibility, but treating predictions as if they were observed data can bias effect estimates and understate uncertainty.",
+    "objectID": "content/setup.html#quick-checklist-10-15-minutes",
+    "href": "content/setup.html#quick-checklist-10-15-minutes",
+    "title": "Setup & Prerequisites",
+    "section": "Quick Checklist (10-15 minutes)",
+    "text": "Quick Checklist (10-15 minutes)\nComplete these before the tutorial:\n\nConfirm you have a stable internet connection and a laptop.\nChoose your environment:\n\nRecommended: Docker + browser-based RStudio\nAlternative: local R/RStudio install\n\nVerify ipd and core R packages install successfully (Option B only).",
     "crumbs": [
-      "Overview"
+      "Resources",
+      "Setup & Prerequisites"
     ]
   },
   {
-    "objectID": "content/slides.html#slides-pdf",
-    "href": "content/slides.html#slides-pdf",
-    "title": "Overview",
-    "section": "Slides (PDF)",
-    "text": "Slides (PDF)\nClick here to follow along with the overview presentation",
+    "objectID": "content/setup.html#prerequisites",
+    "href": "content/setup.html#prerequisites",
+    "title": "Setup & Prerequisites",
+    "section": "Prerequisites",
+    "text": "Prerequisites\nYou should be comfortable with:\n\nBase R and tidyverse syntax (dplyr, ggplot2, basic pipes).\nBasic regression modeling (lm, glm).\nBasic predictive modeling concepts (train/test split, predictions, model error).\n\nHelpful but optional (for the supplemental modules):\n\nBioconductor familiarity (ExpressionSet, AnnotationDbi, MLInterfaces).",
     "crumbs": [
-      "Overview"
+      "Resources",
+      "Setup & Prerequisites"
     ]
   },
   {
-    "objectID": "content/Unit04_Income.html",
-    "href": "content/Unit04_Income.html",
-    "title": "Income Inequality",
+    "objectID": "content/setup.html#software-requirements",
+    "href": "content/setup.html#software-requirements",
+    "title": "Setup & Prerequisites",
+    "section": "Software Requirements",
+    "text": "Software Requirements\n\nOption A (Recommended): Docker Workshop Environment\nInstall Docker Desktop:\n\nDocker Desktop (Windows/Mac/Linux)\n\nThen run:\ndocker run -e PASSWORD=&lt;your_chosen_password&gt; -p 8787:8787 ghcr.io/salernos/ipd-workshop:latest\nOpen:\n\nhttp://localhost:8787/\nLogin: username = rstudio, password = &lt;your_chosen_password&gt;\n\n\n\nOption B: Local R + RStudio\nYou need R 4.4.1 or newer.\nInstall:\n\nR (CRAN)\nRStudio Desktop",
+    "crumbs": [
+      "Resources",
+      "Setup & Prerequisites"
+    ]
+  },
+  {
+    "objectID": "content/setup.html#r-packages-to-install-ahead-of-time",
+    "href": "content/setup.html#r-packages-to-install-ahead-of-time",
+    "title": "Setup & Prerequisites",
+    "section": "R Packages to Install Ahead of Time",
+    "text": "R Packages to Install Ahead of Time\nIf you use Option A (Docker), all required packages are already included in the workshop image and you can skip installation.\n\nCore packages (required for Option B)\ninstall.packages(c(\n  \"ipd\", \"MASS\", \"broom\", \"tidyverse\", \"future\", \"furrr\"\n))\n\n\nSupplemental packages (optional, used outside Units 00 and 01)\nDuring the workshop, we will only cover Unit 00 and Unit 01. You can install the following only if you want to explore modules outside Unit 00 and Unit 01.\n# CRAN packages for optional supplemental units\ninstall.packages(c(\n  \"patchwork\", \"scales\", \"janitor\", \"GGally\", \"randomForest\",\n  \"ranger\", \"mgcv\", \"pROC\", \"DALEX\", \"neuralnet\", \"partykit\"\n))\n\n# Bioconductor packages for optional supplemental biological modules\nif (!requireNamespace(\"BiocManager\", quietly = TRUE)) {\n  install.packages(\"BiocManager\")\n}\nBiocManager::install(c(\n  \"ALL\", \"golubEsets\", \"AnnotationDbi\", \"hgu95av2.db\",\n  \"hu6800.db\", \"MLInterfaces\"\n))",
+    "crumbs": [
+      "Resources",
+      "Setup & Prerequisites"
+    ]
+  },
+  {
+    "objectID": "content/setup.html#second-setup-test",
+    "href": "content/setup.html#second-setup-test",
+    "title": "Setup & Prerequisites",
+    "section": "60-Second Setup Test",
+    "text": "60-Second Setup Test\nRun this in R/RStudio (for Option B, this confirms local setup is complete):\nlibrary(ipd)\nlibrary(MASS)\nlibrary(tidyverse)\nlibrary(broom)\nlibrary(future)\nlibrary(furrr)\nsessionInfo()\nOptional check (if one fails, install that package and rerun this chunk):\nrequired &lt;- c(\"ipd\", \"MASS\", \"broom\", \"tidyverse\", \"future\", \"furrr\")\n\nmissing &lt;- required[!vapply(required, requireNamespace, logical(1), quietly = TRUE)]\n\nif (length(missing) == 0L) {\n  message(\"All required packages are available.\")\n} else {\n  stop(sprintf(\"Missing required packages: %s\", paste(missing, collapse = \", \")))\n}\nIf this runs without errors, you are ready.",
+    "crumbs": [
+      "Resources",
+      "Setup & Prerequisites"
+    ]
+  },
+  {
+    "objectID": "content/setup.html#data",
+    "href": "content/setup.html#data",
+    "title": "Setup & Prerequisites",
+    "section": "Data",
+    "text": "Data\nWe will be providing datasets for the modules that use real data. For Option B, please download the data folder from either GitHub or Google Drive into your local working directory (for Option A, these data will already be available in the docker image).\nLink to Data Folder on GitHub: https://github.com/salernos/ipd-workshop/tree/main/content/data\nLink to Data Folder on Google Drive: https://drive.google.com/drive/folders/1ubmvB43a7zYgwrZ93-BSAjfbDOaEuH9r?usp=sharing",
+    "crumbs": [
+      "Resources",
+      "Setup & Prerequisites"
+    ]
+  },
+  {
+    "objectID": "content/setup.html#links-youll-need-during-the-workshop",
+    "href": "content/setup.html#links-youll-need-during-the-workshop",
+    "title": "Setup & Prerequisites",
+    "section": "Links You’ll Need During the Workshop",
+    "text": "Links You’ll Need During the Workshop\n\nWorkshop site: https://salernos.github.io/ipd-workshop\nipd package repo: https://github.com/ipd-tools/ipd\nUnit 00 (start here): Getting Started",
+    "crumbs": [
+      "Resources",
+      "Setup & Prerequisites"
+    ]
+  },
+  {
+    "objectID": "content/setup.html#support",
+    "href": "content/setup.html#support",
+    "title": "Setup & Prerequisites",
+    "section": "Support",
+    "text": "Support\nIf you hit setup issues before the session, contact Stephen Salerno (ssalerno@fredhutch.org)",
+    "crumbs": [
+      "Resources",
+      "Setup & Prerequisites"
+    ]
+  },
+  {
+    "objectID": "content/Unit00_GettingStarted.html",
+    "href": "content/Unit00_GettingStarted.html",
+    "title": "Getting Started",
     "section": "",
-    "text": "By the end of this module you will be able to:\n\nSet up labeled vs unlabeled splits when income is predicted but only some true incomes are observed.\nEstimate the OLS coefficient for age while controlling for sex.\nUse ipd() for:\n\npostpi_analytic, ppi, ppi_plusplus, pspa, chen\n\nCompare CI widths across labeled sample sizes.\nRun a power experiment to find the smallest labeled n achieving 80% power for a one-sided null.\n\n\n\n\n\n\n\nNoteBackground + references (foldable)\n\n\n\n\n\nThe ipd package provides a unified ipd() interface for inference when outcomes are partially predicted (e.g., ML predictions available broadly, true labels only on a subset). This module mirrors a Folktables/Census income setup where predictions are generated via gradient boosting (e.g., XGBoost), but the inferential target is a downstream linear regression coefficient."
+    "text": "Welcome to this workshop on Prediction-Based (PB) Inference.\nIn this first module, we use a simple synthetic example to build intuition for how PB inference works and why it is needed. We will:\n\nIntroduce the ipd package,\nGenerate synthetic labeled and unlabeled data,\nCompare naive, classical, and PB estimators, and\nInspect results using built-in tidy(), glance(), and augment() methods.\n\nThroughout the workshop, each exercise includes a solution and short notes to help connect the results back to the main PB inference ideas.\n\n\n\n\n\n\nTipHow to Use This Module\n\n\n\n\nTry each Exercise on your own first.\nExpand the Answer callout to view one possible solution.\nUse the Notes callouts to interpret the results and connect them to the main concepts.\n\n\n\n\n\n\n\n\n\nNoteWhy This Unit Uses Synthetic Data\n\n\n\nUnit 00 uses synthetic examples on purpose. The goal is to make the PB inference workflow concrete before moving to real applications in later modules.\n\n\n\n\n\n\n\n\nImportantKey Takeaway\n\n\n\nUsing predicted outcomes can improve efficiency, but treating them as if they were the true observed outcomes can bias downstream inference. PB inference methods use a small labeled set to correct that bias while still borrowing information from unlabeled data and predictions.\n\n\nIn this unit, we will:\n\nGenerate synthetic data.\nFit simple downstream regression models.\nApply ipd::ipd() to estimate the association between Y and X1.\nCompare naive, classical, and PB estimates.\nVisualize uncertainty across methods.",
+    "crumbs": [
+      "Modules",
+      "Getting Started"
+    ]
   },
   {
-    "objectID": "content/Unit04_Income.html#learning-objectives",
-    "href": "content/Unit04_Income.html#learning-objectives",
-    "title": "Income Inequality",
+    "objectID": "content/Unit00_GettingStarted.html#overview",
+    "href": "content/Unit00_GettingStarted.html#overview",
+    "title": "Getting Started",
     "section": "",
-    "text": "By the end of this module you will be able to:\n\nSet up labeled vs unlabeled splits when income is predicted but only some true incomes are observed.\nEstimate the OLS coefficient for age while controlling for sex.\nUse ipd() for:\n\npostpi_analytic, ppi, ppi_plusplus, pspa, chen\n\nCompare CI widths across labeled sample sizes.\nRun a power experiment to find the smallest labeled n achieving 80% power for a one-sided null.\n\n\n\n\n\n\n\nNoteBackground + references (foldable)\n\n\n\n\n\nThe ipd package provides a unified ipd() interface for inference when outcomes are partially predicted (e.g., ML predictions available broadly, true labels only on a subset). This module mirrors a Folktables/Census income setup where predictions are generated via gradient boosting (e.g., XGBoost), but the inferential target is a downstream linear regression coefficient."
+    "text": "Welcome to this workshop on Prediction-Based (PB) Inference.\nIn this first module, we use a simple synthetic example to build intuition for how PB inference works and why it is needed. We will:\n\nIntroduce the ipd package,\nGenerate synthetic labeled and unlabeled data,\nCompare naive, classical, and PB estimators, and\nInspect results using built-in tidy(), glance(), and augment() methods.\n\nThroughout the workshop, each exercise includes a solution and short notes to help connect the results back to the main PB inference ideas.\n\n\n\n\n\n\nTipHow to Use This Module\n\n\n\n\nTry each Exercise on your own first.\nExpand the Answer callout to view one possible solution.\nUse the Notes callouts to interpret the results and connect them to the main concepts.\n\n\n\n\n\n\n\n\n\nNoteWhy This Unit Uses Synthetic Data\n\n\n\nUnit 00 uses synthetic examples on purpose. The goal is to make the PB inference workflow concrete before moving to real applications in later modules.\n\n\n\n\n\n\n\n\nImportantKey Takeaway\n\n\n\nUsing predicted outcomes can improve efficiency, but treating them as if they were the true observed outcomes can bias downstream inference. PB inference methods use a small labeled set to correct that bias while still borrowing information from unlabeled data and predictions.\n\n\nIn this unit, we will:\n\nGenerate synthetic data.\nFit simple downstream regression models.\nApply ipd::ipd() to estimate the association between Y and X1.\nCompare naive, classical, and PB estimates.\nVisualize uncertainty across methods.",
+    "crumbs": [
+      "Modules",
+      "Getting Started"
+    ]
   },
   {
-    "objectID": "content/Unit04_Income.html#setup",
-    "href": "content/Unit04_Income.html#setup",
-    "title": "Income Inequality",
-    "section": "1. Setup",
-    "text": "1. Setup\n\nPackages\n\n# install.packages(\"ipd\")\nlibrary(ipd)\n\nlibrary(tidyverse)\n\n\n\nData: expected columns\nWe assume a dataset with:\n\nY: true yearly income (numeric), observed for labeled subset\nYhat: predicted income (numeric), observed for everyone\ncovariates: age (numeric) and sex (binary or factor)\n(optional) other covariates\n\n\n\n\n\n\n\nImportantPlug in your real dataset\n\n\n\nNEED REAL DATA\n\n\n\nuse_simulated &lt;- TRUE\n\nif (!use_simulated) {\n  dat_full &lt;- read.csv(\"data/census_income_ca2019.csv\")\n  stopifnot(all(c(\"Y\",\"Yhat\",\"age\",\"sex\") %in% names(dat_full)))\n  dat_full &lt;- as_tibble(dat_full)\n} else {\n  set.seed(1)\n  n &lt;- 15000\n\n  # Simulate: income depends on age and sex\n  sex &lt;- rbinom(n, 1, 0.48)\n  age &lt;- pmin(pmax(round(rnorm(n, mean = 42, sd = 12)), 18), 80)\n\n  # True income model (linear signal + noise)\n  beta0 &lt;- 15000\n  beta_age &lt;- 900          # target coefficient ~ 900 dollars/year per year of age\n  beta_sex &lt;- 6000         # illustrative\n  eps &lt;- rnorm(n, sd = 20000)\n\n  Y &lt;- beta0 + beta_age * age + beta_sex * sex + eps\n\n  # Predicted income: biased/noisy proxy (as if from an ML model trained on prior year)\n  Yhat &lt;- Y + rnorm(n, sd = 12000) + 1500   # add some bias\n\n  dat_full &lt;- tibble(Y = Y, Yhat = Yhat, age = age, sex = sex)\n}\n\n# Build the downstream design variables.\ndat_full &lt;- dat_full %&gt;%\n  mutate(\n    sex = factor(sex, levels = c(0,1), labels = c(\"F\",\"M\"))\n  )"
+    "objectID": "content/Unit00_GettingStarted.html#installation-and-setup",
+    "href": "content/Unit00_GettingStarted.html#installation-and-setup",
+    "title": "Getting Started",
+    "section": "Installation and Setup",
+    "text": "Installation and Setup\nFirst, make sure you have the ipd package and a few supporting packages installed:\n\n\nCode\n# Install these packages if you have not already:\n# install.packages(c(\"ipd\", \"MASS\", \"broom\", \"tidyverse\", \"patchwork\"))\n\nlibrary(ipd)\nlibrary(MASS)\nlibrary(broom)\nlibrary(tidyverse)\nlibrary(patchwork)\n\n\nThroughout the workshop, we will use reproducible seeds and tidyverse conventions.",
+    "crumbs": [
+      "Modules",
+      "Getting Started"
+    ]
   },
   {
-    "objectID": "content/Unit04_Income.html#labeled-vs-unlabeled-splits",
-    "href": "content/Unit04_Income.html#labeled-vs-unlabeled-splits",
-    "title": "Income Inequality",
-    "section": "2. Labeled vs unlabeled splits",
-    "text": "2. Labeled vs unlabeled splits\nWe create a stacked dataset where the unlabeled rows have Y = NA but retain Yhat and covariates.\n\nmake_split &lt;- function(dat, n_labeled, seed = NULL) {\n  if (!is.null(seed)) set.seed(seed)\n\n  idx &lt;- sample.int(nrow(dat), size = n_labeled, replace = FALSE)\n  labeled   &lt;- dat[idx, ] %&gt;% mutate(set_label = \"labeled\")\n  unlabeled &lt;- dat[-idx,] %&gt;% mutate(Y = NA_real_, set_label = \"unlabeled\")\n\n  bind_rows(labeled, unlabeled)\n}"
+    "objectID": "content/Unit00_GettingStarted.html#function-references",
+    "href": "content/Unit00_GettingStarted.html#function-references",
+    "title": "Getting Started",
+    "section": "Function References",
+    "text": "Function References\nHere is a brief overview of the main ipd functions used in this unit.\n\nipd()\nipd() fits IPD estimators for downstream inference with predicted outcomes.\nipd(\n  formula,      # A formula: e.g., Y - f ~ X1 + X2 + ...\n  method,       # Character: one of \"chen\", \"pdc\", \"postpi_analytic\", \n                # \"postpi_boot\", \"ppi\", \"ppi_all\", \"ppi_plusplus\", \"pspa\"\n  model,        # Character: one of \"mean\", \"quantile\", \"ols\", \"logistic\", \n                # \"poisson\"\n  data,         # Data frame containing columns for formula and label\n  label,        # Character: name of the column with set labels (\"labeled\" and \n                # \"unlabeled\")\n  ...           # Additional arguments\n)\n\nSupported Methods\nMethods currently implemented are:\n\nchen: Chen and Chen Estimator (Gronsbell et al., 2026)\npdc: Prediction Decorrelated Inference (Gan et al., 2024)\npostpi_analytic: Analytic Post-Prediction Inference (Wang et al., 2020).\npostpi_boot: Bootstrap Post-Prediction Inference (Wang et al., 2020).\nppi: Prediction-Powered Inference (Angelopoulos et al., 2023)\nppi_plusplus: PPI++ (PPI with Data-Driven Weighting; Angelopoulos et al., 2024)\nppi_a: PPI using All Data (Gronsbell et al., 2026)\npspa: Assumption-Lean and Data-Adaptive Post-Prediction Inference (Miao et al., 2024)\n\n\n\n\nTidy Methods\nLike many model objects in R, ipd fits work with familiar helper functions:\n\nprint() and summary(): display model summaries.\ntidy(): return a tibble of estimates and standard errors.\nglance(): return a one-row tibble of model-level metrics.\naugment(): return the original data with fitted values and residuals.",
+    "crumbs": [
+      "Modules",
+      "Getting Started"
+    ]
   },
   {
-    "objectID": "content/Unit04_Income.html#fit-many-methods-with-ipd",
-    "href": "content/Unit04_Income.html#fit-many-methods-with-ipd",
-    "title": "Income Inequality",
-    "section": "3. Fit many methods with ipd()",
-    "text": "3. Fit many methods with ipd()\nWe target the coefficient on age in:\nY ~ age + sex\nWith ipd, we write:\nY - Yhat ~ age + sex (where Yhat is the prediction) (rdrr.io)\n\nfit_ipd_methods &lt;- function(stacked_df, alpha = 0.05, n_t = Inf) {\n\n  methods &lt;- c(\"postpi_analytic\", \"postpi_boot\", \"ppi\", \"ppi_plusplus\", \"pspa\")\n\n  fits &lt;- map(methods, ~ ipd(\n    formula = Y - Yhat ~ age + sex,\n    method  = .x,\n    model   = \"linear\",\n    data    = stacked_df,\n    label   = \"set_label\",\n    alpha   = alpha,\n    n_t     = n_t,\n    alternative = \"two-sided\"\n  ))\n\n  names(fits) &lt;- methods\n  fits\n}\n\nfit_classical_labeled &lt;- function(stacked_df, alpha = 0.05) {\n  labeled &lt;- stacked_df %&gt;% filter(set_label == \"labeled\")\n  m &lt;- lm(Y ~ age + sex, data = labeled)\n\n  est &lt;- coef(m)[[\"age\"]]\n  se  &lt;- sqrt(vcov(m)[[\"age\",\"age\"]])\n  tcrit &lt;- qt(1 - alpha/2, df = df.residual(m))\n  ci_beta &lt;- c(est - tcrit*se, est + tcrit*se)\n\n  list(\n    coefficients = coef(m),\n    se = sqrt(diag(vcov(m))),\n    ci = rbind(age = ci_beta),\n    fit = m\n  )\n}\n\nfit_naive_imputation &lt;- function(stacked_df, alpha = 0.05) {\n  # naive: treat Yhat as if it were Y and run standard OLS\n  m &lt;- lm(Yhat ~ age + sex, data = stacked_df)\n\n  est &lt;- coef(m)[[\"age\"]]\n  se  &lt;- sqrt(vcov(m)[[\"age\",\"age\"]])\n  tcrit &lt;- qt(1 - alpha/2, df = df.residual(m))\n  ci_beta &lt;- c(est - tcrit*se, est + tcrit*se)\n\n  list(\n    coefficients = coef(m),\n    se = sqrt(diag(vcov(m))),\n    ci = rbind(age = ci_beta),\n    fit = m\n  )\n}\n\nextract_ci_for_term &lt;- function(fit_obj, term = \"age\") {\n  # ipd objects have $ci as matrix; baselines mimic that structure\n  ci &lt;- fit_obj$ci[term, ]\n  c(lower = ci[1], upper = ci[2])\n}"
+    "objectID": "content/Unit00_GettingStarted.html#simulating-data",
+    "href": "content/Unit00_GettingStarted.html#simulating-data",
+    "title": "Getting Started",
+    "section": "Simulating Data",
+    "text": "Simulating Data\nThe ipd package provides a function for simulating data based on the approach in Wang et al. (2020). We provide more detail about this function at the end of this model. Here, we will be generating synthetic data following Gronsbell et al. (2026) and Ji et al. (2025) to better illustrate the core principles of PB inference in a more straightforward manner. We provide helper functions below to simulate data from a linear regression model.\n\n#--- Function for the l2 Norm\n\nl2_norm &lt;- function(x, squared = FALSE) {\n  \n  y &lt;- sum(x^2)\n  \n  if (!squared) {\n    \n    y &lt;- sqrt(y)\n  }\n  \n  return(y)\n}\n\n#--- Function to Generate from the Unit Sphere S^{d-1}\n\nunit_vec &lt;- function(d) {\n  \n  v &lt;- rnorm(d)\n  \n  return(v / l2_norm(v))\n}\n\n#--- Function to Simulate Data\n\nsimple_data_gen &lt;- function(\n    n,                 # Number of Samples\n    p = 2,             # Number of Covariates\n    prop_lab = 0.1,    # Proportion of Labeled Observations\n    total_var = 20,    # Total Variance\n    ratio_var = 1,     # Variance Ratio\n    rho = 0,           # Covariate Correlation\n    sigma_y = 1,       # Outcome Error Variance\n    beta = c(1,1),     # Effect Sizes\n    predset_ind = 1) { # Indices for Covariates Used for Prediction.\n  \n  #- Covariate Covariance Matrix\n  \n  sigma_x &lt;- total_var / (ratio_var + 1)\n  \n  sigma_w &lt;- ratio_var * sigma_x\n  \n  cov_diag &lt;- sqrt(c(rep(sigma_x, p / 2), rep(sigma_w, p / 2))) \n  \n  cov_matrix &lt;- (1 - rho) * diag(cov_diag^2) + rho * (cov_diag %o% cov_diag)\n  \n  #- Generate Covariates\n  \n  x &lt;- MASS::mvrnorm(n, mu = rep(0, p), Sigma = cov_matrix)\n  \n  colnames(x) &lt;- paste0('x', 1 : p)\n  \n  #- Generate Outcome\n  \n  eps &lt;- rnorm(n, sd = sigma_y) \n  \n  lin_pred &lt;- x %*% beta \n  \n  y &lt;- lin_pred + eps\n  \n  #- Inference Data\n  \n  inference_data &lt;- data.frame(y = y, x)\n  \n  #- Generate Predictions\n  \n  pred_covs &lt;- as.matrix(inference_data[, paste0(\"x\", predset_ind)])\n  \n  pred_beta &lt;- c(beta[predset_ind])\n    \n  f &lt;- pred_covs %*% pred_beta\n  \n  #- Analysis Data\n  \n  analysis_data &lt;- data.frame(inference_data, f)\n  \n  samp_ind &lt;- rbinom(n, 1, prop_lab)\n  \n  analysis_data$set_label &lt;- ifelse(samp_ind == 1, \"labeled\", \"unlabeled\")\n  \n  return(as_tibble(analysis_data))\n}\n\n\nExercise 1: Data Generation\nLet us generate a synthetic dataset for a linear model with:\n\nn = 25000 samples\np = 10 covariates\nA prop_lab = 0.1 proportion of labeled observations\nA total variance of total_var = 20\nA variance ratio of ratio_var = 1\nNo covariate correlation (rho = 0)\nA sigma_y = 5 outcome error variance\nCoefficients beta &lt;- c(unit_vec(p / 2), unit_vec(p / 2)) generated from the unit circle\npredset_ind = 1 : 10 indices for covariates used for prediction\n\nThe first setting is an ‘ideal’ setting that mimics when the prediction is derived from a linear model that was estimated on a large, independent dataset with the same distribution of \\(Y | X\\) as the dataset used for conducting inference. Here, we generate predictions based on all \\(X\\)’s being available. In this stylized example, we are generating predictions \\(f = E[Y | X]\\) so the naive approach should be unbiased, but still anti-conservative, as we do not fully capture the variability of \\(Y\\).\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\nset.seed(123)\n\nn &lt;- 25000 # Number of Samples\np &lt;- 10    # Number of Covariates\n\nb1 &lt;- unit_vec(p / 2) # Effect Sizes\nb2 &lt;- unit_vec(p / 2)\n\ndat_ipd &lt;- simple_data_gen(\n    n = n,               # Number of Samples\n    p = p,               # Number of Covariates\n    prop_lab = 0.1,      # Proportion of Labeled Observations\n    total_var = 20,      # Total Variance\n    ratio_var = 1,       # Variance Ratio\n    rho = 0,             # Covariate Correlation\n    sigma_y = 5,         # Outcome Error Variance\n    beta = c(b1, b2),    # Effect Sizes\n    predset_ind = 1:10  # Indices for covariates used for prediction.\n)\n\n\n# The resulting tibble `dat_ipd` has columns:\n#  - X1, X2, ..., Xp: Simulated covariates \n#  - Y              : True outcome \n#  - f              : Predicted outcome \n#  - set_label      : {\"labeled\", \"unlabeled\"}\n\n# Quick look:\ndat_ipd |&gt; \n  group_by(set_label) |&gt; \n  summarize(n = n()) \n\n# A tibble: 2 × 2\n  set_label     n\n  &lt;chr&gt;     &lt;int&gt;\n1 labeled    2551\n2 unlabeled 22449\n\n\n\n\n\nLet us also inspect the first few rows of each subset:\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\n# Labeled set\ndat_ipd |&gt;\n  filter(set_label == \"labeled\") |&gt;\n  glimpse()\n\nRows: 2,551\nColumns: 13\n$ y         &lt;dbl&gt; -10.6651305, 7.0229562, 1.8466360, 5.6049078, 4.4638744, -6.…\n$ x1        &lt;dbl&gt; 2.8081938, 1.4447090, 1.1134905, 1.2321898, -0.2950160, 4.69…\n$ x2        &lt;dbl&gt; -2.1727482, 1.1195759, 0.1438820, 4.8518833, -1.0137343, 4.4…\n$ x3        &lt;dbl&gt; -7.07650307, 0.77112369, -0.01939504, -0.66786699, -4.538479…\n$ x4        &lt;dbl&gt; 2.1733859, 3.8373017, 0.3445341, 1.6177814, -1.8449544, -3.7…\n$ x5        &lt;dbl&gt; -0.5130663, 2.9121691, 5.2980682, 1.0774526, -1.0392365, -0.…\n$ x6        &lt;dbl&gt; -4.32514921, 2.60046203, -0.06035815, -0.23868960, 6.9521900…\n$ x7        &lt;dbl&gt; -0.75585286, 3.65797447, 5.16160001, 6.18270859, -4.01256688…\n$ x8        &lt;dbl&gt; -3.31953869, 0.07335939, -2.50340399, -4.51835316, -0.851934…\n$ x9        &lt;dbl&gt; -1.26218897, -3.11836916, 2.31364284, -0.54576984, -1.158902…\n$ x10       &lt;dbl&gt; -1.7577240, -3.5991050, -1.2031549, -1.5884862, 0.9598418, -…\n$ f         &lt;dbl&gt; -7.981037332, 4.672805866, 1.897680530, 2.421068035, 0.81227…\n$ set_label &lt;chr&gt; \"labeled\", \"labeled\", \"labeled\", \"labeled\", \"labeled\", \"labe…\n\n# Unlabeled set\ndat_ipd |&gt;\n  filter(set_label == \"unlabeled\") |&gt;\n  glimpse()\n\nRows: 22,449\nColumns: 13\n$ y         &lt;dbl&gt; 0.520872, -7.907675, -6.070025, 6.041134, -3.091775, 5.50057…\n$ x1        &lt;dbl&gt; -3.7409669, 3.7360163, -3.2863856, 3.2313674, 3.7157033, 0.1…\n$ x2        &lt;dbl&gt; 0.3358049, 3.8872286, -0.2270680, 0.9662234, 1.0364182, -2.6…\n$ x3        &lt;dbl&gt; -3.7769611, 0.9883840, -4.4891339, 5.7711764, 0.6166084, 4.0…\n$ x4        &lt;dbl&gt; 4.3382493, -4.2897707, 2.5735992, 2.2532995, -5.4164657, -4.…\n$ x5        &lt;dbl&gt; -6.12151716, 1.01182690, -1.32007492, 1.62906763, -1.1307161…\n$ x6        &lt;dbl&gt; -1.88428832, -2.32594242, 0.22120367, 3.69702327, -0.4563829…\n$ x7        &lt;dbl&gt; -0.8790863, 0.1693632, 0.2598034, 1.8054718, 1.1521277, -0.1…\n$ x8        &lt;dbl&gt; -5.64360288, -0.41344329, -1.16952884, -0.57129676, 1.196338…\n$ x9        &lt;dbl&gt; 0.8406827, 2.6579939, -3.1565336, 4.9834037, 1.5231282, -1.4…\n$ x10       &lt;dbl&gt; 3.8708865, 1.1378312, 1.2673506, 0.3500095, 5.6507155, 1.574…\n$ f         &lt;dbl&gt; -2.0778359, -3.4210568, -1.4953638, 6.2205242, -3.4129538, 6…\n$ set_label &lt;chr&gt; \"unlabeled\", \"unlabeled\", \"unlabeled\", \"unlabeled\", \"unlabel…\n\n\n\n\n\n\n\n\n\n\n\nTipNotes\n\n\n\n\nRows where set_label == \"labeled\" also have both Y and f. In practice, f will be generated by your own prediction model. Here, we do so automatically.\nRows where set_label == \"unlabeled\" have Y for posterity (but in a real‐data scenario, you would not know Y). We still generate Y, but the PB routines will not use these. The column f always contains ‘predicted’ values.",
+    "crumbs": [
+      "Modules",
+      "Getting Started"
+    ]
   },
   {
-    "objectID": "content/Unit04_Income.html#ci-experiment-width-vs-labeled-sample-size",
-    "href": "content/Unit04_Income.html#ci-experiment-width-vs-labeled-sample-size",
-    "title": "Income Inequality",
-    "section": "4. CI experiment: width vs labeled sample size",
-    "text": "4. CI experiment: width vs labeled sample size\nThis mirrors your Python loop over ns and num_trials, storing lower, upper, width.\n\nalpha &lt;- 0.05\nns &lt;- as.integer(seq(100, 2000, length.out = 10))\nnum_trials &lt;- 100\n\n# Truth from the fully-labeled benchmark dataset (only for evaluation)\ntrue_theta &lt;- coef(lm(Y ~ age + sex, data = dat_full))[[\"age\"]]\n\nrun_one &lt;- function(n_labeled, trial) {\n  stacked &lt;- make_split(dat_full, n_labeled = n_labeled, seed = 10000 + 10*n_labeled + trial)\n\n  ipd_fits &lt;- fit_ipd_methods(stacked, alpha = alpha)\n  classical &lt;- fit_classical_labeled(stacked, alpha = alpha)\n  naive_imp &lt;- fit_naive_imputation(stacked, alpha = alpha)\n\n  rows &lt;- list(\n    tibble(method = names(ipd_fits)) %&gt;%\n      mutate(ci = map(ipd_fits, extract_ci_for_term)) %&gt;%\n      unnest_wider(ci),\n\n    tibble(method = \"classical\") %&gt;%\n      mutate(!!!extract_ci_for_term(classical)),\n\n    tibble(method = \"imputation\") %&gt;%\n      mutate(!!!extract_ci_for_term(naive_imp))\n  )\n\n  bind_rows(rows) %&gt;%\n    mutate(n = n_labeled, trial = trial, width = upper - lower)\n}\n\nres_ci &lt;- crossing(n = ns, trial = seq_len(num_trials)) %&gt;%\n  mutate(out = map2(n, trial, run_one)) %&gt;%\n  select(out) %&gt;%\n  unnest(out)\n\n\nPlot 1: example intervals (5 random trials)\n\nset.seed(123)\nexample_trials &lt;- sample(unique(res_ci$trial), size = 5)\n\nex &lt;- res_ci %&gt;%\n  filter(trial %in% example_trials, n == ns[2]) %&gt;%\n  mutate(method = factor(method, levels = c(\"classical\",\"imputation\",\"postpi_analytic\",\"postpi_boot\",\"ppi\",\"ppi_plusplus\",\"pspa\")))\n\nggplot(ex, aes(y = method, x = (lower + upper)/2, xmin = lower, xmax = upper)) +\n  geom_vline(xintercept = true_theta, linetype = 2) +\n  geom_errorbarh(height = 0.2) +\n  geom_point(size = 1.8) +\n  labs(\n    title = paste0(\"Age coefficient CIs (n_labeled = \", ns[2], \", 5 random trials)\"),\n    x = \"OLS coefficient on age (dollars/year per year of age)\",\n    y = NULL,\n    caption = \"Dashed line = benchmark OLS coefficient from the full labeled data.\"\n  ) +\n  theme_bw()\n\n\n\nPlot 2: average CI width vs n\n\navg_width &lt;- res_ci %&gt;%\n  group_by(method, n) %&gt;%\n  summarize(mean_width = mean(width, na.rm = TRUE), .groups = \"drop\")\n\nggplot(avg_width, aes(x = n, y = mean_width, group = method)) +\n  geom_line() +\n  geom_point() +\n  labs(\n    title = \"Average CI width vs labeled sample size\",\n    x = \"Number of labeled observations\",\n    y = \"Mean CI width (coefficient scale)\"\n  ) +\n  theme_bw()\n\n\n\n\n\n\n\nTipInterpretation checklist\n\n\n\n\nIf ppi / ppi_plusplus CIs are narrower than classical at the same n, you’re leveraging unlabeled predictions to reduce variance while staying valid.\nimputation often looks appealing but can be biased and anti-conservative (too narrow).\n:::\n\n\n5. Power experiment: smallest n for 80% power\nWe test the one-sided null:\n[ H_0: ^* &lt; 800]\nReject if the lower CI bound &gt; 800.\n\nalpha_pval &lt;- alpha\nnum_experiments &lt;- 100\nthreshold &lt;- 800\n\npower_at_n &lt;- function(n_labeled, method = c(\"ppi\",\"classical\")) {\n  method &lt;- match.arg(method)\n\n  rej &lt;- replicate(num_experiments, {\n    stacked &lt;- make_split(dat_full, n_labeled = n_labeled)\n\n    if (method == \"ppi\") {\n      fit &lt;- ipd(\n        Y - Yhat ~ age + sex,\n        method = \"ppi\",\n        model = \"linear\",\n        data = stacked,\n        label = \"set_label\",\n        alpha = alpha_pval,\n        alternative = \"one-sided\"\n      )\n      ci &lt;- extract_ci_for_term(fit, term = \"age\")\n      as.integer(ci[\"lower\"] &gt; threshold)\n    } else {\n      fit &lt;- fit_classical_labeled(stacked, alpha = alpha_pval)\n      ci &lt;- extract_ci_for_term(fit, term = \"age\")\n      as.integer(ci[\"lower\"] &gt; threshold)\n    }\n  })\n\n  mean(rej)\n}\n\nfind_n_for_power &lt;- function(method = c(\"ppi\",\"classical\"),\n                             n_min = 100, n_max = 2000, target = 0.80) {\n  method &lt;- match.arg(method)\n\n  f &lt;- function(n) power_at_n(as.integer(n), method = method) - target\n\n  grid &lt;- unique(round(seq(n_min, n_max, length.out = 20)))\n  vals &lt;- map_dbl(grid, f)\n\n  if (all(vals &lt; 0)) return(NA_integer_)\n  if (all(vals &gt; 0)) return(n_min)\n\n  i &lt;- which(vals &gt;= 0)[1]\n  lo &lt;- grid[max(1, i-1)]\n  hi &lt;- grid[i]\n\n  as.integer(uniroot(f, lower = lo, upper = hi)$root)\n}\n\nn_ppi &lt;- find_n_for_power(\"ppi\", n_min = 100, n_max = 2000)\nn_cls &lt;- find_n_for_power(\"classical\", n_min = 100, n_max = 2000)\n\ntibble(\n  method = c(\"ppi\",\"classical\"),\n  n_for_80_power = c(n_ppi, n_cls)\n)\n\n\n\n6. Exercises\n\n\n\n\n\n\nWarningExercise 1 (core): change target coefficient\n\n\n\nChange the null threshold from 800 to 600 or 1000:\n\nHow does the required labeled n change?\nDoes PPI keep a consistent advantage over classical?\n:::\n\n\n\n\n\n\n\nWarningExercise 2 (intermediate): add interactions\n\n\n\n\n\nFit:\nY - Yhat ~ age * sex\nInterpret the age effect for each sex and compare how much unlabeled data helps in each subgroup.\n\n\n\n\n\n\n\n\n\nWarningExercise 3 (advanced): heteroskedastic-robust SEs\n\n\n\n\n\nModify the classical baseline to use robust (HC) SEs (e.g., sandwich::vcovHC) and compare with IPD methods. Discuss what changes you expect when prediction errors vary with age."
+    "objectID": "content/Unit00_GettingStarted.html#comparison-of-the-true-vs-predicted-outcomes",
+    "href": "content/Unit00_GettingStarted.html#comparison-of-the-true-vs-predicted-outcomes",
+    "title": "Getting Started",
+    "section": "Comparison of the True vs Predicted Outcomes",
+    "text": "Comparison of the True vs Predicted Outcomes\nBefore modeling, it is helpful to see graphically how the predicted values, \\(f\\), compare to the true outcomes, \\(Y\\).\n\nExercise 2: Plotting the Data\nWe can visually assess the bias and variance of our predicted outcomes, \\(f\\), versus the true outcomes, \\(Y\\), in our analytic data by plotting:\n\nScatterplot of \\(Y\\) and \\(f\\) vs. \\(X_1\\)\n\nDensity plots of \\(Y\\) and \\(f\\)\n\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\n# Prepare data\ndat_visualize &lt;- dat_ipd |&gt; \n  select(x1, y, f) |&gt;\n  pivot_longer(y:f, names_to = \"Measure\", values_to = \"Value\") |&gt;\n  arrange(desc(Measure))\n\n# Scatter + trend lines\nggplot(dat_visualize, aes(x = x1, y = Value, color = Measure)) +\n  theme_minimal() +\n  geom_point(alpha = 0.4) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  scale_color_manual(values = c(\"steelblue\", \"gray\")) +\n  labs(\n    x     = \"X1\",\n    y     = \"True Y or Predicted f\",\n    color = \"Measure\"\n  ) +\n  theme(legend.position = \"bottom\") \n\n\n\n\n\n\n\n\n\n# Density plots\nggplot(dat_visualize, aes(x = Value, fill = Measure)) +\n  theme_minimal() +\n  geom_density(alpha = 0.4) +\n  scale_fill_manual(values = c(\"steelblue\", \"gray\")) +\n  labs(\n    x     = \"Value\",\n    y     = \"Density\",\n    fill  = \"Measure\"\n  ) +\n  theme(legend.position = \"bottom\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipNotes\n\n\n\n\nIn the scatterplot, note that the predicted values \\(f\\) (in blue) are distributed similarly to the true \\(Y\\) (in gray).\nIn the density plot, you can see that the spread of \\(f\\) is slightly narrower than that of \\(Y\\).",
+    "crumbs": [
+      "Modules",
+      "Getting Started"
+    ]
   },
   {
-    "objectID": "content/Unit04_Income.html#power-experiment-smallest-n-for-80-power",
-    "href": "content/Unit04_Income.html#power-experiment-smallest-n-for-80-power",
-    "title": "Income Inequality",
-    "section": "5. Power experiment: smallest n for 80% power",
-    "text": "5. Power experiment: smallest n for 80% power\nWe test the one-sided null:\n[ H_0: ^* &lt; 800]\nReject if the lower CI bound &gt; 800.\n\nalpha_pval &lt;- alpha\nnum_experiments &lt;- 100\nthreshold &lt;- 800\n\npower_at_n &lt;- function(n_labeled, method = c(\"ppi\",\"classical\")) {\n  method &lt;- match.arg(method)\n\n  rej &lt;- replicate(num_experiments, {\n    stacked &lt;- make_split(dat_full, n_labeled = n_labeled)\n\n    if (method == \"ppi\") {\n      fit &lt;- ipd(\n        Y - Yhat ~ age + sex,\n        method = \"ppi\",\n        model = \"linear\",\n        data = stacked,\n        label = \"set_label\",\n        alpha = alpha_pval,\n        alternative = \"one-sided\"\n      )\n      ci &lt;- extract_ci_for_term(fit, term = \"age\")\n      as.integer(ci[\"lower\"] &gt; threshold)\n    } else {\n      fit &lt;- fit_classical_labeled(stacked, alpha = alpha_pval)\n      ci &lt;- extract_ci_for_term(fit, term = \"age\")\n      as.integer(ci[\"lower\"] &gt; threshold)\n    }\n  })\n\n  mean(rej)\n}\n\nfind_n_for_power &lt;- function(method = c(\"ppi\",\"classical\"),\n                             n_min = 100, n_max = 2000, target = 0.80) {\n  method &lt;- match.arg(method)\n\n  f &lt;- function(n) power_at_n(as.integer(n), method = method) - target\n\n  grid &lt;- unique(round(seq(n_min, n_max, length.out = 20)))\n  vals &lt;- map_dbl(grid, f)\n\n  if (all(vals &lt; 0)) return(NA_integer_)\n  if (all(vals &gt; 0)) return(n_min)\n\n  i &lt;- which(vals &gt;= 0)[1]\n  lo &lt;- grid[max(1, i-1)]\n  hi &lt;- grid[i]\n\n  as.integer(uniroot(f, lower = lo, upper = hi)$root)\n}\n\nn_ppi &lt;- find_n_for_power(\"ppi\", n_min = 100, n_max = 2000)\nn_cls &lt;- find_n_for_power(\"classical\", n_min = 100, n_max = 2000)\n\ntibble(\n  method = c(\"ppi\",\"classical\"),\n  n_for_80_power = c(n_ppi, n_cls)\n)"
+    "objectID": "content/Unit00_GettingStarted.html#some-baselines-oracle-vs-naive-vs-classical-inference",
+    "href": "content/Unit00_GettingStarted.html#some-baselines-oracle-vs-naive-vs-classical-inference",
+    "title": "Getting Started",
+    "section": "Some Baselines: Oracle vs Naive vs Classical Inference",
+    "text": "Some Baselines: Oracle vs Naive vs Classical Inference\nBefore applying PB inference, let’s see what happens if we:\n\nRegress the true Y on X1 for all observations (the oracle approach).\nRegress the unlabeled predicted f on X1 (the naive approach).\nRegress only the labeled true Y on X1 (the classical approach).\n\nWe will compare these to PB inference‐corrected estimates.\n\nExercise 3: Naive vs. Classical Model Fitting\nUsing the labeled and unlabeled sets, fit three models:\n\nOracle OLS on the full data using lm() with y ~ x1\nNaive OLS on the unlabeled set using lm() with f ~ x1.\nClassical OLS on the labeled set using lm() with y ~ x1.\n\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\n# 1) Oracle: use the true outcomes for the full data (not possible in practice)\noracle_model &lt;- lm(y ~ x1, data = dat_ipd)\n\n# 2) Naive: treat f as if it were truth (only on unlabeled)\nnaive_model &lt;- lm(f ~ x1, data = filter(dat_ipd, set_label == \"unlabeled\"))\n\n# 3) Classical: regress true Y on X1, only on the labeled set\nclassical_model &lt;- lm(y ~ x1, data = filter(dat_ipd, set_label == \"labeled\"))\n\n\n\n\nLet’s also extract the coefficient summaries using the tidy method and compare the results of the three approaches:\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\noracle_df &lt;- tidy(oracle_model) |&gt;\n  mutate(method = \"Oracle\") |&gt;\n  filter(term == \"x1\") |&gt;\n  select(method, estimate, std.error) \n\nnaive_df &lt;- tidy(naive_model) |&gt;\n  mutate(method = \"Naive\") |&gt;\n  filter(term == \"x1\") |&gt;\n  select(method, estimate, std.error) \n\nclassical_df &lt;- tidy(classical_model) |&gt;\n  mutate(method = \"Classical\") |&gt;\n  filter(term == \"x1\") |&gt;\n  select(method, estimate, std.error)\n\nbind_rows(oracle_df, naive_df, classical_df)\n\n# A tibble: 3 × 3\n  method    estimate std.error\n  &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;\n1 Oracle      -0.341   0.0132 \n2 Naive       -0.340   0.00908\n3 Classical   -0.356   0.0411 \n\n\n\n\n\n\n\n\n\n\n\nTipNotes\n\n\n\n\nIn this ideal setting, the naive coefficient is unbiased since the prediction model is correctly specified.\nThe classical coefficient is also unbiased but has a larger standard error due to the smaller sample size and additional random variation in the outcome.\nThe oracle provides the ideal baseline for these data.",
+    "crumbs": [
+      "Modules",
+      "Getting Started"
+    ]
   },
   {
-    "objectID": "content/Unit04_Income.html#exercises",
-    "href": "content/Unit04_Income.html#exercises",
-    "title": "Income Inequality",
-    "section": "6. Exercises",
-    "text": "6. Exercises\n\n\n\n\n\n\nWarningExercise 1 (core): change target coefficient\n\n\n\nChange the null threshold from 800 to 600 or 1000:\n\nHow does the required labeled n change?\nDoes PPI keep a consistent advantage over classical?\n:::\n\n\n\n\n\n\n\nWarningExercise 2 (intermediate): add interactions\n\n\n\n\n\nFit:\nY - Yhat ~ age * sex\nInterpret the age effect for each sex and compare how much unlabeled data helps in each subgroup.\n\n\n\n\n\n\n\n\n\nWarningExercise 3 (advanced): heteroskedastic-robust SEs\n\n\n\n\n\nModify the classical baseline to use robust (HC) SEs (e.g., sandwich::vcovHC) and compare with IPD methods. Discuss what changes you expect when prediction errors vary with age."
+    "objectID": "content/Unit00_GettingStarted.html#pb-inference-with-ipdipd",
+    "href": "content/Unit00_GettingStarted.html#pb-inference-with-ipdipd",
+    "title": "Getting Started",
+    "section": "PB Inference with ipd::ipd()",
+    "text": "PB Inference with ipd::ipd()\nThe single wrapper function ipd() implements multiple PB inference methods (e.g., Chen & Chen, PostPI, PPI, PPI++, PSPA) for various inferential tasks (e.g., mean and quantile estimation, ols, logistic, and Poisson regression).\n\n\n\n\n\n\nImportantReminder\n\n\n\nBasic usage of ipd():\nipd(\n  formula = Y - f ~ X1,     # The downstream inferential model\n  method  = \"pspa\",         # The PB inference method to run \n  model   = \"ols\",          # The type of inferential model\n  data    = dat_ipd,        # A data.frame with columns:\n                            #   - set_label: {\"labeled\", \"unlabeled\"}\n                            #   - Y: true outcomes (for labeled data)\n                            #   - f: predicted outcomes\n                            #   - X covariates (here X1, X2, X3, X4)\n  label   = \"set_label\"     # Column name indicating \"labeled\"/\"unlabeled\"\n)\n\n\n\nExercise 4: PB Model Fitting via the Chen + Chen Estimator\nLet’s run one method, chen, proposed by Gronsbell et al. (2026). The Chen + Chen estimator is a PB method that combines information from:\n\nLabeled data (where the true outcome, \\(Y\\), and model predictions, \\(f\\), are available), and\n\nUnlabeled data (where only model predictions, \\(f\\), are available).\n\nRather than treating the predicted outcomes with the same importance as the true outcomes, the method estimates a data-driven weight, \\(\\hat{\\omega}\\), and applies it to the predicted outcome contributions:\n\\[\n\\hat{\\beta}_\\text{cc} = \\hat{\\beta}_\\text{classical} - \\hat{\\omega}\\cdot (\\hat{\\gamma}_\\text{naive}^l - \\hat{\\gamma}_\\text{naive}^\\text{all}),\n\\]\nwhere \\(\\hat{\\beta}_{\\rm classical}\\) is the estimate from the classical regression, \\(\\hat{\\gamma}_{\\rm naive}^l\\) is the estimate from the naive regression on the labeled data, \\(\\hat{\\gamma}_{\\rm naive}^\\text{all}\\) is the estimate from the naive regression on all the data, and \\(\\hat{\\omega}\\) reflects the amount of additional information carried by the predictions. By adaptively weighting the unlabeled information, the Chen + Chen estimator achieves greater precision than by using the labeled data alone, without sacrificing validity, even when the predictions are imperfect.\nLet’s call the method using the ipd() function and collect the estimate for the slope of X1 in a linear regression (model = \"ols\"):\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\nset.seed(123)\n\nipd_model &lt;- ipd(\n  formula = y - f ~ x1,\n  data    = dat_ipd,\n  label   = \"set_label\",\n  method  = \"chen\",\n  model   = \"ols\"\n)\n\nipd_model\n\nIPD inference summary\n  Method:   chen \n  Model:    ols \n  Formula:  y - f ~ x1 \n\nCoefficients:\n             Estimate Std. Error  z value Pr(&gt;|z|)    \n(Intercept) -0.224224   0.104333  -2.1491  0.03162 *  \nx1          -0.330246   0.032247 -10.2412  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n\n\nThe ipd_model is an S4 object with slots for things like the coefficient, se, ci, coefTable, fit, formula, data_l, data_u, method, model, and intercept. We can extract the coefficient table using ipd’s tidy helper and compare with the naive and classical methods:\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\n# Extract the coefficient estimates\nipd_df &lt;- tidy(ipd_model) |&gt;\n  mutate(method = \"Chen + Chen\") |&gt;\n  filter(term == \"x1\") |&gt;\n  select(method, estimate, std.error)\n\n# Combine with oracle, naive, and classical:\ncompare_tab &lt;- bind_rows(oracle_df, naive_df, classical_df, ipd_df)\ncompare_tab\n\n# A tibble: 4 × 3\n  method      estimate std.error\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;\n1 Oracle        -0.341   0.0132 \n2 Naive         -0.340   0.00908\n3 Classical     -0.356   0.0411 \n4 Chen + Chen   -0.330   0.0322 \n\n\n\n\n\n\n\nExercise 5: Visualizing Uncertainty\nLet’s plot the coefficient estimates and 95% CIs for each of the naive, classical, and PB methods:\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\n# Forest plot of estimates and 95% confidence intervals\ncompare_tab |&gt;\n  mutate(\n    lower = estimate - 1.96 * std.error,\n    upper = estimate + 1.96 * std.error\n  ) |&gt;\n  ggplot(aes(x = estimate, y = method)) +\n    geom_point(size = 2) +\n    geom_errorbarh(aes(xmin = lower, xmax = upper), height = 0.2) +\n    geom_vline(xintercept = b1[1], linetype = \"dashed\", color = \"red\") +\n    labs(\n      title = \"Comparison of slope estimates \\u00B1 1.96·SE\",\n      x = expression(hat(beta)[X1]),\n      y = \"\"\n    ) +\n    theme_minimal()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipNotes\n\n\n\n\nThe dashed red line is the true data-generating effect for \\(X_1\\).\nHere, all the methods are unbiased.\nThe classical approach has the widest interval, the naive interval is artificially too narrow, but Chen + Chen has intervals that are well calibrated.",
+    "crumbs": [
+      "Modules",
+      "Getting Started"
+    ]
+  },
+  {
+    "objectID": "content/Unit00_GettingStarted.html#comparison-of-results-with-imperfect-predictions",
+    "href": "content/Unit00_GettingStarted.html#comparison-of-results-with-imperfect-predictions",
+    "title": "Getting Started",
+    "section": "Comparison of Results with Imperfect Predictions",
+    "text": "Comparison of Results with Imperfect Predictions\n\nExercise 6: Imperfect Predictions\nNow, let us repeat Exercises 1-5, but with \\(X_1, \\ldots, X_5\\) omitted from the training of the prediction function:\npredset_ind = 6 : 10\nWe will compare these results with the ideal case in the previous exercises. Here, since the predictions do not include \\(X_1\\), we should not be able to recover the true association between \\(Y\\) and \\(X_1\\).\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\nData Generation\n\nset.seed(123)\n\ndat_ipd2 &lt;- simple_data_gen(\n    n = n,               \n    p = p,                \n    prop_lab = 0.1,      \n    total_var = 20,       \n    ratio_var = 1,      \n    rho = 0,             \n    sigma_y = 1,          \n    beta = c(b1, b2),    \n    predset_ind = 6:10   # Omitting X1, ..., X5\n)\n\n\n\nPlotting the Data\n\n# Prepare data\ndat_visualize2 &lt;- dat_ipd2 |&gt; \n  select(x1, y, f) |&gt;\n  pivot_longer(y:f, names_to = \"Measure\", values_to = \"Value\") |&gt;\n  arrange(Measure)\n\n# Scatter + trend lines\nggplot(dat_visualize2, aes(x = x1, y = Value, color = Measure)) +\n  theme_minimal() +\n  geom_point(alpha = 0.4) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  scale_color_manual(values = c(\"steelblue\", \"gray\")) +\n  labs(\n    x     = \"X1\",\n    y     = \"True Y or Predicted f\",\n    color = \"Measure\"\n  ) +\n  theme(legend.position = \"bottom\") \n\n\n\n\n\n\n\n\n\n# Density plots\nggplot(dat_visualize2, aes(x = Value, fill = Measure)) +\n  theme_minimal() +\n  geom_density(alpha = 0.4) +\n  scale_fill_manual(values = c(\"steelblue\", \"gray\")) +\n  labs(\n    x     = \"Value\",\n    y     = \"Density\",\n    fill  = \"Measure\"\n  ) +\n  theme(legend.position = \"bottom\")\n\n\n\n\n\n\n\n\n\n\nOracle vs Naive vs Classical Inference\n\n# 1) Oracle: use the true outcomes for the full data (not possible in practice)\noracle_model2 &lt;- lm(y ~ x1, data = dat_ipd2)\n\n# 2) Naive: treat f as if it were truth (only on unlabeled)\nnaive_model2 &lt;- lm(f ~ x1, data = filter(dat_ipd2, set_label == \"unlabeled\"))\n\n# 3) Classical: regress true Y on X1, only on the labeled set\nclassical_model2 &lt;- lm(y ~ x1, data = filter(dat_ipd2, set_label == \"labeled\"))\n\n\noracle_df2 &lt;- tidy(oracle_model2) |&gt;\n  mutate(method = \"Oracle\") |&gt;\n  filter(term == \"x1\") |&gt;\n  select(method, estimate, std.error) \n\nnaive_df2 &lt;- tidy(naive_model2) |&gt;\n  mutate(method = \"Naive\") |&gt;\n  filter(term == \"x1\") |&gt;\n  select(method, estimate, std.error) \n\nclassical_df2 &lt;- tidy(classical_model2) |&gt;\n  mutate(method = \"Classical\") |&gt;\n  filter(term == \"x1\") |&gt;\n  select(method, estimate, std.error)\n\nbind_rows(oracle_df2, naive_df2, classical_df2)\n\n# A tibble: 3 × 3\n  method    estimate std.error\n  &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;\n1 Oracle    -0.343     0.00882\n2 Naive     -0.00775   0.00664\n3 Classical -0.371     0.0272 \n\n\n\n\nPB Model Fitting via the Chen + Chen Estimator\n\nset.seed(123)\n\nipd_model2 &lt;- ipd(\n  formula = y - f ~ x1,\n  data    = dat_ipd2,\n  label   = \"set_label\",\n  method  = \"chen\",\n  model   = \"ols\"\n)\n\nipd_model2\n\nIPD inference summary\n  Method:   chen \n  Model:    ols \n  Formula:  y - f ~ x1 \n\nCoefficients:\n             Estimate Std. Error  z value Pr(&gt;|z|)    \n(Intercept)  0.096086   0.065442   1.4683    0.142    \nx1          -0.370577   0.020917 -17.7163   &lt;2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n# Extract the coefficient estimates\nipd_df2 &lt;- tidy(ipd_model2) |&gt;\n  mutate(method = \"Chen + Chen\") |&gt;\n  filter(term == \"x1\") |&gt;\n  select(method, estimate, std.error)\n\n# Combine with naive & classical:\ncompare_tab2 &lt;- bind_rows(oracle_df2, naive_df2, classical_df2, ipd_df2)\ncompare_tab2\n\n# A tibble: 4 × 3\n  method      estimate std.error\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;\n1 Oracle      -0.343     0.00882\n2 Naive       -0.00775   0.00664\n3 Classical   -0.371     0.0272 \n4 Chen + Chen -0.371     0.0209 \n\n\n\n\nVisualizing Uncertainty\n\n# Forest plot of estimates and 95% confidence intervals\ncompare_tab2 |&gt;\n  mutate(\n    lower = estimate - 1.96 * std.error,\n    upper = estimate + 1.96 * std.error\n  ) |&gt;\n  ggplot(aes(x = estimate, y = method)) +\n    geom_point(size = 2) +\n    geom_errorbarh(aes(xmin = lower, xmax = upper), height = 0.2) +\n    geom_vline(xintercept = b1[1], linetype = \"dashed\", color = \"red\") +\n    labs(\n      title = \"Comparison of slope estimates \\u00B1 1.96·SE\",\n      x = expression(hat(beta)[X1]),\n      y = \"\"\n    ) +\n    theme_minimal()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipNotes\n\n\n\n\nPlotting the Data\n\nIn the scatterplot, note that the predicted values \\(f\\) (in blue) lie more tightly along the fitted trend line than the true \\(Y\\) (in gray), indicating stronger correlation with \\(X_1\\).\nIn the density plot, you can see that the spread of \\(f\\) is narrower than that of \\(Y\\), illustrating that the predictive model has reduced variance.\n\n\n\nNaive vs Classical Inference\n\nThe naive coefficient is attenuated, or biased toward zero, since the predictions are imperfect.\nThe classical coefficient is unbiased but has a larger standard error due to the smaller sample size.\n\n\n\nPB Model Fitting va the Chen + Chen Estimator\n\nThe dashed red line is the true data-generating effect for \\(X_1\\).\nCompare how far each method’s interval is from this line.\nThe naive approach severely underestimates both the effect estimate and its standard error, while Chen + Chen is unbiased and more efficient than the classical approach.\nThe efficiency gain is not as high compared to the perfect prediction scenario since the residual correlation between \\(y\\) and \\(f\\) is smaller\n\n\n\n\n\n\nExercise 7: Inspecting Results\nUse tidy(), glance(), and augment() on ipd_model. Compare the coefficient estimate and standard error for X1 with the naive fit.\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\ntidy(ipd_model)\n\n# A tibble: 2 × 5\n  term        estimate std.error conf.low conf.high\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)   -0.224    0.104    -0.429   -0.0197\n2 x1            -0.330    0.0322   -0.393   -0.267 \n\nglance(ipd_model)\n\n# A tibble: 1 × 6\n  method model intercept nobs_labeled nobs_unlabeled call      \n  &lt;chr&gt;  &lt;chr&gt; &lt;lgl&gt;            &lt;int&gt;          &lt;int&gt; &lt;chr&gt;     \n1 chen   ols   TRUE              2551          22449 y - f ~ x1\n\naugment(ipd_model) |&gt; glimpse()\n\nRows: 22,449\nColumns: 15\n$ y         &lt;dbl&gt; 0.520872, -7.907675, -6.070025, 6.041134, -3.091775, 5.50057…\n$ x1        &lt;dbl&gt; -3.7409669, 3.7360163, -3.2863856, 3.2313674, 3.7157033, 0.1…\n$ x2        &lt;dbl&gt; 0.3358049, 3.8872286, -0.2270680, 0.9662234, 1.0364182, -2.6…\n$ x3        &lt;dbl&gt; -3.7769611, 0.9883840, -4.4891339, 5.7711764, 0.6166084, 4.0…\n$ x4        &lt;dbl&gt; 4.3382493, -4.2897707, 2.5735992, 2.2532995, -5.4164657, -4.…\n$ x5        &lt;dbl&gt; -6.12151716, 1.01182690, -1.32007492, 1.62906763, -1.1307161…\n$ x6        &lt;dbl&gt; -1.88428832, -2.32594242, 0.22120367, 3.69702327, -0.4563829…\n$ x7        &lt;dbl&gt; -0.8790863, 0.1693632, 0.2598034, 1.8054718, 1.1521277, -0.1…\n$ x8        &lt;dbl&gt; -5.64360288, -0.41344329, -1.16952884, -0.57129676, 1.196338…\n$ x9        &lt;dbl&gt; 0.8406827, 2.6579939, -3.1565336, 4.9834037, 1.5231282, -1.4…\n$ x10       &lt;dbl&gt; 3.8708865, 1.1378312, 1.2673506, 0.3500095, 5.6507155, 1.574…\n$ f         &lt;dbl&gt; -2.0778359, -3.4210568, -1.4953638, 6.2205242, -3.4129538, 6…\n$ set_label &lt;chr&gt; \"unlabeled\", \"unlabeled\", \"unlabeled\", \"unlabeled\", \"unlabel…\n$ .fitted   &lt;dbl&gt; 1.01121686, -1.45803011, 0.86109300, -1.29137161, -1.4513217…\n$ .resid    &lt;dbl&gt; -0.4903448, -6.4496451, -6.9311184, 7.3325060, -1.6404531, 5…\n\n# Compare with naive\nbroom::tidy(naive_model)\n\n# A tibble: 2 × 5\n  term        estimate std.error statistic   p.value\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)   0.0215   0.0288      0.745 4.56e-  1\n2 x1           -0.340    0.00908   -37.4   1.06e-297",
+    "crumbs": [
+      "Modules",
+      "Getting Started"
+    ]
+  },
+  {
+    "objectID": "content/Unit00_GettingStarted.html#summary-and-key-takeaways",
+    "href": "content/Unit00_GettingStarted.html#summary-and-key-takeaways",
+    "title": "Getting Started",
+    "section": "Summary and Key Takeaways",
+    "text": "Summary and Key Takeaways\n\nNaive regression on predicted outcomes can be biased and anti-conservative.\nClassical regression on the labeled data alone is unbiased but inefficient when the labeled set is small.\nPB methods strike a balance: they are unbiased, but potentially more efficient than the classical approach.\nEven with ‘simple’ linear prediction models, PB corrections can improve inference on downstream regression coefficients.",
+    "crumbs": [
+      "Modules",
+      "Getting Started"
+    ]
+  },
+  {
+    "objectID": "content/Unit00_GettingStarted.html#further-exploration",
+    "href": "content/Unit00_GettingStarted.html#further-exploration",
+    "title": "Getting Started",
+    "section": "Further Exploration",
+    "text": "Further Exploration\n\nTry other methods such as PPI++ (\"ppi_plusplus\"). How do the results compare?\nRepeat the analysis for a logistic model by setting model = \"logistic\" in both simdat() and ipd().",
+    "crumbs": [
+      "Modules",
+      "Getting Started"
+    ]
+  },
+  {
+    "objectID": "content/Unit00_GettingStarted.html#simulating-data-with-ipdsimdat",
+    "href": "content/Unit00_GettingStarted.html#simulating-data-with-ipdsimdat",
+    "title": "Getting Started",
+    "section": "Simulating Data with ipd::simdat()",
+    "text": "Simulating Data with ipd::simdat()\nsimdat() generates synthetic datasets for several inferential settings.\nsimdat(\n  n,        # Numeric vector of length 3: c(n_train, n_labeled, n_unlabeled)\n  effect,   # Numeric: true effect size for simulation\n  sigma_Y,  # Numeric: residual standard deviation\n  model,    # Character: one of \"mean\", \"quantile\", \"ols\", \"logistic\", \"poisson\"\n  ...       # Additional arguments\n)\nThis function returns a data.frame with columns:\n\nX1, X2, ...: covariates\nY: true outcome (for training, labeled, and unlabeled subsets)\nf: predictions from the model (for labeled and unlabeled subsets)\nset_label: character indicating “training”, “labeled”, or “unlabeled”.\n\nThe ipd::simdat() function makes it easy to generate:\n\nA training set (where you fit your prediction model),\nA labeled set (where you observe the true \\(Y\\)),\nAn unlabeled set (where \\(Y\\) is presumed missing but you compute predictions \\(f\\)).\n\nWe supply the sample sizes, n = c(n_train, n_label, n_unlabel), an effect size (effect), residual standard deviation (sigma_Y; i.e., how much random noise is in the data), and a model type (\"ols\", \"logistic\", etc.). In this tutorial, we focus on a continuous outcome generated from a linear regression model (\"ols\"). We can also optionally shift and scale the predictions (via the shift and scale arguments) to control how the predicted outcomes relate to their true underlying counterparts.\n\nExtra Activity: Generating Data with simdat()\nTry generating data with the simdat() function. Let us generate a synthetic dataset for a linear model with:\n\n5,000 training observations\n500 labeled observations\n1,500 unlabeled observations\nEffect size = 1.5\nResidual SD = 3\nPredictions shifted by 1 and scaled by 2\n\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\nset.seed(123)\n\n# n_t = 5000, n_l = 500, n_u = 1500\nn &lt;- c(5000, 500, 1500)\n\n# Effect size = 1.5, noise sd = 3, model = \"ols\" (ordinary least squares)\n# We also shift the mean of the predictions by 1 and scale their values by 2\ndat &lt;- simdat(\n  n       = n,\n  effect  = 1.5,\n  sigma_Y = 3,\n  model   = \"ols\",\n  shift   = 1,\n  scale   = 2\n)\n\n\n# The resulting data.frame `dat` has columns:\n#  - X1, X2, X3, X4: Four simulated covariates (all numeric ~ N(0,1))\n#  - Y             : True outcome (available in unlabeled set for simulation)\n#  - f             : Predicted outcome (Generated internally in simdat)\n#  - set_label     : {\"training\", \"labeled\", \"unlabeled\"}\n\n# Quick look:\ndat |&gt; \n  group_by(set_label) |&gt; \n  summarize(n = n()) \n\n# A tibble: 3 × 2\n  set_label     n\n  &lt;chr&gt;     &lt;int&gt;\n1 labeled     500\n2 training   5000\n3 unlabeled  1500\n\n\n\n\n\nLet us also inspect the first few rows of each subset:\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\n# Training set\ndat |&gt;\n  filter(set_label == \"training\") |&gt;\n  glimpse()\n\nRows: 5,000\nColumns: 7\n$ X1        &lt;dbl&gt; -0.56047565, -0.23017749, 1.55870831, 0.07050839, 0.12928774…\n$ X2        &lt;dbl&gt; -1.61803670, 0.37918115, 1.90225048, 0.60187427, 1.73234970,…\n$ X3        &lt;dbl&gt; -0.91006117, 0.28066267, -1.03567040, 0.27304874, 0.53779815…\n$ X4        &lt;dbl&gt; -1.119992047, -1.015819127, 1.258052722, -1.001231731, -0.40…\n$ Y         &lt;dbl&gt; 3.8625325, -1.6575634, 4.1872914, -3.3624963, 6.9978916, 1.5…\n$ f         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …\n$ set_label &lt;chr&gt; \"training\", \"training\", \"training\", \"training\", \"training\", …\n\n# Labeled set\ndat |&gt;\n  filter(set_label == \"labeled\") |&gt;\n  glimpse()\n\nRows: 500\nColumns: 7\n$ X1        &lt;dbl&gt; -0.4941739, 1.1275935, -1.1469495, 1.4810186, 0.9161912, 0.3…\n$ X2        &lt;dbl&gt; -0.15062996, 0.80094056, -1.18671785, 0.43063636, 0.21674709…\n$ X3        &lt;dbl&gt; 2.0279109, -1.4947497, -1.5729492, -0.3002123, -0.7643735, -…\n$ X4        &lt;dbl&gt; 0.53495620, 0.36182362, -1.89096604, -1.40631763, -0.4019282…\n$ Y         &lt;dbl&gt; 2.71822922, 1.72133689, 0.86081066, 3.77173123, -2.77191549,…\n$ f         &lt;dbl&gt; 0.67556303, -0.13706321, -1.75579589, 0.84146158, 0.15512973…\n$ set_label &lt;chr&gt; \"labeled\", \"labeled\", \"labeled\", \"labeled\", \"labeled\", \"labe…\n\n# Unlabeled set\ndat |&gt;\n  filter(set_label == \"unlabeled\") |&gt;\n  glimpse()\n\nRows: 1,500\nColumns: 7\n$ X1        &lt;dbl&gt; -1.35723063, -1.29269781, -1.51720731, 0.85917603, -1.214617…\n$ X2        &lt;dbl&gt; 0.01014789, 1.56213812, 0.41284605, -1.18886219, 0.71454993,…\n$ X3        &lt;dbl&gt; -1.42521509, 1.73298966, 1.66085181, -0.85343610, 0.26905593…\n$ X4        &lt;dbl&gt; -1.1645365, -0.2522693, -1.3945975, 0.3959429, 0.5980741, 1.…\n$ Y         &lt;dbl&gt; -3.8296223, -3.0350282, -5.3736718, 2.6076634, -4.7813463, -…\n$ f         &lt;dbl&gt; -1.9014253, -0.1679210, -0.3030749, 0.1249168, -0.8998546, -…\n$ set_label &lt;chr&gt; \"unlabeled\", \"unlabeled\", \"unlabeled\", \"unlabeled\", \"unlabel…\n\n\n\n\n\n\n\n\n\n\n\nTipNotes\n\n\n\n\nRows where set_label == \"training\" form an internal training set. Here, Y is observed, but f is NA, as we learn the prediction rule in this set.\nRows where set_label == \"labeled\" also have both Y and f. In practice, f will be generated by your own prediction model; for simulation, simdat does so automatically.\nRows where set_label == \"unlabeled\" have Y for posterity (but in a real‐data scenario, you would not know Y); simdat still generates Y, but the PB routines will not use these. The column f always contains ‘predicted’ values.",
+    "crumbs": [
+      "Modules",
+      "Getting Started"
+    ]
+  },
+  {
+    "objectID": "content/Unit00_GettingStarted.html#optional-generating-your-own-predictions",
+    "href": "content/Unit00_GettingStarted.html#optional-generating-your-own-predictions",
+    "title": "Getting Started",
+    "section": "Optional: Generating Your Own Predictions",
+    "text": "Optional: Generating Your Own Predictions\nIn practice, we would take the training portion and fit an AI/ML model to predict \\(Y\\) from \\((X_1, X_2, X_3, X_4)\\). This is done automatically by the simdat function, but this optional activity gives you a hands-on implementation.\n\nExtra Activity: Fitting a Linear Prediction Model\nFit a linear prediction model on the training data:\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\n# 1) Subset training set\ndat_train &lt;- dat |&gt; \n  filter(set_label == \"training\")\n\n# 2) Fit a linear model: Y ~ X1 + X2 + X3 + X4\nlm_pred &lt;- lm(Y ~ X1 + X2 + X3 + X4, data = dat_train)\n\n# 3) Prepare a full-length vector of NA\ndat$f_pred &lt;- NA_real_\n\n# 4) Identify the rows to predict (all non-training rows)\nidx_analytic &lt;- dat$set_label != \"training\"\n\n# 5) Generate predictions just once on that subset (shifted and scaled to match)\npred_vals &lt;- (predict(lm_pred, newdata = dat[idx_analytic, ]) - 1) / 2\n\n# 6) Insert them back into the full data frame\ndat$f_pred[idx_analytic] &lt;- pred_vals\n\n# 7) Verify: `f_pred` is equal to `f` for the labeled and unlabeled data\ndat |&gt; \n  select(set_label, Y, f, f_pred) |&gt; \n  filter(set_label != \"training\") |&gt;\n  glimpse()\n\nRows: 2,000\nColumns: 4\n$ set_label &lt;chr&gt; \"labeled\", \"labeled\", \"labeled\", \"labeled\", \"labeled\", \"labe…\n$ Y         &lt;dbl&gt; 2.71822922, 1.72133689, 0.86081066, 3.77173123, -2.77191549,…\n$ f         &lt;dbl&gt; 0.67556303, -0.13706321, -1.75579589, 0.84146158, 0.15512973…\n$ f_pred    &lt;dbl&gt; 0.67556303, -0.13706321, -1.75579589, 0.84146158, 0.15512973…\n\n\n\n\n\n\n\n\n\n\n\nTipNotes\n\n\n\n\nlm(Y ~ X1 + X2 + X3 + X4, data = dat_train) fits an ordinary least squares (OLS) regression on the training subset.\npredict(lm_pred, newdata = .) generates a new f (stored as f_pred) for each row outside of the training set.\nIn real workflows, you might use random forests (ranger::ranger()), gradients (xgboost::xgboost()), or any other ML algorithm; PB methods only require that you supply a vector of predictions, f, in your data.\n\n\n\nHappy coding! Feel free to modify and extend these exercises for your own data.\n\nThis is the end of the module. We hope this was informative! For question/concerns/suggestions, please reach out to ssalerno@fredhutch.org",
+    "crumbs": [
+      "Modules",
+      "Getting Started"
+    ]
   },
   {
     "objectID": "content/Unit05_RashomonQuartet.html",
@@ -383,412 +706,89 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Prediction-Based Inference: Methods & Applications",
+    "objectID": "content/Unit04_Income.html",
+    "href": "content/Unit04_Income.html",
+    "title": "Income Inequality",
     "section": "",
-    "text": "Source: https://arxiv.org/pdf/2411.19908\n\n\n\n\n\nLearning Goals:\n\nUnderstand limitations in using predicted data for inference.\nLearn about methods that correct for bias and recover valid uncertainty estimates.\nGain practical skills using the ipd R package.\n\nLearning Objectives:\n\nExplore data with AI/ML-predicted outcomes and diagnose bias/variance in predictions.\nApply ipd::ipd() to continuous and binary outcomes.\nInterpret prediction-based (PB) inference outputs and visualize model results.\n\n\n\n\n\n\n\n\nActivity\nTime\n\n\n\n\nOverview\n30 m\n\n\nShort Break\n5 m\n\n\nUnit 00: Getting Started\n30 m\n\n\nUnit 01: AlphaFold\n30 m\n\n\nWrap-Up and Q&A\n10 m\n\n\n\n\n\n\nThe companion website for this workshop is available at:\nhttps://salernos.github.io/ipd-workshop\nTo use the workshop image:\ndocker run -e PASSWORD=&lt;your_chosen_password&gt; -p 8787:8787 ghcr.io/salernos/ipd-workshop:latest\nOnce running, open http://localhost:8787/ and login with username = rstudio, password = &lt;your_chosen_password&gt;\nThen begin!\n\n\n\nIn this workshop, we explore the consequences of conducting inference on predicted data across several applications and present a suite of prediction-based (PB) inference methods that adjust for prediction-related uncertainty to improve inference validity and efficiency. We also introduce ipd, a user-friendly R package that implements the PB inference methods through a unified interface. The package supports modular integration into existing workflows and includes tidy methods for model inspection and diagnostics.\n\n\n\nThis workshop covers two modules, each illustrated with the ipd package:1\n\n\n\n\n\n\n\n\n\n\n\nPrediction-Based Inference: Methods & Applications\n\n\nBuild intuition for prediction-based inference by simulating data and comparing different methods.\n\n\n\n\n\n\n\n\n\n\n\n\n\nProtein Disorder and PTMs\n\n\nApply PB methods in a proteomics setting to estimate associations when key outcomes are model-predicted rather than directly measured.\n\n\n\n\n\nNo matching items\n\n\n\n\nWe have also included some supplemental modules for you to explore on your own:\n\n\n\n\n\n\n\n\n\n\n\nBMI vs. DXA\n\n\nCompare BMI and DXA-based adiposity measures and use PB corrections to improve regression inference under predicted outcomes.\n\n\n\n\n\n\n\n\n\n\n\n\n\nin B-Cell Leukemia\n\n\nStudy BCR-ABL prediction from gene-expression profiles and evaluate how PB inference methods calibrate downstream inference in genomics.\n\n\n\n\n\n\n\n\n\n\n\n\n\ni.e., Performance is not Enough\n\n\nExamine how equally predictive models can yield different scientific conclusions and compare naive, classical, and PB inference.\n\n\n\n\n\nNo matching items\n\n\n\n\nThis workshop uses a blended format of instruction and hands-on coding exercises. Participants should:\n\nFollow along in the virtual RStudio environment (see below).\nAttempt to complete brief exercises or run the solution code snippets in real time.\nEngage in Q&A at module boundaries to troubleshoot and discuss concepts.\n\n\n\n\n\nA computer with internet access.\nFamiliarity with base R and tidyverse syntax (e.g., dplyr, broom).\nBasic understanding of predictive (e.g., randomForest) and regression modeling (e.g., lm, glm).\nOptional: Exposure to Bioconductor’s ExpressionSet, AnnotationDbi, and MLInterfaces is helpful for one of the supplemental modules.\n\n\n\n\nPresenters: Jesse Gronsbell ✉︎, Jianhui Gao ✉︎, Stephen Salerno ✉︎\nAll Contributors (Alphabetical Order): Awan Afiaz ✉︎, David Cheng ✉︎, Jianhui Gao ✉︎, Jesse Gronsbell ✉︎, Kentaro Hoffman ✉︎, Jeff Leek ✉︎, Qiongshi Lu ✉︎, Tyler McCormick ✉︎, Jiacheng Miao ✉︎, Anna Neufeld ✉︎, Stephen Salerno ✉︎",
-    "crumbs": [
-      "Home"
-    ]
+    "text": "By the end of this module you will be able to:\n\nSet up labeled vs unlabeled splits when income is predicted but only some true incomes are observed.\nEstimate the OLS coefficient for age while controlling for sex.\nUse ipd() for:\n\npostpi_analytic, ppi, ppi_plusplus, pspa, chen\n\nCompare CI widths across labeled sample sizes.\nRun a power experiment to find the smallest labeled n achieving 80% power for a one-sided null.\n\n\n\n\n\n\n\nNoteBackground + references (foldable)\n\n\n\n\n\nThe ipd package provides a unified ipd() interface for inference when outcomes are partially predicted (e.g., ML predictions available broadly, true labels only on a subset). This module mirrors a Folktables/Census income setup where predictions are generated via gradient boosting (e.g., XGBoost), but the inferential target is a downstream linear regression coefficient."
   },
   {
-    "objectID": "index.html#quick-start",
-    "href": "index.html#quick-start",
-    "title": "Prediction-Based Inference: Methods & Applications",
+    "objectID": "content/Unit04_Income.html#learning-objectives",
+    "href": "content/Unit04_Income.html#learning-objectives",
+    "title": "Income Inequality",
     "section": "",
-    "text": "The companion website for this workshop is available at:\nhttps://salernos.github.io/ipd-workshop\nTo use the workshop image:\ndocker run -e PASSWORD=&lt;your_chosen_password&gt; -p 8787:8787 ghcr.io/salernos/ipd-workshop:latest\nOnce running, open http://localhost:8787/ and login with username = rstudio, password = &lt;your_chosen_password&gt;\nThen begin!",
-    "crumbs": [
-      "Home"
-    ]
+    "text": "By the end of this module you will be able to:\n\nSet up labeled vs unlabeled splits when income is predicted but only some true incomes are observed.\nEstimate the OLS coefficient for age while controlling for sex.\nUse ipd() for:\n\npostpi_analytic, ppi, ppi_plusplus, pspa, chen\n\nCompare CI widths across labeled sample sizes.\nRun a power experiment to find the smallest labeled n achieving 80% power for a one-sided null.\n\n\n\n\n\n\n\nNoteBackground + references (foldable)\n\n\n\n\n\nThe ipd package provides a unified ipd() interface for inference when outcomes are partially predicted (e.g., ML predictions available broadly, true labels only on a subset). This module mirrors a Folktables/Census income setup where predictions are generated via gradient boosting (e.g., XGBoost), but the inferential target is a downstream linear regression coefficient."
   },
   {
-    "objectID": "index.html#workshop-overview",
-    "href": "index.html#workshop-overview",
-    "title": "Prediction-Based Inference: Methods & Applications",
+    "objectID": "content/Unit04_Income.html#setup",
+    "href": "content/Unit04_Income.html#setup",
+    "title": "Income Inequality",
+    "section": "1. Setup",
+    "text": "1. Setup\n\nPackages\n\n# install.packages(\"ipd\")\nlibrary(ipd)\n\nlibrary(tidyverse)\n\n\n\nData: expected columns\nWe assume a dataset with:\n\nY: true yearly income (numeric), observed for labeled subset\nYhat: predicted income (numeric), observed for everyone\ncovariates: age (numeric) and sex (binary or factor)\n(optional) other covariates\n\n\n\n\n\n\n\nImportantPlug in your real dataset\n\n\n\nNEED REAL DATA\n\n\n\nuse_simulated &lt;- TRUE\n\nif (!use_simulated) {\n  dat_full &lt;- read.csv(\"data/census_income_ca2019.csv\")\n  stopifnot(all(c(\"Y\",\"Yhat\",\"age\",\"sex\") %in% names(dat_full)))\n  dat_full &lt;- as_tibble(dat_full)\n} else {\n  set.seed(1)\n  n &lt;- 15000\n\n  # Simulate: income depends on age and sex\n  sex &lt;- rbinom(n, 1, 0.48)\n  age &lt;- pmin(pmax(round(rnorm(n, mean = 42, sd = 12)), 18), 80)\n\n  # True income model (linear signal + noise)\n  beta0 &lt;- 15000\n  beta_age &lt;- 900          # target coefficient ~ 900 dollars/year per year of age\n  beta_sex &lt;- 6000         # illustrative\n  eps &lt;- rnorm(n, sd = 20000)\n\n  Y &lt;- beta0 + beta_age * age + beta_sex * sex + eps\n\n  # Predicted income: biased/noisy proxy (as if from an ML model trained on prior year)\n  Yhat &lt;- Y + rnorm(n, sd = 12000) + 1500   # add some bias\n\n  dat_full &lt;- tibble(Y = Y, Yhat = Yhat, age = age, sex = sex)\n}\n\n# Build the downstream design variables.\ndat_full &lt;- dat_full %&gt;%\n  mutate(\n    sex = factor(sex, levels = c(0,1), labels = c(\"F\",\"M\"))\n  )"
+  },
+  {
+    "objectID": "content/Unit04_Income.html#labeled-vs-unlabeled-splits",
+    "href": "content/Unit04_Income.html#labeled-vs-unlabeled-splits",
+    "title": "Income Inequality",
+    "section": "2. Labeled vs unlabeled splits",
+    "text": "2. Labeled vs unlabeled splits\nWe create a stacked dataset where the unlabeled rows have Y = NA but retain Yhat and covariates.\n\nmake_split &lt;- function(dat, n_labeled, seed = NULL) {\n  if (!is.null(seed)) set.seed(seed)\n\n  idx &lt;- sample.int(nrow(dat), size = n_labeled, replace = FALSE)\n  labeled   &lt;- dat[idx, ] %&gt;% mutate(set_label = \"labeled\")\n  unlabeled &lt;- dat[-idx,] %&gt;% mutate(Y = NA_real_, set_label = \"unlabeled\")\n\n  bind_rows(labeled, unlabeled)\n}"
+  },
+  {
+    "objectID": "content/Unit04_Income.html#fit-many-methods-with-ipd",
+    "href": "content/Unit04_Income.html#fit-many-methods-with-ipd",
+    "title": "Income Inequality",
+    "section": "3. Fit many methods with ipd()",
+    "text": "3. Fit many methods with ipd()\nWe target the coefficient on age in:\nY ~ age + sex\nWith ipd, we write:\nY - Yhat ~ age + sex (where Yhat is the prediction) (rdrr.io)\n\nfit_ipd_methods &lt;- function(stacked_df, alpha = 0.05, n_t = Inf) {\n\n  methods &lt;- c(\"postpi_analytic\", \"postpi_boot\", \"ppi\", \"ppi_plusplus\", \"pspa\")\n\n  fits &lt;- map(methods, ~ ipd(\n    formula = Y - Yhat ~ age + sex,\n    method  = .x,\n    model   = \"linear\",\n    data    = stacked_df,\n    label   = \"set_label\",\n    alpha   = alpha,\n    n_t     = n_t,\n    alternative = \"two-sided\"\n  ))\n\n  names(fits) &lt;- methods\n  fits\n}\n\nfit_classical_labeled &lt;- function(stacked_df, alpha = 0.05) {\n  labeled &lt;- stacked_df %&gt;% filter(set_label == \"labeled\")\n  m &lt;- lm(Y ~ age + sex, data = labeled)\n\n  est &lt;- coef(m)[[\"age\"]]\n  se  &lt;- sqrt(vcov(m)[[\"age\",\"age\"]])\n  tcrit &lt;- qt(1 - alpha/2, df = df.residual(m))\n  ci_beta &lt;- c(est - tcrit*se, est + tcrit*se)\n\n  list(\n    coefficients = coef(m),\n    se = sqrt(diag(vcov(m))),\n    ci = rbind(age = ci_beta),\n    fit = m\n  )\n}\n\nfit_naive_imputation &lt;- function(stacked_df, alpha = 0.05) {\n  # naive: treat Yhat as if it were Y and run standard OLS\n  m &lt;- lm(Yhat ~ age + sex, data = stacked_df)\n\n  est &lt;- coef(m)[[\"age\"]]\n  se  &lt;- sqrt(vcov(m)[[\"age\",\"age\"]])\n  tcrit &lt;- qt(1 - alpha/2, df = df.residual(m))\n  ci_beta &lt;- c(est - tcrit*se, est + tcrit*se)\n\n  list(\n    coefficients = coef(m),\n    se = sqrt(diag(vcov(m))),\n    ci = rbind(age = ci_beta),\n    fit = m\n  )\n}\n\nextract_ci_for_term &lt;- function(fit_obj, term = \"age\") {\n  # ipd objects have $ci as matrix; baselines mimic that structure\n  ci &lt;- fit_obj$ci[term, ]\n  c(lower = ci[1], upper = ci[2])\n}"
+  },
+  {
+    "objectID": "content/Unit04_Income.html#ci-experiment-width-vs-labeled-sample-size",
+    "href": "content/Unit04_Income.html#ci-experiment-width-vs-labeled-sample-size",
+    "title": "Income Inequality",
+    "section": "4. CI experiment: width vs labeled sample size",
+    "text": "4. CI experiment: width vs labeled sample size\nThis mirrors your Python loop over ns and num_trials, storing lower, upper, width.\n\nalpha &lt;- 0.05\nns &lt;- as.integer(seq(100, 2000, length.out = 10))\nnum_trials &lt;- 100\n\n# Truth from the fully-labeled benchmark dataset (only for evaluation)\ntrue_theta &lt;- coef(lm(Y ~ age + sex, data = dat_full))[[\"age\"]]\n\nrun_one &lt;- function(n_labeled, trial) {\n  stacked &lt;- make_split(dat_full, n_labeled = n_labeled, seed = 10000 + 10*n_labeled + trial)\n\n  ipd_fits &lt;- fit_ipd_methods(stacked, alpha = alpha)\n  classical &lt;- fit_classical_labeled(stacked, alpha = alpha)\n  naive_imp &lt;- fit_naive_imputation(stacked, alpha = alpha)\n\n  rows &lt;- list(\n    tibble(method = names(ipd_fits)) %&gt;%\n      mutate(ci = map(ipd_fits, extract_ci_for_term)) %&gt;%\n      unnest_wider(ci),\n\n    tibble(method = \"classical\") %&gt;%\n      mutate(!!!extract_ci_for_term(classical)),\n\n    tibble(method = \"imputation\") %&gt;%\n      mutate(!!!extract_ci_for_term(naive_imp))\n  )\n\n  bind_rows(rows) %&gt;%\n    mutate(n = n_labeled, trial = trial, width = upper - lower)\n}\n\nres_ci &lt;- crossing(n = ns, trial = seq_len(num_trials)) %&gt;%\n  mutate(out = map2(n, trial, run_one)) %&gt;%\n  select(out) %&gt;%\n  unnest(out)\n\n\nPlot 1: example intervals (5 random trials)\n\nset.seed(123)\nexample_trials &lt;- sample(unique(res_ci$trial), size = 5)\n\nex &lt;- res_ci %&gt;%\n  filter(trial %in% example_trials, n == ns[2]) %&gt;%\n  mutate(method = factor(method, levels = c(\"classical\",\"imputation\",\"postpi_analytic\",\"postpi_boot\",\"ppi\",\"ppi_plusplus\",\"pspa\")))\n\nggplot(ex, aes(y = method, x = (lower + upper)/2, xmin = lower, xmax = upper)) +\n  geom_vline(xintercept = true_theta, linetype = 2) +\n  geom_errorbarh(height = 0.2) +\n  geom_point(size = 1.8) +\n  labs(\n    title = paste0(\"Age coefficient CIs (n_labeled = \", ns[2], \", 5 random trials)\"),\n    x = \"OLS coefficient on age (dollars/year per year of age)\",\n    y = NULL,\n    caption = \"Dashed line = benchmark OLS coefficient from the full labeled data.\"\n  ) +\n  theme_bw()\n\n\n\nPlot 2: average CI width vs n\n\navg_width &lt;- res_ci %&gt;%\n  group_by(method, n) %&gt;%\n  summarize(mean_width = mean(width, na.rm = TRUE), .groups = \"drop\")\n\nggplot(avg_width, aes(x = n, y = mean_width, group = method)) +\n  geom_line() +\n  geom_point() +\n  labs(\n    title = \"Average CI width vs labeled sample size\",\n    x = \"Number of labeled observations\",\n    y = \"Mean CI width (coefficient scale)\"\n  ) +\n  theme_bw()\n\n\n\n\n\n\n\nTipInterpretation checklist\n\n\n\n\nIf ppi / ppi_plusplus CIs are narrower than classical at the same n, you’re leveraging unlabeled predictions to reduce variance while staying valid.\nimputation often looks appealing but can be biased and anti-conservative (too narrow).\n:::\n\n\n5. Power experiment: smallest n for 80% power\nWe test the one-sided null:\n[ H_0: ^* &lt; 800]\nReject if the lower CI bound &gt; 800.\n\nalpha_pval &lt;- alpha\nnum_experiments &lt;- 100\nthreshold &lt;- 800\n\npower_at_n &lt;- function(n_labeled, method = c(\"ppi\",\"classical\")) {\n  method &lt;- match.arg(method)\n\n  rej &lt;- replicate(num_experiments, {\n    stacked &lt;- make_split(dat_full, n_labeled = n_labeled)\n\n    if (method == \"ppi\") {\n      fit &lt;- ipd(\n        Y - Yhat ~ age + sex,\n        method = \"ppi\",\n        model = \"linear\",\n        data = stacked,\n        label = \"set_label\",\n        alpha = alpha_pval,\n        alternative = \"one-sided\"\n      )\n      ci &lt;- extract_ci_for_term(fit, term = \"age\")\n      as.integer(ci[\"lower\"] &gt; threshold)\n    } else {\n      fit &lt;- fit_classical_labeled(stacked, alpha = alpha_pval)\n      ci &lt;- extract_ci_for_term(fit, term = \"age\")\n      as.integer(ci[\"lower\"] &gt; threshold)\n    }\n  })\n\n  mean(rej)\n}\n\nfind_n_for_power &lt;- function(method = c(\"ppi\",\"classical\"),\n                             n_min = 100, n_max = 2000, target = 0.80) {\n  method &lt;- match.arg(method)\n\n  f &lt;- function(n) power_at_n(as.integer(n), method = method) - target\n\n  grid &lt;- unique(round(seq(n_min, n_max, length.out = 20)))\n  vals &lt;- map_dbl(grid, f)\n\n  if (all(vals &lt; 0)) return(NA_integer_)\n  if (all(vals &gt; 0)) return(n_min)\n\n  i &lt;- which(vals &gt;= 0)[1]\n  lo &lt;- grid[max(1, i-1)]\n  hi &lt;- grid[i]\n\n  as.integer(uniroot(f, lower = lo, upper = hi)$root)\n}\n\nn_ppi &lt;- find_n_for_power(\"ppi\", n_min = 100, n_max = 2000)\nn_cls &lt;- find_n_for_power(\"classical\", n_min = 100, n_max = 2000)\n\ntibble(\n  method = c(\"ppi\",\"classical\"),\n  n_for_80_power = c(n_ppi, n_cls)\n)\n\n\n\n6. Exercises\n\n\n\n\n\n\nWarningExercise 1 (core): change target coefficient\n\n\n\nChange the null threshold from 800 to 600 or 1000:\n\nHow does the required labeled n change?\nDoes PPI keep a consistent advantage over classical?\n:::\n\n\n\n\n\n\n\nWarningExercise 2 (intermediate): add interactions\n\n\n\n\n\nFit:\nY - Yhat ~ age * sex\nInterpret the age effect for each sex and compare how much unlabeled data helps in each subgroup.\n\n\n\n\n\n\n\n\n\nWarningExercise 3 (advanced): heteroskedastic-robust SEs\n\n\n\n\n\nModify the classical baseline to use robust (HC) SEs (e.g., sandwich::vcovHC) and compare with IPD methods. Discuss what changes you expect when prediction errors vary with age."
+  },
+  {
+    "objectID": "content/Unit04_Income.html#power-experiment-smallest-n-for-80-power",
+    "href": "content/Unit04_Income.html#power-experiment-smallest-n-for-80-power",
+    "title": "Income Inequality",
+    "section": "5. Power experiment: smallest n for 80% power",
+    "text": "5. Power experiment: smallest n for 80% power\nWe test the one-sided null:\n[ H_0: ^* &lt; 800]\nReject if the lower CI bound &gt; 800.\n\nalpha_pval &lt;- alpha\nnum_experiments &lt;- 100\nthreshold &lt;- 800\n\npower_at_n &lt;- function(n_labeled, method = c(\"ppi\",\"classical\")) {\n  method &lt;- match.arg(method)\n\n  rej &lt;- replicate(num_experiments, {\n    stacked &lt;- make_split(dat_full, n_labeled = n_labeled)\n\n    if (method == \"ppi\") {\n      fit &lt;- ipd(\n        Y - Yhat ~ age + sex,\n        method = \"ppi\",\n        model = \"linear\",\n        data = stacked,\n        label = \"set_label\",\n        alpha = alpha_pval,\n        alternative = \"one-sided\"\n      )\n      ci &lt;- extract_ci_for_term(fit, term = \"age\")\n      as.integer(ci[\"lower\"] &gt; threshold)\n    } else {\n      fit &lt;- fit_classical_labeled(stacked, alpha = alpha_pval)\n      ci &lt;- extract_ci_for_term(fit, term = \"age\")\n      as.integer(ci[\"lower\"] &gt; threshold)\n    }\n  })\n\n  mean(rej)\n}\n\nfind_n_for_power &lt;- function(method = c(\"ppi\",\"classical\"),\n                             n_min = 100, n_max = 2000, target = 0.80) {\n  method &lt;- match.arg(method)\n\n  f &lt;- function(n) power_at_n(as.integer(n), method = method) - target\n\n  grid &lt;- unique(round(seq(n_min, n_max, length.out = 20)))\n  vals &lt;- map_dbl(grid, f)\n\n  if (all(vals &lt; 0)) return(NA_integer_)\n  if (all(vals &gt; 0)) return(n_min)\n\n  i &lt;- which(vals &gt;= 0)[1]\n  lo &lt;- grid[max(1, i-1)]\n  hi &lt;- grid[i]\n\n  as.integer(uniroot(f, lower = lo, upper = hi)$root)\n}\n\nn_ppi &lt;- find_n_for_power(\"ppi\", n_min = 100, n_max = 2000)\nn_cls &lt;- find_n_for_power(\"classical\", n_min = 100, n_max = 2000)\n\ntibble(\n  method = c(\"ppi\",\"classical\"),\n  n_for_80_power = c(n_ppi, n_cls)\n)"
+  },
+  {
+    "objectID": "content/Unit04_Income.html#exercises",
+    "href": "content/Unit04_Income.html#exercises",
+    "title": "Income Inequality",
+    "section": "6. Exercises",
+    "text": "6. Exercises\n\n\n\n\n\n\nWarningExercise 1 (core): change target coefficient\n\n\n\nChange the null threshold from 800 to 600 or 1000:\n\nHow does the required labeled n change?\nDoes PPI keep a consistent advantage over classical?\n:::\n\n\n\n\n\n\n\nWarningExercise 2 (intermediate): add interactions\n\n\n\n\n\nFit:\nY - Yhat ~ age * sex\nInterpret the age effect for each sex and compare how much unlabeled data helps in each subgroup.\n\n\n\n\n\n\n\n\n\nWarningExercise 3 (advanced): heteroskedastic-robust SEs\n\n\n\n\n\nModify the classical baseline to use robust (HC) SEs (e.g., sandwich::vcovHC) and compare with IPD methods. Discuss what changes you expect when prediction errors vary with age."
+  },
+  {
+    "objectID": "content/slides.html",
+    "href": "content/slides.html",
+    "title": "Overview",
     "section": "",
-    "text": "In this workshop, we explore the consequences of conducting inference on predicted data across several applications and present a suite of prediction-based (PB) inference methods that adjust for prediction-related uncertainty to improve inference validity and efficiency. We also introduce ipd, a user-friendly R package that implements the PB inference methods through a unified interface. The package supports modular integration into existing workflows and includes tidy methods for model inspection and diagnostics.",
+    "text": "Artificial intelligence and machine learning (AI/ML) have become essential tools in biomedical research, enabling large-scale analyses across diverse domains such as genomics, structural biology, and electronic health records-based research. Increasingly, researchers rely on model-generated predictions, rather than directly measured variables, as inputs for downstream statistical analyses. For example, predicted gene expression values or polygenic risk scores are often used in place of experimental assays, allowing researchers to expand cohort sizes and explore hypotheses when traditional data collection is infeasible, costly, or time-consuming.\nWhile this practice of “using predictions as data” holds promise for accelerating scientific discovery, it presents significant challenges for statistical inference. When predicted values are used in place of true variables, the resulting estimates of association can be biased and misleading if uncertainty in the prediction step is not properly accounted for.\n\n\n\n\n\n\nImportantKey Takeaway\n\n\n\nModern biomedical analyses increasingly rely on machine learning predictions as inputs to downstream statistical models. This can expand scope and improve feasibility, but treating predictions as if they were observed data can bias effect estimates and understate uncertainty.",
     "crumbs": [
-      "Home"
+      "Overview"
     ]
   },
   {
-    "objectID": "index.html#modules",
-    "href": "index.html#modules",
-    "title": "Prediction-Based Inference: Methods & Applications",
+    "objectID": "content/slides.html#background-and-motivation",
+    "href": "content/slides.html#background-and-motivation",
+    "title": "Overview",
     "section": "",
-    "text": "This workshop covers two modules, each illustrated with the ipd package:1\n\n\n\n\n\n\n\n\n\n\n\nPrediction-Based Inference: Methods & Applications\n\n\nBuild intuition for prediction-based inference by simulating data and comparing different methods.\n\n\n\n\n\n\n\n\n\n\n\n\n\nProtein Disorder and PTMs\n\n\nApply PB methods in a proteomics setting to estimate associations when key outcomes are model-predicted rather than directly measured.\n\n\n\n\n\nNo matching items",
+    "text": "Artificial intelligence and machine learning (AI/ML) have become essential tools in biomedical research, enabling large-scale analyses across diverse domains such as genomics, structural biology, and electronic health records-based research. Increasingly, researchers rely on model-generated predictions, rather than directly measured variables, as inputs for downstream statistical analyses. For example, predicted gene expression values or polygenic risk scores are often used in place of experimental assays, allowing researchers to expand cohort sizes and explore hypotheses when traditional data collection is infeasible, costly, or time-consuming.\nWhile this practice of “using predictions as data” holds promise for accelerating scientific discovery, it presents significant challenges for statistical inference. When predicted values are used in place of true variables, the resulting estimates of association can be biased and misleading if uncertainty in the prediction step is not properly accounted for.\n\n\n\n\n\n\nImportantKey Takeaway\n\n\n\nModern biomedical analyses increasingly rely on machine learning predictions as inputs to downstream statistical models. This can expand scope and improve feasibility, but treating predictions as if they were observed data can bias effect estimates and understate uncertainty.",
     "crumbs": [
-      "Home"
+      "Overview"
     ]
   },
   {
-    "objectID": "index.html#supplemental-modules",
-    "href": "index.html#supplemental-modules",
-    "title": "Prediction-Based Inference: Methods & Applications",
-    "section": "",
-    "text": "We have also included some supplemental modules for you to explore on your own:\n\n\n\n\n\n\n\n\n\n\n\nBMI vs. DXA\n\n\nCompare BMI and DXA-based adiposity measures and use PB corrections to improve regression inference under predicted outcomes.\n\n\n\n\n\n\n\n\n\n\n\n\n\nin B-Cell Leukemia\n\n\nStudy BCR-ABL prediction from gene-expression profiles and evaluate how PB inference methods calibrate downstream inference in genomics.\n\n\n\n\n\n\n\n\n\n\n\n\n\ni.e., Performance is not Enough\n\n\nExamine how equally predictive models can yield different scientific conclusions and compare naive, classical, and PB inference.\n\n\n\n\n\nNo matching items",
+    "objectID": "content/slides.html#slides-pdf",
+    "href": "content/slides.html#slides-pdf",
+    "title": "Overview",
+    "section": "Slides (PDF)",
+    "text": "Slides (PDF)\nClick here to follow along with the overview presentation",
     "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#participation",
-    "href": "index.html#participation",
-    "title": "Prediction-Based Inference: Methods & Applications",
-    "section": "",
-    "text": "This workshop uses a blended format of instruction and hands-on coding exercises. Participants should:\n\nFollow along in the virtual RStudio environment (see below).\nAttempt to complete brief exercises or run the solution code snippets in real time.\nEngage in Q&A at module boundaries to troubleshoot and discuss concepts.",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#prerequisites",
-    "href": "index.html#prerequisites",
-    "title": "Prediction-Based Inference: Methods & Applications",
-    "section": "",
-    "text": "A computer with internet access.\nFamiliarity with base R and tidyverse syntax (e.g., dplyr, broom).\nBasic understanding of predictive (e.g., randomForest) and regression modeling (e.g., lm, glm).\nOptional: Exposure to Bioconductor’s ExpressionSet, AnnotationDbi, and MLInterfaces is helpful for one of the supplemental modules.",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#contributors",
-    "href": "index.html#contributors",
-    "title": "Prediction-Based Inference: Methods & Applications",
-    "section": "",
-    "text": "Presenters: Jesse Gronsbell ✉︎, Jianhui Gao ✉︎, Stephen Salerno ✉︎\nAll Contributors (Alphabetical Order): Awan Afiaz ✉︎, David Cheng ✉︎, Jianhui Gao ✉︎, Jesse Gronsbell ✉︎, Kentaro Hoffman ✉︎, Jeff Leek ✉︎, Qiongshi Lu ✉︎, Tyler McCormick ✉︎, Jiacheng Miao ✉︎, Anna Neufeld ✉︎, Stephen Salerno ✉︎",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#footnotes",
-    "href": "index.html#footnotes",
-    "title": "Prediction-Based Inference: Methods & Applications",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nModule card cover images were generated by GPT-5.2.↩︎",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "content/setup.html",
-    "href": "content/setup.html",
-    "title": "Setup & Prerequisites",
-    "section": "",
-    "text": "Welcome, and thanks for joining the workshop, Prediction-Based Inference: Methods & Applications!\nThis page is a quick checklist to help you get set up before the session. If you’d like to follow along interactively during the workshop, these steps will make sure everything runs smoothly.",
-    "crumbs": [
-      "Resources",
-      "Setup & Prerequisites"
-    ]
-  },
-  {
-    "objectID": "content/setup.html#quick-checklist-10-15-minutes",
-    "href": "content/setup.html#quick-checklist-10-15-minutes",
-    "title": "Setup & Prerequisites",
-    "section": "Quick Checklist (10-15 minutes)",
-    "text": "Quick Checklist (10-15 minutes)\nComplete these before the tutorial:\n\nConfirm you have a stable internet connection and a laptop.\nChoose your environment:\n\nRecommended: Docker + browser-based RStudio\nAlternative: local R/RStudio install\n\nVerify ipd and core R packages install successfully (Option B only).",
-    "crumbs": [
-      "Resources",
-      "Setup & Prerequisites"
-    ]
-  },
-  {
-    "objectID": "content/setup.html#prerequisites",
-    "href": "content/setup.html#prerequisites",
-    "title": "Setup & Prerequisites",
-    "section": "Prerequisites",
-    "text": "Prerequisites\nYou should be comfortable with:\n\nBase R and tidyverse syntax (dplyr, ggplot2, basic pipes).\nBasic regression modeling (lm, glm).\nBasic predictive modeling concepts (train/test split, predictions, model error).\n\nHelpful but optional (for the supplemental modules):\n\nBioconductor familiarity (ExpressionSet, AnnotationDbi, MLInterfaces).",
-    "crumbs": [
-      "Resources",
-      "Setup & Prerequisites"
-    ]
-  },
-  {
-    "objectID": "content/setup.html#software-requirements",
-    "href": "content/setup.html#software-requirements",
-    "title": "Setup & Prerequisites",
-    "section": "Software Requirements",
-    "text": "Software Requirements\n\nOption A (Recommended): Docker Workshop Environment\nInstall Docker Desktop:\n\nDocker Desktop (Windows/Mac/Linux)\n\nThen run:\ndocker run -e PASSWORD=&lt;your_chosen_password&gt; -p 8787:8787 ghcr.io/salernos/ipd-workshop:latest\nOpen:\n\nhttp://localhost:8787/\nLogin: username = rstudio, password = &lt;your_chosen_password&gt;\n\n\n\nOption B: Local R + RStudio\nYou need R 4.4.1 or newer.\nInstall:\n\nR (CRAN)\nRStudio Desktop",
-    "crumbs": [
-      "Resources",
-      "Setup & Prerequisites"
-    ]
-  },
-  {
-    "objectID": "content/setup.html#r-packages-to-install-ahead-of-time",
-    "href": "content/setup.html#r-packages-to-install-ahead-of-time",
-    "title": "Setup & Prerequisites",
-    "section": "R Packages to Install Ahead of Time",
-    "text": "R Packages to Install Ahead of Time\nIf you use Option A (Docker), all required packages are already included in the workshop image and you can skip installation.\n\nCore packages (required for Option B)\ninstall.packages(c(\n  \"ipd\", \"MASS\", \"broom\", \"tidyverse\", \"future\", \"furrr\"\n))\n\n\nSupplemental packages (optional, used outside Units 00 and 01)\nDuring the workshop, we will only cover Unit 00 and Unit 01. You can install the following only if you want to explore modules outside Unit 00 and Unit 01.\n# CRAN packages for optional supplemental units\ninstall.packages(c(\n  \"patchwork\", \"scales\", \"janitor\", \"GGally\", \"randomForest\",\n  \"ranger\", \"mgcv\", \"pROC\", \"DALEX\", \"neuralnet\", \"partykit\"\n))\n\n# Bioconductor packages for optional supplemental biological modules\nif (!requireNamespace(\"BiocManager\", quietly = TRUE)) {\n  install.packages(\"BiocManager\")\n}\nBiocManager::install(c(\n  \"ALL\", \"golubEsets\", \"AnnotationDbi\", \"hgu95av2.db\",\n  \"hu6800.db\", \"MLInterfaces\"\n))",
-    "crumbs": [
-      "Resources",
-      "Setup & Prerequisites"
-    ]
-  },
-  {
-    "objectID": "content/setup.html#second-setup-test",
-    "href": "content/setup.html#second-setup-test",
-    "title": "Setup & Prerequisites",
-    "section": "60-Second Setup Test",
-    "text": "60-Second Setup Test\nRun this in R/RStudio (for Option B, this confirms local setup is complete):\nlibrary(ipd)\nlibrary(MASS)\nlibrary(tidyverse)\nlibrary(broom)\nlibrary(future)\nlibrary(furrr)\nsessionInfo()\nOptional check (if one fails, install that package and rerun this chunk):\nrequired &lt;- c(\"ipd\", \"MASS\", \"broom\", \"tidyverse\", \"future\", \"furrr\")\n\nmissing &lt;- required[!vapply(required, requireNamespace, logical(1), quietly = TRUE)]\n\nif (length(missing) == 0L) {\n  message(\"All required packages are available.\")\n} else {\n  stop(sprintf(\"Missing required packages: %s\", paste(missing, collapse = \", \")))\n}\nIf this runs without errors, you are ready.",
-    "crumbs": [
-      "Resources",
-      "Setup & Prerequisites"
-    ]
-  },
-  {
-    "objectID": "content/setup.html#data",
-    "href": "content/setup.html#data",
-    "title": "Setup & Prerequisites",
-    "section": "Data",
-    "text": "Data\nWe will be providing datasets for the modules that use real data. For Option B, please download the data folder from either GitHub or Google Drive into your local working directory (for Option A, these data will already be available in the docker image).\nLink to Data Folder on GitHub: https://github.com/salernos/ipd-workshop/tree/main/content/data\nLink to Data Folder on Google Drive: https://drive.google.com/drive/folders/1ubmvB43a7zYgwrZ93-BSAjfbDOaEuH9r?usp=sharing",
-    "crumbs": [
-      "Resources",
-      "Setup & Prerequisites"
-    ]
-  },
-  {
-    "objectID": "content/setup.html#links-youll-need-during-the-workshop",
-    "href": "content/setup.html#links-youll-need-during-the-workshop",
-    "title": "Setup & Prerequisites",
-    "section": "Links You’ll Need During the Workshop",
-    "text": "Links You’ll Need During the Workshop\n\nWorkshop site: https://salernos.github.io/ipd-workshop\nipd package repo: https://github.com/ipd-tools/ipd\nUnit 00 (start here): Getting Started",
-    "crumbs": [
-      "Resources",
-      "Setup & Prerequisites"
-    ]
-  },
-  {
-    "objectID": "content/setup.html#support",
-    "href": "content/setup.html#support",
-    "title": "Setup & Prerequisites",
-    "section": "Support",
-    "text": "Support\nIf you hit setup issues before the session, contact Stephen Salerno (ssalerno@fredhutch.org)",
-    "crumbs": [
-      "Resources",
-      "Setup & Prerequisites"
-    ]
-  },
-  {
-    "objectID": "content/Unit01_AlphaFold.html",
-    "href": "content/Unit01_AlphaFold.html",
-    "title": "Proteomics with AlphaFold",
-    "section": "",
-    "text": "https://www.nature.com/articles/s41586-021-03819-2",
-    "crumbs": [
-      "Modules",
-      "Proteomics with AlphaFold"
-    ]
-  },
-  {
-    "objectID": "content/Unit01_AlphaFold.html#background",
-    "href": "content/Unit01_AlphaFold.html#background",
-    "title": "Proteomics with AlphaFold",
-    "section": "Background",
-    "text": "Background\nModern protein biology increasingly relies on machine learning predictions. AlphaFold, developed by Google DeepMind, predicts a protein’s 3D structure from its amino acid sequence with remarkably high accuracy. These predictions have transformed structural biology by providing proteome-scale annotations that would be impossible to obtain experimentally at the same scale.\nAt the same time, many downstream biological questions remain fundamentally inferential rather than predictive. For example, we may want to ask whether post-translational modifications (PTMs) occur more often in intrinsically disordered regions (IDRs), or whether certain PTMs are associated with different structural environments. In settings like this, model predictions are useful, but they are not the same thing as directly observed truth.\nThis module uses the ipd package to study that problem. We will combine AlphaFold-derived predictions with a limited amount of ground truth and ask how different inferential strategies behave.\nBy the end of this module, you will be able to:\n\nConstruct labeled and unlabeled splits from biological data,\nEstimate PTM–disorder associations using logistic regression,\nCompare naive, classical, and prediction-based (PB) inference,\nQuantify efficiency gains from unlabeled data, and\nStudy how many labeled observations may be needed for adequate power.",
-    "crumbs": [
-      "Modules",
-      "Proteomics with AlphaFold"
-    ]
-  },
-  {
-    "objectID": "content/Unit01_AlphaFold.html#biological-motivation",
-    "href": "content/Unit01_AlphaFold.html#biological-motivation",
-    "title": "Proteomics with AlphaFold",
-    "section": "Biological Motivation",
-    "text": "Biological Motivation\nAlphaFold predictions can be post-processed to identify intrinsically disordered regions (IDRs), that is, stretches of a protein that do not adopt a stable folded structure.\nIDRs are central to signaling and regulation. They are flexible, accessible, and often enriched for short linear motifs. Many post-translational modifications, especially phosphorylation, ubiquitination, and acetylation, are hypothesized to occur preferentially in disordered regions, consistent with the idea that structural disorder supports rapid and dynamic regulation.\nIn this workshop, each amino acid residue has:\n\nY: A binary ‘gold-standard’ disorder label,\nYhat: A predicted probability of disorder derived from AlphaFold-based processing,\nPTM indicators:\n\nphosphorylated\nubiquitinated\nacetylated\n\n\nOur scientific question is:\n\nAre residues with a given PTM more likely to lie in intrinsically disordered regions?",
-    "crumbs": [
-      "Modules",
-      "Proteomics with AlphaFold"
-    ]
-  },
-  {
-    "objectID": "content/Unit01_AlphaFold.html#statistical-framing",
-    "href": "content/Unit01_AlphaFold.html#statistical-framing",
-    "title": "Proteomics with AlphaFold",
-    "section": "Statistical Framing",
-    "text": "Statistical Framing\nFor a chosen PTM, X:\n\nX = 1 if the residue carries that PTM,\nY = 1 if the residue lies in an IDR.\n\nWe summarize the association using an odds ratio from logistic regression:\n\\[\n\\text{OR} = \\frac{\\text{Odds}(Y = 1 \\mid X = 1)}{\\text{Odds}(Y = 1 \\mid X = 0)}.\n\\]\nIn practice, however, we may only observe Y on a labeled subset, while Yhat is available for all residues.",
-    "crumbs": [
-      "Modules",
-      "Proteomics with AlphaFold"
-    ]
-  },
-  {
-    "objectID": "content/Unit01_AlphaFold.html#take-home-messages",
-    "href": "content/Unit01_AlphaFold.html#take-home-messages",
-    "title": "Proteomics with AlphaFold",
-    "section": "Take-Home Messages",
-    "text": "Take-Home Messages\n\nAlphaFold enables proteome-scale structural annotation, but prediction is not the same as inference.\nPTM–disorder questions are naturally framed as association problems, making them a good setting for PB inference.\nWhen only a subset of residues has trusted labels, PB inference can improve on classical inference without treating predictions as real data.\nThe value of unlabeled data depends on the quality and calibration of the predictive model.",
-    "crumbs": [
-      "Modules",
-      "Proteomics with AlphaFold"
-    ]
-  },
-  {
-    "objectID": "content/Unit01_AlphaFold.html#closing-note",
-    "href": "content/Unit01_AlphaFold.html#closing-note",
-    "title": "Proteomics with AlphaFold",
-    "section": "Closing Note",
-    "text": "Closing Note\nA central lesson of this module is that large-scale biological prediction does not eliminate the need for statistics. AlphaFold and related systems make it possible to ask questions at a proteome-wide scale, but downstream scientific conclusions still depend on how we handle uncertainty, labeling limitations, and prediction error.\nPB inference methods provide principled ways to bridge that gap.\n\nThis is the end of the module. We hope this was informative. For questions, comments, or suggestions, please reach out to Stephen Salerno (ssalerno@fredhutch.org.\nThe exercises below are optional extensions for self-guided exploration.",
-    "crumbs": [
-      "Modules",
-      "Proteomics with AlphaFold"
-    ]
-  },
-  {
-    "objectID": "content/Unit01_AlphaFold.html#suggested-extensions",
-    "href": "content/Unit01_AlphaFold.html#suggested-extensions",
-    "title": "Proteomics with AlphaFold",
-    "section": "Suggested Extensions",
-    "text": "Suggested Extensions\nIf you continue this work, possible extensions include:\n\nAccounting for protein-level clustering,\nAdding biological covariates such as amino acid type or sequence position,\nComparing additional PB inference methods,\nPerturbing Yhat to study robustness to miscalibration,\nApplying the same workflow to a different ML-derived phenotype.",
-    "crumbs": [
-      "Modules",
-      "Proteomics with AlphaFold"
-    ]
-  },
-  {
-    "objectID": "content/Unit00_GettingStarted.html",
-    "href": "content/Unit00_GettingStarted.html",
-    "title": "Getting Started",
-    "section": "",
-    "text": "Welcome to this workshop on Prediction-Based (PB) Inference.\nIn this first module, we use a simple synthetic example to build intuition for how PB inference works and why it is needed. We will:\n\nIntroduce the ipd package,\nGenerate synthetic labeled and unlabeled data,\nCompare naive, classical, and PB estimators, and\nInspect results using built-in tidy(), glance(), and augment() methods.\n\nThroughout the workshop, each exercise includes a solution and short notes to help connect the results back to the main PB inference ideas.\n\n\n\n\n\n\nTipHow to Use This Module\n\n\n\n\nTry each Exercise on your own first.\nExpand the Answer callout to view one possible solution.\nUse the Notes callouts to interpret the results and connect them to the main concepts.\n\n\n\n\n\n\n\n\n\nNoteWhy This Unit Uses Synthetic Data\n\n\n\nUnit 00 uses synthetic examples on purpose. The goal is to make the PB inference workflow concrete before moving to real applications in later modules.\n\n\n\n\n\n\n\n\nImportantKey Takeaway\n\n\n\nUsing predicted outcomes can improve efficiency, but treating them as if they were the true observed outcomes can bias downstream inference. PB inference methods use a small labeled set to correct that bias while still borrowing information from unlabeled data and predictions.\n\n\nIn this unit, we will:\n\nGenerate synthetic data.\nFit simple downstream regression models.\nApply ipd::ipd() to estimate the association between Y and X1.\nCompare naive, classical, and PB estimates.\nVisualize uncertainty across methods.",
-    "crumbs": [
-      "Modules",
-      "Getting Started"
-    ]
-  },
-  {
-    "objectID": "content/Unit00_GettingStarted.html#overview",
-    "href": "content/Unit00_GettingStarted.html#overview",
-    "title": "Getting Started",
-    "section": "",
-    "text": "Welcome to this workshop on Prediction-Based (PB) Inference.\nIn this first module, we use a simple synthetic example to build intuition for how PB inference works and why it is needed. We will:\n\nIntroduce the ipd package,\nGenerate synthetic labeled and unlabeled data,\nCompare naive, classical, and PB estimators, and\nInspect results using built-in tidy(), glance(), and augment() methods.\n\nThroughout the workshop, each exercise includes a solution and short notes to help connect the results back to the main PB inference ideas.\n\n\n\n\n\n\nTipHow to Use This Module\n\n\n\n\nTry each Exercise on your own first.\nExpand the Answer callout to view one possible solution.\nUse the Notes callouts to interpret the results and connect them to the main concepts.\n\n\n\n\n\n\n\n\n\nNoteWhy This Unit Uses Synthetic Data\n\n\n\nUnit 00 uses synthetic examples on purpose. The goal is to make the PB inference workflow concrete before moving to real applications in later modules.\n\n\n\n\n\n\n\n\nImportantKey Takeaway\n\n\n\nUsing predicted outcomes can improve efficiency, but treating them as if they were the true observed outcomes can bias downstream inference. PB inference methods use a small labeled set to correct that bias while still borrowing information from unlabeled data and predictions.\n\n\nIn this unit, we will:\n\nGenerate synthetic data.\nFit simple downstream regression models.\nApply ipd::ipd() to estimate the association between Y and X1.\nCompare naive, classical, and PB estimates.\nVisualize uncertainty across methods.",
-    "crumbs": [
-      "Modules",
-      "Getting Started"
-    ]
-  },
-  {
-    "objectID": "content/Unit00_GettingStarted.html#installation-and-setup",
-    "href": "content/Unit00_GettingStarted.html#installation-and-setup",
-    "title": "Getting Started",
-    "section": "Installation and Setup",
-    "text": "Installation and Setup\nFirst, make sure you have the ipd package and a few supporting packages installed:\n\n\nCode\n# Install these packages if you have not already:\n# install.packages(c(\"ipd\", \"MASS\", \"broom\", \"tidyverse\", \"patchwork\"))\n\nlibrary(ipd)\nlibrary(MASS)\nlibrary(broom)\nlibrary(tidyverse)\nlibrary(patchwork)\n\n\nThroughout the workshop, we will use reproducible seeds and tidyverse conventions.",
-    "crumbs": [
-      "Modules",
-      "Getting Started"
-    ]
-  },
-  {
-    "objectID": "content/Unit00_GettingStarted.html#function-references",
-    "href": "content/Unit00_GettingStarted.html#function-references",
-    "title": "Getting Started",
-    "section": "Function References",
-    "text": "Function References\nHere is a brief overview of the main ipd functions used in this unit.\n\nipd()\nipd() fits IPD estimators for downstream inference with predicted outcomes.\nipd(\n  formula,      # A formula: e.g., Y - f ~ X1 + X2 + ...\n  method,       # Character: one of \"chen\", \"pdc\", \"postpi_analytic\", \n                # \"postpi_boot\", \"ppi\", \"ppi_all\", \"ppi_plusplus\", \"pspa\"\n  model,        # Character: one of \"mean\", \"quantile\", \"ols\", \"logistic\", \n                # \"poisson\"\n  data,         # Data frame containing columns for formula and label\n  label,        # Character: name of the column with set labels (\"labeled\" and \n                # \"unlabeled\")\n  ...           # Additional arguments\n)\n\nSupported Methods\nMethods currently implemented are:\n\nchen: Chen and Chen Estimator (Gronsbell et al., 2026)\npdc: Prediction Decorrelated Inference (Gan et al., 2024)\npostpi_analytic: Analytic Post-Prediction Inference (Wang et al., 2020).\npostpi_boot: Bootstrap Post-Prediction Inference (Wang et al., 2020).\nppi: Prediction-Powered Inference (Angelopoulos et al., 2023)\nppi_plusplus: PPI++ (PPI with Data-Driven Weighting; Angelopoulos et al., 2024)\nppi_a: PPI using All Data (Gronsbell et al., 2026)\npspa: Assumption-Lean and Data-Adaptive Post-Prediction Inference (Miao et al., 2024)\n\n\n\n\nTidy Methods\nLike many model objects in R, ipd fits work with familiar helper functions:\n\nprint() and summary(): display model summaries.\ntidy(): return a tibble of estimates and standard errors.\nglance(): return a one-row tibble of model-level metrics.\naugment(): return the original data with fitted values and residuals.",
-    "crumbs": [
-      "Modules",
-      "Getting Started"
-    ]
-  },
-  {
-    "objectID": "content/Unit00_GettingStarted.html#simulating-data",
-    "href": "content/Unit00_GettingStarted.html#simulating-data",
-    "title": "Getting Started",
-    "section": "Simulating Data",
-    "text": "Simulating Data\nThe ipd package provides a function for simulating data based on the approach in Wang et al. (2020). We provide more detail about this function at the end of this model. Here, we will be generating synthetic data following Gronsbell et al. (2026) and Ji et al. (2025) to better illustrate the core principles of PB inference in a more straightforward manner. We provide helper functions below to simulate data from a linear regression model.\n\n#--- Function for the l2 Norm\n\nl2_norm &lt;- function(x, squared = FALSE) {\n  \n  y &lt;- sum(x^2)\n  \n  if (!squared) {\n    \n    y &lt;- sqrt(y)\n  }\n  \n  return(y)\n}\n\n#--- Function to Generate from the Unit Sphere S^{d-1}\n\nunit_vec &lt;- function(d) {\n  \n  v &lt;- rnorm(d)\n  \n  return(v / l2_norm(v))\n}\n\n#--- Function to Simulate Data\n\nsimple_data_gen &lt;- function(\n    n,                 # Number of Samples\n    p = 2,             # Number of Covariates\n    prop_lab = 0.1,    # Proportion of Labeled Observations\n    total_var = 20,    # Total Variance\n    ratio_var = 1,     # Variance Ratio\n    rho = 0,           # Covariate Correlation\n    sigma_y = 1,       # Outcome Error Variance\n    beta = c(1,1),     # Effect Sizes\n    predset_ind = 1) { # Indices for Covariates Used for Prediction.\n  \n  #- Covariate Covariance Matrix\n  \n  sigma_x &lt;- total_var / (ratio_var + 1)\n  \n  sigma_w &lt;- ratio_var * sigma_x\n  \n  cov_diag &lt;- sqrt(c(rep(sigma_x, p / 2), rep(sigma_w, p / 2))) \n  \n  cov_matrix &lt;- (1 - rho) * diag(cov_diag^2) + rho * (cov_diag %o% cov_diag)\n  \n  #- Generate Covariates\n  \n  x &lt;- MASS::mvrnorm(n, mu = rep(0, p), Sigma = cov_matrix)\n  \n  colnames(x) &lt;- paste0('x', 1 : p)\n  \n  #- Generate Outcome\n  \n  eps &lt;- rnorm(n, sd = sigma_y) \n  \n  lin_pred &lt;- x %*% beta \n  \n  y &lt;- lin_pred + eps\n  \n  #- Inference Data\n  \n  inference_data &lt;- data.frame(y = y, x)\n  \n  #- Generate Predictions\n  \n  pred_covs &lt;- as.matrix(inference_data[, paste0(\"x\", predset_ind)])\n  \n  pred_beta &lt;- c(beta[predset_ind])\n    \n  f &lt;- pred_covs %*% pred_beta\n  \n  #- Analysis Data\n  \n  analysis_data &lt;- data.frame(inference_data, f)\n  \n  samp_ind &lt;- rbinom(n, 1, prop_lab)\n  \n  analysis_data$set_label &lt;- ifelse(samp_ind == 1, \"labeled\", \"unlabeled\")\n  \n  return(as_tibble(analysis_data))\n}\n\n\nExercise 1: Data Generation\nLet us generate a synthetic dataset for a linear model with:\n\nn = 25000 samples\np = 10 covariates\nA prop_lab = 0.1 proportion of labeled observations\nA total variance of total_var = 20\nA variance ratio of ratio_var = 1\nNo covariate correlation (rho = 0)\nA sigma_y = 5 outcome error variance\nCoefficients beta &lt;- c(unit_vec(p / 2), unit_vec(p / 2)) generated from the unit circle\npredset_ind = 1 : 10 indices for covariates used for prediction\n\nThe first setting is an ‘ideal’ setting that mimics when the prediction is derived from a linear model that was estimated on a large, independent dataset with the same distribution of \\(Y | X\\) as the dataset used for conducting inference. Here, we generate predictions based on all \\(X\\)’s being available. In this stylized example, we are generating predictions \\(f = E[Y | X]\\) so the naive approach should be unbiased, but still anti-conservative, as we do not fully capture the variability of \\(Y\\).\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\nset.seed(123)\n\nn &lt;- 25000 # Number of Samples\np &lt;- 10    # Number of Covariates\n\nb1 &lt;- unit_vec(p / 2) # Effect Sizes\nb2 &lt;- unit_vec(p / 2)\n\ndat_ipd &lt;- simple_data_gen(\n    n = n,               # Number of Samples\n    p = p,               # Number of Covariates\n    prop_lab = 0.1,      # Proportion of Labeled Observations\n    total_var = 20,      # Total Variance\n    ratio_var = 1,       # Variance Ratio\n    rho = 0,             # Covariate Correlation\n    sigma_y = 5,         # Outcome Error Variance\n    beta = c(b1, b2),    # Effect Sizes\n    predset_ind = 1:10  # Indices for covariates used for prediction.\n)\n\n\n# The resulting tibble `dat_ipd` has columns:\n#  - X1, X2, ..., Xp: Simulated covariates \n#  - Y              : True outcome \n#  - f              : Predicted outcome \n#  - set_label      : {\"labeled\", \"unlabeled\"}\n\n# Quick look:\ndat_ipd |&gt; \n  group_by(set_label) |&gt; \n  summarize(n = n()) \n\n# A tibble: 2 × 2\n  set_label     n\n  &lt;chr&gt;     &lt;int&gt;\n1 labeled    2551\n2 unlabeled 22449\n\n\n\n\n\nLet us also inspect the first few rows of each subset:\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\n# Labeled set\ndat_ipd |&gt;\n  filter(set_label == \"labeled\") |&gt;\n  glimpse()\n\nRows: 2,551\nColumns: 13\n$ y         &lt;dbl&gt; -10.6651305, 7.0229562, 1.8466360, 5.6049078, 4.4638744, -6.…\n$ x1        &lt;dbl&gt; 2.8081938, 1.4447090, 1.1134905, 1.2321898, -0.2950160, 4.69…\n$ x2        &lt;dbl&gt; -2.1727482, 1.1195759, 0.1438820, 4.8518833, -1.0137343, 4.4…\n$ x3        &lt;dbl&gt; -7.07650307, 0.77112369, -0.01939504, -0.66786699, -4.538479…\n$ x4        &lt;dbl&gt; 2.1733859, 3.8373017, 0.3445341, 1.6177814, -1.8449544, -3.7…\n$ x5        &lt;dbl&gt; -0.5130663, 2.9121691, 5.2980682, 1.0774526, -1.0392365, -0.…\n$ x6        &lt;dbl&gt; -4.32514921, 2.60046203, -0.06035815, -0.23868960, 6.9521900…\n$ x7        &lt;dbl&gt; -0.75585286, 3.65797447, 5.16160001, 6.18270859, -4.01256688…\n$ x8        &lt;dbl&gt; -3.31953869, 0.07335939, -2.50340399, -4.51835316, -0.851934…\n$ x9        &lt;dbl&gt; -1.26218897, -3.11836916, 2.31364284, -0.54576984, -1.158902…\n$ x10       &lt;dbl&gt; -1.7577240, -3.5991050, -1.2031549, -1.5884862, 0.9598418, -…\n$ f         &lt;dbl&gt; -7.981037332, 4.672805866, 1.897680530, 2.421068035, 0.81227…\n$ set_label &lt;chr&gt; \"labeled\", \"labeled\", \"labeled\", \"labeled\", \"labeled\", \"labe…\n\n# Unlabeled set\ndat_ipd |&gt;\n  filter(set_label == \"unlabeled\") |&gt;\n  glimpse()\n\nRows: 22,449\nColumns: 13\n$ y         &lt;dbl&gt; 0.520872, -7.907675, -6.070025, 6.041134, -3.091775, 5.50057…\n$ x1        &lt;dbl&gt; -3.7409669, 3.7360163, -3.2863856, 3.2313674, 3.7157033, 0.1…\n$ x2        &lt;dbl&gt; 0.3358049, 3.8872286, -0.2270680, 0.9662234, 1.0364182, -2.6…\n$ x3        &lt;dbl&gt; -3.7769611, 0.9883840, -4.4891339, 5.7711764, 0.6166084, 4.0…\n$ x4        &lt;dbl&gt; 4.3382493, -4.2897707, 2.5735992, 2.2532995, -5.4164657, -4.…\n$ x5        &lt;dbl&gt; -6.12151716, 1.01182690, -1.32007492, 1.62906763, -1.1307161…\n$ x6        &lt;dbl&gt; -1.88428832, -2.32594242, 0.22120367, 3.69702327, -0.4563829…\n$ x7        &lt;dbl&gt; -0.8790863, 0.1693632, 0.2598034, 1.8054718, 1.1521277, -0.1…\n$ x8        &lt;dbl&gt; -5.64360288, -0.41344329, -1.16952884, -0.57129676, 1.196338…\n$ x9        &lt;dbl&gt; 0.8406827, 2.6579939, -3.1565336, 4.9834037, 1.5231282, -1.4…\n$ x10       &lt;dbl&gt; 3.8708865, 1.1378312, 1.2673506, 0.3500095, 5.6507155, 1.574…\n$ f         &lt;dbl&gt; -2.0778359, -3.4210568, -1.4953638, 6.2205242, -3.4129538, 6…\n$ set_label &lt;chr&gt; \"unlabeled\", \"unlabeled\", \"unlabeled\", \"unlabeled\", \"unlabel…\n\n\n\n\n\n\n\n\n\n\n\nTipNotes\n\n\n\n\nRows where set_label == \"labeled\" also have both Y and f. In practice, f will be generated by your own prediction model. Here, we do so automatically.\nRows where set_label == \"unlabeled\" have Y for posterity (but in a real‐data scenario, you would not know Y). We still generate Y, but the PB routines will not use these. The column f always contains ‘predicted’ values.",
-    "crumbs": [
-      "Modules",
-      "Getting Started"
-    ]
-  },
-  {
-    "objectID": "content/Unit00_GettingStarted.html#comparison-of-the-true-vs-predicted-outcomes",
-    "href": "content/Unit00_GettingStarted.html#comparison-of-the-true-vs-predicted-outcomes",
-    "title": "Getting Started",
-    "section": "Comparison of the True vs Predicted Outcomes",
-    "text": "Comparison of the True vs Predicted Outcomes\nBefore modeling, it is helpful to see graphically how the predicted values, \\(f\\), compare to the true outcomes, \\(Y\\).\n\nExercise 2: Plotting the Data\nWe can visually assess the bias and variance of our predicted outcomes, \\(f\\), versus the true outcomes, \\(Y\\), in our analytic data by plotting:\n\nScatterplot of \\(Y\\) and \\(f\\) vs. \\(X_1\\)\n\nDensity plots of \\(Y\\) and \\(f\\)\n\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\n# Prepare data\ndat_visualize &lt;- dat_ipd |&gt; \n  select(x1, y, f) |&gt;\n  pivot_longer(y:f, names_to = \"Measure\", values_to = \"Value\") |&gt;\n  arrange(desc(Measure))\n\n# Scatter + trend lines\nggplot(dat_visualize, aes(x = x1, y = Value, color = Measure)) +\n  theme_minimal() +\n  geom_point(alpha = 0.4) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  scale_color_manual(values = c(\"steelblue\", \"gray\")) +\n  labs(\n    x     = \"X1\",\n    y     = \"True Y or Predicted f\",\n    color = \"Measure\"\n  ) +\n  theme(legend.position = \"bottom\") \n\n\n\n\n\n\n\n\n\n# Density plots\nggplot(dat_visualize, aes(x = Value, fill = Measure)) +\n  theme_minimal() +\n  geom_density(alpha = 0.4) +\n  scale_fill_manual(values = c(\"steelblue\", \"gray\")) +\n  labs(\n    x     = \"Value\",\n    y     = \"Density\",\n    fill  = \"Measure\"\n  ) +\n  theme(legend.position = \"bottom\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipNotes\n\n\n\n\nIn the scatterplot, note that the predicted values \\(f\\) (in blue) are distributed similarly to the true \\(Y\\) (in gray).\nIn the density plot, you can see that the spread of \\(f\\) is slightly narrower than that of \\(Y\\).",
-    "crumbs": [
-      "Modules",
-      "Getting Started"
-    ]
-  },
-  {
-    "objectID": "content/Unit00_GettingStarted.html#some-baselines-oracle-vs-naive-vs-classical-inference",
-    "href": "content/Unit00_GettingStarted.html#some-baselines-oracle-vs-naive-vs-classical-inference",
-    "title": "Getting Started",
-    "section": "Some Baselines: Oracle vs Naive vs Classical Inference",
-    "text": "Some Baselines: Oracle vs Naive vs Classical Inference\nBefore applying PB inference, let’s see what happens if we:\n\nRegress the true Y on X1 for all observations (the oracle approach).\nRegress the unlabeled predicted f on X1 (the naive approach).\nRegress only the labeled true Y on X1 (the classical approach).\n\nWe will compare these to PB inference‐corrected estimates.\n\nExercise 3: Naive vs. Classical Model Fitting\nUsing the labeled and unlabeled sets, fit three models:\n\nOracle OLS on the full data using lm() with y ~ x1\nNaive OLS on the unlabeled set using lm() with f ~ x1.\nClassical OLS on the labeled set using lm() with y ~ x1.\n\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\n# 1) Oracle: use the true outcomes for the full data (not possible in practice)\noracle_model &lt;- lm(y ~ x1, data = dat_ipd)\n\n# 2) Naive: treat f as if it were truth (only on unlabeled)\nnaive_model &lt;- lm(f ~ x1, data = filter(dat_ipd, set_label == \"unlabeled\"))\n\n# 3) Classical: regress true Y on X1, only on the labeled set\nclassical_model &lt;- lm(y ~ x1, data = filter(dat_ipd, set_label == \"labeled\"))\n\n\n\n\nLet’s also extract the coefficient summaries using the tidy method and compare the results of the three approaches:\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\noracle_df &lt;- tidy(oracle_model) |&gt;\n  mutate(method = \"Oracle\") |&gt;\n  filter(term == \"x1\") |&gt;\n  select(method, estimate, std.error) \n\nnaive_df &lt;- tidy(naive_model) |&gt;\n  mutate(method = \"Naive\") |&gt;\n  filter(term == \"x1\") |&gt;\n  select(method, estimate, std.error) \n\nclassical_df &lt;- tidy(classical_model) |&gt;\n  mutate(method = \"Classical\") |&gt;\n  filter(term == \"x1\") |&gt;\n  select(method, estimate, std.error)\n\nbind_rows(oracle_df, naive_df, classical_df)\n\n# A tibble: 3 × 3\n  method    estimate std.error\n  &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;\n1 Oracle      -0.341   0.0132 \n2 Naive       -0.340   0.00908\n3 Classical   -0.356   0.0411 \n\n\n\n\n\n\n\n\n\n\n\nTipNotes\n\n\n\n\nIn this ideal setting, the naive coefficient is unbiased since the prediction model is correctly specified.\nThe classical coefficient is also unbiased but has a larger standard error due to the smaller sample size and additional random variation in the outcome.\nThe oracle provides the ideal baseline for these data.",
-    "crumbs": [
-      "Modules",
-      "Getting Started"
-    ]
-  },
-  {
-    "objectID": "content/Unit00_GettingStarted.html#pb-inference-with-ipdipd",
-    "href": "content/Unit00_GettingStarted.html#pb-inference-with-ipdipd",
-    "title": "Getting Started",
-    "section": "PB Inference with ipd::ipd()",
-    "text": "PB Inference with ipd::ipd()\nThe single wrapper function ipd() implements multiple PB inference methods (e.g., Chen & Chen, PostPI, PPI, PPI++, PSPA) for various inferential tasks (e.g., mean and quantile estimation, ols, logistic, and Poisson regression).\n\n\n\n\n\n\nImportantReminder\n\n\n\nBasic usage of ipd():\nipd(\n  formula = Y - f ~ X1,     # The downstream inferential model\n  method  = \"pspa\",         # The PB inference method to run \n  model   = \"ols\",          # The type of inferential model\n  data    = dat_ipd,        # A data.frame with columns:\n                            #   - set_label: {\"labeled\", \"unlabeled\"}\n                            #   - Y: true outcomes (for labeled data)\n                            #   - f: predicted outcomes\n                            #   - X covariates (here X1, X2, X3, X4)\n  label   = \"set_label\"     # Column name indicating \"labeled\"/\"unlabeled\"\n)\n\n\n\nExercise 4: PB Model Fitting via the Chen + Chen Estimator\nLet’s run one method, chen, proposed by Gronsbell et al. (2026). The Chen + Chen estimator is a PB method that combines information from:\n\nLabeled data (where the true outcome, \\(Y\\), and model predictions, \\(f\\), are available), and\n\nUnlabeled data (where only model predictions, \\(f\\), are available).\n\nRather than treating the predicted outcomes with the same importance as the true outcomes, the method estimates a data-driven weight, \\(\\hat{\\omega}\\), and applies it to the predicted outcome contributions:\n\\[\n\\hat{\\beta}_\\text{cc} = \\hat{\\beta}_\\text{classical} - \\hat{\\omega}\\cdot (\\hat{\\gamma}_\\text{naive}^l - \\hat{\\gamma}_\\text{naive}^\\text{all}),\n\\]\nwhere \\(\\hat{\\beta}_{\\rm classical}\\) is the estimate from the classical regression, \\(\\hat{\\gamma}_{\\rm naive}^l\\) is the estimate from the naive regression on the labeled data, \\(\\hat{\\gamma}_{\\rm naive}^\\text{all}\\) is the estimate from the naive regression on all the data, and \\(\\hat{\\omega}\\) reflects the amount of additional information carried by the predictions. By adaptively weighting the unlabeled information, the Chen + Chen estimator achieves greater precision than by using the labeled data alone, without sacrificing validity, even when the predictions are imperfect.\nLet’s call the method using the ipd() function and collect the estimate for the slope of X1 in a linear regression (model = \"ols\"):\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\nset.seed(123)\n\nipd_model &lt;- ipd(\n  formula = y - f ~ x1,\n  data    = dat_ipd,\n  label   = \"set_label\",\n  method  = \"chen\",\n  model   = \"ols\"\n)\n\nipd_model\n\nIPD inference summary\n  Method:   chen \n  Model:    ols \n  Formula:  y - f ~ x1 \n\nCoefficients:\n             Estimate Std. Error  z value Pr(&gt;|z|)    \n(Intercept) -0.224224   0.104333  -2.1491  0.03162 *  \nx1          -0.330246   0.032247 -10.2412  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n\n\nThe ipd_model is an S4 object with slots for things like the coefficient, se, ci, coefTable, fit, formula, data_l, data_u, method, model, and intercept. We can extract the coefficient table using ipd’s tidy helper and compare with the naive and classical methods:\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\n# Extract the coefficient estimates\nipd_df &lt;- tidy(ipd_model) |&gt;\n  mutate(method = \"Chen + Chen\") |&gt;\n  filter(term == \"x1\") |&gt;\n  select(method, estimate, std.error)\n\n# Combine with oracle, naive, and classical:\ncompare_tab &lt;- bind_rows(oracle_df, naive_df, classical_df, ipd_df)\ncompare_tab\n\n# A tibble: 4 × 3\n  method      estimate std.error\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;\n1 Oracle        -0.341   0.0132 \n2 Naive         -0.340   0.00908\n3 Classical     -0.356   0.0411 \n4 Chen + Chen   -0.330   0.0322 \n\n\n\n\n\n\n\nExercise 5: Visualizing Uncertainty\nLet’s plot the coefficient estimates and 95% CIs for each of the naive, classical, and PB methods:\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\n# Forest plot of estimates and 95% confidence intervals\ncompare_tab |&gt;\n  mutate(\n    lower = estimate - 1.96 * std.error,\n    upper = estimate + 1.96 * std.error\n  ) |&gt;\n  ggplot(aes(x = estimate, y = method)) +\n    geom_point(size = 2) +\n    geom_errorbarh(aes(xmin = lower, xmax = upper), height = 0.2) +\n    geom_vline(xintercept = b1[1], linetype = \"dashed\", color = \"red\") +\n    labs(\n      title = \"Comparison of slope estimates \\u00B1 1.96·SE\",\n      x = expression(hat(beta)[X1]),\n      y = \"\"\n    ) +\n    theme_minimal()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipNotes\n\n\n\n\nThe dashed red line is the true data-generating effect for \\(X_1\\).\nHere, all the methods are unbiased.\nThe classical approach has the widest interval, the naive interval is artificially too narrow, but Chen + Chen has intervals that are well calibrated.",
-    "crumbs": [
-      "Modules",
-      "Getting Started"
-    ]
-  },
-  {
-    "objectID": "content/Unit00_GettingStarted.html#comparison-of-results-with-imperfect-predictions",
-    "href": "content/Unit00_GettingStarted.html#comparison-of-results-with-imperfect-predictions",
-    "title": "Getting Started",
-    "section": "Comparison of Results with Imperfect Predictions",
-    "text": "Comparison of Results with Imperfect Predictions\n\nExercise 6: Imperfect Predictions\nNow, let us repeat Exercises 1-5, but with \\(X_1, \\ldots, X_5\\) omitted from the training of the prediction function:\npredset_ind = 6 : 10\nWe will compare these results with the ideal case in the previous exercises. Here, since the predictions do not include \\(X_1\\), we should not be able to recover the true association between \\(Y\\) and \\(X_1\\).\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\nData Generation\n\nset.seed(123)\n\ndat_ipd2 &lt;- simple_data_gen(\n    n = n,               \n    p = p,                \n    prop_lab = 0.1,      \n    total_var = 20,       \n    ratio_var = 1,      \n    rho = 0,             \n    sigma_y = 1,          \n    beta = c(b1, b2),    \n    predset_ind = 6:10   # Omitting X1, ..., X5\n)\n\n\n\nPlotting the Data\n\n# Prepare data\ndat_visualize2 &lt;- dat_ipd2 |&gt; \n  select(x1, y, f) |&gt;\n  pivot_longer(y:f, names_to = \"Measure\", values_to = \"Value\") |&gt;\n  arrange(Measure)\n\n# Scatter + trend lines\nggplot(dat_visualize2, aes(x = x1, y = Value, color = Measure)) +\n  theme_minimal() +\n  geom_point(alpha = 0.4) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  scale_color_manual(values = c(\"steelblue\", \"gray\")) +\n  labs(\n    x     = \"X1\",\n    y     = \"True Y or Predicted f\",\n    color = \"Measure\"\n  ) +\n  theme(legend.position = \"bottom\") \n\n\n\n\n\n\n\n\n\n# Density plots\nggplot(dat_visualize2, aes(x = Value, fill = Measure)) +\n  theme_minimal() +\n  geom_density(alpha = 0.4) +\n  scale_fill_manual(values = c(\"steelblue\", \"gray\")) +\n  labs(\n    x     = \"Value\",\n    y     = \"Density\",\n    fill  = \"Measure\"\n  ) +\n  theme(legend.position = \"bottom\")\n\n\n\n\n\n\n\n\n\n\nOracle vs Naive vs Classical Inference\n\n# 1) Oracle: use the true outcomes for the full data (not possible in practice)\noracle_model2 &lt;- lm(y ~ x1, data = dat_ipd2)\n\n# 2) Naive: treat f as if it were truth (only on unlabeled)\nnaive_model2 &lt;- lm(f ~ x1, data = filter(dat_ipd2, set_label == \"unlabeled\"))\n\n# 3) Classical: regress true Y on X1, only on the labeled set\nclassical_model2 &lt;- lm(y ~ x1, data = filter(dat_ipd2, set_label == \"labeled\"))\n\n\noracle_df2 &lt;- tidy(oracle_model2) |&gt;\n  mutate(method = \"Oracle\") |&gt;\n  filter(term == \"x1\") |&gt;\n  select(method, estimate, std.error) \n\nnaive_df2 &lt;- tidy(naive_model2) |&gt;\n  mutate(method = \"Naive\") |&gt;\n  filter(term == \"x1\") |&gt;\n  select(method, estimate, std.error) \n\nclassical_df2 &lt;- tidy(classical_model2) |&gt;\n  mutate(method = \"Classical\") |&gt;\n  filter(term == \"x1\") |&gt;\n  select(method, estimate, std.error)\n\nbind_rows(oracle_df2, naive_df2, classical_df2)\n\n# A tibble: 3 × 3\n  method    estimate std.error\n  &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;\n1 Oracle    -0.343     0.00882\n2 Naive     -0.00775   0.00664\n3 Classical -0.371     0.0272 \n\n\n\n\nPB Model Fitting via the Chen + Chen Estimator\n\nset.seed(123)\n\nipd_model2 &lt;- ipd(\n  formula = y - f ~ x1,\n  data    = dat_ipd2,\n  label   = \"set_label\",\n  method  = \"chen\",\n  model   = \"ols\"\n)\n\nipd_model2\n\nIPD inference summary\n  Method:   chen \n  Model:    ols \n  Formula:  y - f ~ x1 \n\nCoefficients:\n             Estimate Std. Error  z value Pr(&gt;|z|)    \n(Intercept)  0.096086   0.065442   1.4683    0.142    \nx1          -0.370577   0.020917 -17.7163   &lt;2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n# Extract the coefficient estimates\nipd_df2 &lt;- tidy(ipd_model2) |&gt;\n  mutate(method = \"Chen + Chen\") |&gt;\n  filter(term == \"x1\") |&gt;\n  select(method, estimate, std.error)\n\n# Combine with naive & classical:\ncompare_tab2 &lt;- bind_rows(oracle_df2, naive_df2, classical_df2, ipd_df2)\ncompare_tab2\n\n# A tibble: 4 × 3\n  method      estimate std.error\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;\n1 Oracle      -0.343     0.00882\n2 Naive       -0.00775   0.00664\n3 Classical   -0.371     0.0272 \n4 Chen + Chen -0.371     0.0209 \n\n\n\n\nVisualizing Uncertainty\n\n# Forest plot of estimates and 95% confidence intervals\ncompare_tab2 |&gt;\n  mutate(\n    lower = estimate - 1.96 * std.error,\n    upper = estimate + 1.96 * std.error\n  ) |&gt;\n  ggplot(aes(x = estimate, y = method)) +\n    geom_point(size = 2) +\n    geom_errorbarh(aes(xmin = lower, xmax = upper), height = 0.2) +\n    geom_vline(xintercept = b1[1], linetype = \"dashed\", color = \"red\") +\n    labs(\n      title = \"Comparison of slope estimates \\u00B1 1.96·SE\",\n      x = expression(hat(beta)[X1]),\n      y = \"\"\n    ) +\n    theme_minimal()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipNotes\n\n\n\n\nPlotting the Data\n\nIn the scatterplot, note that the predicted values \\(f\\) (in blue) lie more tightly along the fitted trend line than the true \\(Y\\) (in gray), indicating stronger correlation with \\(X_1\\).\nIn the density plot, you can see that the spread of \\(f\\) is narrower than that of \\(Y\\), illustrating that the predictive model has reduced variance.\n\n\n\nNaive vs Classical Inference\n\nThe naive coefficient is attenuated, or biased toward zero, since the predictions are imperfect.\nThe classical coefficient is unbiased but has a larger standard error due to the smaller sample size.\n\n\n\nPB Model Fitting va the Chen + Chen Estimator\n\nThe dashed red line is the true data-generating effect for \\(X_1\\).\nCompare how far each method’s interval is from this line.\nThe naive approach severely underestimates both the effect estimate and its standard error, while Chen + Chen is unbiased and more efficient than the classical approach.\nThe efficiency gain is not as high compared to the perfect prediction scenario since the residual correlation between \\(y\\) and \\(f\\) is smaller\n\n\n\n\n\n\nExercise 7: Inspecting Results\nUse tidy(), glance(), and augment() on ipd_model. Compare the coefficient estimate and standard error for X1 with the naive fit.\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\ntidy(ipd_model)\n\n# A tibble: 2 × 5\n  term        estimate std.error conf.low conf.high\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)   -0.224    0.104    -0.429   -0.0197\n2 x1            -0.330    0.0322   -0.393   -0.267 \n\nglance(ipd_model)\n\n# A tibble: 1 × 6\n  method model intercept nobs_labeled nobs_unlabeled call      \n  &lt;chr&gt;  &lt;chr&gt; &lt;lgl&gt;            &lt;int&gt;          &lt;int&gt; &lt;chr&gt;     \n1 chen   ols   TRUE              2551          22449 y - f ~ x1\n\naugment(ipd_model) |&gt; glimpse()\n\nRows: 22,449\nColumns: 15\n$ y         &lt;dbl&gt; 0.520872, -7.907675, -6.070025, 6.041134, -3.091775, 5.50057…\n$ x1        &lt;dbl&gt; -3.7409669, 3.7360163, -3.2863856, 3.2313674, 3.7157033, 0.1…\n$ x2        &lt;dbl&gt; 0.3358049, 3.8872286, -0.2270680, 0.9662234, 1.0364182, -2.6…\n$ x3        &lt;dbl&gt; -3.7769611, 0.9883840, -4.4891339, 5.7711764, 0.6166084, 4.0…\n$ x4        &lt;dbl&gt; 4.3382493, -4.2897707, 2.5735992, 2.2532995, -5.4164657, -4.…\n$ x5        &lt;dbl&gt; -6.12151716, 1.01182690, -1.32007492, 1.62906763, -1.1307161…\n$ x6        &lt;dbl&gt; -1.88428832, -2.32594242, 0.22120367, 3.69702327, -0.4563829…\n$ x7        &lt;dbl&gt; -0.8790863, 0.1693632, 0.2598034, 1.8054718, 1.1521277, -0.1…\n$ x8        &lt;dbl&gt; -5.64360288, -0.41344329, -1.16952884, -0.57129676, 1.196338…\n$ x9        &lt;dbl&gt; 0.8406827, 2.6579939, -3.1565336, 4.9834037, 1.5231282, -1.4…\n$ x10       &lt;dbl&gt; 3.8708865, 1.1378312, 1.2673506, 0.3500095, 5.6507155, 1.574…\n$ f         &lt;dbl&gt; -2.0778359, -3.4210568, -1.4953638, 6.2205242, -3.4129538, 6…\n$ set_label &lt;chr&gt; \"unlabeled\", \"unlabeled\", \"unlabeled\", \"unlabeled\", \"unlabel…\n$ .fitted   &lt;dbl&gt; 1.01121686, -1.45803011, 0.86109300, -1.29137161, -1.4513217…\n$ .resid    &lt;dbl&gt; -0.4903448, -6.4496451, -6.9311184, 7.3325060, -1.6404531, 5…\n\n# Compare with naive\nbroom::tidy(naive_model)\n\n# A tibble: 2 × 5\n  term        estimate std.error statistic   p.value\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)   0.0215   0.0288      0.745 4.56e-  1\n2 x1           -0.340    0.00908   -37.4   1.06e-297",
-    "crumbs": [
-      "Modules",
-      "Getting Started"
-    ]
-  },
-  {
-    "objectID": "content/Unit00_GettingStarted.html#summary-and-key-takeaways",
-    "href": "content/Unit00_GettingStarted.html#summary-and-key-takeaways",
-    "title": "Getting Started",
-    "section": "Summary and Key Takeaways",
-    "text": "Summary and Key Takeaways\n\nNaive regression on predicted outcomes can be biased and anti-conservative.\nClassical regression on the labeled data alone is unbiased but inefficient when the labeled set is small.\nPB methods strike a balance: they are unbiased, but potentially more efficient than the classical approach.\nEven with ‘simple’ linear prediction models, PB corrections can improve inference on downstream regression coefficients.",
-    "crumbs": [
-      "Modules",
-      "Getting Started"
-    ]
-  },
-  {
-    "objectID": "content/Unit00_GettingStarted.html#further-exploration",
-    "href": "content/Unit00_GettingStarted.html#further-exploration",
-    "title": "Getting Started",
-    "section": "Further Exploration",
-    "text": "Further Exploration\n\nTry other methods such as PPI++ (\"ppi_plusplus\"). How do the results compare?\nRepeat the analysis for a logistic model by setting model = \"logistic\" in both simdat() and ipd().",
-    "crumbs": [
-      "Modules",
-      "Getting Started"
-    ]
-  },
-  {
-    "objectID": "content/Unit00_GettingStarted.html#simulating-data-with-ipdsimdat",
-    "href": "content/Unit00_GettingStarted.html#simulating-data-with-ipdsimdat",
-    "title": "Getting Started",
-    "section": "Simulating Data with ipd::simdat()",
-    "text": "Simulating Data with ipd::simdat()\nsimdat() generates synthetic datasets for several inferential settings.\nsimdat(\n  n,        # Numeric vector of length 3: c(n_train, n_labeled, n_unlabeled)\n  effect,   # Numeric: true effect size for simulation\n  sigma_Y,  # Numeric: residual standard deviation\n  model,    # Character: one of \"mean\", \"quantile\", \"ols\", \"logistic\", \"poisson\"\n  ...       # Additional arguments\n)\nThis function returns a data.frame with columns:\n\nX1, X2, ...: covariates\nY: true outcome (for training, labeled, and unlabeled subsets)\nf: predictions from the model (for labeled and unlabeled subsets)\nset_label: character indicating “training”, “labeled”, or “unlabeled”.\n\nThe ipd::simdat() function makes it easy to generate:\n\nA training set (where you fit your prediction model),\nA labeled set (where you observe the true \\(Y\\)),\nAn unlabeled set (where \\(Y\\) is presumed missing but you compute predictions \\(f\\)).\n\nWe supply the sample sizes, n = c(n_train, n_label, n_unlabel), an effect size (effect), residual standard deviation (sigma_Y; i.e., how much random noise is in the data), and a model type (\"ols\", \"logistic\", etc.). In this tutorial, we focus on a continuous outcome generated from a linear regression model (\"ols\"). We can also optionally shift and scale the predictions (via the shift and scale arguments) to control how the predicted outcomes relate to their true underlying counterparts.\n\nExtra Activity: Generating Data with simdat()\nTry generating data with the simdat() function. Let us generate a synthetic dataset for a linear model with:\n\n5,000 training observations\n500 labeled observations\n1,500 unlabeled observations\nEffect size = 1.5\nResidual SD = 3\nPredictions shifted by 1 and scaled by 2\n\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\nset.seed(123)\n\n# n_t = 5000, n_l = 500, n_u = 1500\nn &lt;- c(5000, 500, 1500)\n\n# Effect size = 1.5, noise sd = 3, model = \"ols\" (ordinary least squares)\n# We also shift the mean of the predictions by 1 and scale their values by 2\ndat &lt;- simdat(\n  n       = n,\n  effect  = 1.5,\n  sigma_Y = 3,\n  model   = \"ols\",\n  shift   = 1,\n  scale   = 2\n)\n\n\n# The resulting data.frame `dat` has columns:\n#  - X1, X2, X3, X4: Four simulated covariates (all numeric ~ N(0,1))\n#  - Y             : True outcome (available in unlabeled set for simulation)\n#  - f             : Predicted outcome (Generated internally in simdat)\n#  - set_label     : {\"training\", \"labeled\", \"unlabeled\"}\n\n# Quick look:\ndat |&gt; \n  group_by(set_label) |&gt; \n  summarize(n = n()) \n\n# A tibble: 3 × 2\n  set_label     n\n  &lt;chr&gt;     &lt;int&gt;\n1 labeled     500\n2 training   5000\n3 unlabeled  1500\n\n\n\n\n\nLet us also inspect the first few rows of each subset:\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\n# Training set\ndat |&gt;\n  filter(set_label == \"training\") |&gt;\n  glimpse()\n\nRows: 5,000\nColumns: 7\n$ X1        &lt;dbl&gt; -0.56047565, -0.23017749, 1.55870831, 0.07050839, 0.12928774…\n$ X2        &lt;dbl&gt; -1.61803670, 0.37918115, 1.90225048, 0.60187427, 1.73234970,…\n$ X3        &lt;dbl&gt; -0.91006117, 0.28066267, -1.03567040, 0.27304874, 0.53779815…\n$ X4        &lt;dbl&gt; -1.119992047, -1.015819127, 1.258052722, -1.001231731, -0.40…\n$ Y         &lt;dbl&gt; 3.8625325, -1.6575634, 4.1872914, -3.3624963, 6.9978916, 1.5…\n$ f         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …\n$ set_label &lt;chr&gt; \"training\", \"training\", \"training\", \"training\", \"training\", …\n\n# Labeled set\ndat |&gt;\n  filter(set_label == \"labeled\") |&gt;\n  glimpse()\n\nRows: 500\nColumns: 7\n$ X1        &lt;dbl&gt; -0.4941739, 1.1275935, -1.1469495, 1.4810186, 0.9161912, 0.3…\n$ X2        &lt;dbl&gt; -0.15062996, 0.80094056, -1.18671785, 0.43063636, 0.21674709…\n$ X3        &lt;dbl&gt; 2.0279109, -1.4947497, -1.5729492, -0.3002123, -0.7643735, -…\n$ X4        &lt;dbl&gt; 0.53495620, 0.36182362, -1.89096604, -1.40631763, -0.4019282…\n$ Y         &lt;dbl&gt; 2.71822922, 1.72133689, 0.86081066, 3.77173123, -2.77191549,…\n$ f         &lt;dbl&gt; 0.67556303, -0.13706321, -1.75579589, 0.84146158, 0.15512973…\n$ set_label &lt;chr&gt; \"labeled\", \"labeled\", \"labeled\", \"labeled\", \"labeled\", \"labe…\n\n# Unlabeled set\ndat |&gt;\n  filter(set_label == \"unlabeled\") |&gt;\n  glimpse()\n\nRows: 1,500\nColumns: 7\n$ X1        &lt;dbl&gt; -1.35723063, -1.29269781, -1.51720731, 0.85917603, -1.214617…\n$ X2        &lt;dbl&gt; 0.01014789, 1.56213812, 0.41284605, -1.18886219, 0.71454993,…\n$ X3        &lt;dbl&gt; -1.42521509, 1.73298966, 1.66085181, -0.85343610, 0.26905593…\n$ X4        &lt;dbl&gt; -1.1645365, -0.2522693, -1.3945975, 0.3959429, 0.5980741, 1.…\n$ Y         &lt;dbl&gt; -3.8296223, -3.0350282, -5.3736718, 2.6076634, -4.7813463, -…\n$ f         &lt;dbl&gt; -1.9014253, -0.1679210, -0.3030749, 0.1249168, -0.8998546, -…\n$ set_label &lt;chr&gt; \"unlabeled\", \"unlabeled\", \"unlabeled\", \"unlabeled\", \"unlabel…\n\n\n\n\n\n\n\n\n\n\n\nTipNotes\n\n\n\n\nRows where set_label == \"training\" form an internal training set. Here, Y is observed, but f is NA, as we learn the prediction rule in this set.\nRows where set_label == \"labeled\" also have both Y and f. In practice, f will be generated by your own prediction model; for simulation, simdat does so automatically.\nRows where set_label == \"unlabeled\" have Y for posterity (but in a real‐data scenario, you would not know Y); simdat still generates Y, but the PB routines will not use these. The column f always contains ‘predicted’ values.",
-    "crumbs": [
-      "Modules",
-      "Getting Started"
-    ]
-  },
-  {
-    "objectID": "content/Unit00_GettingStarted.html#optional-generating-your-own-predictions",
-    "href": "content/Unit00_GettingStarted.html#optional-generating-your-own-predictions",
-    "title": "Getting Started",
-    "section": "Optional: Generating Your Own Predictions",
-    "text": "Optional: Generating Your Own Predictions\nIn practice, we would take the training portion and fit an AI/ML model to predict \\(Y\\) from \\((X_1, X_2, X_3, X_4)\\). This is done automatically by the simdat function, but this optional activity gives you a hands-on implementation.\n\nExtra Activity: Fitting a Linear Prediction Model\nFit a linear prediction model on the training data:\n\n\n\n\n\n\nNoteAnswer\n\n\n\n\n\n\n# 1) Subset training set\ndat_train &lt;- dat |&gt; \n  filter(set_label == \"training\")\n\n# 2) Fit a linear model: Y ~ X1 + X2 + X3 + X4\nlm_pred &lt;- lm(Y ~ X1 + X2 + X3 + X4, data = dat_train)\n\n# 3) Prepare a full-length vector of NA\ndat$f_pred &lt;- NA_real_\n\n# 4) Identify the rows to predict (all non-training rows)\nidx_analytic &lt;- dat$set_label != \"training\"\n\n# 5) Generate predictions just once on that subset (shifted and scaled to match)\npred_vals &lt;- (predict(lm_pred, newdata = dat[idx_analytic, ]) - 1) / 2\n\n# 6) Insert them back into the full data frame\ndat$f_pred[idx_analytic] &lt;- pred_vals\n\n# 7) Verify: `f_pred` is equal to `f` for the labeled and unlabeled data\ndat |&gt; \n  select(set_label, Y, f, f_pred) |&gt; \n  filter(set_label != \"training\") |&gt;\n  glimpse()\n\nRows: 2,000\nColumns: 4\n$ set_label &lt;chr&gt; \"labeled\", \"labeled\", \"labeled\", \"labeled\", \"labeled\", \"labe…\n$ Y         &lt;dbl&gt; 2.71822922, 1.72133689, 0.86081066, 3.77173123, -2.77191549,…\n$ f         &lt;dbl&gt; 0.67556303, -0.13706321, -1.75579589, 0.84146158, 0.15512973…\n$ f_pred    &lt;dbl&gt; 0.67556303, -0.13706321, -1.75579589, 0.84146158, 0.15512973…\n\n\n\n\n\n\n\n\n\n\n\nTipNotes\n\n\n\n\nlm(Y ~ X1 + X2 + X3 + X4, data = dat_train) fits an ordinary least squares (OLS) regression on the training subset.\npredict(lm_pred, newdata = .) generates a new f (stored as f_pred) for each row outside of the training set.\nIn real workflows, you might use random forests (ranger::ranger()), gradients (xgboost::xgboost()), or any other ML algorithm; PB methods only require that you supply a vector of predictions, f, in your data.\n\n\n\nHappy coding! Feel free to modify and extend these exercises for your own data.\n\nThis is the end of the module. We hope this was informative! For question/concerns/suggestions, please reach out to ssalerno@fredhutch.org",
-    "crumbs": [
-      "Modules",
-      "Getting Started"
+      "Overview"
     ]
   },
   {
@@ -796,7 +796,7 @@
     "href": "content/information.html",
     "title": "Additional Information",
     "section": "",
-    "text": "Throughout the workshop we use several approaches for conducting inference with predicted data. These methods address a common challenge in modern data science:\n\nHow can we use machine learning predictions as ‘data,’ to improve efficiency while still guaranteeing valid statistical inference?\n\nEach approach reviewed here combines information from:\n\nLabeled Data: Where the true outcomes, predicted outcomes, and covariates are observed, and\nUnlabeled data: Where only predicted outcomes and covariates are available.\n\nThe table below summarizes the main methods implemented in the ipd package.\n\n\n\nMethod\nipd Argument\nInferential Model(s) Implemented\nPrimary Reference\n\n\n\n\nChen and Chen\n\"chen\"\nOLS, logistic, Poisson\nGronsbell et al. (2026)\n\n\nPDC\n\"pdc\"\nOLS, logistic, Poisson\nGan et al. (2024)\n\n\nPostPI (analytic)\n\"postpi_analytic\"\nOLS\nWang et al. (2020)\n\n\nPostPI (bootstrap)\n\"postpi_boot\"\nOLS, logistic\nWang et al. (2020)\n\n\nPPI\n\"ppi\"\nOLS, logistic, Poisson, mean, quantile\nAngelopoulos et al. (2023)\n\n\nPPI++\n\"ppi_plusplus\"\nOLS, logistic, Poisson, mean, quantile\nAngelopoulos et al. (2024)\n\n\nPPI (using all data)\n\"ppi_a\"\nOLS\nGronsbell et al. (2026)\n\n\nPSPA\n\"pspa\"\nOLS, logistic, Poisson, mean, quantile\nMiao et al. (2023)\n\n\n\n\n\n\n\n\n\nNotePractical Interpretation\n\n\n\nAcross all of these approaches, the goal is the same:\n\nUse predictions to improve efficiency, and\nMaintain guarantees of valid statistical inference.\n\nIn practice this means preserving:\n\nUnbiased or approximately unbiased effect estimates\nProperly calibrated confidence intervals\nImproved efficiency/statistical power when predictions are informative",
+    "text": "Throughout the workshop we use several approaches for conducting inference with predicted data. These methods address a common challenge in modern data science:\n\nHow can we use machine learning predictions as ‘data,’ to improve efficiency while still guaranteeing valid statistical inference?\n\nEach approach reviewed here combines information from:\n\nLabeled Data: Where the true outcomes, predicted outcomes, and covariates are observed, and\nUnlabeled data: Where only predicted outcomes and covariates are available.\n\nThe table below summarizes the main methods implemented in the ipd package.\n\n\n\nMethod\nipd Argument\nInferential Model(s) Implemented\nPrimary Reference\n\n\n\n\nChen and Chen\n\"chen\"\nOLS, logistic, Poisson\nGronsbell et al. (2026)\n\n\nPDC\n\"pdc\"\nOLS, logistic, Poisson\nGan et al. (2024)\n\n\nPostPI (analytic)\n\"postpi_analytic\"\nOLS\nWang et al. (2020)\n\n\nPostPI (bootstrap)\n\"postpi_boot\"\nOLS, logistic\nWang et al. (2020)\n\n\nPPI\n\"ppi\"\nOLS, logistic, Poisson, mean, quantile\nAngelopoulos et al. (2023)\n\n\nPPI++\n\"ppi_plusplus\"\nOLS, logistic, Poisson, mean, quantile\nAngelopoulos et al. (2024)\n\n\nPPI (using all data)\n\"ppi_a\"\nOLS\nGronsbell et al. (2026)\n\n\nPSPA\n\"pspa\"\nOLS, logistic, Poisson, mean, quantile\nMiao et al. (2023)\n\n\n\n\n\n\n\n\n\nNotePractical Interpretation\n\n\n\nAcross all of these approaches, the goal is the same:\n\nUse predictions to improve efficiency, and\nMaintain guarantees of valid statistical inference.\n\nIn practice this means preserving:\n\nUnbiased or approximately unbiased effect estimates\nProperly calibrated confidence intervals\nImproved efficiency/statistical power when predictions are informative\n\n\n\nFor additional references, please find this living spreadsheet here.",
     "crumbs": [
       "Resources",
       "Additional Information"
