@@ -64,10 +64,10 @@ listing:
 
 | Activity                                                              | Time |
 | --------------------------------------------------------------------- | ---- |
-| [Overview](content/slides.qmd)                                        | 45 m |
+| [Overview](content/slides.qmd)                                        | 35 m |
 | Short Break and Q&A                                                   | 15 m |
-| [Unit 00: Getting Started](content/Unit00_GettingStarted.qmd)         | 25 m |
-| [Unit 01: AlphaFold](content/Unit01_AlphaFold.qmd)                    | 25 m |
+| [Unit 00: Getting Started](content/Unit00_GettingStarted.qmd)         | 30 m |
+| [Unit 01: AlphaFold](content/Unit01_AlphaFold.qmd)                    | 30 m |
 | Wrap-Up and Q&A                                                       | 10 m |
 
 ::: {.quickstart-block}
